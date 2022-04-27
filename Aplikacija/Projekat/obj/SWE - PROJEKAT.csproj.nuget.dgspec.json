@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Najdanovic\\Desktop\\SWE - PROJEKAT\\SWE - PROJEKAT.csproj": {}
+    "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Najdanovic\\Desktop\\SWE - PROJEKAT\\SWE - PROJEKAT.csproj": {
+    "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Najdanovic\\Desktop\\SWE - PROJEKAT\\SWE - PROJEKAT.csproj",
+        "projectUniqueName": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
         "projectName": "SWE - PROJEKAT",
-        "projectPath": "C:\\Users\\Najdanovic\\Desktop\\SWE - PROJEKAT\\SWE - PROJEKAT.csproj",
+        "projectPath": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
         "packagesPath": "C:\\Users\\Najdanovic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Najdanovic\\Desktop\\SWE - PROJEKAT\\obj\\",
+        "outputPath": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Najdanovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
