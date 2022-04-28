@@ -13,42 +13,90 @@ namespace SWE___PROJEKAT.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class DostavljacController : ControllerBase
+    public class DosavljacController : ControllerBase
     {
 
-        public ProjekatContext Context{ get; set; }
-        public DostavljacController(ProjekatContext context)
+        public ProjekatContext Context { get; set; }
+        public DosavljacController(ProjekatContext context)
         {
-            Context=context;
+            Context = context;
         }
 
-        [Route("PreuzetiDostavljaca/{email}/{password}")]
+        [Route("PostaviDostavljaca/{usernameD}/{id}")]
         [EnableCors("CORS")]
-        [HttpDelete]
-        public async Task<ActionResult> preuzmiDostavljaca(string email, string password)
-        {   
-            if(string.IsNullOrWhiteSpace(email))
+        [HttpPut]
+        public async Task<ActionResult> postaviDostavljaca(String usernameD, int id)
+        {
+            if (String.IsNullOrWhiteSpace(usernameD) || usernameD.Length > 30)
             {
-                return BadRequest("Nevalidan unos!");
+                return BadRequest("Nevalidna vrednost za username");
             }
-            if(string.IsNullOrWhiteSpace(password) || password.Length > 50)
+            if (id < 0)
             {
-                return BadRequest("Nevalidan unos!");
+                return BadRequest("Nevalidna vrednost za ID!");
             }
             try
             {
-                var dostavljac = await Context.Dostavljaci.Where(p => p.email == email || p.Password == password).FirstOrDefaultAsync();
-                if(dostavljac == null)
+                var domacinstvo = await Context.Domacinstva
+                .Where(p => p.Username == usernameD)
+                .FirstOrDefaultAsync();
+                if (domacinstvo != null)
                 {
-                    throw new Exception("Ne postoji dostavljac!");
+                    var dostavljac = await Context.Dostavljaci
+                    .Where(p => p.ID == id)
+                    .FirstOrDefaultAsync();
+                    if (dostavljac != null)
+                    {
+                        domacinstvo.Dostavljac = dostavljac;
+                        dostavljac.Domacinstva.Add(domacinstvo);
+                        await Context.SaveChangesAsync();
+                        return Ok("Uspesno dodat dostavljac!");
+                    }
+                    else
+                    {
+                        return BadRequest("Nije pronadjen dostavljac!");
+                    }
                 }
-                return Ok(dostavljac);
+                else
+                {
+                    return BadRequest("Nije pronadjeno domacinstvo!");
+                }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
         }
-                
+
+        [Route("PromeniSifruDostavljaca/{email}/{pass}/{newPass}")]
+        [EnableCors("CORS")]
+        [HttpPut]
+        public async Task<ActionResult> promeniSifruDostavljaca(String email, String pass, String newPass)
+        {
+            if (String.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest("Morate da unesete email!");
+            }
+            try
+            {
+                var dostavljac = await Context.Dostavljaci
+                .Where(p => p.email == email && p.Password == pass)
+                .FirstOrDefaultAsync();
+                if (dostavljac != null)
+                {
+                    dostavljac.Password = newPass;
+                    await Context.SaveChangesAsync();
+                    return Ok("Uspesno izmenjena sifra!");
+                }
+                else
+                {
+                    return BadRequest("Nevalidan email ili sifra!");
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
