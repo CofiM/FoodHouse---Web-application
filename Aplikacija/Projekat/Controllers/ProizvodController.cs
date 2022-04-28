@@ -128,6 +128,33 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-                
+        [Route("PreuzetiRecenzije/{idProizvoda}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiRecenzije(int idProizvoda)
+        {
+            try
+            {
+                var proizvod = await Context.Proizvodi.FindAsync(idProizvoda);
+                if(proizvod == null)
+                {
+                    throw new Exception("Ne postoji trazeni proizvod!");
+                }
+                var recenzije = await Context.Proizvodi
+                                .Include(p => p.Recenzije).Where(p => p.ID == idProizvoda)
+                                .Select(p => new
+                                {
+                                    p.Recenzije
+                                }).ToListAsync();
+                if(recenzije == null)
+                {
+                    throw new Exception("Nema recenzije za taj proizvod!");
+                }
+                return Ok(recenzije);
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }      
     }
 }
