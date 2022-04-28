@@ -48,8 +48,8 @@ namespace SWE___PROJEKAT.Controllers
                     if (dostavljac != null)
                     {
                         domacinstvo.Dostavljac = dostavljac;
-                        dostavljac.Domacinstva.Add(domacinstvo);
                         await Context.SaveChangesAsync();
+                        dostavljac.Domacinstva.Add(domacinstvo);
                         return Ok("Uspesno dodat dostavljac!");
                     }
                     else
