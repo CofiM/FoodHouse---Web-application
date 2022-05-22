@@ -21,7 +21,7 @@ namespace SWE___PROJEKAT.Controllers
         {
             Context=context;
         }
-        [Route("PreuzetiPosloveZaDomacinstvo/{idDomacinstva}")]
+        [Route("PreuzetiPosloveZaDomacinstvo/{idDoma}")]
         [EnableCors("CORS")]
         [HttpGet]
         public async Task<ActionResult> preuzmiPosloveZaDomacinstva(int idDomacinstva)
