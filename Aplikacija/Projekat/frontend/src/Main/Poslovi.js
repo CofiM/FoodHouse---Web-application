@@ -1,6 +1,10 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import classes from "./Poslovi.module.css";
-import PosloviBox from "./PosloviBox";
+import PosloviCard from "../Components/Poslovi/PosloviCard";
+
+
+
+
 const Poslovi = () => {
     const [isChangeLokacija, setIsChangeLokacija] = useState(false);
     const [isChangeDatum, setIsChangeDatum] = useState(false);
@@ -23,7 +27,13 @@ const Poslovi = () => {
                     {(isChangeDatum || isChangeLokacija) && <button className={classes.enabled}>Pretraži</button>}
                 </div>
                 <div>
-                    <PosloviBox/>
+                    <PosloviCard 
+                    opis="Branje malina"  
+                    brRadnihMesta="14" 
+                    datum="14.7.2022" 
+                    cena="2000"
+                    domacin="Gazdinstvo Maletic"
+                    />
                 </div>
             </form>
         </div>
