@@ -1,0 +1,29 @@
+.search{
+    display: flex;
+    justify-content: center;
+    background-color: #59657b;
+    height: 50px;
+}
+.searchDiv{
+    height: 100%;
+}
+
+.searchDiv > input{
+    height: 100%;
+    font-size: 18px;
+}
+
+.searchDiv > button{
+    height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.enabled{
+    cursor: pointer;
+}
