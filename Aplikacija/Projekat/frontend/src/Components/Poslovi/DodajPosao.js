@@ -9,6 +9,7 @@ const DodajPosao = () => {
     return (
         <React.Fragment >
             <div>
+                <InputText label="Naziv" placeholder="Naziv" />
             </div>
             <div>
                 <label> Broj radnih mesta: </label>

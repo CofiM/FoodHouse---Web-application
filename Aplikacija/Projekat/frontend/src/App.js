@@ -11,7 +11,7 @@ import Prijava from "./Components/Profil/Prijava";
 import Registracija from "./Components/Profil/Registracija";
 import Korpa from "./Components/Korpa/Korpa";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
-
+import Dostavljaci from "./Main/Dostavljaci";
 
 
 function App() { 
@@ -51,7 +51,9 @@ function App() {
             <Route path='/dodajPosao'>
               <DodajPosao/>
             </Route>
-            
+            <Route path='/Dostavljaci'>
+              <Dostavljaci/>
+            </Route>
             <Route path='*'>
               <NotFound/>
             </Route>
