@@ -1,6 +1,5 @@
 import * as React from 'react';
-import classes from "./DodajPosao.module.css";
-
+import InputText from '../UI/InputText';
 
 const DodajPosao = () => {
     const today = new Date();
@@ -8,14 +7,8 @@ const DodajPosao = () => {
 
 
     return (
-        <React.Fragment className={classes}>
+        <React.Fragment >
             <div>
-                <div>
-                    <label> Naziv: </label>
-                </div>
-                <div>
-                    <input type="text"></input>
-                </div>
             </div>
             <div>
                 <label> Broj radnih mesta: </label>
