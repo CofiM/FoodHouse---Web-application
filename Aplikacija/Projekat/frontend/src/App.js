@@ -12,6 +12,8 @@ import Registracija from "./Components/Profil/Registracija";
 import Korpa from "./Components/Korpa/Korpa";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 
+
+
 function App() { 
 
   return (
@@ -49,6 +51,7 @@ function App() {
             <Route path='/dodajPosao'>
               <DodajPosao/>
             </Route>
+            
             <Route path='*'>
               <NotFound/>
             </Route>
