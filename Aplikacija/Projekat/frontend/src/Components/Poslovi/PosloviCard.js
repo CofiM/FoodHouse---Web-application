@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 export default function BasicCard(props) {
   return (
-    <Card sx={{ minWidth: 275, background:"grey", width: "100%" }} >
+    <Card sx={{ minWidth: 275, background:"grey", width: "100%", marginTop: "5%" }} >
       <CardContent sx={{width: "100%" }}>
         <Typography 
             sx={{fontSize:24 , fontWeight: 800, textDecoration: "underline"}}             

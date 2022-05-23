@@ -9,6 +9,8 @@ import Footer from "./Footer/Footer";
 import NotFound from "./Main/NotFound";
 import Prijava from "./Components/Profil/Prijava";
 import Registracija from "./Components/Profil/Registracija";
+import Korpa from "./Components/Korpa/Korpa";
+
 
 function App() { 
 
@@ -40,6 +42,9 @@ function App() {
             </Route>
             <Route path='/Registracija'>
               <Registracija/>
+            </Route>
+            <Route path='/Korpa'>
+              <Korpa/>
             </Route>
             <Route path='*'>
               <NotFound/>

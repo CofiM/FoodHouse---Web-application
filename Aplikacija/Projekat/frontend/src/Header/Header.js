@@ -14,15 +14,20 @@ import MenuItem from '@mui/material/MenuItem';
 import Logo from "../pictures/logo.png";
 import { useHistory } from 'react-router-dom';
 import classes from "./Header.module.css";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { HeaderItems } from "./HeaderComponentsKorisnik";
+import { HeaderItemsDostavljac } from "./HeaderComponentsDostavljac";
+import { HeaderItemsDomacinstvo } from "./HeaderComponentsDomacinstvo";
+import MailBox from "../Components/MailBox/MailBox";
 
-import { HeaderItems } from "./HeaderComponents";
 const settings = ['Profile', 'Logout'];
-
 
 const ResponsiveAppBar = (props) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const history = useHistory();
+    const [korisnikIsLoggedIn, setKorisnikIsLoggedIn] = React.useState(true);
+    const [isValid, setIsValid] = React.useState(true);
   
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -45,6 +50,11 @@ const ResponsiveAppBar = (props) => {
       setAnchorElNav(null);
     }
 
+    const onClickCart = (type) => {
+      let path = type;
+      history.push(path);
+    }
+
     const onClickProfile = (type) => {
       if( type === "Profile")
       {
@@ -54,6 +64,23 @@ const ResponsiveAppBar = (props) => {
       
       setAnchorElUser(null);
     }
+
+    const items = () => {
+      // const flag = localStorage.getItem("Klijent");
+      // if(flag === 0){
+      //   return HeaderItems;
+      // }
+      // else if( flag === 1){
+      //   return HeaderItemsDomacinstvo;
+      // }
+      // else if( flag === 2)
+      // {
+      //   return HeaderItemsDostavljac;
+      // }
+      return HeaderItems;
+    }
+    
+
 
     return (
       <AppBar position="static">
@@ -106,7 +133,7 @@ const ResponsiveAppBar = (props) => {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {HeaderItems.map((page) => (
+                {items().map((page) => (
                   <MenuItem 
                   key={page.id} 
                   onClick={() => onClickHandler(page.label)}
@@ -135,7 +162,7 @@ const ResponsiveAppBar = (props) => {
               <img src={Logo} alt="Logo" width="200" height="80"/>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {HeaderItems.map((page) => (
+              {items().map((page) => (
                   <React.Fragment>
                     <Button
                     key={page.id}
@@ -148,7 +175,19 @@ const ResponsiveAppBar = (props) => {
                   </React.Fragment>
               ))}
             </Box>
-  
+            {korisnikIsLoggedIn && <Box sx={{color:"black", marginRight:'1%'}}>
+              <Button 
+                sx={{color:'white'}}
+                onClick= {() => onClickCart("Korpa")}
+              >
+                  <ShoppingCartOutlinedIcon/>
+              </Button>
+            </Box>}
+            {isValid && <Box sx={{color:"black", marginRight:'2%'}}>
+                <MailBox number="0"/>
+            </Box>}
+
+
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
