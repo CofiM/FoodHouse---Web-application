@@ -1,0 +1,8 @@
+.allDomacinstva {
+  display: flex;
+  flex-direction: row;
+}
+.Domacinstvo {
+  margin-right: 10px;
+  margin-left: 10px;
+}

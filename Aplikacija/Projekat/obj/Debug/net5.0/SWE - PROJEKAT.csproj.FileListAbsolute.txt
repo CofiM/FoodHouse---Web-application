@@ -237,3 +237,5 @@ D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net
 D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\frontend\package-lock.json
 D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\frontend\package.json
 D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\frontend\public\manifest.json
+D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\package-lock.json
+D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\package.json
