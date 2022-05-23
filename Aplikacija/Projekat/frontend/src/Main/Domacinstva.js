@@ -7,19 +7,16 @@ function Domacinstva() {
   return (
     <div className={classes.allDomacinstva}>
       <DomacinstvoCard
-        className={classes.Domacinstvo}
         NazivDomacinstva="Domacinstvo Maletic"
         adresa="Neka random adresa1"
         brojTelefona="0669446083"
       />
       <DomacinstvoCard
-        className={classes.Domacinstvo}
         NazivDomacinstva="Domacinstvo Najdanovic"
         adresa="Neka random adresa2"
         brojTelefona="06512312323"
       />
       <DomacinstvoCard
-        className={classes.Domacinstvo}
         NazivDomacinstva="Domacinstvo Momcilovic"
         adresa="Neka random adresa2"
         brojTelefona="06512212524"
