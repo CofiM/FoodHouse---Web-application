@@ -10,7 +10,7 @@ import NotFound from "./Main/NotFound";
 import Prijava from "./Components/Profil/Prijava";
 import Registracija from "./Components/Profil/Registracija";
 import Korpa from "./Components/Korpa/Korpa";
-
+import DodajPosao from "./Components/Poslovi/DodajPosao";
 
 function App() { 
 
@@ -45,6 +45,9 @@ function App() {
             </Route>
             <Route path='/Korpa'>
               <Korpa/>
+            </Route>
+            <Route path='/dodajPosao'>
+              <DodajPosao/>
             </Route>
             <Route path='*'>
               <NotFound/>

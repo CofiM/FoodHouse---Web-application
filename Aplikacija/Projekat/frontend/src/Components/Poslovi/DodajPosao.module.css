@@ -1,0 +1,8 @@
+div{
+    display: flex;
+    justify-content: space-around;
+}
+div:first-child{
+    display: flex;
+    justify-content: flex-start;
+}

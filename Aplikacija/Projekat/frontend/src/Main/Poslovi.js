@@ -21,8 +21,8 @@ const Poslovi = () => {
         <div className={classes.search}>
             <form>
                 <div className={classes.searchDiv}>
-                    <input type="text" placeholder="Lokacija" onClick={LokacijaHandler}></input>
-                    <input type="date" value="2022-05-15" min="2022-01-01" max="2022-12-31" onClick={DatumHandler}></input>
+                    <input type="text" placeholder="Lokacija" onClick={LokacijaHandler} />
+                    <input type="date" value="2022-05-15" min="2022-01-01" max="2022-12-31" onClick={DatumHandler} />
                     {!isChangeDatum && !isChangeLokacija && <button className={classes.disabled}>Pretraži</button>}
                     {(isChangeDatum || isChangeLokacija) && <button className={classes.enabled}>Pretraži</button>}
                 </div>
