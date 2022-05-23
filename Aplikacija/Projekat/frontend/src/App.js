@@ -7,13 +7,10 @@ import Domacinstva from "./Main/Domacinstva";
 import Naslovna from "./Main/Naslovna";
 import Footer from "./Footer/Footer";
 import NotFound from "./Main/NotFound";
+import Prijava from "./Components/Profil/Prijava";
+import Registracija from "./Components/Profil/Registracija";
 
-function App() {
-  /* const [posloviIsShown, setPosloviIsShown] = useState(false);
-  const [naslovnaIsShown, setNaslovnaIsShown] = useState(true);
-  const [domacinstvoIsShown, setDomacinstvoIsShown] = useState(false); */
-
-  
+function App() { 
 
   return (
     <div className="App">
@@ -34,6 +31,15 @@ function App() {
             </Route>
             <Route path='/Poslovi'>
               <Poslovi/>
+            </Route>
+            <Route path='/Poslovi'>
+              <Poslovi/>
+            </Route>
+            <Route path='/Prijava'>
+              <Prijava/>
+            </Route>
+            <Route path='/Registracija'>
+              <Registracija/>
             </Route>
             <Route path='*'>
               <NotFound/>

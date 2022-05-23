@@ -45,6 +45,16 @@ const ResponsiveAppBar = (props) => {
       setAnchorElNav(null);
     }
 
+    const onClickProfile = (type) => {
+      if( type === "Profile")
+      {
+        let path = "Prijava";
+        history.push(path);
+      }
+      
+      setAnchorElUser(null);
+    }
+
     return (
       <AppBar position="static">
         <Container maxWidth="xl">
@@ -162,7 +172,7 @@ const ResponsiveAppBar = (props) => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem key={setting} onClick={() => {onClickProfile(setting)}}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
