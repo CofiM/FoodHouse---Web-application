@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models;
 
 namespace SWE___PROJEKAT.Migrations
 {
     [DbContext(typeof(ProjekatContext))]
-    partial class ProjekatContextModelSnapshot : ModelSnapshot
+    [Migration("20220524110401_v12")]
+    partial class v12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,38 +236,6 @@ namespace SWE___PROJEKAT.Migrations
                     b.ToTable("Kupovine");
                 });
 
-            modelBuilder.Entity("Models.Poruka", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int?>("DomacinstvoID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("DostavljacID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("KorisnikID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("sadrzaj")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DomacinstvoID");
-
-                    b.HasIndex("DostavljacID");
-
-                    b.HasIndex("KorisnikID");
-
-                    b.ToTable("Poruka");
-                });
-
             modelBuilder.Entity("Models.Posao", b =>
                 {
                     b.Property<int>("ID")
@@ -440,27 +410,6 @@ namespace SWE___PROJEKAT.Migrations
                     b.Navigation("Proizvod");
                 });
 
-            modelBuilder.Entity("Models.Poruka", b =>
-                {
-                    b.HasOne("Models.Domacinstvo", "Domacinstvo")
-                        .WithMany("inbox")
-                        .HasForeignKey("DomacinstvoID");
-
-                    b.HasOne("Models.Dostavljac", "Dostavljac")
-                        .WithMany("inbox")
-                        .HasForeignKey("DostavljacID");
-
-                    b.HasOne("Models.Korisnik", "Korisnik")
-                        .WithMany("inbox")
-                        .HasForeignKey("KorisnikID");
-
-                    b.Navigation("Domacinstvo");
-
-                    b.Navigation("Dostavljac");
-
-                    b.Navigation("Korisnik");
-                });
-
             modelBuilder.Entity("Models.Posao", b =>
                 {
                     b.HasOne("Models.Domacinstvo", "Domacinstvo")
@@ -514,8 +463,6 @@ namespace SWE___PROJEKAT.Migrations
 
             modelBuilder.Entity("Models.Domacinstvo", b =>
                 {
-                    b.Navigation("inbox");
-
                     b.Navigation("Poslovi");
 
                     b.Navigation("Proizvodi");
@@ -525,15 +472,11 @@ namespace SWE___PROJEKAT.Migrations
                 {
                     b.Navigation("Domacinstva");
 
-                    b.Navigation("inbox");
-
                     b.Navigation("Kupovine");
                 });
 
             modelBuilder.Entity("Models.Korisnik", b =>
                 {
-                    b.Navigation("inbox");
-
                     b.Navigation("KorisnikPosao");
 
                     b.Navigation("Korpa");

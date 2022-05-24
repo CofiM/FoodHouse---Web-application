@@ -1,0 +1,10 @@
+.fullComponent {
+  display: flex;
+  flex-direction: row;
+}
+.labelaDiv {
+  width: 150px;
+}
+.inputDiv {
+  width: 250px;
+}

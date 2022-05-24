@@ -171,6 +171,90 @@ namespace SWE___PROJEKAT.Controllers
             }
         } 
 
+        [Route("PosaljiPorukuDomacinDostavljac/{idDomacin}/{idDostavljac}/{por}")]
+        [EnableCors("CORS")]
+        [HttpPost]
+        public async Task<ActionResult> posaljiPorukuDomacinDostavljac(int idDomacin, int idDostavljac, string por)
+        {
+            if(idDomacin < 0 || idDostavljac < 0)
+            {
+                return BadRequest("Nevalidan unos id-ja!");
+            }
+            if(string.IsNullOrWhiteSpace(por) || por.Length > 500)
+            {
+                return BadRequest("Nevalidan unos za poruka!");
+            }
+            try
+            {
+                var dostavljac = await Context.Dostavljaci.Where(p => p.ID == idDostavljac).FirstOrDefaultAsync(); 
+                if(dostavljac == null)
+                {
+                    throw new Exception("Ne postoji dostavljac!");
+                }
+                var proizvodjac = await Context.Domacinstva.Where(p => p.ID == idDomacin).FirstOrDefaultAsync(); 
+                if(proizvodjac == null)
+                {
+                    throw new Exception("Ne postoji proizvodjac!");
+                }
+                Poruka poruka = new Poruka();
+                poruka.sadrzaj = por;
+                poruka.Domacinstvo = proizvodjac;
+                poruka.Dostavljac = dostavljac;
+                poruka.Korisnik = null;
+                Context.Poruke.Add(poruka);
+                await Context.SaveChangesAsync();
+                proizvodjac.inbox.Add(poruka);
+                dostavljac.inbox.Add(poruka);
+                return Ok("Uspesno poslata poruka!");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        } 
+
+        [Route("PosaljiPorukuDomacinKorisnik/{idDomacin}/{idKorisnik}/{por}")]
+        [EnableCors("CORS")]
+        [HttpPost]
+        public async Task<ActionResult> posaljiPorukuDomacinKorisnik(int idDomacin, int idKorisnik, string por)
+        {
+            if(idDomacin < 0 || idKorisnik < 0)
+            {
+                return BadRequest("Nevalidan unos id-ja!");
+            }
+            if(string.IsNullOrWhiteSpace(por) || por.Length > 500)
+            {
+                return BadRequest("Nevalidan unos za poruka!");
+            }
+            try
+            {
+                var korisnik = await Context.Korisnici.Where(p => p.ID == idKorisnik).FirstOrDefaultAsync(); 
+                if(korisnik == null)
+                {
+                    throw new Exception("Ne postoji korisnik!");
+                }
+                var proizvodjac = await Context.Domacinstva.Where(p => p.ID == idDomacin).FirstOrDefaultAsync(); 
+                if(proizvodjac == null)
+                {
+                    throw new Exception("Ne postoji proizvodjac!");
+                }
+                Poruka poruka = new Poruka();
+                poruka.sadrzaj = por;
+                poruka.Domacinstvo = proizvodjac;
+                poruka.Korisnik = korisnik;
+                poruka.Dostavljac = null;
+                Context.Poruke.Add(poruka);
+                await Context.SaveChangesAsync();
+                proizvodjac.inbox.Add(poruka);
+                korisnik.inbox.Add(poruka);
+                return Ok("Uspesno poslata poruka!");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        } 
+
         [Route("DodatiDostavljac/{username}/{password}/{email}/{telefon}/{cena}")]
         [EnableCors("CORS")]
         [HttpPost]

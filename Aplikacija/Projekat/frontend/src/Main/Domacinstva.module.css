@@ -6,3 +6,7 @@
   margin-right: 10px;
   margin-left: 10px;
 }
+.inputtt {
+  display: flex;
+  flex-direction: column;
+}

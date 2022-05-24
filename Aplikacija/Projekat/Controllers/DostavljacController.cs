@@ -68,6 +68,36 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("VratiPorukeDostavljaca/{id}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> vratiPorukeDostavljaca(int id)
+        {
+            if (id < 0)
+            {
+                return BadRequest("Nevalidan id!");
+            }
+            try
+            {
+                var dostavljac = await Context.Dostavljaci.Where(p => p.ID == id).FirstOrDefaultAsync();
+                if (dostavljac == null)
+                {
+                    return BadRequest("Nepostoje dostavljac sa zadatim id!");
+                }
+                var poruke = await Context.Poruke
+                            .Include(p => p.Dostavljac).Where(p => p.Dostavljac.ID == id)
+                            .Select(p => new {
+                                p.ID,
+                                p.sadrzaj
+                            }).ToArrayAsync();
+                return Ok(poruke);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("PromeniSifruDostavljaca/{email}/{pass}/{newPass}")]
         [EnableCors("CORS")]
         [HttpPut]

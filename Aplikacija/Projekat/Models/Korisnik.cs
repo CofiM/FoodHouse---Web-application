@@ -36,6 +36,8 @@ namespace Models
         [Required]
         public char Tip { get; set; }
 
+        public List<Poruka> inbox { get; set; }
+
         // VEZE --------------------------
 
         [JsonIgnore]
