@@ -27,13 +27,13 @@ namespace Models
         [Required]
         [Column("E-mail")]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [Column("Br. telefona")]
         [Phone]
         [RegularExpression("^\\s*\\+?\\s*([0-9][\\s-]*){9,}$")]
-        public string telefon { get; set; }
+        public string Telefon { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -42,6 +42,9 @@ namespace Models
         [Required]
         [Column("Dan otvorenih vrata")]
         public DateTime otvorenaVrata { get; set; }
+
+        [Required]
+        public char Tip { get; set; }
 
         // VEZE --------------------------
 

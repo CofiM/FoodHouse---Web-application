@@ -10,6 +10,14 @@ namespace Models
     {
         [Key]
         public int ID { get; set; }
+        
+        [Required]
+        [MaxLength(30)]
+        public string Ime { get; set; }
+
+        [Required]
+        [MaxLength(30)]
+        public string Prezime { get; set; }
 
         [Required]
         [MaxLength(30)]
@@ -22,7 +30,7 @@ namespace Models
         [Required]
         [Column("E-mail")]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [Required]
         public int Cena { get; set; }
@@ -31,8 +39,10 @@ namespace Models
         [Column("Br. telefona")]
         [Phone]
         [RegularExpression("^\\s*\\+?\\s*([0-9][\\s-]*){9,}$")]
-        public string telefon { get; set; }
+        public string Telefon { get; set; }
 
+        [Required]
+        public char Tip { get; set; }
         // veze ------------------------------
         [JsonIgnore]
         public virtual List<Domacinstvo> Domacinstva { get; set; }

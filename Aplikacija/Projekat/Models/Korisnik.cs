@@ -32,6 +32,10 @@ namespace Models
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
         public string email { get; set; }
 
+
+        [Required]
+        public char Tip { get; set; }
+
         // VEZE --------------------------
 
         [JsonIgnore]
