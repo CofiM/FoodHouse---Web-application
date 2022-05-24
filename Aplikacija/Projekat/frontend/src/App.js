@@ -12,7 +12,7 @@ import Registracija from "./Components/Profil/Registracija";
 import Korpa from "./Components/Korpa/Korpa";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
-
+import Inbox from "./Components/MailBox/Inbox";
 
 function App() { 
 
@@ -53,6 +53,9 @@ function App() {
             </Route>
             <Route path='/Dostavljaci'>
               <Dostavljaci/>
+            </Route>
+            <Route path='/Inbox'>
+              <Inbox/>
             </Route>
             <Route path='*'>
               <NotFound/>
