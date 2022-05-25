@@ -24,7 +24,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzetiKorisnika/{email}/{password}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpGet]
         public async Task<ActionResult> preuzmiKorisnika(string email, string password)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -75,6 +75,41 @@ namespace SWE___PROJEKAT.Controllers
                 return Ok(poruke);
             }
             catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("ObrisatiPoruku/{idKorisnik}/{idPoruke}")]
+        [EnableCors("CORS")]
+        [HttpDelete]
+        public async Task<ActionResult> obrisatiPoruku(int idKorisnik, int idPoruke)
+        {
+            if(idKorisnik < 0 || idPoruke < 0)
+            {
+                return BadRequest("Nevalidan id!");
+            }
+            try
+            {
+                var korisnik = await Context.Korisnici.Where(p => p.ID == idKorisnik).FirstOrDefaultAsync();
+                if(korisnik == null)
+                {
+                    throw new Exception("Ne postoji korisnik!");
+                }
+                var poruka = await Context.Poruke.Include(p => p.Domacinstvo).Where(p => p.ID == idPoruke).FirstOrDefaultAsync();
+                if(poruka == null){
+                    return BadRequest("Ne postoji poruka!");
+                }
+                korisnik.inbox.Remove(poruka);
+                poruka.Korisnik = null;
+                await Context.SaveChangesAsync();
+                if(poruka.Domacinstvo == null){
+                    Context.Poruke.Remove(poruka);
+                 }
+                await Context.SaveChangesAsync();
+                return Ok("Uspesno obrisana poruka!");
+            }
+            catch(Exception e)
             {
                 return BadRequest(e.Message);
             }

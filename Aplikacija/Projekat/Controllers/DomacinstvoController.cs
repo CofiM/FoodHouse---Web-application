@@ -92,6 +92,41 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("ObrisatiPoruku/{idDomacinstva}/{idPoruke}")]
+        [EnableCors("CORS")]
+        [HttpDelete]
+        public async Task<ActionResult> obrisatiPoruku(int idDomacinstva, int idPoruke)
+        {
+            if(idDomacinstva < 0 || idPoruke < 0)
+            {
+                return BadRequest("Nevalidan id!");
+            }
+            try
+            {
+                var domacinstvo = await Context.Domacinstva.Where(p => p.ID == idDomacinstva).FirstOrDefaultAsync();
+                if(domacinstvo == null)
+                {
+                    throw new Exception("Ne postoji domacinstvo!");
+                }
+                var poruka = await Context.Poruke.Include(p => p.Domacinstvo).Include(p => p.Korisnik).Include(p => p.Dostavljac).Where(p => p.ID == idPoruke).FirstOrDefaultAsync();
+                if(poruka == null){
+                    return BadRequest("Ne postoji poruka!");
+                }
+                domacinstvo.inbox.Remove(poruka);
+                poruka.Domacinstvo = null;
+                await Context.SaveChangesAsync();
+                if(poruka.Korisnik == null && poruka.Dostavljac == null){
+                    Context.Poruke.Remove(poruka);
+                 }
+                await Context.SaveChangesAsync();
+                return Ok("Uspesno obrisana poruka!");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("PromeniSifruDomacinstva/{email}/{pass}/{newPass}")]
         [EnableCors("CORS")]
         [HttpPut]
