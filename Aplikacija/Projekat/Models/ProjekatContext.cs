@@ -22,6 +22,8 @@ namespace Models
 
         public DbSet<Spoj> Spojevi { get; set; }
 
+        public DbSet<Poruka> Poruke { get; set; }
+
         public ProjekatContext(DbContextOptions opt) : base(opt)
         {
             

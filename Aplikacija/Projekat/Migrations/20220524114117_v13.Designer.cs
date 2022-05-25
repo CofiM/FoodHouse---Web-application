@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models;
 
 namespace SWE___PROJEKAT.Migrations
 {
     [DbContext(typeof(ProjekatContext))]
-    partial class ProjekatContextModelSnapshot : ModelSnapshot
+    [Migration("20220524114117_v13")]
+    partial class v13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -442,23 +444,17 @@ namespace SWE___PROJEKAT.Migrations
 
             modelBuilder.Entity("Models.Poruka", b =>
                 {
-                    b.HasOne("Models.Domacinstvo", "Domacinstvo")
+                    b.HasOne("Models.Domacinstvo", null)
                         .WithMany("inbox")
                         .HasForeignKey("DomacinstvoID");
 
-                    b.HasOne("Models.Dostavljac", "Dostavljac")
+                    b.HasOne("Models.Dostavljac", null)
                         .WithMany("inbox")
                         .HasForeignKey("DostavljacID");
 
-                    b.HasOne("Models.Korisnik", "Korisnik")
+                    b.HasOne("Models.Korisnik", null)
                         .WithMany("inbox")
                         .HasForeignKey("KorisnikID");
-
-                    b.Navigation("Domacinstvo");
-
-                    b.Navigation("Dostavljac");
-
-                    b.Navigation("Korisnik");
                 });
 
             modelBuilder.Entity("Models.Posao", b =>

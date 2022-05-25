@@ -50,6 +50,36 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("VratiPorukeKorisnika/{id}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> vratiPorukeKorisnika(int id)
+        {
+            if (id < 0)
+            {
+                return BadRequest("Nevalidan id!");
+            }
+            try
+            {
+                var korisnik = await Context.Korisnici.Where(p => p.ID == id).FirstOrDefaultAsync();
+                if (korisnik == null)
+                {
+                    return BadRequest("Nepostoje korisnik sa zadatim id!");
+                }
+                var poruke = await Context.Poruke
+                            .Include(p => p.Korisnik).Where(p => p.Korisnik.ID == id)
+                            .Select(p => new {
+                                p.ID,
+                                p.sadrzaj
+                            }).ToArrayAsync();
+                return Ok(poruke);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         /*[Route("PreuzetiKorpu/{idKorisnika}")]
         [EnableCors("CORS")]
         [HttpGet]

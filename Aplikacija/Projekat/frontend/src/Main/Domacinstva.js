@@ -2,6 +2,7 @@ import React from "react";
 import DomacinstvoCard from "../Components/Domacinstvo/DomacinstvoCard";
 import classes from "./Domacinstva.module.css";
 import InputText from "../Components/UI/InputText";
+import InputNumber from "../Components/UI/InputNumber";
 
 function Domacinstva() {
   return (
@@ -21,7 +22,10 @@ function Domacinstva() {
         adresa="Neka random adresa2"
         brojTelefona="06512212524"
       />
-      <InputText label="label" placeholder="unesi tekst" />
+      <div className={classes.inputtt}>
+        <InputText label="label" placeholder="unesi tekst" />
+        <InputNumber label="numbernumbernumber" placeholder="unesi broj" />
+      </div>
     </div>
   );
 }

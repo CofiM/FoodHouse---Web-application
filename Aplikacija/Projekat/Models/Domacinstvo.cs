@@ -27,13 +27,13 @@ namespace Models
         [Required]
         [Column("E-mail")]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")]
-        public string Email { get; set; }
+        public string email { get; set; }
 
         [Required]
         [Column("Br. telefona")]
         [Phone]
         [RegularExpression("^\\s*\\+?\\s*([0-9][\\s-]*){9,}$")]
-        public string Telefon { get; set; }
+        public string telefon { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -45,6 +45,8 @@ namespace Models
 
         [Required]
         public char Tip { get; set; }
+
+        public List<Poruka> inbox { get; set; }
 
         // VEZE --------------------------
 

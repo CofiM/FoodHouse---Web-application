@@ -62,6 +62,36 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("VratiPorukeDomacinstva/{id}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> vratiPorukeDomacinstva(int id)
+        {
+            if (id < 0)
+            {
+                return BadRequest("Nevalidan id!");
+            }
+            try
+            {
+                var domacinstvo = await Context.Domacinstva.Where(p => p.ID == id).FirstOrDefaultAsync();
+                if (domacinstvo == null)
+                {
+                    return BadRequest("Nepostoje domacinstvo sa zadatim id!");
+                }
+                var poruke = await Context.Poruke
+                            .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == id)
+                            .Select(p => new {
+                                p.ID,
+                                p.sadrzaj
+                            }).ToArrayAsync();
+                return Ok(poruke);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("PromeniSifruDomacinstva/{email}/{pass}/{newPass}")]
         [EnableCors("CORS")]
         [HttpPut]
