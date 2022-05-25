@@ -13,12 +13,12 @@ import Korpa from "./Components/Korpa/Korpa";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import Inbox from "./Components/MailBox/Inbox";
-<<<<<<< HEAD
+
 import Proizvod from "./Components/Proizvod/Proizvod";
 import FooterDva from "./Footer/FooterDva";
-=======
+
 import ProfilDostavljac from "./Components/Profil/ProfilDostavljac";
->>>>>>> 8dc4baaf1aec1a8b7a8b85f37e96ea8f8a1bbcfb
+
 
 function App() {
   return (
@@ -62,13 +62,13 @@ function App() {
             <Route path="/Inbox">
               <Inbox />
             </Route>
-<<<<<<< HEAD
+
             <Route path="/Proizvod">
               <Proizvod/>
-=======
-            <Route path="/ProfilDostavljac">
+              </Route>
+         <Route path="/ProfilDostavljac">
               <ProfilDostavljac/>
->>>>>>> 8dc4baaf1aec1a8b7a8b85f37e96ea8f8a1bbcfb
+
             </Route>
             <Route path="*">
               <NotFound />
