@@ -16,25 +16,6 @@ const Inbox = () => {
     setOpen(false);
   };
 
-<<<<<<< HEAD
-    const onClickMessage = (index) => {
-        console.log("Ulazim u message" + index);
-        localStorage.setItem("index", index);
-        setOpen(true);
-    }
-
-   const onSideBarClick = () => {
-       const index =  localStorage.getItem("sidebar");
-       if( index === '0' ){
-            setInbox(true);
-            setOutbox(false);
-       }
-       else if( index === '1'){
-            setOutbox(true);
-           setInbox(false);
-       }
-    }
-=======
   const onClickMessage = (index) => {
     console.log("Ulazim u message" + index);
     localStorage.setItem("index", index);
@@ -51,7 +32,6 @@ const Inbox = () => {
       setInbox(false);
     }
   };
->>>>>>> 5239d4ad33617bb639c63941ba0c9e7c5fa49594
 
   return (
     <div className={classes.main}>
