@@ -6,7 +6,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
+import OutboxRoundedIcon from '@mui/icons-material/OutboxRounded';
 
 export default function SelectedListItem(props) {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -37,7 +37,10 @@ export default function SelectedListItem(props) {
           onDoubleClick={(event) => handleListItemClick( 1)}
           onClick={props.onClick}
         >
-          <ListItemText primary="Trash" />
+        <ListItemIcon>
+          <OutboxRoundedIcon />
+        </ListItemIcon>
+        <ListItemText primary="Outbox" />
         </ListItemButton>
       </List>
     </Box>

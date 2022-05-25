@@ -1,15 +1,15 @@
 import * as React from 'react'
 import classes from "./Inbox.module.css";
 import SideBar from "./SideBar";
-import MessageBar from "./MessageCard";
+import MessageCard from "./MessageCard";
 import Message from "./MessageModal";
 import TrashCard from "./TrashCard";
 const messages = ["Ovo je prva poruka", "Ovo je druga poruka"];
 
 const Inbox = () => {
     const [open, setOpen] = React.useState(false);
-    const [box, setBox] = React.useState(true);
-    const [trash, setTrash] = React.useState(false);
+    const [inbox, setInbox] = React.useState(true);
+    const [outbox, setOutbox] = React.useState(false);
     
     
     const handleClose = () => setOpen(false);
@@ -24,12 +24,12 @@ const Inbox = () => {
    const onSideBarClick = () => {
        const index =  localStorage.getItem("sidebar");
        if(index === '0'){
-           setBox(true);
-           setTrash(false);
+            setInbox(true);
+            setOutbox(false);
        }
        else if( index === '1'){
-           setTrash(true);
-           setBox(false);
+            setOutbox(true);
+           setInbox(false);
        }
    }
 
@@ -41,8 +41,8 @@ const Inbox = () => {
             </div>
             <div className={classes.rightSide}>
                 <div className={classes.MessagesDiv} >
-                    {box && <MessageBar receiver="Maletic" shortMessage="Dobili ste posao!" onClick={() => onClickMessage(0)} />}
-                    {trash && <TrashCard receiver={""} shortMessage="Dobili ste posao!" onClick={() => onClickMessage(1)}/>}
+                    {inbox && <MessageCard receiver="Maletic" shortMessage="Dobili ste posao!" onClick={() => onClickMessage(0)} />}
+                    {outbox && <TrashCard receiver={""} shortMessage="Dobili ste posao!" onClick={() => onClickMessage(1)}/>}
                 </div>
                 <div>
                      <Message 

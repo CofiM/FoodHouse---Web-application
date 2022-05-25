@@ -8,9 +8,15 @@ import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 
+
 import { ListItemIcon } from '@mui/material';
 
 export default function AlignItemsList(props) {
+
+  const onClickIconHandler = ( ) => {
+    console.log("Proba");
+  };
+
   return (
     <List 
       sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
@@ -36,9 +42,7 @@ export default function AlignItemsList(props) {
           }
         />
         <ListItemIcon>
-          <DeleteOutlineRoundedIcon fontSize="large">
-              <Tooltip title="Delete"></Tooltip>
-          </DeleteOutlineRoundedIcon>
+          <DeleteOutlineRoundedIcon fontSize="large" onClick={onClickIconHandler}/>
         </ListItemIcon>
       </ListItem>
     </List>
