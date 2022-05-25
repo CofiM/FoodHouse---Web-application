@@ -42,7 +42,7 @@ export default function AlignItemsList(props) {
           }
         />
         <ListItemIcon>
-          <DeleteOutlineRoundedIcon fontSize="large" onClick={onClickIconHandler}/>
+          <DeleteOutlineRoundedIcon fontSize="large" onClick={props.onClickIcon}/>
         </ListItemIcon>
       </ListItem>
     </List>

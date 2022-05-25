@@ -23,7 +23,7 @@ const Inbox = () => {
 
    const onSideBarClick = () => {
        const index =  localStorage.getItem("sidebar");
-       if(index === '0'){
+       if( index === '0' ){
             setInbox(true);
             setOutbox(false);
        }
@@ -31,8 +31,7 @@ const Inbox = () => {
             setOutbox(true);
            setInbox(false);
        }
-   }
-
+    }
 
     return(
         <div className={classes.main}>
