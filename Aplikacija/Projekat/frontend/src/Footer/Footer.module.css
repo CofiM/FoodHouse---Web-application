@@ -1,8 +1,12 @@
 .footer{
     display: flex;
     flex-direction: column;
-    height: 150px;
     background-color: #454d5e;
+    padding-top: 10px;
+    padding-bottom: 0px;
+    position:fixed;
+    bottom:0;
+    width:100%;
 }
 .footerHigh{
     height: 125px;

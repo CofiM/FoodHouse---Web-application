@@ -13,6 +13,8 @@ import Korpa from "./Components/Korpa/Korpa";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import Inbox from "./Components/MailBox/Inbox";
+import Proizvod from "./Components/Proizvod/Proizvod";
+import FooterDva from "./Footer/FooterDva";
 
 function App() {
   return (
@@ -56,14 +58,17 @@ function App() {
             <Route path="/Inbox">
               <Inbox />
             </Route>
+            <Route path="/Proizvod">
+              <Proizvod/>
+            </Route>
             <Route path="*">
               <NotFound />
             </Route>
           </Switch>
         </main>
       </div>
-      <div className="App-footer">
-        <Footer />
+      <div>
+        <Footer/>
       </div>
     </div>
   );

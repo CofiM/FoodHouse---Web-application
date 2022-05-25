@@ -5,9 +5,6 @@ import HigherBar from "./Components/HigherBar";
 const Footer = () => {
     return(
         <footer className={classes.footer}>
-            <div className={classes.footerHigh}>
-                <HigherBar/>
-            </div>
             <div className={classes.footerLow}>
                 <LowerBar />
             </div>
