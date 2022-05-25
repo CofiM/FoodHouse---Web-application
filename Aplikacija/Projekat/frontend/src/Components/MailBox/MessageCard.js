@@ -1,40 +1,49 @@
-import * as React from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
+import * as React from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+
+
+import { ListItemIcon } from '@mui/material';
 
 export default function AlignItemsList(props) {
-  const onClickIconHandler = () => {
+
+  const onClickIconHandler = ( ) => {
     console.log("Proba");
   };
 
   return (
-    <List
-      sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+    <List 
+      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
       onClick={props.onClick}
     >
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt="" src="" />
         </ListItemAvatar>
-        <ListItemText
-          sx={{ color: "black" }}
+        <ListItemText sx={{color:'black'}}
           primary={props.receiver}
           secondary={
             <React.Fragment>
               <Typography
-                sx={{ display: "inline" }}
+                sx={{ display: 'inline' }}
                 component="span"
                 variant="body2"
                 color="text.primary"
-              ></Typography>
+              >
+              </Typography>
               {props.shortMessage}
             </React.Fragment>
           }
         />
+        <ListItemIcon>
+          <DeleteOutlineRoundedIcon fontSize="large" onClick={props.onClickIcon}/>
+        </ListItemIcon>
       </ListItem>
     </List>
   );
