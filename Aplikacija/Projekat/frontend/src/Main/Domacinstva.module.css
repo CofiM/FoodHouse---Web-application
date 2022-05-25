@@ -1,10 +1,11 @@
 .allDomacinstva {
+  width: 1200px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 .Domacinstvo {
-  margin-right: 10px;
-  margin-left: 10px;
+  width: 500px;
 }
 .inputtt {
   display: flex;

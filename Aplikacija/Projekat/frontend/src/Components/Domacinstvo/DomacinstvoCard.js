@@ -6,6 +6,9 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 
 export default function MultiActionAreaCard(props) {
+  // const otvoriDomacina = () => {
+  //   console.log("otvaram domacina");
+  // };
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -26,7 +29,7 @@ export default function MultiActionAreaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={props.onClick}>
           Pogledaj domacinstvo
         </Button>
       </CardActions>
