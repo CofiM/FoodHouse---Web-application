@@ -7,19 +7,13 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
-
-
 import { ListItemIcon } from '@mui/material';
 
 export default function AlignItemsList(props) {
 
-  const onClickIconHandler = ( ) => {
-    console.log("Proba");
-  };
-
   return (
     <List 
-      sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+      sx={{ width: '100%', bgcolor: 'background.paper' }}
       onClick={props.onClick}
     >
       <ListItem alignItems="flex-start">
@@ -41,9 +35,6 @@ export default function AlignItemsList(props) {
             </React.Fragment>
           }
         />
-        <ListItemIcon>
-          <DeleteOutlineRoundedIcon fontSize="large" onClick={props.onClickIcon}/>
-        </ListItemIcon>
       </ListItem>
     </List>
   );

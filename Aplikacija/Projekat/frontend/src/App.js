@@ -56,9 +56,6 @@ function App() {
             <Route path="/Inbox">
               <Inbox />
             </Route>
-            <Route path="/Domacinstvo">
-              <Domacinstvo />
-            </Route>
             <Route path="*">
               <NotFound />
             </Route>
