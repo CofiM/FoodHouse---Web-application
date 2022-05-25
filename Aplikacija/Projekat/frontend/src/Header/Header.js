@@ -65,6 +65,12 @@ const ResponsiveAppBar = (props) => {
       setAnchorElUser(null);
     }
 
+    const onClickMailBox = () => {
+        let path = "Inbox";
+        history.push(path);
+        console.log("Inbox");
+    }
+
     const items = () => {
       // const flag = localStorage.getItem("Klijent");
       // if(flag === 0){
@@ -183,8 +189,15 @@ const ResponsiveAppBar = (props) => {
                   <ShoppingCartOutlinedIcon/>
               </Button>
             </Box>}
+
+            
             {isValid && <Box sx={{color:"black", marginRight:'2%'}}>
-                <MailBox number="0"/>
+                <Button
+                  sx={{color:'white'}}
+                  onClick={onClickMailBox}
+                >
+                    <MailBox number="1" />
+                </Button>
             </Box>}
 
 
