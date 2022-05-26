@@ -1,5 +1,8 @@
 import React from "react";
 import classes from "./InputText.module.css";
+import TextField from "@mui/material/TextField";
+
+
 
 function InputText(props) {
   return (
@@ -8,7 +11,13 @@ function InputText(props) {
         <label>{props.label}:</label>
       </div>
       <div className={classes.inputDiv}>
-        <input type="text" placeholder={props.placeholder} />
+        {/* <input type="text" placeholder={props.placeholder} fontSize="24px"/> */}
+        <TextField
+          required
+          id="standard-required"
+          label={props.label}
+          variant="standard"
+        />
       </div>
     </div>
   );

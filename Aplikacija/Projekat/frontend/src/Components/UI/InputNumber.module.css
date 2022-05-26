@@ -1,10 +1,17 @@
 .fullComponent {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  height:10%;
 }
 .labelaDiv {
-  width: 150px;
+  width: 30%;
+  height:10%;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  justify-content: center;
 }
 .inputDiv {
-  width: 250px;
+  width: 70%;
 }
