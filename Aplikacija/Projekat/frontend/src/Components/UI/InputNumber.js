@@ -11,15 +11,10 @@ function InputNumber(props) {
       <div className={classes.inputDiv}>
         {/* <input type="number" placeholder={props.placeholder} /> */}
         <TextField
-          id="outlined-number"
+          id="standard-number"
           label={props.label}
-          fullWidth
-          type="number"
-          name={props.label}
-          autoComplete={props.label}
-          InputLabelProps={{
-            shrink: true,
-          }}
+          type="number"          
+          variant="standard"
         />
       </div>
     </div>

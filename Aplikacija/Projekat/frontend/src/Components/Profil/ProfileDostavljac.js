@@ -3,8 +3,8 @@ import classes from "./ProfileDostavljac.module.css";
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import UpdateProfile from "./UpdateProfile";
-import DesignProfile from "./DesignProfile";
+import UpdateProfile from "./UpdateProfileDostavljac";
+import DesignProfile from "./DesignProfileDostavljac";
 
 
 const ProfilDostavljac = () => {
