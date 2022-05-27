@@ -1,19 +1,21 @@
 import { useState, useEffect }  from 'react'
 import InputText  from "../UI/InputText";
-import InputDate from "../UI/InputDate";
-import Button from '@mui/material/Button';
-import classes from "./UpdateProfileDomacinstvo.module.css";
+import InputNumber from "../UI/InputNumber";
 import InputPassword from "../UI/InputPassword";
-
-
+import Button from '@mui/material/Button';
+import classes from "./UpdateProfileDostavljac.module.css";
 
 const DesignProfile = () => {
-   
+
+
     return(
         <div className={classes.mainDesign}>
             <div className={classes.divInformation}>
                 <div>
-                    <InputText label="Naziv" />
+                    <InputText label="Ime" />
+                </div>
+                <div>
+                    <InputText label="Prezime" />
                 </div>
                 <div>
                     <InputText label="Username" />
@@ -25,14 +27,12 @@ const DesignProfile = () => {
                     <InputPassword label="Password" />
                 </div>
                 <div>
-                    <InputText label="Adresa"  />
+                    <InputNumber label="Cena usluga" />
                 </div>
                 <div>
                     <InputText label="Broj telefona" />
                 </div>
-                <div>
-                    <InputDate label="Dan otvorenih vrata" />
-                </div>
+
             </div>
             <div className={classes.buttonDiv}>
                <button className={classes.buttonDesign}>Izmeni</button>

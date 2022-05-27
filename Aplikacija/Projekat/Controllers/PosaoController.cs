@@ -21,6 +21,7 @@ namespace SWE___PROJEKAT.Controllers
         {
             Context=context;
         }
+        
         [Route("PreuzetiPosloveZaDomacinstvo/{idDoma}")]
         [EnableCors("CORS")]
         [HttpGet]

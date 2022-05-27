@@ -17,11 +17,16 @@
 
 .buttonDesign{
     padding-left: 2%;
-    width: 170px;
+    width: 194px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 20px;
+    border-radius: 8px;
+}
+
+.buttonDesign:hover{
+    background-color: darkgray;
 }
 
 .divDesign{

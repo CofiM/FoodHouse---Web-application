@@ -3,11 +3,11 @@ import classes from "./ProfileDostavljac.module.css";
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import UpdateProfile from "./UpdateProfileDostavljac";
-import DesignProfile from "./DesignProfileDostavljac";
+import UpdateProfileKorisnik from "./UpdateProfileKorisnik";
+import DesignProfileKorisnik from "./DesignProfileKorisnik";
 
 
-const ProfilDostavljac = () => {
+const ProfilDomacinstvo = () => {
     const [isShowProfile, setIsShowProfile] = useState(true);
     const [isShowUpdateProfile, setIsShowUpdateProfile] = useState(false);
 
@@ -32,7 +32,7 @@ const ProfilDostavljac = () => {
                     />
                 </div>
                 <div className={classes.infHeader}>
-                    <p>Lazar Najdanovic</p>
+                    <p>Fifi</p>
                     <p>Ovde da stavimo zivotni moto svakog coveka</p>
                 </div>
            </div>
@@ -40,20 +40,19 @@ const ProfilDostavljac = () => {
                 <Stack spacing={30} direction="row">
                     <Button variant="text" sx={{color:"black"}} onClick={onClickProfileHandler} >Profil</Button>
                     <Button variant="text" sx={{color:"black"}} onClick={onClickUpdateProfileHandler} >Izmeni profil</Button>
+                    <Button variant="text" sx={{color:"black"}}> Istorija kupovina </Button>
                 </Stack>
            </div>
            <div className={classes.mainPart}>
                 { isShowProfile &&
-                    <DesignProfile 
-                        Ime="Lazar" 
-                        Prezime="Najdanovic" 
-                        Username="Sule Spanac" 
-                        Email="lazar@gmail.com" 
-                        Cena="2000"
-                        Telefon="0642631426"
+                    <DesignProfileKorisnik 
+                    Ime="Lazar" 
+                    Prezime="Najdanovic" 
+                    Username="Sule Spanac" 
+                    Email="lazar@gmail.com"
                     />
                 }
-                { isShowUpdateProfile && <UpdateProfile /> }
+                { isShowUpdateProfile && <UpdateProfileKorisnik /> }
            </div>
        </div>
     );
@@ -61,4 +60,4 @@ const ProfilDostavljac = () => {
 };
 
 
-export default ProfilDostavljac;
+export default ProfilDomacinstvo;
