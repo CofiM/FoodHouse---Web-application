@@ -1,6 +1,7 @@
 import { useState, useEffect }  from 'react'
 import InputText  from "../UI/InputText";
 import InputNumber from "../UI/InputNumber";
+import InputPassword from "../UI/InputPassword";
 import Button from '@mui/material/Button';
 import classes from "./UpdateProfileDostavljac.module.css";
 
@@ -23,7 +24,7 @@ const DesignProfile = () => {
                     <InputText label="E-mail" />
                 </div>
                 <div>
-                    <InputText label="Password" />
+                    <InputPassword label="Password" />
                 </div>
                 <div>
                     <InputNumber label="Cena usluga" />

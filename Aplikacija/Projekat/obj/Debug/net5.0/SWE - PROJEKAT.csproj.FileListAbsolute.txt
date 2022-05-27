@@ -239,3 +239,67 @@ D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net
 D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\frontend\public\manifest.json
 D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\package-lock.json
 D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\package.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\appsettings.Development.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\appsettings.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\frontend\package-lock.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\frontend\package.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\frontend\public\manifest.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\package-lock.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\package.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\SWE - PROJEKAT.exe
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\SWE - PROJEKAT.deps.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\SWE - PROJEKAT.runtimeconfig.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\SWE - PROJEKAT.runtimeconfig.dev.json
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\SWE - PROJEKAT.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\ref\SWE - PROJEKAT.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\SWE - PROJEKAT.pdb
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Humanizer.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.Identity.Client.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Microsoft.OpenApi.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\System.Runtime.Caching.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.csproj.AssemblyReference.cache
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.GeneratedMSBuildEditorConfig.editorconfig
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.AssemblyInfoInputs.cache
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.AssemblyInfo.cs
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.csproj.CoreCompileInputs.cache
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.MvcApplicationPartsAssemblyInfo.cs
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.MvcApplicationPartsAssemblyInfo.cache
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\staticwebassets\SWE - PROJEKAT.StaticWebAssets.Manifest.cache
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\staticwebassets\SWE - PROJEKAT.StaticWebAssets.xml
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\scopedcss\bundle\SWE - PROJEKAT.styles.css
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.RazorTargetAssemblyInfo.cache
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.csproj.CopyComplete
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\ref\SWE - PROJEKAT.dll
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.pdb
+D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.genruntimeconfig.cache
