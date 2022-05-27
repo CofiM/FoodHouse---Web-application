@@ -62,6 +62,33 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        
+        [Route("PreuzmiSvaDomacinstvo")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiSvaDomacinstvo()
+        {
+            try
+            {
+                var domacinstva = await Context.Domacinstva
+                .Include(p => p.Dostavljac)
+                .Select(p => new
+                {
+                    p.ID,
+                    p.Naziv,
+                    p.Username,
+                    p.email,
+                    p.Poslovi,
+                    p.Proizvodi
+                }).ToListAsync();
+                return Ok(domacinstva);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("VratiPorukeDomacinstva/{id}")]
         [EnableCors("CORS")]
         [HttpGet]
@@ -193,15 +220,15 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("DodatiPosao/{usernameD}/{brRadnihMesta}/{datumPocetka}/{opis}/{cena}")]
+        [Route("DodatiPosao/{idD}/{brRadnihMesta}/{datumPocetka}/{opis}/{cena}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> dodajPosao(string usernameD, int brRadnihMesta, DateTime datumPocetka,
+        public async Task<ActionResult> dodajPosao(int idD, int brRadnihMesta, DateTime datumPocetka,
                                     string opis, int cena)
         {
-            if (string.IsNullOrWhiteSpace(usernameD) || usernameD.Length > 30)
+            if (idD < 0)
             {
-                return BadRequest("Nevalidan unos za username!");
+                return BadRequest("Nevalidan unos za id!");
             }
             if (brRadnihMesta < 0 || brRadnihMesta > 200)
             {
@@ -217,7 +244,7 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var domacinstvo = await Context.Domacinstva.Where(p => p.Username == usernameD).FirstOrDefaultAsync();
+                var domacinstvo = await Context.Domacinstva.Where(p => p.ID == idD).FirstOrDefaultAsync();
                 if (domacinstvo != null)
                 {
                     var posao = new Posao();

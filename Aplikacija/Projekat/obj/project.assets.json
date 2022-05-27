@@ -5942,19 +5942,37 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\Najdanovic\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\Jovan\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+>>>>>>> f9090fc8e2bd7c4530a9aec65c5a46ab7f1de408
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
       "projectName": "SWE - PROJEKAT",
       "projectPath": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
       "packagesPath": "C:\\Users\\Najdanovic\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
+=======
+      "projectUniqueName": "D:\\Faks\\Softversko\\Projekat\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
+      "projectName": "SWE - PROJEKAT",
+      "projectPath": "D:\\Faks\\Softversko\\Projekat\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
+      "packagesPath": "C:\\Users\\Jovan\\.nuget\\packages\\",
+      "outputPath": "D:\\Faks\\Softversko\\Projekat\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
+>>>>>>> f9090fc8e2bd7c4530a9aec65c5a46ab7f1de408
       "projectStyle": "PackageReference",
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\Najdanovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+        "C:\\Users\\Jovan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+>>>>>>> f9090fc8e2bd7c4530a9aec65c5a46ab7f1de408
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6013,7 +6031,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
       }
     }
   }

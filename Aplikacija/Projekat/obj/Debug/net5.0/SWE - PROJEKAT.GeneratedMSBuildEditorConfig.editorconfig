@@ -7,4 +7,8 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = SWE___PROJEKAT
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\Najdanovic\Desktop\SWE App\si.22.47.foodhouse\Aplikacija\Projekat\
+=======
+build_property.ProjectDir = D:\Faks\Softversko\Projekat\si.22.47.foodhouse\Aplikacija\Projekat\
+>>>>>>> f9090fc8e2bd7c4530a9aec65c5a46ab7f1de408
