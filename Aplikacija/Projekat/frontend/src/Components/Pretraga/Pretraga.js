@@ -2,7 +2,6 @@ import * as ReactDOM from "react-dom";
 import classes from "./Pretraga.module.css";
 import React, { Component } from 'react';
 import Select from 'react-select';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Button from "@mui/material/Button";
 

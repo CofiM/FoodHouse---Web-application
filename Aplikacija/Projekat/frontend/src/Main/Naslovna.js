@@ -3,6 +3,9 @@ import React from "react";
 import Pretraga from "../Pretraga/Pretraga";
 import classes from "./Pretraga.module.css";
 
+import Pretraga from "../Components/Pretraga/Pretraga";
+import classes from "../Components/Pretraga/Pretraga.module.css";
+
 const Naslovna = () => {
   return (
     <div className={classes.container}>

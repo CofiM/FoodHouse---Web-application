@@ -14,6 +14,13 @@ import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import Inbox from "./Components/MailBox/Inbox";
 
+import Proizvod from "./Components/Proizvod/Proizvod";
+
+
+import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
+import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
+
+
 function App() {
   return (
     <div className="App">
@@ -56,15 +63,29 @@ function App() {
             <Route path="/Inbox">
               <Inbox />
             </Route>
+<<<<<<< HEAD
+=======
+
+            <Route path="/Proizvod">
+              <Proizvod/>
+              </Route>
+            <Route path="/ProfilDostavljac">
+              <ProfilDostavljac/>
+            </Route>
+
+            <Route path="/ProfilDomacinstvo">
+              <ProfilDomacinstvo/>
+            </Route>
+>>>>>>> d446ebabe0f6a7301692762ec2f608538c141a30
             <Route path="*">
               <NotFound />
             </Route>
           </Switch>
         </main>
       </div>
-      <div className="App-footer">
-        <Footer />
-      </div>
+      
+        <Footer/>
+    
     </div>
   );
 }

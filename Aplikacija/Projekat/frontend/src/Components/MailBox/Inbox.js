@@ -3,7 +3,6 @@ import classes from "./Inbox.module.css";
 import SideBar from "./SideBar";
 import MessageCard from "./MessageCard";
 import Message from "./MessageModal";
-import TrashCard from "./TrashCard";
 const messages = ["Ovo je prva poruka", "Ovo je druga poruka"];
 
 const Inbox = () => {
@@ -49,14 +48,14 @@ const Inbox = () => {
             />
           )}
           {outbox && (
-            <TrashCard
+            <MessageCard
               receiver={""}
               shortMessage="Dobili ste posao!"
               onClick={() => onClickMessage(1)}
             />
           )}
         </div>
-        <div>
+        <div className={classes.Message}>
           <Message
             show={open}
             title="Naslov"
