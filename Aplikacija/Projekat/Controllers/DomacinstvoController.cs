@@ -62,6 +62,33 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        
+        [Route("PreuzmiSvaDomacinstvo")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiSvaDomacinstvo()
+        {
+            try
+            {
+                var domacinstva = await Context.Domacinstva
+                .Include(p => p.Dostavljac)
+                .Select(p => new
+                {
+                    p.ID,
+                    p.Naziv,
+                    p.Username,
+                    p.email,
+                    p.Poslovi,
+                    p.Proizvodi
+                }).ToListAsync();
+                return Ok(domacinstva);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("VratiPorukeDomacinstva/{id}")]
         [EnableCors("CORS")]
         [HttpGet]

@@ -16,10 +16,8 @@ import Inbox from "./Components/MailBox/Inbox";
 
 import Proizvod from "./Components/Proizvod/Proizvod";
 
-
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
-
 
 function App() {
   return (
@@ -63,29 +61,24 @@ function App() {
             <Route path="/Inbox">
               <Inbox />
             </Route>
-<<<<<<< HEAD
-=======
 
             <Route path="/Proizvod">
-              <Proizvod/>
-              </Route>
+              <Proizvod />
+            </Route>
             <Route path="/ProfilDostavljac">
-              <ProfilDostavljac/>
+              <ProfilDostavljac />
             </Route>
-
             <Route path="/ProfilDomacinstvo">
-              <ProfilDomacinstvo/>
+              <ProfilDomacinstvo />
             </Route>
->>>>>>> d446ebabe0f6a7301692762ec2f608538c141a30
             <Route path="*">
               <NotFound />
             </Route>
           </Switch>
         </main>
       </div>
-      
-        <Footer/>
-    
+
+      <Footer />
     </div>
   );
 }
