@@ -5942,52 +5942,26 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
-    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
-=======
-<<<<<<< HEAD
-    "C:\\Users\\Najdanovic\\.nuget\\packages\\": {}
-=======
-    "C:\\Users\\Jovan\\.nuget\\packages\\": {},
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
->>>>>>> f9090fc8e2bd7c4530a9aec65c5a46ab7f1de408
->>>>>>> 2403a9dfc77296287b6bc9c0230081290ef42ed6
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
+      "projectUniqueName": "D:\\RExample\\FoodHouse\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
       "projectName": "SWE - PROJEKAT",
-      "projectPath": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
-      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
+      "projectPath": "D:\\RExample\\FoodHouse\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
+      "packagesPath": "C:\\Users\\Kenyx\\.nuget\\packages\\",
+      "outputPath": "D:\\RExample\\FoodHouse\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
-      "projectName": "SWE - PROJEKAT",
-      "projectPath": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
-      "packagesPath": "C:\\Users\\Najdanovic\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
-=======
-      "projectUniqueName": "D:\\Faks\\Softversko\\Projekat\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
-      "projectName": "SWE - PROJEKAT",
-      "projectPath": "D:\\Faks\\Softversko\\Projekat\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
-      "packagesPath": "C:\\Users\\Jovan\\.nuget\\packages\\",
-      "outputPath": "D:\\Faks\\Softversko\\Projekat\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
->>>>>>> f9090fc8e2bd7c4530a9aec65c5a46ab7f1de408
-      "projectStyle": "PackageReference",
-      "configFilePaths": [
-<<<<<<< HEAD
-        "C:\\Users\\Najdanovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "C:\\Users\\Jovan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Kenyx\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
->>>>>>> f9090fc8e2bd7c4530a9aec65c5a46ab7f1de408
->>>>>>> 2403a9dfc77296287b6bc9c0230081290ef42ed6
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6049,5 +6023,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\RExample\\FoodHouse\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
