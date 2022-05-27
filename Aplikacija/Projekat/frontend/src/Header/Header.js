@@ -184,7 +184,7 @@ const ResponsiveAppBar = (props) => {
             {korisnikIsLoggedIn && <Box sx={{color:"black", marginRight:'1%'}}>
               <Button 
                 sx={{color:'white'}}
-                onClick= {() => onClickCart("Korpa")}
+                onClick= {() => onClickCart("Cart")}
               >
                   <ShoppingCartOutlinedIcon/>
               </Button>

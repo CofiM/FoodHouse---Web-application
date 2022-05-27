@@ -13,6 +13,7 @@ import Korpa from "./Components/Korpa/Korpa";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import Inbox from "./Components/MailBox/Inbox";
+import Cart from "./Components/Korpa/Cart";
 
 import Proizvod from "./Components/Proizvod/Proizvod";
 
@@ -63,20 +64,18 @@ function App() {
             <Route path="/Inbox">
               <Inbox />
             </Route>
-<<<<<<< HEAD
-=======
-
             <Route path="/Proizvod">
               <Proizvod/>
               </Route>
+              <Route path="/Cart">
+              <Cart/>
+            </Route>
             <Route path="/ProfilDostavljac">
               <ProfilDostavljac/>
             </Route>
-
             <Route path="/ProfilDomacinstvo">
               <ProfilDomacinstvo/>
             </Route>
->>>>>>> d446ebabe0f6a7301692762ec2f608538c141a30
             <Route path="*">
               <NotFound />
             </Route>
