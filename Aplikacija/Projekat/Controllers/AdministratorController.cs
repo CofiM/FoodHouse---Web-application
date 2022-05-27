@@ -112,11 +112,11 @@ namespace SWE___PROJEKAT.Controllers
         }
 
 
-        [Route("DodatiProizvodjaca/{naziv}/{username}/{password}/{email}/{telefon}/{adresa}/{datum}")]
+        [Route("DodatiProizvodjaca/{naziv}/{username}/{password}/{email}/{telefon}/{adresa}/{datum}/{tip}")]
         [EnableCors("CORS")]
         [HttpPost]
         public async Task<ActionResult> dodajProizvodjaca(string naziv, string username, string password, 
-                        string email, string telefon, string adresa, DateTime datum )
+                        string email, string telefon, string adresa, DateTime datum, char tip )
         {
             if(string.IsNullOrWhiteSpace(naziv) || naziv.Length > 50)
             {
@@ -140,7 +140,10 @@ namespace SWE___PROJEKAT.Controllers
             }
             if(string.IsNullOrWhiteSpace(adresa) || adresa.Length > 100)
             {
-                return BadRequest("Nevalidan unos za adresa!");
+                return BadRequest("Nevalidan unos za adresu!");
+            }
+            if(tip == null){
+                return BadRequest("Nevalidan unos za tip!");
             }
             try
             {
@@ -161,6 +164,7 @@ namespace SWE___PROJEKAT.Controllers
                 d.telefon = telefon;
                 d.Adresa = adresa;
                 d.otvorenaVrata = datum;
+                d.Tip = tip;
                 Context.Domacinstva.Add(d);
                 await Context.SaveChangesAsync();
                 return Ok("Uspesno dodat domacinstvo!");
