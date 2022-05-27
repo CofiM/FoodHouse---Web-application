@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QG8n+y+QnrhhbRi3DkWkaze3OLDUuCv4mgikjIY7jhI4zAC8tPIHCX9AJ6c7tPtiG10maNChmcqXQbB0N+DfCw==",
+  "dgSpecHash": "ls/k++Fol+fl/OKnE8ryH7B28w/+JYsGs3Q4efpXwaqSXWaS4Sh791X0Jqwpi7m224KBA5DtGTNBSIXHAE68Mg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
+  "projectFilePath": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SweProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ADMIN\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

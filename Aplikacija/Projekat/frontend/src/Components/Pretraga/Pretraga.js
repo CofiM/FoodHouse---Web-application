@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 
 async function fetchProductsHandler()
 {
-  const response= await fetch('/Proizvod/PreuzetiProizvodeZaDomacinstvoZaKategoriju/{idDomacinstva}/{kategorija}')
+  const response= await fetch('/Proizvod/PreuzetiProizvodeZaKategoriju/{kategorija}')
 };
 
 

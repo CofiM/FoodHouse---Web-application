@@ -5947,9 +5947,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
-      "projectName": "SWE - PROJEKAT",
-      "projectPath": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
+      "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SweProject.csproj",
+      "projectName": "SweProject",
+      "projectPath": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SweProject.csproj",
       "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
       "projectStyle": "PackageReference",
