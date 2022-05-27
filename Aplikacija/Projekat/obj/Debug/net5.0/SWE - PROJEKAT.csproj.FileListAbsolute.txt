@@ -303,3 +303,8 @@ D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SW
 D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\ref\SWE - PROJEKAT.dll
 D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.pdb
 D:\RExample\FoodHouse\si.22.47.foodhouse\Aplikacija\Projekat\obj\Debug\net5.0\SWE - PROJEKAT.genruntimeconfig.cache
+C:\Users\Najdanovic\Desktop\SWE App\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\frontend\package-lock.json
+C:\Users\Najdanovic\Desktop\SWE App\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\frontend\package.json
+C:\Users\Najdanovic\Desktop\SWE App\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\package-lock.json
+C:\Users\Najdanovic\Desktop\SWE App\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\package.json
+C:\Users\Najdanovic\Desktop\SWE App\si.22.47.foodhouse\Aplikacija\Projekat\bin\Debug\net5.0\frontend\public\manifest.json
