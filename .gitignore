@@ -88,3 +88,4 @@ packages/react-devtools-timeline/dist
 Aplikacija/Projekat/bin/*
 Aplikacija/Projekat/obj/*
 *.vs/*
+*.suo
