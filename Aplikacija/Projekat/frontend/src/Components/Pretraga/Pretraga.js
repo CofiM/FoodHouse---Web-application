@@ -5,6 +5,13 @@ import Select from 'react-select';
 
 import Button from "@mui/material/Button";
 
+
+async function fetchProductsHandler()
+{
+  const response= await fetch('/Proizvod/PreuzetiProizvodeZaDomacinstvoZaKategoriju/{idDomacinstva}/{kategorija}')
+};
+
+
 const Pretraga=()=>
 {
     const categoryArray = [
