@@ -21,6 +21,11 @@ namespace SWE___PROJEKAT.Controllers
         {
             Context = context;
         }
+        [HttpGet]  
+        public ActionResult Test()
+        {
+            return Ok("test");
+        } 
 
         [Route("PreuzetiKorisnika/{email}/{password}")]
         [EnableCors("CORS")]

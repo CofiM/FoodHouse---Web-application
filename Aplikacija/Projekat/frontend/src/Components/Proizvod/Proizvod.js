@@ -1,7 +1,19 @@
+import { useRef } from 'react';
 import classes from './Proizvod.module.css';
 import slicica from '../../pictures/logo.png';
+import cartCtx from '../Korpa/CartContext';
 
 const Proizvod = (props) => {
+  const amountInputRef = useRef();
+
+  const addToCartHandler = amount => {
+    cartCtx.addItem({
+      id: props.id,
+      name: props.name,
+      amount: amount,
+      price: props.price
+    });
+  };
   
     return (
         <div className = {classes['card-wrapper']}>
@@ -53,10 +65,10 @@ const Proizvod = (props) => {
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet veniam tempora fuga tenetur placeat sapiente architecto illum soluta consequuntur, aspernatur quidem at sequi ipsa!</p>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, perferendis eius. Dignissimos, labore suscipit. Unde.</p>
             </div>
-  
+
             <div className = {classes['purchase-info']}>
-            <input  type='number' min='1' max='100' step='1' defaultValue='1'/>
-              <button type = 'button' className = {classes.btn}>
+              <input ref={amountInputRef} type='number' min='1' max='100' step='1' defaultValue='1'/>
+              <button onClick={addToCartHandler} type = 'button' className = {classes.btn}>
                 Dodaj u korpu
               </button>
             </div>
