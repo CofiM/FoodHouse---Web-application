@@ -7,14 +7,14 @@ import Button from "@mui/material/Button";
 
 const Pretraga=()=>
 {
-    const sports = [
-        { label: "Baseball"},
-  { label: "Basketball"},
-  { label: "Cricket" },
-  { label: "Field Hockey" },
-  { label: "Football" },
-  { label: "Tennis"  },
-  { label: "Volleyball"}
+    const categoryArray = [
+        { label: "Mlečni proizvodi"},
+  { label: "Med i proizvodi od meda"},
+  { label: "Rakije"  },
+  { label: "Meso i mesne prerađevine " },
+  { label: "Domaća jaja" },
+  { label: "Džem i slatko"  },
+  { label: "Voće i povrće"}
       ];
     
       const dos=[
@@ -30,7 +30,7 @@ const Pretraga=()=>
         <div className="example-config">
       </div>
       <div>
-        <Select options={sports}
+        <Select options={categoryArray}
         placeholder="Kategorije"
           style={{
             width: "300px",
