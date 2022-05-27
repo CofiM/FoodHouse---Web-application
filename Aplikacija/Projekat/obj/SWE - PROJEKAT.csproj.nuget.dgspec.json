@@ -1,10 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
-    "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj": {}
-=======
-<<<<<<< HEAD
     "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj": {}
   },
   "projects": {
@@ -16,37 +12,9 @@
         "projectPath": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
         "packagesPath": "C:\\Users\\Najdanovic\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Najdanovic\\Desktop\\SWE App\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
-=======
-    "D:\\Faks\\Softversko\\Projekat\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj": {}
->>>>>>> 2403a9dfc77296287b6bc9c0230081290ef42ed6
-  },
-  "projects": {
-    "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
-        "projectName": "SWE - PROJEKAT",
-<<<<<<< HEAD
-        "projectPath": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ADMIN\\Desktop\\swe\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "projectPath": "D:\\Faks\\Softversko\\Projekat\\si.22.47.foodhouse\\Aplikacija\\Projekat\\SWE - PROJEKAT.csproj",
-        "packagesPath": "C:\\Users\\Jovan\\.nuget\\packages\\",
-        "outputPath": "D:\\Faks\\Softversko\\Projekat\\si.22.47.foodhouse\\Aplikacija\\Projekat\\obj\\",
->>>>>>> f9090fc8e2bd7c4530a9aec65c5a46ab7f1de408
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-<<<<<<< HEAD
           "C:\\Users\\Najdanovic\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-          "C:\\Users\\Jovan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
->>>>>>> f9090fc8e2bd7c4530a9aec65c5a46ab7f1de408
->>>>>>> 2403a9dfc77296287b6bc9c0230081290ef42ed6
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
