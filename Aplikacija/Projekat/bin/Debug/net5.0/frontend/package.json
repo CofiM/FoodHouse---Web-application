@@ -14,7 +14,11 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^5.3.3",
+<<<<<<< HEAD
+    "react-scripts": "5.0.1",
+=======
     "react-scripts": "^5.0.1",
+>>>>>>> f9090fc8e2bd7c4530a9aec65c5a46ab7f1de408
     "react-select": "^5.3.2",
     "web-vitals": "^2.1.4"
   },

@@ -9,7 +9,6 @@ import Footer from "./Footer/Footer";
 import NotFound from "./Main/NotFound";
 import Prijava from "./Components/Profil/Prijava";
 import Registracija from "./Components/Profil/Registracija";
-import Korpa from "./Components/Korpa/Korpa";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import Inbox from "./Components/MailBox/Inbox";
@@ -17,10 +16,10 @@ import Cart from "./Components/Korpa/Cart";
 
 import Proizvod from "./Components/Proizvod/Proizvod";
 
-
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 
+import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 
 function App() {
   return (
@@ -52,9 +51,6 @@ function App() {
             <Route path="/Registracija">
               <Registracija />
             </Route>
-            <Route path="/Korpa">
-              <Korpa />
-            </Route>
             <Route path="/dodajPosao">
               <DodajPosao />
             </Route>
@@ -65,16 +61,24 @@ function App() {
               <Inbox />
             </Route>
             <Route path="/Proizvod">
+<<<<<<< HEAD
               <Proizvod/>
               </Route>
               <Route path="/Cart">
               <Cart/>
+=======
+              <Proizvod />
+>>>>>>> a57e5c960833a4afc1d0ebe85dc08fb53e73843b
             </Route>
             <Route path="/ProfilDostavljac">
-              <ProfilDostavljac/>
+              <ProfilDostavljac />
             </Route>
             <Route path="/ProfilDomacinstvo">
-              <ProfilDomacinstvo/>
+              <ProfilDomacinstvo />
+            </Route>
+
+            <Route path="/ProfilKorisnik">
+              <ProfilKorisnik />
             </Route>
             <Route path="*">
               <NotFound />
@@ -82,9 +86,8 @@ function App() {
           </Switch>
         </main>
       </div>
-      
-        <Footer/>
-    
+
+      <Footer />
     </div>
   );
 }
