@@ -19,7 +19,7 @@ import Proizvod from "./Components/Proizvod/Proizvod";
 
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
-
+import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 
 function App() {
   return (
@@ -67,13 +67,18 @@ function App() {
             <Route path="/Proizvod">
               <Proizvod/>
               </Route>
+            
             <Route path="/ProfilDostavljac">
               <ProfilDostavljac/>
             </Route>
-
             <Route path="/ProfilDomacinstvo">
               <ProfilDomacinstvo/>
             </Route>
+            <Route path="/ProfilKorisnik">
+              <ProfilKorisnik/>
+            </Route>
+
+
             <Route path="*">
               <NotFound />
             </Route>
