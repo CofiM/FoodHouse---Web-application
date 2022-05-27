@@ -25,7 +25,13 @@ function Domacinstva() {
       <DomacinstvoCard
         onClick={() => otvoriDomacina("Domacinstvo Momcilovic")}
         NazivDomacinstva="Domacinstvo Momcilovic"
-        adresa="Neka random adresa2"
+        adresa="Neka random adresa3"
+        brojTelefona="06512212524"
+      />
+      <DomacinstvoCard
+        onClick={() => otvoriDomacina("Domacinstvo Markovic")}
+        NazivDomacinstva="Domacinstvo Markovic"
+        adresa="Neka random adresa4"
         brojTelefona="06512212524"
       />
     </div>
