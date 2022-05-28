@@ -22,6 +22,33 @@ const theme = createTheme();
 
 export default function SignUp() {
   
+  const [textIme, setTextIme] = useState("");
+  const [textPrezime, setTextPrezime] = useState("");
+  const [textEmail, setTextEmail] = useState("");
+  const [textUsername, setTextUsername] = useState("");
+  const [textPassword, setTextPassword] = useState("");
+
+
+  const onChangeImeHandler = (event) => {
+    setTextIme(event.target.value);
+  }
+
+  const onChangePrezimeHandler = (event) => {
+    setTextPrezime(event.target.value);
+  }
+
+  const onChangeUsernameHandler = (event) => {
+    setTextUsername(event.target.value);
+  }
+
+  const onChangeEmailHandler = (event) => {
+    setTextEmail(event.target.value);
+  }
+
+  const onChangePasswordHandler = (event) => {
+    setTextPassword(event.target.value);
+  }
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -30,7 +57,28 @@ export default function SignUp() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    console.log(textIme, textPrezime, textUsername, textPassword, textEmail);
+    fetchAddNewKorisnik();
   };
+
+
+  async function fetchAddNewKorisnik(){
+    const response = await fetch("https://localhost:5001/Administrator/DodatiKorisnika/" + textIme + "/" +
+        textPrezime + "/" + textUsername + "/" + textPassword + "/" + textEmail + "/K"
+    ,{
+      method: 'POST',
+      body: JSON.stringify({title: 'Uspesno je dodat'}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
+    console.log(data);
+
+    let path = "Prijava";
+    history.push(path);
+  }
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -61,6 +109,7 @@ export default function SignUp() {
                   id="firstName"
                   label="Ime"
                   autoFocus
+                  onChange = {onChangeImeHandler} 
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -71,6 +120,18 @@ export default function SignUp() {
                   label="Prezime"
                   name="lastName"
                   autoComplete="family-name"
+                  onChange = {onChangePrezimeHandler} 
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="family-name"
+                  onChange = {onChangeUsernameHandler} 
                 />
               </Grid>
               <Grid item xs={12}>
@@ -81,6 +142,7 @@ export default function SignUp() {
                   label="Email adresa"
                   name="email"
                   autoComplete="email"
+                  onChange = {onChangeEmailHandler} 
                 />
               </Grid>
               <Grid item xs={12}>
@@ -92,10 +154,11 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange = {onChangePasswordHandler} 
                 />
               </Grid>
               
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
               <input type="radio" value="Proizvodjac" id="Proizvodjac"  name="flag"/>
              
             <label >Proizvodjac</label>
@@ -105,7 +168,8 @@ export default function SignUp() {
             <input type="radio" value="Kupac" id="Kupac" name="flag"/>
             
             <label>Kupac</label>
-              </Grid>
+              </Grid> */}
+
             </Grid>
             <Button
               type="submit"

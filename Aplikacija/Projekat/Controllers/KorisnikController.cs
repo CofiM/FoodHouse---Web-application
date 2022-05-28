@@ -42,7 +42,7 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var korisnik = await Context.Korisnici.Where(p => p.email == email || p.Password == password).FirstOrDefaultAsync();
+                var korisnik = await Context.Korisnici.Where(p => p.email == email && p.Password == password).FirstOrDefaultAsync();
                 if (korisnik == null)
                 {
                     throw new Exception("Ne postoji korisnik!");

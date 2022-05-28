@@ -40,8 +40,9 @@ export default function SignIn(){
     });
 
     console.log(textEmail, textPassword);
+    fetchLoginDomacinstvoHandler();
+    fetchLoginDostavljacHandler();
     fetchLoginKorisnikHandler();
-    
   };
 
   async function fetchLoginDomacinstvoHandler(){
@@ -62,7 +63,7 @@ export default function SignIn(){
   }
 
   async function fetchLoginDostavljacHandler(){
-    const response = await fetch("https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+textEmail+"/"+textPassword,
+    const response = await fetch("https://localhost:5001/Dosavljac/PreuzmiDostavljac/"+textEmail+"/"+textPassword,
     {
       method: 'GET',
       headers: {
@@ -73,9 +74,24 @@ export default function SignIn(){
     const data = await response.json();
     console.log(data);
     localStorage.setItem("Korisnik",data.tip);
-    let path = "Domaćinstvo";
+    let path = "Dostavljac";
     history.push(path);
-    
+  }
+
+  async function fetchLoginKorisnikHandler(){
+    const response = await fetch("https://localhost:5001/Korisnik/PreuzetiKorisnika/"+textEmail+"/"+textPassword,
+    {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json;charset=UTF-8'
+      }
+    });
+
+    const data = await response.json();
+    console.log(data);
+    localStorage.setItem("Korisnik",data.tip);
+    let path = "Naslovna";
+    history.push(path);
   }
 
   return (

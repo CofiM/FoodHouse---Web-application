@@ -42,11 +42,11 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("DodatiKorisnika/{ime}/{prezime}/{username}/{password}/{email}")]
+        [Route("DodatiKorisnika/{ime}/{prezime}/{username}/{password}/{email}/{tip}")]
         [EnableCors("CORS")]
         [HttpPost]
         public async Task<ActionResult> dodajKorisnik(string ime, string prezime, string username, 
-                                        string password, string email)
+                                        string password, string email, char tip)
         {
             if(string.IsNullOrWhiteSpace(ime) || ime.Length > 30)
             {
@@ -85,6 +85,7 @@ namespace SWE___PROJEKAT.Controllers
                 k.Username = username;
                 k.Password = password;
                 k.email = email;
+                k.Tip = tip;
                 Context.Korisnici.Add(k);
                 await Context.SaveChangesAsync();
                 return Ok("Uspesno dodat korisnik!");
@@ -259,11 +260,11 @@ namespace SWE___PROJEKAT.Controllers
             }
         } 
 
-        [Route("DodatiDostavljac/{ime}/{prezime}/{username}/{password}/{email}/{telefon}/{cena}")]
+        [Route("DodatiDostavljac/{ime}/{prezime}/{username}/{password}/{email}/{telefon}/{cena}/{tip}")]
         [EnableCors("CORS")]
         [HttpPost]
         public async Task<ActionResult> dodajDostavljaca(string ime, string prezime, string username, string password, string email, 
-                                    string telefon, int cena)
+                                    string telefon, int cena, char tip)
         {
             if(string.IsNullOrWhiteSpace(ime) || ime.Length > 30)
             {
@@ -312,6 +313,7 @@ namespace SWE___PROJEKAT.Controllers
                 dos.email = email;
                 dos.telefon = telefon;
                 dos.Cena = cena;
+                dos.Tip = tip;
                 Context.Dostavljaci.Add(dos);
                 await Context.SaveChangesAsync();
                 return Ok("Uspesno dodat dostavljac!");
