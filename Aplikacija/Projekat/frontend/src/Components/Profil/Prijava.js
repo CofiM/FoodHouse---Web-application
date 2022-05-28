@@ -40,7 +40,7 @@ export default function SignIn(){
     });
 
     console.log(textEmail, textPassword);
-    fetchLoginKorisnikHandler();
+   // fetchLoginKorisnikHandler();
     
   };
 

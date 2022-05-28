@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProizvodCard from '../../Components/Proizvod/ProizvodCard';
+import ProizvodCard from '../Components/Proizvod/ProizvodCard';
 import  { useState } from 'react';
 
 export default function AllProductsCategory(data)
