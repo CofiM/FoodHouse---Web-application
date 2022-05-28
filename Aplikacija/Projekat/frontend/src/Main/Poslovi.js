@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import classes from "./Poslovi.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 
@@ -11,8 +11,7 @@ const Poslovi = () => {
     const [allJobs, setAllJobs] = useState([]);
     const [cardIsShown, setCardIsShown] = useState(false);
 
-
-
+    
     const LokacijaHandler = () => {
         setIsChangeLokacija(true);
     }
@@ -21,30 +20,61 @@ const Poslovi = () => {
         setIsChangeDatum(true);
     }
 
-    useEffect(() => {
+    const fetchJobsHandler = useCallback( async () => {
+        setCardIsShown(true);
+        try{
+            const response = await fetch('https://localhost:5001/Posao/PreuzetiPosloveZaDomacinstvo/2');
+            if(!response.ok){
+                throw new Error('Something went wrong!');
+            }
+
+            const data = await response.json();
+
+            const jobs = data.map((job) => {
+                return{
+                    opis: job.opis,
+                    brojRadnihMesta: job.brojRadnihMesta,
+                    datumPosla: job.datum,
+                    cena: job.cena,
+                    domacin: job.naziv,
+                    adresa: job.adresa
+                };
+            });
+            setAllJobs(jobs);
+            console.log(jobs);
+        }catch (error) {
+            console.log(error.message);
+        }
+    }, []);
+
+    useEffect( () => {
         fetchJobsHandler();
-    }, [fetchJobsHandler]);
+    },[fetchJobsHandler]);
 
-    async function fetchJobsHandler(ID) {
-        setCardIsShown(true)
-        /*var ID = 2;*/
-        const response = await fetch('https://localhost:5001/Posao/PreuzetiPosloveZaDomacinstvo/' + ID);
-        const data = await response.json();
 
-        const jobs = data.map((job) => {
-            return {
-                opis: job.opis,
-                brojRadnihMesta: job.brojRadnihMesta,
-                datumPosla: job.datum,
-                cena: job.cena,
-                domacin: job.naziv,
-                adresa: job.adresa
-            };
-        });
-        console.log(jobs);
-        setAllJobs(jobs);
+    async function onClickSearch() {
+        console.log("ulazim u fetch");
+        setCardIsShown(true);
+        const response = await fetch('https://localhost:5001/Posao/PreuzetiPosloveZaDomacinstvo/2');
+            if(!response.ok){
+                throw new Error('Something went wrong!');
+            }
+
+            const data = await response.json();
+
+            const jobs = data.map((job) => {
+                return{
+                    opis: job.opis,
+                    brojRadnihMesta: job.brojRadnihMesta,
+                    datumPosla: job.datum,
+                    cena: job.cena,
+                    domacin: job.naziv,
+                    adresa: job.adresa
+                };
+            });
+            setAllJobs(jobs);
+            console.log(jobs);
     }
-
 
     return(
         <div className={classes.search}>
@@ -54,11 +84,11 @@ const Poslovi = () => {
                     <input type="date" value="2022-05-15" min="2022-01-01" max="2022-12-31" onClick={DatumHandler} />
                     {/*{!isChangeDatum && !isChangeLokacija && <button className={classes.disabled} onClick={fetchJobsHandler}>Pretraži</button>}*/}
                     {/*{(isChangeDatum || isChangeLokacija) && <button className={classes.enabled} onClick={fetchJobsHandler}>Pretraži</button>}*/}
-                    <button className={classes.enabled} onClick={ fetchJobsHandler(2) }>Pretrazi</button>
+                    <button onClick={fetchJobsHandler}>Pretrazi</button>
                 </div>
                 <div>
                     {cardIsShown &&  allJobs.map((job) => (
-                        <PosloviCard
+                       <PosloviCard
                             opis = {job.opis}
                             brRadnihMesta = {job.brojRadnihMesta}
                             datum = {job.datumPosla}
@@ -66,7 +96,7 @@ const Poslovi = () => {
                             domacin = {job.domacin}
                             adresa = {job.adresa}
                         />
-                    ))}
+                        ))}
                 </div>
             </form>
         </div>

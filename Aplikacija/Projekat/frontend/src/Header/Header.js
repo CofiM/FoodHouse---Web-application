@@ -72,24 +72,28 @@ const ResponsiveAppBar = (props) => {
     }
 
     const items = () => {
-      // const flag = localStorage.getItem("Klijent");
-      // if(flag === 0){
-      //   return HeaderItems;
-      // }
-      // else if( flag === 1){
-      //   return HeaderItemsDomacinstvo;
-      // }
-      // else if( flag === 2)
-      // {
-      //   return HeaderItemsDostavljac;
-      // }
-      return HeaderItems;
+      const flag = localStorage.getItem("Korisnik");
+      console.log(flag);
+      if(flag === "" || flag === null){
+        return HeaderItems;
+      }
+      if(flag === "K"){
+        return HeaderItems;
+      }
+      else if( flag === "P"){
+        return HeaderItemsDomacinstvo;
+      }
+      else if( flag === "D")
+      {
+        return HeaderItemsDostavljac;
+      }
+      
     }
     
 
 
     return (
-      <AppBar position="static">
+      <AppBar position="static" >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
