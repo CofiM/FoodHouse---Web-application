@@ -12,11 +12,12 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { useHistory } from 'react-router-dom';
+import Header from "../../Header/Header";
 const theme = createTheme();
 
 export default function SignIn(){
-
+  const history = useHistory();
   const [textEmail, setTextEmail] = useState('');
   const [textPassword, setTextPassword] = useState('');
 
@@ -39,10 +40,11 @@ export default function SignIn(){
     });
 
     console.log(textEmail, textPassword);
-    fetchLoginHandler();
+    fetchLoginKorisnikHandler();
+    
   };
 
-  async function fetchLoginHandler(){
+  async function fetchLoginDomacinstvoHandler(){
     const response = await fetch("https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+textEmail+"/"+textPassword,
     {
       method: 'GET',
@@ -50,10 +52,30 @@ export default function SignIn(){
         'Content-type': 'application/json;charset=UTF-8'
       }
     });
-    
+
     const data = await response.json();
     console.log(data);
     localStorage.setItem("Korisnik",data.tip);
+    let path = "Domaćinstvo";
+    history.push(path);
+    
+  }
+
+  async function fetchLoginDostavljacHandler(){
+    const response = await fetch("https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+textEmail+"/"+textPassword,
+    {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json;charset=UTF-8'
+      }
+    });
+
+    const data = await response.json();
+    console.log(data);
+    localStorage.setItem("Korisnik",data.tip);
+    let path = "Domaćinstvo";
+    history.push(path);
+    
   }
 
   return (

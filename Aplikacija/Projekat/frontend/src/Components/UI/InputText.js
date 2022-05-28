@@ -2,8 +2,6 @@ import React from "react";
 import classes from "./InputText.module.css";
 import TextField from "@mui/material/TextField";
 
-
-
 function InputText(props) {
   return (
     <div className={classes.fullComponent}>
@@ -13,6 +11,7 @@ function InputText(props) {
       <div className={classes.inputDiv}>
         {/* <input type="text" placeholder={props.placeholder} fontSize="24px"/> */}
         <TextField
+          sx={{ width: "25ch" }}
           id="standard-required"
           label={props.label}
           variant="standard"

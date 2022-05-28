@@ -20,12 +20,18 @@ import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
+import Domacinstvo from "./Main/Domacinstvo";
 
 function App() {
+
+  const onChangeHandler = () => {
+    
+  }
+
   return (
     <div className="App">
       <div className="App-header">
-        <Header />
+        <Header onChange="onChangeHandler"/>
       </div>
       <div className="App-main">
         <main className="Main">
@@ -61,10 +67,11 @@ function App() {
               <Inbox />
             </Route>
             <Route path="/Proizvod">
-              <Proizvod/>
-             </Route>
-             <Route path="/Cart">
-              <Cart/>
+              <Proizvod />
+            </Route>
+            <Route path="/Cart">
+              <Cart />
+              <Proizvod />
             </Route>
             <Route path="/ProfilDostavljac">
               <ProfilDostavljac />
@@ -75,6 +82,10 @@ function App() {
             <Route path="/ProfilKorisnik">
               <ProfilKorisnik />
             </Route>
+            <Route path="/Domaćinstvo">
+              <Domacinstvo />
+            </Route>
+
             <Route path="*">
               <NotFound />
             </Route>
