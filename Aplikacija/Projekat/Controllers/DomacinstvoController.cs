@@ -44,6 +44,7 @@ namespace SWE___PROJEKAT.Controllers
                     p.Naziv,
                     p.Username,
                     p.email,
+                    p.Tip,
                     p.Poslovi,
                     p.Proizvodi
                 }).FirstOrDefaultAsync();
@@ -219,6 +220,9 @@ namespace SWE___PROJEKAT.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+
+
 
         [Route("DodatiPosao/{idD}/{brRadnihMesta}/{datumPocetka}/{opis}/{cena}")]
         [EnableCors("CORS")]

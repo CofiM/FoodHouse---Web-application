@@ -62,10 +62,9 @@ function App() {
             </Route>
             <Route path="/Proizvod">
               <Proizvod/>
-              </Route>
-              <Route path="/Cart">
+             </Route>
+             <Route path="/Cart">
               <Cart/>
-
             </Route>
             <Route path="/ProfilDostavljac">
               <ProfilDostavljac />
@@ -73,7 +72,6 @@ function App() {
             <Route path="/ProfilDomacinstvo">
               <ProfilDomacinstvo />
             </Route>
-
             <Route path="/ProfilKorisnik">
               <ProfilKorisnik />
             </Route>

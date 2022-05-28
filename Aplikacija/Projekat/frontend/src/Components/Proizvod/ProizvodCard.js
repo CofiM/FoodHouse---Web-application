@@ -19,7 +19,7 @@ export default function MultiActionAreaCard(props) {
           <Typography gutterBottom variant="h5" component="div">
           </Typography>
           <Typography variant="body2" color="text.secondary">
-           {props.nazivProizvoda}
+           {props.naziv}
           </Typography> 
         </CardContent>
       </CardActionArea>

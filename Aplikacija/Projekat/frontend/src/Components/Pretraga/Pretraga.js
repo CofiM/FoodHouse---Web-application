@@ -6,8 +6,24 @@ import Select from 'react-select';
 
 import Button from "@mui/material/Button";
 
-var category;
-async function fetchProductsHandler()
+import ProizvodCard from "../Proizvod/ProizvodCard";
+import AllProductsCategory from "../../Main/AllProductsCategory";
+
+
+
+const Pretraga=()=>
+{
+    const [allData, setAllData] = useState([]);
+    const [allProducts, setAllProducts] = useState([]);
+
+    const [value, setValue] = useState();
+
+    const handleChange = (e) => {
+        setValue(e.target.value);
+    }
+
+
+    async function fetchProductsHandler()
 {
    
     const response = await fetch('https://localhost:5001/Proizvod/PreuzetiProizvodeZaKategoriju/' + category,
@@ -17,22 +33,14 @@ async function fetchProductsHandler()
                 'Content-type': 'application/json;charset=UTF-8'
             }
         });
+
     const data = await response.json();
     
-
+    setAllData(data);
+    
 };
 
-
-const Pretraga=()=>
-{
-    const [value, setValue] = useState();
-
-    const handleChange = (e) => {
-        setValue(e.target.value);
-    }
-
-
-     category = value;
+     var category = value;
     const categoryArray = [
         {
             label: "Mlečni proizvodi",
@@ -98,7 +106,14 @@ const Pretraga=()=>
        Pretraga
       </Button>
 
-        </div>
+      
+
+
+
+    </div>
+
+
+
     );
 
 

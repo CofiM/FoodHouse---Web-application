@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from 'react';
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,7 +15,21 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(){
+
+  const [textEmail, setTextEmail] = useState('');
+  const [textPassword, setTextPassword] = useState('');
+
+  const onChangeEmailHandler = (event) => {
+    setTextEmail(event.target.value);
+  }
+
+  const onChangePasswordHandler = (event) => {
+    setTextPassword(event.target.value);
+  }
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -22,7 +37,24 @@ export default function SignIn() {
       email: data.get("email"),
       password: data.get("password"),
     });
+
+    console.log(textEmail, textPassword);
+    fetchLoginHandler();
   };
+
+  async function fetchLoginHandler(){
+    const response = await fetch("https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+textEmail+"/"+textPassword,
+    {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json;charset=UTF-8'
+      }
+    });
+    
+    const data = await response.json();
+    console.log(data);
+    localStorage.setItem("Korisnik",data.tip);
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -55,6 +87,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={onChangeEmailHandler}
             />
             <TextField
               margin="normal"
@@ -65,6 +98,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={onChangePasswordHandler}
             />
 
             <Button
