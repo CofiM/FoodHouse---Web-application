@@ -1,8 +1,8 @@
 .allDomacinstva {
-  width: 1200px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  width: fit-content;
+  margin: auto;
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 .Domacinstvo {
   width: 500px;

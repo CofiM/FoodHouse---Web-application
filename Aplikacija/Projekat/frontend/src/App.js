@@ -61,14 +61,11 @@ function App() {
               <Inbox />
             </Route>
             <Route path="/Proizvod">
-<<<<<<< HEAD
               <Proizvod/>
               </Route>
               <Route path="/Cart">
               <Cart/>
-=======
               <Proizvod />
->>>>>>> a57e5c960833a4afc1d0ebe85dc08fb53e73843b
             </Route>
             <Route path="/ProfilDostavljac">
               <ProfilDostavljac />
