@@ -9,6 +9,7 @@ import { NavLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -21,7 +22,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const theme = createTheme();
 
 export default function SignUp() {
-  
+  const history = useHistory();
   const [textIme, setTextIme] = useState("");
   const [textPrezime, setTextPrezime] = useState("");
   const [textEmail, setTextEmail] = useState("");
