@@ -79,8 +79,12 @@ namespace SWE___PROJEKAT.Controllers
                     p.Naziv,
                     p.Username,
                     p.email,
+                    p.telefon,
+                    p.Adresa,
+                    p.otvorenaVrata,
+                    p.Tip,
                     p.Poslovi,
-                    p.Proizvodi
+                    p.Proizvodi,
                 }).ToListAsync();
                 return Ok(domacinstva);
             }

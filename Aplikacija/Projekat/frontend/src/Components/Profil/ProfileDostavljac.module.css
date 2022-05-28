@@ -1,41 +1,40 @@
-
-.mainStyle{
-    display: flex;
-    flex-direction: column;
-    background-color: darkgrey;
-    height: 100%;
-    width: 100%;
+.mainStyle {
+  display: flex;
+  flex-direction: column;
+  background-color: darkgrey;
+  height: 100%;
+  width: 100%;
 }
 
-.profileHeader{
-    display: flex;
-    background-color: aquamarine;
-    height: 30%;
-    width: 100%;
+.profileHeader {
+  padding: 0 3rem;
+  display: flex;
+  background-color: aquamarine;
+  height: 30%;
+  width: 100%;
 }
-.logoHeader{
-    width: 20%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.logoHeader {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.infHeader{
-    width: 80%;
-    height: 100%;
+.infHeader {
+  width: 80%;
 }
-.medium{
-    display: flex;
-    justify-content: space-around;
-    height: 10%;
+.medium {
+  display: flex;
+  justify-content: space-around;
+  height: 10%;
 
-    border-bottom: solid;
-    border-bottom: thin medium;
+  border-bottom: solid;
+  border-bottom: thin medium;
 
-    border-top: solid;
-    border-top: thin medium;
+  border-top: solid;
+  border-top: thin medium;
 }
-.mainPart{
-    height: 60%;
+.mainPart {
+  height: fit-content;
+  padding-top: 0px;
 }

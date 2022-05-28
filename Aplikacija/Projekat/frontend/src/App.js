@@ -67,10 +67,11 @@ function App() {
               <Inbox />
             </Route>
             <Route path="/Proizvod">
-              <Proizvod/>
-             </Route>
-             <Route path="/Cart">
-              <Cart/>
+              <Proizvod />
+            </Route>
+            <Route path="/Cart">
+              <Cart />
+              <Proizvod />
             </Route>
             <Route path="/ProfilDostavljac">
               <ProfilDostavljac />

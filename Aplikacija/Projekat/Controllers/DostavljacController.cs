@@ -22,6 +22,32 @@ namespace SWE___PROJEKAT.Controllers
             Context = context;
         }
 
+         [Route("PreuzmiDostavljac/{email}/{password}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> PreuzmiDostavljac(string email, string password)
+        {
+            try
+            {
+                var dostavljac = await Context.Dostavljaci.Where(p => p.email == email && p.Password == password).Select(p => new{
+                            p.ID,
+                            p.Username,
+                            p.Password,
+                            p.email,
+                            p.Cena,
+                            p.telefon,
+                            p.Ime,
+                            p.Prezime,
+                            p.Tip
+                            }).FirstOrDefaultAsync();
+                return Ok(dostavljac);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("PostaviDostavljaca/{usernameD}/{id}")]
         [EnableCors("CORS")]
         [HttpPut]

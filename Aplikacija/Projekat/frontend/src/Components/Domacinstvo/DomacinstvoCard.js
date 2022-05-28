@@ -6,11 +6,8 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 
 export default function MultiActionAreaCard(props) {
-  // const otvoriDomacina = () => {
-  //   console.log("otvaram domacina");
-  // };
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, m: 2 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -23,8 +20,8 @@ export default function MultiActionAreaCard(props) {
             {props.NazivDomacinstva}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Ovo domacinstov se nalazi {props.adresa}, mozete nas kontaktirati
-            svakog dana na broj telefona {props.brojTelefona}.
+            Ovo domacinstov se nalazi {props.Adresa}, mozete nas kontaktirati
+            svakog dana na broj telefona {props.Telefon}.
           </Typography>
         </CardContent>
       </CardActionArea>
