@@ -45,6 +45,13 @@ export default function BasicCard(props) {
         >
           Domaćin: {props.domacin} 
         </Typography>
+        <Typography
+            sx={{ fontSize: 18, fontWeight: 400 }}
+            color="text"
+            gutterBottom
+        >
+            Adresa: {props.adresa}
+        </Typography>
       </CardContent>
       <CardActions sx={{alignItems:"center", justifyContent:"center"}}>
         <Button size="medium"> Prijavi se</Button>

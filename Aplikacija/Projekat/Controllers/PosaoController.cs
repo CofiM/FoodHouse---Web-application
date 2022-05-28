@@ -21,7 +21,7 @@ namespace SWE___PROJEKAT.Controllers
         {
             Context=context;
         }
-        [Route("PreuzetiPosloveZaDomacinstvo/{idDoma}")]
+        [Route("PreuzetiPosloveZaDomacinstvo/{idDomacinstva}")]
         [EnableCors("CORS")]
         [HttpGet]
         public async Task<ActionResult> preuzmiPosloveZaDomacinstva(int idDomacinstva)
@@ -41,6 +41,8 @@ namespace SWE___PROJEKAT.Controllers
                                 p.Datum,
                                 p.Opis,
                                 p.Cena,
+                                p.Domacinstvo.Naziv,
+                                p.Domacinstvo.Adresa
                             }).ToArrayAsync();
                 if(poslovi == null)
                 {
