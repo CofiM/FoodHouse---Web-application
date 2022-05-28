@@ -167,7 +167,7 @@ namespace SWE___PROJEKAT.Controllers
                 d.Tip = tip;
                 Context.Domacinstva.Add(d);
                 await Context.SaveChangesAsync();
-                return Ok("Uspesno dodat domacinstvo!");
+                return Ok("Uspesno dodato domacinstvo!");
             }
             catch(Exception e)
             {
