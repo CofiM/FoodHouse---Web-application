@@ -7,13 +7,11 @@ import Select from 'react-select';
 import Button from "@mui/material/Button";
 
 import ProizvodCard from "../Proizvod/ProizvodCard";
-import AllProductsCategory from "../../Main/AllProductsCategory";
-
 
 
 const Pretraga=()=>
 {
-    const [allData, setAllData] = useState([]);
+  //  const [allData, setAllData] = useState([]);
     const [allProducts, setAllProducts] = useState([]);
 
     const [value, setValue] = useState();
@@ -22,9 +20,8 @@ const Pretraga=()=>
         setValue(e.target.value);
     }
 
-
     async function fetchProductsHandler()
-{
+    {
    
     const response = await fetch('https://localhost:5001/Proizvod/PreuzetiProizvodeZaKategoriju/' + category,
         {
@@ -35,10 +32,21 @@ const Pretraga=()=>
         });
 
     const data = await response.json();
+
+    const products= data.map((product)=>{
+        return{
+            naziv: product.naziv,
+            opis: product.opis,
+            cena: product.cena,
+            kolicina: product.kolicina,
+        };
+    });
+    setAllProducts(products);
+    console.log(products);
     
-    setAllData(data);
+   
     
-};
+    };
 
      var category = value;
     const categoryArray = [
@@ -81,10 +89,11 @@ const Pretraga=()=>
    
 
     return(
+        <div className={classes.divCeo}>
         <div className={classes.divGlavni}>
         <input type='text' placeholder="Koji proizvod želite da pronađete" ></input>
         <div className="example-config">
-      </div>
+        </div>
             <div>
                 <select className="Category" onChange={handleChange} >
                     {categoryArray.map((option) => (
@@ -93,7 +102,7 @@ const Pretraga=()=>
                 </select>
        
         
-      </div>
+            </div>
       <div>
       <Select options={dos}
         placeholder="Dostava"
@@ -102,16 +111,27 @@ const Pretraga=()=>
         }}
       />
             </div>
-            <Button variant="contained" color="success" onClick={fetchProductsHandler} >
-       Pretraga
-      </Button>
+       <div>
+           <Button variant="contained" color="success" onClick={fetchProductsHandler} >
+            Pretraga
+            </Button>
+      </div>
+        <div className={classes.divProducts}>
+      <div>
+        { allProducts.map((product) => (
+           <ProizvodCard
+                naziv={product.naziv}
+                opis = {product.opis}
+                cena= {product.cena}
+                kolicina = {product.kolicina}
+            />
+            ))}
+        </div>
 
-      
-
-
+        </div>  
 
     </div>
-
+    </div>
 
 
     );
