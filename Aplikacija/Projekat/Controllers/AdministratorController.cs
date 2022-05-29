@@ -42,6 +42,71 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("GetAccount/{email}/{password}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> GetAccount(string email, string password)
+        {
+            if (String.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest("Morate da unesete email!");
+            }
+            if (String.IsNullOrWhiteSpace(password))
+            {
+                return BadRequest("Morate da unesete sifru!");
+            }
+            try
+            {
+                var retAcc1 = await Context.Domacinstva
+                .Where(p => p.email == email && p.Password == password)
+                .Select(p => new
+                {
+                    p.ID,
+                    p.Naziv,
+                    p.Username,
+                    p.email,
+                    p.Tip,
+                    p.Poslovi,
+                    p.Proizvodi
+                }).FirstOrDefaultAsync();
+                if (retAcc1 == null)
+                {
+                    var retAcc2 = await Context.Dostavljaci.Where(p => p.email == email && p.Password == password).Select(p => new{
+                            p.ID,
+                            p.Username,
+                            p.Password,
+                            p.email,
+                            p.Cena,
+                            p.telefon,
+                            p.Ime,
+                            p.Prezime,
+                            p.Tip
+                            }).FirstOrDefaultAsync();
+                    if(retAcc2 == null){
+                        var retAcc3 = await Context.Korisnici.Where(p => p.email == email && p.Password == password).Select(p => new{
+                            p.ID,
+                            p.Ime,
+                            p.Prezime,
+                            p.Username,
+                            p.Password,
+                            p.email,
+                            p.Tip
+                        }).FirstOrDefaultAsync();
+                        if(retAcc3 == null){
+                            return BadRequest("Nepostojeci acc!");
+                        }
+                        return Ok(retAcc3);
+                    }
+                    return Ok(retAcc2);
+                } 
+                return Ok(retAcc1);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("DodatiKorisnika/{ime}/{prezime}/{username}/{password}/{email}/{tip}")]
         [EnableCors("CORS")]
         [HttpPost]
