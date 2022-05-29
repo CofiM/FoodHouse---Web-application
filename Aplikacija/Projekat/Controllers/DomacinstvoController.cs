@@ -63,6 +63,43 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("PreuzmiDomacinstvo/{id}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiDomacinstvo(int id)
+        {
+            if (id < 0)
+            {
+                return BadRequest("Nevalidan id!");
+            }
+            try
+            {
+                var domacinstvo = await Context.Domacinstva
+                .Where(p => p.ID == id)
+                .Select(p => new
+                {
+                    p.Naziv,
+                    p.Username,
+                    p.email,
+                    p.Tip,
+                    p.Poslovi,
+                    p.Proizvodi
+                }).FirstOrDefaultAsync();
+                if (domacinstvo != null)
+                {
+                    return Ok(domacinstvo);
+                }
+                else
+                {
+                    return BadRequest("Nema domacinstva sa zadatim ID-jem!");
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         
         [Route("PreuzmiSvaDomacinstvo")]
         [EnableCors("CORS")]
@@ -383,15 +420,15 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("DodatiProizvod/{usernameD}/{naziv}/{kol}/{cena}/{opis}/{kat}")]
+        [Route("DodatiProizvod/{idD}/{naziv}/{kol}/{cena}/{opis}/{kat}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> dodajProizvod(string usernameD, String naziv, int kol,
+        public async Task<ActionResult> dodajProizvod(int idD, String naziv, int kol,
                                     int cena, String opis, String kat)
         {
-            if (string.IsNullOrWhiteSpace(usernameD) || usernameD.Length > 30)
+            if (idD < 0)
             {
-                return BadRequest("Nevalidan unos za username!");
+                return BadRequest("Nevalidan unos za id!");
             }
             if (kol < 0 || kol > 1000)
             {
@@ -411,7 +448,7 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var domacinstvo = await Context.Domacinstva.Where(p => p.Username == usernameD).FirstOrDefaultAsync();
+                var domacinstvo = await Context.Domacinstva.Where(p => p.ID == idD).FirstOrDefaultAsync();
                 if (domacinstvo != null)
                 {
                     var proizvod = new Proizvod();

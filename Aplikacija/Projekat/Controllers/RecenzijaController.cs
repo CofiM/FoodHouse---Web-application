@@ -22,6 +22,27 @@ namespace SWE___PROJEKAT.Controllers
             Context=context;
         }
 
+        [Route("GetRecenzije/{idP}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> GetRecenzije(int idP)
+        {
+            try
+            {
+                var recenzije = await Context.Recenzije.Include(p => p.Proizvod)
+                .Where(p => p.Proizvod.ID == idP).Select(p => new{
+                            p.Ocena,
+                            p.Komentar,
+                            p.Proizvod.ID
+                            }).ToArrayAsync();
+                return Ok(recenzije);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("DodatiRecenziju/{ocena}/{komentar}/{idProizvoda}")]
         [EnableCors("CORS")]
         [HttpPost]

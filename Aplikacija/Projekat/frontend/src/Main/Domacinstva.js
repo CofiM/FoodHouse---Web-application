@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import DomacinstvoCard from "../Components/Domacinstvo/DomacinstvoCard";
 import classes from "./Domacinstva.module.css";
+import { useHistory } from "react-router-dom";
 
 function Domacinstva() {
+  const history = useHistory();
+  const openDomacinstvo = (ID) => {
+    localStorage.setItem("DomacinstvoID", ID);
+    let path = "Domaćinstvo";
+    history.push(path);
+  };
   const [domacinstva, setDomacinstva] = useState([]);
   useEffect(() => {
     const fetchDomacinstvaHandler = async () => {
@@ -37,6 +44,7 @@ function Domacinstva() {
           NazivDomacinstva={dom.Naziv}
           Adresa={dom.Adresa}
           Telefon={dom.Telefon}
+          onClick={() => openDomacinstvo(dom.ID)}
         />
       ))}
     </div>
