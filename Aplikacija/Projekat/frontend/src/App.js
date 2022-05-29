@@ -21,6 +21,8 @@ import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 import Domacinstvo from "./Main/Domacinstvo";
+import ViewProducts from "./Main/ViewProducts";
+
 
 function App() {
 
@@ -84,6 +86,9 @@ function App() {
             </Route>
             <Route path="/Domaćinstvo">
               <Domacinstvo />
+            </Route>
+            <Route path="/ViewProducts">
+              <ViewProducts />
             </Route>
 
             <Route path="*">

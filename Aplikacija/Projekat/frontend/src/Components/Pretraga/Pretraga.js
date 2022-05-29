@@ -3,10 +3,12 @@ import classes from "./Pretraga.module.css";
 import React, { Component } from 'react';
 import  { useState } from 'react';
 import Select from 'react-select';
+import { withRouter } from "react-router";
 
 import Button from "@mui/material/Button";
+import { useHistory } from "react-router-dom";
 
-import ProizvodCard from "../Proizvod/ProizvodCard";
+
 
 
 const Pretraga=()=>
@@ -20,35 +22,49 @@ const Pretraga=()=>
         setValue(e.target.value);
     }
 
-    async function fetchProductsHandler()
-    {
+    // async function fetchProductsHandler()
+    // {
    
-    const response = await fetch('https://localhost:5001/Proizvod/PreuzetiProizvodeZaKategoriju/' + category,
-        {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json;charset=UTF-8'
-            }
-        });
+    // const response = await fetch('https://localhost:5001/Proizvod/PreuzetiProizvodeZaKategoriju/' + category,
+    //     {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-type': 'application/json;charset=UTF-8'
+    //         }
+    //     });
 
-    const data = await response.json();
+    // const data = await response.json();
+        
 
-    const products= data.map((product)=>{
-        return{
-            naziv: product.naziv,
-            opis: product.opis,
-            cena: product.cena,
-            kolicina: product.kolicina,
-        };
-    });
-    setAllProducts(products);
-    console.log(products);
+    // dataSend(data);
+    // // localStorage.setItem("Data",data);
+    // // let path="ViewProducts";
+    // // history.push(path);
+    
+
+    // const products= data.map((product)=>{
+    //     return{
+    //         naziv: product.naziv,
+    //         opis: product.opis,
+    //         cena: product.cena,
+    //         kolicina: product.kolicina,
+    //     };
+    // });
+    // setAllProducts(products);
+    // console.log(products);
     
    
     
+    // };
+    const history=useHistory();
+    const dataSend = (data) =>
+    {     
+        localStorage.setItem("Category", data);
+        history.push("ViewProducts");
     };
 
      var category = value;
+    // console.log(category);
     const categoryArray = [
         {
             label: "Mlečni proizvodi",
@@ -112,11 +128,13 @@ const Pretraga=()=>
       />
             </div>
        <div>
-           <Button variant="contained" color="success" onClick={fetchProductsHandler} >
+           <Button variant="contained" color="success" onClick={()=>dataSend(category)} >
             Pretraga
             </Button>
       </div>
-        <div className={classes.divProducts}>
+      
+      
+        {/* <div className={classes.divProducts}>
       <div>
         { allProducts.map((product) => (
            <ProizvodCard
@@ -128,7 +146,7 @@ const Pretraga=()=>
             ))}
         </div>
 
-        </div>  
+        </div>   */}
 
     </div>
     </div>
