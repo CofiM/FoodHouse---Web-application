@@ -164,6 +164,44 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("PreuzetiProizvodeNazivKategorija/{naziv}/{kategorija}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzetiProizvodeNazivKategorija(string naziv, string kategorija)
+        {
+            if(string.IsNullOrWhiteSpace(naziv) || naziv.Length > 100)
+            {
+                return BadRequest("Nevalidan unos!");
+            }
+            if(string.IsNullOrWhiteSpace(kategorija) || kategorija.Length > 100)
+            {
+                return BadRequest("Nevalidan unos!");
+            }
+            try
+            {
+                var proizvodi = await Context.Proizvodi
+                                .Include(p => p.Domacinstvo).Where(p => p.Naziv == naziv && p.Kategorija == kategorija)
+                                .Select(p => new{
+                                    p.ID,
+                                    p.Naziv,
+                                    p.Kolicina,
+                                    p.Cena,
+                                    p.Opis,
+                                    p.Kategorija,
+                                    nazivDomacinstva = p.Domacinstvo.Naziv
+                                }).ToListAsync();
+                if(proizvodi == null)
+                {
+                    throw new Exception("Nije pronadjen!");
+                }
+                return Ok(proizvodi);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("PreuzetiRecenzije/{idProizvoda}")]
         [EnableCors("CORS")]
         [HttpGet]
