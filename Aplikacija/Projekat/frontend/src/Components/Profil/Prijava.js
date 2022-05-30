@@ -65,10 +65,12 @@ export default function SignIn(){
     if(data.tip === "K"){
       let path = "Naslovna";
       history.push(path);
+      localStorage.setItem("KorisnikID", data.id);
     }
     else if ( data.tip === "D"){
       let path = "Dostavljac";
       history.push(path);
+      localStorage.setItem("DostavljacID", data.id);
     }
     else if ( data.tip === "P"){
       let path = "Domaćinstvo";

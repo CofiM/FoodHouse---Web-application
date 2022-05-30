@@ -37,17 +37,34 @@ const ViewProducts = ()=>
     localStorage.removeItem("Category");
     }, []);
 
+
+    const sortArray = [
+        { label: "Po abecedi"},
+        { label: "Po ceni"}
+    ];
+
     return (
         
         <div>
-          { allProducts.map((product) => (
-             <ProizvodCard
-                  naziv={product.naziv}
-                  opis = {product.opis}
-                  cena= {product.cena}
-                  kolicina = {product.kolicina}
-              />
-              ))}
+            <div>
+            <select>
+                    {sortArray.map((option) => (
+                        <option value={option.label}>{option.label}</option>
+                    ))}
+                </select> 
+
+            </div>
+
+            <div>
+                { allProducts.map((product) => (
+                    <ProizvodCard
+                        naziv={product.naziv}
+                        opis = {product.opis}
+                        cena= {product.cena}
+                        kolicina = {product.kolicina}
+                    />
+                ))}
+              </div>
           </div>
     );
 
