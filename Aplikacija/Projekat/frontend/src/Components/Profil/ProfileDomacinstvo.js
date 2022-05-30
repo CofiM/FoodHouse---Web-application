@@ -5,20 +5,47 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import UpdateProfileDomacinstvo from "./UpdateProfileDomacinstvo";
 import DesignProfileDomacinstvo from "./DesignProfileDomacinstvo";
+import { useEffect } from "react";
 
 const ProfilDomacinstvo = () => {
   const [isShowProfile, setIsShowProfile] = useState(true);
   const [isShowUpdateProfile, setIsShowUpdateProfile] = useState(false);
-
+  const [data, setData] = useState([]);
   const onClickProfileHandler = () => {
     setIsShowProfile(true);
     setIsShowUpdateProfile(false);
+    
   };
 
   const onClickUpdateProfileHandler = () => {
     setIsShowProfile(false);
     setIsShowUpdateProfile(true);
   };
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const id = localStorage.getItem("DataObject");
+      const response = await fetch("https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+id,{
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json;charset=UTF-8'
+        }
+      });
+      const data = await response.json();
+      const transformData = data.map(function(d) {
+        return{
+          ID:d.id,
+          Naziv: d.naziv,
+          Username: d.username,
+          Email: d.email, 
+          Adresa: d.Adresa,
+          Telefon: d.telefon
+        };
+      } )
+      setData(transformData);
+    }
+    fetchProfile();
+  }, []) 
 
   return (
     <div className={classes.mainStyle}>
@@ -55,8 +82,8 @@ const ProfilDomacinstvo = () => {
       <div className={classes.mainPart}>
         {isShowProfile && (
           <DesignProfileDomacinstvo
-            Naziv="Gazdinstvo Maletic"
-            Username="Sule Spanac"
+            Naziv={data.Naziv}
+            Username="B"
             Email="lazar@gmail.com"
             Adresa="2000"
             Telefon="0642631426"
