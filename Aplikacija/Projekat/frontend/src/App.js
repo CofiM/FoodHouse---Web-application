@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Header from "./Header/Header";
 import "./App.css";
@@ -12,6 +12,10 @@ import Prijava from "./Components/Profil/Prijava";
 import Registracija from "./Components/Profil/Registracija";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
+import Domacinstvo from "./Main/Domacinstvo";
+import ViewProducts from "./Main/ViewProducts";
+import ViewProductsName from "./Main/ViewProductsName";
+import ViewProductsStrict from "./Main/ViewProductsStrict";
 import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
 import Proizvod from "./Components/Proizvod/Proizvod";
@@ -26,7 +30,6 @@ import ViewProductsStrict from "./Main/ViewProductsStrict";
 import { useState } from "react";
 
 function App() {
-
   const [cart, setCart] = useState([]);
 
   const handleClick = (item) => {
@@ -43,86 +46,86 @@ function App() {
     setCart([...arr]);
   };
 
-
-
-
-
   return (
     <CartProvider>
-    <div className="App">
-      <div className="App-header">
-        <Header onChange="onChangeHandler" />
-      </div>
-      <div className="App-main">
-        <main className="Main">
-          <Switch>
-            <Route path="/" exact>
-              <Redirect to="/Naslovna" />
-            </Route>
-            <Route path="/Naslovna">
-              <Naslovna />
-            </Route>
-            <Route path="/Domaćinstva">
-              <Domacinstva />
-            </Route>
-            <Route path="/Poslovi">
-              <Poslovi />
-            </Route>
-            <Route path="/Poslovi">
-              <Poslovi />
-            </Route>
-            <Route path="/Prijava">
-              <Prijava />
-            </Route>
-            <Route path="/Registracija">
-              <Registracija />
-            </Route>
-            <Route path="/dodajPosao">
-              <DodajPosao />
-            </Route>
-            <Route path="/Dostavljaci">
-              <Dostavljaci />
-            </Route>
-            <Route path="/Inbox">
-              <Inbox />
-            </Route>
-            <Route path="/Proizvod">
-              <Proizvod handleClick={handleClick}/>
-             </Route>
-             <Route path="/Cart">
-              <Cart cart={cart} setCart={setCart} handleChange={handleChange} />
-            </Route>
-            <Route path="/ProfilDostavljac">
-              <ProfilDostavljac />
-            </Route>
-            <Route path="/ProfilDomacinstvo">
-              <ProfilDomacinstvo />
-            </Route>
-            <Route path="/ProfilKorisnik">
-              <ProfilKorisnik />
-            </Route>
-            <Route path="/Domaćinstvo">
-              <Domacinstvo />
-            </Route>
-            <Route path="/ViewProducts">
-              <ViewProducts />
-            </Route>
-            <Route path="/ViewProductsName">
-              <ViewProductsName />
-            </Route>
-            <Route path="/ViewProductsStrict">
-              <ViewProductsStrict />
-            </Route>
+      <div className="App">
+        <div className="App-header">
+          <Header onChange="onChangeHandler" />
+        </div>
+        <div className="App-main">
+          <main className="Main">
+            <Switch>
+              <Route path="/" exact>
+                <Redirect to="/Naslovna" />
+              </Route>
+              <Route path="/Naslovna">
+                <Naslovna />
+              </Route>
+              <Route path="/Domaćinstva">
+                <Domacinstva />
+              </Route>
+              <Route path="/Poslovi">
+                <Poslovi />
+              </Route>
+              <Route path="/Poslovi">
+                <Poslovi />
+              </Route>
+              <Route path="/Prijava">
+                <Prijava />
+              </Route>
+              <Route path="/Registracija">
+                <Registracija />
+              </Route>
+              <Route path="/dodajPosao">
+                <DodajPosao />
+              </Route>
+              <Route path="/Dostavljaci">
+                <Dostavljaci />
+              </Route>
+              <Route path="/Inbox">
+                <Inbox />
+              </Route>
+              <Route path="/Proizvod">
+                <Proizvod handleClick={handleClick} />
+              </Route>
+              <Route path="/Cart">
+                <Cart
+                  cart={cart}
+                  setCart={setCart}
+                  handleChange={handleChange}
+                />
+              </Route>
+              <Route path="/ProfilDostavljac">
+                <ProfilDostavljac />
+              </Route>
+              <Route path="/ProfilDomacinstvo">
+                <ProfilDomacinstvo />
+              </Route>
+              <Route path="/ProfilKorisnik">
+                <ProfilKorisnik />
+              </Route>
+              <Route path="/Domaćinstvo">
+                <Domacinstvo />
+              </Route>
+              <Route path="/ViewProducts">
+                <ViewProducts />
+              </Route>
+              <Route path="/ViewProductsName">
+                <ViewProductsName />
+              </Route>
+              <Route path="/ViewProductsStrict">
+                <ViewProductsStrict />
+              </Route>
 
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-        </main>
-      </div>
+              <Route path="*">
+                <NotFound />
+              </Route>
+            </Switch>
+          </main>
+        </div>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
     </CartProvider>
   );
 }

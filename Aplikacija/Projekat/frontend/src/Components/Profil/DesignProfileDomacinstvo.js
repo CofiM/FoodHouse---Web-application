@@ -35,7 +35,7 @@ const DesignProfileDomacinstvo = (props) => {
           <label>{props.Telefon}</label>
         </div>
         <div className={classes.labelLeft}>
-          <label>Datum otvorena vrata:</label>
+          <label>Datum otvorenih vrata:</label>
         </div>
         <div className={classes.labelRight}>
           <label>{props.Datum}</label>

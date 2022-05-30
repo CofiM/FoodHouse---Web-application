@@ -9,11 +9,11 @@ function InputText(props) {
         <label>{props.label}:</label>
       </div>
       <div className={classes.inputDiv}>
-        {/* <input type="text" placeholder={props.placeholder} fontSize="24px"/> */}
         <TextField
           sx={{ width: "25ch" }}
           id="standard-required"
           label={props.label}
+          defaultValue={props.value}
           variant="standard"
         />
       </div>

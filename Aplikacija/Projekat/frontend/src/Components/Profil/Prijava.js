@@ -59,20 +59,23 @@ export default function SignIn(){
     
     localStorage.setItem("Korisnik",data.tip);
 
-    localStorage.setItem("DataObject", data.id);
+    
 
 
     if(data.tip === "K"){
       let path = "Naslovna";
       history.push(path);
+      localStorage.setItem("KorisnikID", data.id);
     }
     else if ( data.tip === "D"){
       let path = "Dostavljac";
       history.push(path);
+      localStorage.setItem("DostavljacID", data.id);
     }
     else if ( data.tip === "P"){
       let path = "Domaćinstvo";
       history.push(path);
+      localStorage.setItem("DomacinstvoID", data.id);
     }
   }
   return (

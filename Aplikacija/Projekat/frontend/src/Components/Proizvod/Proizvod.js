@@ -22,9 +22,9 @@ const Proizvod = (props) => {
   const location = useLocation();
 
   useEffect(() => {
-     console.log(location.pathname); // result: '/secondpage'
-     console.log(location.search); // result: '?query=abc'
-     console.log(location.state); // result: 'some_value'
+    console.log(location.pathname); // result: '/secondpage'
+    console.log(location.search); // result: '?query=abc'
+    console.log(location.product); // result: 'some_value'
   }, [location]);
 
     return (
@@ -54,7 +54,7 @@ const Proizvod = (props) => {
          
           </div>
       </div>
-    )
-}
+  );
+};
 
 export default Proizvod;

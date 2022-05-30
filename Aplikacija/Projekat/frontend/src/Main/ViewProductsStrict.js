@@ -41,12 +41,26 @@ const ViewProductsStrict = ()=>
     fetchProductsHandler();
     localStorage.removeItem("Name");
     localStorage.removeItem("Category");
-    
+
     }, []);
 
+    const sortArray = [
+        { label: "Po abecedi"},
+        { label: "Po ceni"}
+    ];
+    
     return (
         
         <div>
+            <div>
+            <select>
+                    {sortArray.map((option) => (
+                        <option value={option.label}>{option.label}</option>
+                    ))}
+                </select> 
+
+            </div>
+
           { allProducts.map((product) => (
              <ProizvodCard
                   naziv={product.naziv}

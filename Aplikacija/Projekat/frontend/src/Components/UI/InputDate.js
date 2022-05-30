@@ -15,7 +15,7 @@ function InputDate(props) {
         id="date"
         label={props.label}
         type="date"
-        defaultValue="Today"
+        defaultValue={props.value}
         sx={{ width: 220 }}
         InputLabelProps={{
           shrink: true,

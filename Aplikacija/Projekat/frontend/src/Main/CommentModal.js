@@ -34,11 +34,10 @@ export default function BasicModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {props.komentar.map((com) => {
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {com.komentar}
-            </Typography>;
-          })}
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            {props.komentar}
+          </Typography>
+          ;
           <div>
             <Button onClick={props.onClose}>Zatvori</Button>
           </div>
