@@ -5,6 +5,7 @@ import slicica from '../../pictures/logo.png';
 import cartCtx from '../Korpa/CartContext';
 import ImageGallery from './ImageGallery';
 import CartProvider from '../Korpa/CartProvider';
+import { useEffect } from 'react';
 
 
 const Proizvod = (props) => {
@@ -44,7 +45,7 @@ const Proizvod = (props) => {
             </div>
 
             <div className = {classes['purchase-info']}>
-              <input ref={amountInputRef} type='number' min='1' max='100' step='1' defaultValue='1'/>
+              <input  type='number' min='1' max='100' step='1' defaultValue='1'/>
               <button onClick={props.handleClick(location.product.id)} type = 'button' className = {classes.btn}>
                 Dodaj u korpu
               </button>
