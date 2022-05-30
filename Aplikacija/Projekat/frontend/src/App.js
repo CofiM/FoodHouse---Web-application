@@ -20,9 +20,32 @@ import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
+import CartProvider from "./Components/Korpa/CartProvider";
 
 function App() {
+
+  const [cart, setCart] = useState([]);
+
+  const handleClick = (item) => {
+    if (cart.indexOf(item) !== -1) return;
+    setCart([...cart, item]);
+  };
+
+  const handleChange = (item, d) => {
+    const ind = cart.indexOf(item);
+    const arr = cart;
+    arr[ind].amount += d;
+
+    if (arr[ind].amount === 0) arr[ind].amount = 1;
+    setCart([...arr]);
+  };
+
+
+
+
+
   return (
+    <CartProvider>
     <div className="App">
       <div className="App-header">
         <Header />
@@ -61,10 +84,10 @@ function App() {
               <Inbox />
             </Route>
             <Route path="/Proizvod">
-              <Proizvod/>
+              <Proizvod handleClick={handleClick}/>
              </Route>
              <Route path="/Cart">
-              <Cart/>
+              <Cart cart={cart} setCart={setCart} handleChange={handleChange} />
             </Route>
             <Route path="/ProfilDostavljac">
               <ProfilDostavljac />
@@ -84,6 +107,7 @@ function App() {
 
       <Footer />
     </div>
+    </CartProvider>
   );
 }
 
