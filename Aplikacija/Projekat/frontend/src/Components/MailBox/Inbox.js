@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import classes from "./Inbox.module.css";
 import SideBar from "./SideBar";
 import MessageCard from "./MessageCard";
@@ -11,7 +12,6 @@ const Inbox = () => {
   const [outbox, setOutbox] = React.useState(false);
 
   const handleClose = () => {
-    console.log("Uslo dobro");
     setOpen(false);
   };
 
@@ -31,6 +31,13 @@ const Inbox = () => {
       setInbox(false);
     }
   };
+
+  useEffect(() => {
+
+    const fetchMessage = async () => {
+      
+    } 
+  })
 
   return (
     <div className={classes.main}>

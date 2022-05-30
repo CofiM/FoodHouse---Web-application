@@ -16,6 +16,9 @@ namespace Models
         [MaxLength(500)]
         public string sadrzaj { get; set; }
 
+        [Required]
+        public char Tip { get; set; }
+
         public Domacinstvo Domacinstvo { get; set; }
 
         public Dostavljac Dostavljac { get; set; }

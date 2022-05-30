@@ -25,8 +25,8 @@ const ProfilDostavljac = () => {
 
     useEffect(() => {
         const fetchProfile = async () => {
-          const id = localStorage.getItem("DomacinstvoID");
-          const response = await fetch("https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+id,{
+          const id = localStorage.getItem("DostavljacID");
+          const response = await fetch("https://localhost:5001/Dosavljac/PreuzmiDostavljac/"+id,{
             method: 'GET',
             headers: {
               'Content-type': 'application/json;charset=UTF-8'
@@ -34,8 +34,6 @@ const ProfilDostavljac = () => {
           });
           const data = await response.json();
           setData(data);
-    
-          
         }
         fetchProfile();
       }, [])
@@ -50,7 +48,8 @@ const ProfilDostavljac = () => {
                     />
                 </div>
                 <div className={classes.infHeader}>
-                    <p>Lazar Najdanovic</p>
+                    <p>{data.ime}</p>
+                    <p>{data.prezime}</p>
                     <p>Ovde da stavimo zivotni moto svakog coveka</p>
                 </div>
            </div>
@@ -63,15 +62,24 @@ const ProfilDostavljac = () => {
            <div className={classes.mainPart}>
                 { isShowProfile &&
                     <DesignProfile 
-                        Ime="Lazar" 
-                        Prezime="Najdanovic" 
-                        Username="Sule Spanac" 
-                        Email="lazar@gmail.com" 
-                        Cena="2000"
-                        Telefon="0642631426"
+                        Ime={data.ime} 
+                        Prezime={data.prezime} 
+                        Username={data.username} 
+                        Email={data.email} 
+                        Cena={data.cena}
+                        Telefon={data.telefon}
                     />
                 }
-                { isShowUpdateProfile && <UpdateProfile /> }
+                { isShowUpdateProfile && 
+                    <UpdateProfile 
+                        Ime={data.ime} 
+                        Prezime={data.prezime} 
+                        Username={data.username} 
+                        Email={data.email} 
+                        Cena={data.cena}
+                        Telefon={data.telefon}
+                    />
+                }
            </div>
        </div>
     );

@@ -156,7 +156,9 @@ namespace SWE___PROJEKAT.Controllers
                             .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == id)
                             .Select(p => new {
                                 p.ID,
-                                p.sadrzaj
+                                p.sadrzaj,
+                                p.Dostavljac,
+                                p.Domacinstvo
                             }).ToArrayAsync();
                 return Ok(poruke);
             }

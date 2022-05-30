@@ -66,10 +66,10 @@ const Cart = (props) => {
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
-        <span>{totalAmount}</span>
+        <span></span>
       </div>
       <div className={classes.actions}>
-        {hasItems && <button className={classes.button}>Order</button>}
+        {<button className={classes.button}>Order</button>}
       </div>
     </div>
         

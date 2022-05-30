@@ -5,18 +5,18 @@ import InputPassword from "../UI/InputPassword";
 import Button from "@mui/material/Button";
 import classes from "./UpdateProfileDostavljac.module.css";
 
-const DesignProfile = () => {
+const DesignProfile = (props) => {
   return (
     <div className={classes.mainDesign}>
       <div className={classes.divInformation}>
-        <InputText label="Ime" />
-        <InputText label="Prezime" />
-        <InputText label="Username" />
-        <InputText label="E-mail" />
+        <InputText label="Ime" value={props.Ime}/>
+        <InputText label="Prezime" value={props.Prezime}/>
+        <InputText label="Username" value={props.Username}/>
+        <InputText label="E-mail" value={props.Email}/>
         <InputPassword label="Password" />
         <InputPassword label="Confirm password" />
-        <InputNumber label="Cena usluga" />
-        <InputText label="Broj telefona" />
+        <InputNumber label="Cena usluga" value={props.Cena}/>
+        <InputText label="Broj telefona" value={props.Telefon}/>
       </div>
       <div className={classes.buttonDiv}>
         <button className={classes.buttonDesign}>Izmeni</button>
