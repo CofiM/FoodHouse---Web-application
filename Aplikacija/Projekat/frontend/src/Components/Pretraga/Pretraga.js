@@ -25,7 +25,7 @@ const Pretraga=()=>
 
     const handleChangeCategory = (e) => {
         setCategory(e.target.value);
-        if(category.length!="")
+        if(category.length!=0)
         {
             setCategoryValid(true);
         }
@@ -51,7 +51,7 @@ const Pretraga=()=>
     {
         if(categoryValid!=false && nameValid!=false)
         {
-            
+            categoryAndNameSend(category,name);
         }
         else if(categoryValid!=false)
         {
@@ -105,6 +105,13 @@ const Pretraga=()=>
     
     // };
     const history=useHistory();
+    const categoryAndNameSend = (category, name) =>
+    {     
+        localStorage.setItem("Category", category);
+        localStorage.setItem("Name", name);
+        history.push("ViewProductsStrict");
+       // console.log(data);
+    };
     const categorySend = (data) =>
     {     
         localStorage.setItem("Category", data);
@@ -159,13 +166,12 @@ const Pretraga=()=>
    
 
     return(
-        <div className={classes.divCeo}>
         <div className={classes.divGlavni}>
         <input type='text' placeholder="Koji proizvod želite da pronađete" onChange={handleChangeName}></input>
         <div className="example-config">
         </div>
             <div>
-                <select className="Category" onChange={handleChangeCategory}>
+                <select className={classes.category} onChange={handleChangeCategory}>
                     {categoryArray.map((option) => (
                         <option value={option.value}>{option.label}</option>
                     ))}
@@ -182,7 +188,7 @@ const Pretraga=()=>
       />
             </div> */}
        <div>
-           <Button variant="contained" color="success" onClick={choosePage} >
+           <Button className={classes.buttonPretraga} variant="contained" color="success" onClick={choosePage} >
             Pretraga
             </Button>
       </div>
@@ -203,9 +209,6 @@ const Pretraga=()=>
         </div>   */}
 
     </div>
-    </div>
-
-
     );
 
 
