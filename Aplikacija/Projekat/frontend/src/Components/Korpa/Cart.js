@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from 'react';
 import CartItem from './CartItem';
 import classes from './Cart.module.css';
 import CartContext from './CartContext';
-import { useState } from 'react';
 
 
 

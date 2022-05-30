@@ -12,10 +12,6 @@ import Prijava from "./Components/Profil/Prijava";
 import Registracija from "./Components/Profil/Registracija";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
-import Domacinstvo from "./Main/Domacinstvo";
-import ViewProducts from "./Main/ViewProducts";
-import ViewProductsName from "./Main/ViewProductsName";
-import ViewProductsStrict from "./Main/ViewProductsStrict";
 import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
 import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
@@ -29,7 +25,6 @@ import ViewProducts from "./Main/ViewProducts";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
 
-import { useState } from "react";
 
 function App() {
   const [cart, setCart] = useState([]);
