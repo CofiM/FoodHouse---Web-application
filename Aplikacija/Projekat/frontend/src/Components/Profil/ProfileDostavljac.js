@@ -5,12 +5,13 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import UpdateProfile from "./UpdateProfileDostavljac";
 import DesignProfile from "./DesignProfileDostavljac";
+import { useEffect } from "react";
 
 
 const ProfilDostavljac = () => {
     const [isShowProfile, setIsShowProfile] = useState(true);
     const [isShowUpdateProfile, setIsShowUpdateProfile] = useState(false);
-
+    const [data, setData] = useState([]);
 
     const onClickProfileHandler = () => {
         setIsShowProfile(true);
@@ -21,6 +22,23 @@ const ProfilDostavljac = () => {
         setIsShowProfile(false);
         setIsShowUpdateProfile(true);
     }
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+          const id = localStorage.getItem("DomacinstvoID");
+          const response = await fetch("https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+id,{
+            method: 'GET',
+            headers: {
+              'Content-type': 'application/json;charset=UTF-8'
+            }
+          });
+          const data = await response.json();
+          setData(data);
+    
+          
+        }
+        fetchProfile();
+      }, [])
 
     return(
        <div className={classes.mainStyle}>

@@ -59,7 +59,7 @@ export default function SignIn(){
     
     localStorage.setItem("Korisnik",data.tip);
 
-    localStorage.setItem("DataObject", data.id);
+    
 
 
     if(data.tip === "K"){
@@ -73,6 +73,7 @@ export default function SignIn(){
     else if ( data.tip === "P"){
       let path = "Domaćinstvo";
       history.push(path);
+      localStorage.setItem("DomacinstvoID", data.id);
     }
   }
   return (

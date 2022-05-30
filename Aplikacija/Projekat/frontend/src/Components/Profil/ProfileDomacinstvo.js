@@ -11,6 +11,7 @@ const ProfilDomacinstvo = () => {
   const [isShowProfile, setIsShowProfile] = useState(true);
   const [isShowUpdateProfile, setIsShowUpdateProfile] = useState(false);
   const [data, setData] = useState([]);
+  const [date, setDate] = useState("");
   const onClickProfileHandler = () => {
     setIsShowProfile(true);
     setIsShowUpdateProfile(false);
@@ -24,7 +25,7 @@ const ProfilDomacinstvo = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const id = localStorage.getItem("DataObject");
+      const id = localStorage.getItem("DomacinstvoID");
       const response = await fetch("https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+id,{
         method: 'GET',
         headers: {
@@ -32,17 +33,11 @@ const ProfilDomacinstvo = () => {
         }
       });
       const data = await response.json();
-      const transformData = data.map(function(d) {
-        return{
-          ID:d.id,
-          Naziv: d.naziv,
-          Username: d.username,
-          Email: d.email, 
-          Adresa: d.Adresa,
-          Telefon: d.telefon
-        };
-      } )
-      setData(transformData);
+      setData(data);
+
+      const myArray = data.otvorenaVrata.split("T");
+      let datum = myArray[0];
+      setDate(datum);
     }
     fetchProfile();
   }, []) 
@@ -57,8 +52,8 @@ const ProfilDomacinstvo = () => {
           />
         </div>
         <div className={classes.infHeader}>
-          <p>Gazdinstvo Maletic</p>
-          <p>Ovde da stavimo zivotni moto svakog coveka</p>
+          <p>{data.naziv}</p>
+          <p></p>
         </div>
       </div>
       <div className={classes.medium}>
@@ -82,15 +77,24 @@ const ProfilDomacinstvo = () => {
       <div className={classes.mainPart}>
         {isShowProfile && (
           <DesignProfileDomacinstvo
-            Naziv={data.Naziv}
-            Username="B"
-            Email="lazar@gmail.com"
-            Adresa="2000"
-            Telefon="0642631426"
-            Datum="26.1.2022"
+            Naziv={data.naziv}
+            Username={data.username}
+            Email={data.email}
+            Adresa={data.adresa}
+            Telefon={data.telefon}
+            Datum={date}
           />
         )}
-        {isShowUpdateProfile && <UpdateProfileDomacinstvo />}
+        {isShowUpdateProfile && 
+        
+          <UpdateProfileDomacinstvo 
+            Naziv={data.naziv}
+            Username={data.username}
+            Email={data.email}
+            Adresa={data.adresa}
+            Telefon={data.telefon}
+            Datum={date}
+          />}
       </div>
     </div>
   );
