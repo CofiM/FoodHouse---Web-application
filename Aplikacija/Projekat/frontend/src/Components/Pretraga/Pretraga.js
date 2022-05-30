@@ -14,13 +14,49 @@ import { useHistory } from "react-router-dom";
 const Pretraga=()=>
 {
   //  const [allData, setAllData] = useState([]);
-    const [allProducts, setAllProducts] = useState([]);
+    //const [allProducts, setAllProducts] = useState([]);
 
-    const [value, setValue] = useState();
+    const [category, setCategory] = useState(" ");
+    const [categoryValid, setCategoryValid] = useState(false);
 
-    const handleChange = (e) => {
-        setValue(e.target.value);
+    const [name, setName] = useState(" ");
+    const [nameValid, setNameValid] = useState(false);
+
+    const handleChangeCategory = (e) => {
+        setCategory(e.target.value);
+        if(category != " ")
+        {
+            setCategoryValid(true);
+        }
     }
+
+    const handleChangeName = (e) =>
+    {
+        setName(e.target.value);
+        if(name != " ")
+        {
+            setNameValid(true);
+        }
+    }
+    const choosePage=()=>
+    {
+        if(categoryValid!=false && nameValid!=false)
+        {
+            
+        }
+        else if(categoryValid!=false)
+        {
+            categorySend(category);
+        }
+        else
+        {
+            nameSend(name);
+        }
+
+
+    }
+
+    //console.log(text);
 
     // async function fetchProductsHandler()
     // {
@@ -57,13 +93,18 @@ const Pretraga=()=>
     
     // };
     const history=useHistory();
-    const dataSend = (data) =>
+    const categorySend = (data) =>
     {     
         localStorage.setItem("Category", data);
         history.push("ViewProducts");
     };
+    const nameSend=(data)=>
+    {
+        localStorage.setItem("Name", data);
+        
+    }
 
-     var category = value;
+     //var category = value;
     // console.log(category);
     const categoryArray = [
         {
@@ -107,11 +148,11 @@ const Pretraga=()=>
     return(
         <div className={classes.divCeo}>
         <div className={classes.divGlavni}>
-        <input type='text' placeholder="Koji proizvod želite da pronađete" ></input>
+        <input type='text' placeholder="Koji proizvod želite da pronađete" onChange={handleChangeName}></input>
         <div className="example-config">
         </div>
             <div>
-                <select className="Category" onChange={handleChange} >
+                <select className="Category" onChange={handleChangeCategory}>
                     {categoryArray.map((option) => (
                         <option value={option.value}>{option.label}</option>
                     ))}
@@ -119,16 +160,16 @@ const Pretraga=()=>
        
         
             </div>
-      <div>
+      {/* <div>
       <Select options={dos}
         placeholder="Dostava"
         style={{
           width: "300px",
         }}
       />
-            </div>
+            </div> */}
        <div>
-           <Button variant="contained" color="success" onClick={()=>dataSend(category)} >
+           <Button variant="contained" color="success" onClick={choosePage} >
             Pretraga
             </Button>
       </div>
