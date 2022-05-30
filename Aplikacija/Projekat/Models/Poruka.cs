@@ -21,8 +21,10 @@ namespace Models
 
         public Domacinstvo Domacinstvo { get; set; }
 
+        [JsonIgnore]
         public Dostavljac Dostavljac { get; set; }
 
+        [JsonIgnore]
         public Korisnik Korisnik { get; set; }
     }
 }
