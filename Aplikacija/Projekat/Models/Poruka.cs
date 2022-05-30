@@ -16,10 +16,13 @@ namespace Models
         [MaxLength(500)]
         public string sadrzaj { get; set; }
 
+        [JsonIgnore]
         public Domacinstvo Domacinstvo { get; set; }
 
+        [JsonIgnore]
         public Dostavljac Dostavljac { get; set; }
 
+        [JsonIgnore]
         public Korisnik Korisnik { get; set; }
     }
 }

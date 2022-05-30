@@ -147,18 +147,23 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var domacinstvo = await Context.Domacinstva.Where(p => p.ID == id).FirstOrDefaultAsync();
+                var domacinstvo = await Context.Domacinstva.Where(p => p.ID == id)
+                .Select(p=> new {p.inbox}).FirstOrDefaultAsync();
                 if (domacinstvo == null)
                 {
                     return BadRequest("Nepostoje domacinstvo sa zadatim id!");
                 }
-                var poruke = await Context.Poruke
-                            .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == id)
-                            .Select(p => new {
-                                p.ID,
-                                p.sadrzaj
-                            }).ToArrayAsync();
-                return Ok(poruke);
+
+                // var poruke = await Context.Poruke
+                //             .Include(p => p.Domacinstvo).Include(p => p.Dostavljac).Include(p => p.Korisnik).Where(p => p.Domacinstvo.ID == id)
+                //             .Select(p => new {
+                //                 p.ID,
+                //                 p.sadrzaj,
+                //                 p.Domacinstvo,
+                //                 p.Dostavljac,
+                //                 p.Korisnik
+                //             }).ToArrayAsync();
+                return Ok(domacinstvo);
             }
             catch (Exception e)
             {
