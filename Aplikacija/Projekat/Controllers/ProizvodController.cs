@@ -35,14 +35,15 @@ namespace SWE___PROJEKAT.Controllers
                     throw new Exception("Ne postoji zadato domacinstvo!");
                 }
                 var proizvodi = await Context.Proizvodi
-                                .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == idDomacinstva)
+                                .Include(p => p.Domacinstvo).Include(p => p.Recenzije).Where(p => p.Domacinstvo.ID == idDomacinstva)
                                 .Select(p => new{
                                     p.ID,
                                     p.Naziv,
                                     p.Kolicina,
                                     p.Cena,
                                     p.Opis,
-                                    p.Kategorija
+                                    p.Kategorija,
+                                    p.Recenzije
                                 }).ToListAsync();
                 if(proizvodi == null)
                 {
@@ -114,7 +115,42 @@ namespace SWE___PROJEKAT.Controllers
                                     p.Kolicina,
                                     p.Cena,
                                     p.Opis,
-                                    p.Kategorija
+                                    p.Kategorija,
+                                    nazivDomacinstva = p.Domacinstvo.Naziv
+                                }).ToListAsync();
+                if(proizvodi == null)
+                {
+                    throw new Exception("Nije pronadjen!");
+                }
+                return Ok(proizvodi);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("PreuzetiProizvodeNaziv/{naziv}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiProizvodeZaNaziv(string naziv)
+        {
+            if(string.IsNullOrWhiteSpace(naziv) || naziv.Length > 100)
+            {
+                return BadRequest("Nevalidan unos!");
+            }
+            try
+            {
+                var proizvodi = await Context.Proizvodi
+                                .Include(p => p.Domacinstvo).Where(p => p.Naziv == naziv)
+                                .Select(p => new{
+                                    p.ID,
+                                    p.Naziv,
+                                    p.Kolicina,
+                                    p.Cena,
+                                    p.Opis,
+                                    p.Kategorija,
+                                    nazivDomacinstva = p.Domacinstvo.Naziv
                                 }).ToListAsync();
                 if(proizvodi == null)
                 {

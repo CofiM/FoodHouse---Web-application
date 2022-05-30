@@ -16,6 +16,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Rating } from "@mui/material";
+import CommentIcon from "@mui/icons-material/Comment";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -36,7 +37,7 @@ export default function RecipeReviewCard(props) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, m: 2 }}>
+    <Card sx={{ width: 320, m: 2 }}>
       <CardHeader
         action={
           <IconButton aria-label="settings">
@@ -58,8 +59,11 @@ export default function RecipeReviewCard(props) {
       </CardContent>
       <CardActions disableSpacing>
         {/* <IconButton aria-label="add to favorites"> !!!!OVO MOZE DA SE ISKORISTI AKO STAVLJAMO KOMENTARE*/}
-        <Rating name="read-only" value={3} readOnly />
+        <Rating name="read-only" value={props.ocena} readOnly />
         {/* </IconButton> */}
+        <IconButton aria-label="comment">
+          <CommentIcon />
+        </IconButton>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

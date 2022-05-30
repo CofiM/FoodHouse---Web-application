@@ -4,18 +4,21 @@ import classes from "./Domacinstvo.module.css";
 
 function Domacinstvo() {
   const ID = JSON.parse(localStorage.getItem("DomacinstvoID"));
-  const [domacinstvo, setDomacinstvo] = useState([]);
   const [product, setProduct] = useState([]);
-  const [works, setWorks] = useState([]);
   useEffect(() => {
-    const fetchDomacinstvoHandler = async () => {
+    const fetchProductHandler = async () => {
       console.log("uslo");
       const response = await fetch(
-        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/" + ID
+        "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvo/" + ID
       );
       const data = await response.json();
       console.log(data);
-      const transformedDataProduct = data.proizvodi.map((prod) => {
+      const transformedDataProduct = data.map(function (prod) {
+        let pros = 0;
+        prod.recenzije.forEach((el) => {
+          pros += el.ocena;
+        });
+        pros = pros / prod.recenzije.length;
         return {
           ID: prod.id,
           Cena: prod.cena,
@@ -23,24 +26,14 @@ function Domacinstvo() {
           Kolicina: prod.kolicina,
           Naziv: prod.naziv,
           Opis: prod.opis,
-        };
-      });
-      const transformedDataWork = data.poslovi.map((work) => {
-        return {
-          ID: work.id,
-          Cena: work.cena,
-          Opis: work.opis,
-          Datum: work.datum,
-          BrojRadnihMesta: work.brojRadnihMesta,
+          Ocena: pros,
         };
       });
       setProduct(transformedDataProduct);
-      setWorks(transformedDataWork);
     };
-    fetchDomacinstvoHandler();
+    fetchProductHandler();
   }, []);
   console.log(product);
-  console.log(works);
   return (
     <div>
       <div className={classes.allProducts}>
@@ -51,6 +44,7 @@ function Domacinstvo() {
             kolicina={prod.Kolicina}
             cena={prod.Cena}
             opis={prod.Opis}
+            ocena={prod.Ocena}
           />
         ))}
       </div>
