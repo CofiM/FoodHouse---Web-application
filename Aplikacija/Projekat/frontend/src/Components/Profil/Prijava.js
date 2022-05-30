@@ -40,13 +40,14 @@ export default function SignIn(){
     });
 
     console.log(textEmail, textPassword);
-    fetchLoginDomacinstvoHandler();
+    /* fetchLoginDomacinstvoHandler();
     fetchLoginDostavljacHandler();
-    fetchLoginKorisnikHandler();
+    fetchLoginKorisnikHandler(); */
+    fetchLoginClient();
   };
 
-  async function fetchLoginDomacinstvoHandler(){
-    const response = await fetch("https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+textEmail+"/"+textPassword,
+  async function fetchLoginClient(){
+    const response = await fetch("https://localhost:5001/Administrator/GetAccount/"+textEmail+"/"+textPassword,
     {
       method: 'GET',
       headers: {
@@ -55,45 +56,25 @@ export default function SignIn(){
     });
 
     const data = await response.json();
-    console.log(data);
-    localStorage.setItem("Korisnik",data.tip);
-    let path = "Domaćinstvo";
-    history.push(path);
     
-  }
-
-  async function fetchLoginDostavljacHandler(){
-    const response = await fetch("https://localhost:5001/Dosavljac/PreuzmiDostavljac/"+textEmail+"/"+textPassword,
-    {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json;charset=UTF-8'
-      }
-    });
-
-    const data = await response.json();
-    console.log(data);
     localStorage.setItem("Korisnik",data.tip);
-    let path = "Dostavljac";
-    history.push(path);
+
+    localStorage.setItem("DataObject", data.id);
+
+
+    if(data.tip === "K"){
+      let path = "Naslovna";
+      history.push(path);
+    }
+    else if ( data.tip === "D"){
+      let path = "Dostavljac";
+      history.push(path);
+    }
+    else if ( data.tip === "P"){
+      let path = "Domaćinstvo";
+      history.push(path);
+    }
   }
-
-  async function fetchLoginKorisnikHandler(){
-    const response = await fetch("https://localhost:5001/Korisnik/PreuzetiKorisnika/"+textEmail+"/"+textPassword,
-    {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json;charset=UTF-8'
-      }
-    });
-
-    const data = await response.json();
-    console.log(data);
-    localStorage.setItem("Korisnik",data.tip);
-    let path = "Naslovna";
-    history.push(path);
-  }
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

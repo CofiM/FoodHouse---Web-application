@@ -84,6 +84,9 @@ namespace SWE___PROJEKAT.Controllers
                     p.Username,
                     p.email,
                     p.Tip,
+                    p.telefon,
+                    p.Adresa,
+                    p.otvorenaVrata,
                     p.Poslovi,
                     p.Proizvodi
                 }).FirstOrDefaultAsync();

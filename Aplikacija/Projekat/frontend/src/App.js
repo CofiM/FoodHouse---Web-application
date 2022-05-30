@@ -20,16 +20,32 @@ import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
-import Domacinstvo from "./Main/Domacinstvo";
-import ViewProducts from "./Main/ViewProducts";
-import ViewProductsName from "./Main/ViewProductsName";
-import ViewProductsStrict from "./Main/ViewProductsStrict";
-
+import CartProvider from "./Components/Korpa/CartProvider";
 
 function App() {
-  const onChangeHandler = () => {};
+
+  const [cart, setCart] = useState([]);
+
+  const handleClick = (item) => {
+    if (cart.indexOf(item) !== -1) return;
+    setCart([...cart, item]);
+  };
+
+  const handleChange = (item, d) => {
+    const ind = cart.indexOf(item);
+    const arr = cart;
+    arr[ind].amount += d;
+
+    if (arr[ind].amount === 0) arr[ind].amount = 1;
+    setCart([...arr]);
+  };
+
+
+
+
 
   return (
+    <CartProvider>
     <div className="App">
       <div className="App-header">
         <Header onChange="onChangeHandler" />
@@ -68,11 +84,10 @@ function App() {
               <Inbox />
             </Route>
             <Route path="/Proizvod">
-              <Proizvod />
-            </Route>
-            <Route path="/Cart">
-              <Cart />
-              <Proizvod />
+              <Proizvod handleClick={handleClick}/>
+             </Route>
+             <Route path="/Cart">
+              <Cart cart={cart} setCart={setCart} handleChange={handleChange} />
             </Route>
             <Route path="/ProfilDostavljac">
               <ProfilDostavljac />
@@ -105,6 +120,7 @@ function App() {
 
       <Footer />
     </div>
+    </CartProvider>
   );
 }
 
