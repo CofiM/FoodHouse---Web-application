@@ -1,83 +1,71 @@
-import { useRef } from 'react';
-import classes from './Proizvod.module.css';
-import slicica from '../../pictures/logo.png';
-import cartCtx from '../Korpa/CartContext';
+import React, { useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import classes from "./Proizvod.module.css";
+import slicica from "../../pictures/logo.png";
+import cartCtx from "../Korpa/CartContext";
+import ImageGallery from "./ImageGallery";
+import CartProvider from "../Korpa/CartProvider";
 
 const Proizvod = (props) => {
-  const amountInputRef = useRef();
+  // const amountInputRef=useRef();
+  // const addToCartHandler = () => {
+  //    const amount = amountInputRef.current.value;
+  //   cartCtx.addItem({
+  //     id: props.id,
+  //     name: props.name,
+  //     amount: amount,
+  //     price: props.price
+  //   });
+  // };
+  const location = useLocation();
 
-  const addToCartHandler = amount => {
-    cartCtx.addItem({
-      id: props.id,
-      name: props.name,
-      amount: amount,
-      price: props.price
-    });
-  };
-  
-    return (
-        <div className = {classes['card-wrapper']}>
-        <div className = {classes['card']}>
-          <div className = {classes['product-imgs']}>
-            <div className = {classes['img-display']}>
-              <div className = {classes['img-showcase']}>
-                <img class = {classes['img']} src = {slicica} alt = 'shoe image'/>
-                <img class = {classes['img']} src = {slicica} alt = 'shoe image'/>
-                <img class = {classes['img']} src = {slicica} alt = 'shoe image'/>
-                <img class = {classes['img']} src = {slicica} alt = 'shoe image'/>
-              </div>
-            </div>
-            <div className = {classes['img-select']}>
-              <div className = {classes['img-item']}>
-                <a href = '#' data-id = '1'>
-                  <img class = {classes['img']} src = {slicica} alt = 'shoe image'/>
-                </a>
-              </div>
-              <div className = {classes['img-item']}>
-                <a href = '#' data-id = '2'>
-                  <img class = {classes['img']} src = {slicica} alt = 'shoe image'/>
-                </a>
-              </div>
-              <div className = {classes['img-item']}>
-                <a href = '#' data-id = '3'>
-                  <img class = {classes['img']} src = {slicica} alt = 'shoe image'/>
-                </a>
-              </div>
-              <div className = {classes['img-item']}>
-                <a href = '#' data-id = '4'>
-                  <img class = {classes['img']} src = {slicica} alt = 'shoe image'/>
-                </a>
-              </div>
-            </div>
-          </div>
+  useEffect(() => {
+    console.log(location.pathname); // result: '/secondpage'
+    console.log(location.search); // result: '?query=abc'
+    console.log(location.product); // result: 'some_value'
+  }, [location]);
 
-          
-          <div className = {classes['product-content']}>
-            <h2 classname = {classes['product-title']}>nike shoes</h2>
-            <a href = '#' classname = {classes['product-link']}>visit nike store</a>
-  
-            <div className = {classes['product-price']}>
-              <p className = 'new-price'>New Price: <span>$249.00 (5%)</span></p>
-            </div>
-  
-            <div className = {classes['product-detail']}>
-              <h2>about this item: </h2>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eveniet veniam tempora fuga tenetur placeat sapiente architecto illum soluta consequuntur, aspernatur quidem at sequi ipsa!</p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, perferendis eius. Dignissimos, labore suscipit. Unde.</p>
-            </div>
+  return (
+    <div className={classes["card-wrapper"]}>
+      <ImageGallery />
 
-            <div className = {classes['purchase-info']}>
-              <input ref={amountInputRef} type='number' min='1' max='100' step='1' defaultValue='1'/>
-              <button onClick={addToCartHandler} type = 'button' className = {classes.btn}>
-                Dodaj u korpu
-              </button>
-            </div>
-  
-         
-          </div>
+      <div className={classes["product-content"]}>
+        <h2 classname={classes["product-title"]}>{location.product.Naziv}</h2>
+        <a href="#" classname={classes["product-link"]}>
+          visit nike store
+        </a>
+
+        <div className={classes["product-price"]}>
+          <p className="new-price">
+            New Price: <span>{location.product.Cena}</span>
+          </p>
+        </div>
+
+        <div className={classes["product-detail"]}>
+          <h2>O proizvodu: </h2>
+          <p>{location.product.Opis}</p>
+        </div>
+
+        <div className={classes["purchase-info"]}>
+          <input
+            //ref={amountInputRef}
+            type="number"
+            min="1"
+            max="100"
+            step="1"
+            defaultValue="1"
+          />
+          <button
+            onClick={props.handleClick(location.product.ID)}
+            type="button"
+            className={classes.btn}
+          >
+            Dodaj u korpu
+          </button>
         </div>
       </div>
-    )
-}
+    </div>
+  );
+};
 
 export default Proizvod;

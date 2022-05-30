@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from "react";
 import ProizvodCard from "../Components/Proizvod/ProizvodCard";
 import classes from "./Domacinstvo.module.css";
+import ModalComment from "./CommentModal";
+import { useHistory } from "react-router-dom";
 
 function Domacinstvo() {
   const ID = JSON.parse(localStorage.getItem("DomacinstvoID"));
+  const [products, setProducts] = useState([]);
+  const [open, setOpen] = useState(false);
   const [product, setProduct] = useState([]);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const onClickCommentHandler = (ID) => {
+    setProduct(products.find((el) => el.ID == ID));
+    console.log(product);
+    setOpen(true);
+  };
+  const history = useHistory();
+  const onClickCartHandler = (ID) => {
+    const p = products.find((el) => el.ID == ID);
+    history.push({ pathname: "/Proizvod", product: p });
+  };
   useEffect(() => {
     const fetchProductHandler = async () => {
       console.log("uslo");
@@ -13,11 +30,16 @@ function Domacinstvo() {
       );
       const data = await response.json();
       console.log(data);
+      let comments = [];
       const transformedDataProduct = data.map(function (prod) {
         let pros = 0;
         prod.recenzije.forEach((el) => {
           pros += el.ocena;
+          comments.push(el.komentar);
         });
+        console.log(comments);
+        let kom = comments;
+        comments = [];
         pros = pros / prod.recenzije.length;
         return {
           ID: prod.id,
@@ -27,17 +49,18 @@ function Domacinstvo() {
           Naziv: prod.naziv,
           Opis: prod.opis,
           Ocena: pros,
+          Komentari: kom,
         };
       });
-      setProduct(transformedDataProduct);
+      setProducts(transformedDataProduct);
     };
     fetchProductHandler();
   }, []);
-  console.log(product);
+  console.log(products);
   return (
     <div>
       <div className={classes.allProducts}>
-        {product.map((prod) => (
+        {products.map((prod) => (
           <ProizvodCard
             className={classes.Product}
             naziv={prod.Naziv}
@@ -45,8 +68,19 @@ function Domacinstvo() {
             cena={prod.Cena}
             opis={prod.Opis}
             ocena={prod.Ocena}
+            onClickComment={() => onClickCommentHandler(prod.ID)}
+            onClickCart={() => onClickCartHandler(prod.ID)}
           />
         ))}
+      </div>
+      <div>
+        {open && (
+          <ModalComment
+            show={open}
+            komentar={product.Komentari}
+            onClose={handleClose}
+          />
+        )}
       </div>
     </div>
   );
