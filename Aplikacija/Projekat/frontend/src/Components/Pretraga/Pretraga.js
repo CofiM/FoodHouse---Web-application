@@ -2,7 +2,6 @@ import * as ReactDOM from "react-dom";
 import classes from "./Pretraga.module.css";
 import React, { Component } from 'react';
 import  { useState } from 'react';
-import Select from 'react-select';
 import { withRouter } from "react-router";
 
 import Button from "@mui/material/Button";
@@ -14,13 +13,62 @@ import { useHistory } from "react-router-dom";
 const Pretraga=()=>
 {
   //  const [allData, setAllData] = useState([]);
-    const [allProducts, setAllProducts] = useState([]);
+    //const [allProducts, setAllProducts] = useState([]);
 
-    const [value, setValue] = useState();
+    const [category, setCategory] = useState("");
+    const [categoryValid, setCategoryValid] = useState(false);
 
-    const handleChange = (e) => {
-        setValue(e.target.value);
+    console.log(category);
+
+    const [name, setName] = useState("");
+    const [nameValid, setNameValid] = useState(false);
+
+    const handleChangeCategory = (e) => {
+        setCategory(e.target.value);
+        if(category.length!=0)
+        {
+            setCategoryValid(true);
+        }
+        else
+        {
+            setCategoryValid(false);
+        }
     }
+
+    const handleChangeName = (e) =>
+    {
+        setName(e.target.value);
+        if(name.length!="")
+        {
+            setNameValid(true);
+        }
+        else
+        {
+            setNameValid(false);
+        }
+    }
+    const choosePage=()=>
+    {
+        if(categoryValid!=false && nameValid!=false)
+        {
+            categoryAndNameSend(category,name);
+        }
+        else if(categoryValid!=false)
+        {
+            categorySend(category);
+            //console.log(category);
+        }
+        else if(nameValid!=false)
+        {
+            nameSend(name);
+            //console.log(name);
+
+        }
+
+
+    }
+
+    //console.log(text);
 
     // async function fetchProductsHandler()
     // {
@@ -57,14 +105,27 @@ const Pretraga=()=>
     
     // };
     const history=useHistory();
-    const dataSend = (data) =>
+    const categoryAndNameSend = (category, name) =>
+    {     
+        localStorage.setItem("Category", category);
+        localStorage.setItem("Name", name);
+        history.push("ViewProductsStrict");
+       // console.log(data);
+    };
+    const categorySend = (data) =>
     {     
         localStorage.setItem("Category", data);
         history.push("ViewProducts");
+        console.log(data);
     };
+   
+    const nameSend=(data)=>
+    {
+        localStorage.setItem("Name", data);
+        history.push("ViewProductsName");
+        console.log(data);
+    }
 
-     var category = value;
-    // console.log(category);
     const categoryArray = [
         {
             label: "Mlečni proizvodi",
@@ -97,21 +158,20 @@ const Pretraga=()=>
         }
       ];
     
-      const dos=[
-         {label: "Lično preuzimanje"},
-          {label: "Dostava kurirskom službom"}
-      ];
+    //   const dos=[
+    //      {label: "Lično preuzimanje"},
+    //       {label: "Dostava kurirskom službom"}
+    //   ];
 
    
 
     return(
-        <div className={classes.divCeo}>
         <div className={classes.divGlavni}>
-        <input type='text' placeholder="Koji proizvod želite da pronađete" ></input>
+        <input type='text' placeholder="Koji proizvod želite da pronađete" onChange={handleChangeName}></input>
         <div className="example-config">
         </div>
             <div>
-                <select className="Category" onChange={handleChange} >
+                <select className={classes.category} onChange={handleChangeCategory}>
                     {categoryArray.map((option) => (
                         <option value={option.value}>{option.label}</option>
                     ))}
@@ -119,16 +179,16 @@ const Pretraga=()=>
        
         
             </div>
-      <div>
+      {/* <div>
       <Select options={dos}
         placeholder="Dostava"
         style={{
           width: "300px",
         }}
       />
-            </div>
+            </div> */}
        <div>
-           <Button variant="contained" color="success" onClick={()=>dataSend(category)} >
+           <Button className={classes.buttonPretraga} variant="contained" color="success" onClick={choosePage} >
             Pretraga
             </Button>
       </div>
@@ -149,9 +209,6 @@ const Pretraga=()=>
         </div>   */}
 
     </div>
-    </div>
-
-
     );
 
 

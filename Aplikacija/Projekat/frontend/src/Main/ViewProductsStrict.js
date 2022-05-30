@@ -1,18 +1,20 @@
 import React from "react";
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 import ProizvodCard from "../Components/Proizvod/ProizvodCard";
 
 
-const ViewProducts = ()=>
+const ViewProductsStrict = ()=>
 {
+    const name = localStorage.getItem("Name");
+    console.log(name);
     const category = localStorage.getItem("Category");
-   
+    console.log(category);
     const [allProducts, setAllProducts] = useState([]);
     useEffect(() => {
     async function fetchProductsHandler()
     {
    
-        const response = await fetch('https://localhost:5001/Proizvod/PreuzetiProizvodeZaKategoriju/' + category,
+        const response = await fetch('https://localhost:5001/Proizvod/PreuzetiProizvodeNazivKategorija/' + name+'/'+ category,
             {
                 method: 'GET',
                 headers: {
@@ -21,7 +23,8 @@ const ViewProducts = ()=>
             });
 
         const data = await response.json();
-            
+        console.log(data);
+
         const products= data.map((product)=>{
             return{
                 naziv: product.naziv,
@@ -30,11 +33,15 @@ const ViewProducts = ()=>
                 kolicina: product.kolicina,
             };
         });
+
         setAllProducts(products);
         console.log(products);
     };
+
     fetchProductsHandler();
+    localStorage.removeItem("Name");
     localStorage.removeItem("Category");
+    
     }, []);
 
     return (
@@ -54,4 +61,4 @@ const ViewProducts = ()=>
     
 };
 
-export default ViewProducts;
+export default ViewProductsStrict;
