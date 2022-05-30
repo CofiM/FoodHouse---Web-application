@@ -11,9 +11,10 @@ function InputNumber(props) {
       <div className={classes.inputDiv}>
         {/* <input type="number" placeholder={props.placeholder} /> */}
         <TextField
+          sx={{ width: "25ch" }}
           id="standard-number"
           label={props.label}
-          type="number"          
+          type="number"
           variant="standard"
         />
       </div>

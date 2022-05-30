@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from 'react';
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,10 +12,25 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { useHistory } from 'react-router-dom';
+import Header from "../../Header/Header";
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignIn(){
+  const history = useHistory();
+  const [textEmail, setTextEmail] = useState('');
+  const [textPassword, setTextPassword] = useState('');
+
+  const onChangeEmailHandler = (event) => {
+    setTextEmail(event.target.value);
+  }
+
+  const onChangePasswordHandler = (event) => {
+    setTextPassword(event.target.value);
+  }
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -22,8 +38,43 @@ export default function SignIn() {
       email: data.get("email"),
       password: data.get("password"),
     });
+
+    console.log(textEmail, textPassword);
+    /* fetchLoginDomacinstvoHandler();
+    fetchLoginDostavljacHandler();
+    fetchLoginKorisnikHandler(); */
+    fetchLoginClient();
   };
 
+  async function fetchLoginClient(){
+    const response = await fetch("https://localhost:5001/Administrator/GetAccount/"+textEmail+"/"+textPassword,
+    {
+      method: 'GET',
+      headers: {
+        'Content-type': 'application/json;charset=UTF-8'
+      }
+    });
+
+    const data = await response.json();
+    
+    localStorage.setItem("Korisnik",data.tip);
+
+    localStorage.setItem("DataObject", data.id);
+
+
+    if(data.tip === "K"){
+      let path = "Naslovna";
+      history.push(path);
+    }
+    else if ( data.tip === "D"){
+      let path = "Dostavljac";
+      history.push(path);
+    }
+    else if ( data.tip === "P"){
+      let path = "Domaćinstvo";
+      history.push(path);
+    }
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -55,6 +106,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={onChangeEmailHandler}
             />
             <TextField
               margin="normal"
@@ -65,6 +117,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={onChangePasswordHandler}
             />
 
             <Button

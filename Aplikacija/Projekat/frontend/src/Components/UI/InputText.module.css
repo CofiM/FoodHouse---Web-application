@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height:10%;
+  height: 10%;
 }
 .labelaDiv {
-  width: 30%;
-  height:10%;
+  width: 20rem;
+  height: 10%;
   display: flex;
   align-items: center;
   font-size: 24px;
@@ -15,7 +15,7 @@
 }
 .inputDiv {
   width: 70%;
-  height:10%;
+  height: 10%;
   display: flex;
   align-items: center;
 }

@@ -19,6 +19,9 @@ import { HeaderItems } from "./HeaderComponentsKorisnik";
 import { HeaderItemsDostavljac } from "./HeaderComponentsDostavljac";
 import { HeaderItemsDomacinstvo } from "./HeaderComponentsDomacinstvo";
 import MailBox from "../Components/MailBox/MailBox";
+import ProfileKorisnik from "../Components/Profil/ProfileKorisnik";
+import ProfileDostavljac from "../Components/Profil/ProfileDostavljac";
+import ProfileDomacinstvo from "../Components/Profil/ProfileDomacinstvo";
 
 const settings = ['Profile', 'Logout'];
 
@@ -32,6 +35,7 @@ const ResponsiveAppBar = (props) => {
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
     };
+
     const handleOpenUserMenu = (event) => {
       setAnchorElUser(event.currentTarget);
     };
@@ -58,10 +62,30 @@ const ResponsiveAppBar = (props) => {
     const onClickProfile = (type) => {
       if( type === "Profile")
       {
-        let path = "Prijava";
+        const flag = localStorage.getItem("Korisnik");
+        if( flag === null ){
+          let path = "Prijava";
+          history.push(path);
+        }
+        else if( flag === "P" ){
+          let path = "ProfilDomacinstvo";
+          history.push(path);
+        }
+        else if( flag === "K" ){
+          let path = "ProfilKorisnik";
+          history.push(path);
+        }
+        else if( flag === "D" ){
+          let path = "ProfilDostavljac";
+          history.push(path);
+        }
+      }
+      if(type === "Logout")
+      {
+        localStorage.removeItem("Korisnik");
+        let path = "Naslovna";
         history.push(path);
       }
-      
       setAnchorElUser(null);
     }
 
@@ -72,24 +96,28 @@ const ResponsiveAppBar = (props) => {
     }
 
     const items = () => {
-      // const flag = localStorage.getItem("Klijent");
-      // if(flag === 0){
-      //   return HeaderItems;
-      // }
-      // else if( flag === 1){
-      //   return HeaderItemsDomacinstvo;
-      // }
-      // else if( flag === 2)
-      // {
-      //   return HeaderItemsDostavljac;
-      // }
-      return HeaderItems;
+      const flag = localStorage.getItem("Korisnik");
+      console.log(flag);
+      if(flag === "" || flag === null){
+        return HeaderItems;
+      }
+      if(flag === "K"){
+        return HeaderItems;
+      }
+      else if( flag === "P"){
+        /* let path = "Domacinstvo";
+        history.push(path); */
+        return HeaderItemsDomacinstvo;
+      }
+      else if( flag === "D")
+      {
+        return HeaderItemsDostavljac;
+      }
+      
     }
     
-
-
     return (
-      <AppBar position="static">
+      <AppBar position="static" >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography

@@ -42,11 +42,76 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("DodatiKorisnika/{ime}/{prezime}/{username}/{password}/{email}")]
+        [Route("GetAccount/{email}/{password}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> GetAccount(string email, string password)
+        {
+            if (String.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest("Morate da unesete email!");
+            }
+            if (String.IsNullOrWhiteSpace(password))
+            {
+                return BadRequest("Morate da unesete sifru!");
+            }
+            try
+            {
+                var retAcc1 = await Context.Domacinstva
+                .Where(p => p.email == email && p.Password == password)
+                .Select(p => new
+                {
+                    p.ID,
+                    p.Naziv,
+                    p.Username,
+                    p.email,
+                    p.Tip,
+                    p.Poslovi,
+                    p.Proizvodi
+                }).FirstOrDefaultAsync();
+                if (retAcc1 == null)
+                {
+                    var retAcc2 = await Context.Dostavljaci.Where(p => p.email == email && p.Password == password).Select(p => new{
+                            p.ID,
+                            p.Username,
+                            p.Password,
+                            p.email,
+                            p.Cena,
+                            p.telefon,
+                            p.Ime,
+                            p.Prezime,
+                            p.Tip
+                            }).FirstOrDefaultAsync();
+                    if(retAcc2 == null){
+                        var retAcc3 = await Context.Korisnici.Where(p => p.email == email && p.Password == password).Select(p => new{
+                            p.ID,
+                            p.Ime,
+                            p.Prezime,
+                            p.Username,
+                            p.Password,
+                            p.email,
+                            p.Tip
+                        }).FirstOrDefaultAsync();
+                        if(retAcc3 == null){
+                            return BadRequest("Nepostojeci acc!");
+                        }
+                        return Ok(retAcc3);
+                    }
+                    return Ok(retAcc2);
+                } 
+                return Ok(retAcc1);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("DodatiKorisnika/{ime}/{prezime}/{username}/{password}/{email}/{tip}")]
         [EnableCors("CORS")]
         [HttpPost]
         public async Task<ActionResult> dodajKorisnik(string ime, string prezime, string username, 
-                                        string password, string email)
+                                        string password, string email, char tip)
         {
             if(string.IsNullOrWhiteSpace(ime) || ime.Length > 30)
             {
@@ -85,6 +150,7 @@ namespace SWE___PROJEKAT.Controllers
                 k.Username = username;
                 k.Password = password;
                 k.email = email;
+                k.Tip = tip;
                 Context.Korisnici.Add(k);
                 await Context.SaveChangesAsync();
                 return Ok("Uspesno dodat korisnik!");
@@ -259,12 +325,20 @@ namespace SWE___PROJEKAT.Controllers
             }
         } 
 
-        [Route("DodatiDostavljac/{username}/{password}/{email}/{telefon}/{cena}")]
+        [Route("DodatiDostavljac/{ime}/{prezime}/{username}/{password}/{email}/{telefon}/{cena}/{tip}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> dodajDostavljaca(string username, string password, string email, 
-                                    string telefon, int cena)
+        public async Task<ActionResult> dodajDostavljaca(string ime, string prezime, string username, string password, string email, 
+                                    string telefon, int cena, char tip)
         {
+            if(string.IsNullOrWhiteSpace(ime) || ime.Length > 30)
+            {
+                return BadRequest("Nevalidan unos za ime!");
+            }
+            if(string.IsNullOrWhiteSpace(prezime) || prezime.Length > 30)
+            {
+                return BadRequest("Nevalidan unos za prezime!");
+            }
             if(string.IsNullOrWhiteSpace(username) || username.Length > 30)
             {
                 return BadRequest("Nevalidan unos za username!");
@@ -297,11 +371,14 @@ namespace SWE___PROJEKAT.Controllers
                     throw new Exception("Postoji dostavljac!");
                 }
                 Dostavljac dos = new Dostavljac();
+                dos.Ime = ime;
+                dos.Prezime = prezime;
                 dos.Username = username;
                 dos.Password = password;
                 dos.email = email;
                 dos.telefon = telefon;
                 dos.Cena = cena;
+                dos.Tip = tip;
                 Context.Dostavljaci.Add(dos);
                 await Context.SaveChangesAsync();
                 return Ok("Uspesno dodat dostavljac!");

@@ -48,7 +48,7 @@ function App() {
     <CartProvider>
     <div className="App">
       <div className="App-header">
-        <Header />
+        <Header onChange="onChangeHandler" />
       </div>
       <div className="App-main">
         <main className="Main">
@@ -98,6 +98,19 @@ function App() {
             <Route path="/ProfilKorisnik">
               <ProfilKorisnik />
             </Route>
+            <Route path="/Domaćinstvo">
+              <Domacinstvo />
+            </Route>
+            <Route path="/ViewProducts">
+              <ViewProducts />
+            </Route>
+            <Route path="/ViewProductsName">
+              <ViewProductsName />
+            </Route>
+            <Route path="/ViewProductsStrict">
+              <ViewProductsStrict />
+            </Route>
+
             <Route path="*">
               <NotFound />
             </Route>

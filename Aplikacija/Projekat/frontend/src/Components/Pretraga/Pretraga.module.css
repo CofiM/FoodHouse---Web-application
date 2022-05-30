@@ -26,3 +26,23 @@ h1
     width: 100%;
     height: 800px;
 }
+.divProducts
+{
+    display: flex;
+    flex-direction: row;
+}
+.divCeo
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.category
+{
+    width: 200px;
+    height: 40px;
+}
+.buttonPretraga
+{
+    height: 40px;
+}
