@@ -76,6 +76,8 @@ namespace SWE___PROJEKAT.Controllers
             {
                 var domacinstvo = await Context.Domacinstva
                 .Where(p => p.ID == id)
+                .Include(p => p.Proizvodi)
+                .ThenInclude(p => p.Recenzije)
                 .Select(p => new
                 {
                     p.Naziv,
