@@ -23,17 +23,13 @@ import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 import Domacinstvo from "./Main/Domacinstvo";
 import ViewProducts from "./Main/ViewProducts";
 
-
 function App() {
-
-  const onChangeHandler = () => {
-    
-  }
+  const onChangeHandler = () => {};
 
   return (
     <div className="App">
       <div className="App-header">
-        <Header onChange="onChangeHandler"/>
+        <Header onChange="onChangeHandler" />
       </div>
       <div className="App-main">
         <main className="Main">

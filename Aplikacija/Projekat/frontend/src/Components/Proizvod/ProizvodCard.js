@@ -61,7 +61,7 @@ export default function RecipeReviewCard(props) {
         {/* <IconButton aria-label="add to favorites"> !!!!OVO MOZE DA SE ISKORISTI AKO STAVLJAMO KOMENTARE*/}
         <Rating name="read-only" value={props.ocena} readOnly />
         {/* </IconButton> */}
-        <IconButton aria-label="comment">
+        <IconButton aria-label="comment" onClick={props.onClickComment}>
           <CommentIcon />
         </IconButton>
         <ExpandMore
