@@ -1,13 +1,14 @@
 import React from "react";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import ProizvodCard from "../Components/Proizvod/ProizvodCard";
 
 
 const ViewProducts = ()=>
 {
     const category = localStorage.getItem("Category");
-    console.log(category);
+   
     const [allProducts, setAllProducts] = useState([]);
+    useEffect(() => {
     async function fetchProductsHandler()
     {
    
@@ -20,7 +21,7 @@ const ViewProducts = ()=>
             });
 
         const data = await response.json();
-
+            
         const products= data.map((product)=>{
             return{
                 naziv: product.naziv,
@@ -33,7 +34,8 @@ const ViewProducts = ()=>
         console.log(products);
     };
     fetchProductsHandler();
-    
+    localStorage.removeItem("Category");
+    }, []);
 
     return (
         

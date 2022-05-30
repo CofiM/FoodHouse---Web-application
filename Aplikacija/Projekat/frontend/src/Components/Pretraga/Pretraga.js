@@ -2,7 +2,6 @@ import * as ReactDOM from "react-dom";
 import classes from "./Pretraga.module.css";
 import React, { Component } from 'react';
 import  { useState } from 'react';
-import Select from 'react-select';
 import { withRouter } from "react-router";
 
 import Button from "@mui/material/Button";
@@ -16,26 +15,36 @@ const Pretraga=()=>
   //  const [allData, setAllData] = useState([]);
     //const [allProducts, setAllProducts] = useState([]);
 
-    const [category, setCategory] = useState(" ");
+    const [category, setCategory] = useState("");
     const [categoryValid, setCategoryValid] = useState(false);
 
-    const [name, setName] = useState(" ");
+    console.log(category);
+
+    const [name, setName] = useState("");
     const [nameValid, setNameValid] = useState(false);
 
     const handleChangeCategory = (e) => {
         setCategory(e.target.value);
-        if(category != " ")
+        if(category.length!="")
         {
             setCategoryValid(true);
+        }
+        else
+        {
+            setCategoryValid(false);
         }
     }
 
     const handleChangeName = (e) =>
     {
         setName(e.target.value);
-        if(name != " ")
+        if(name.length!="")
         {
             setNameValid(true);
+        }
+        else
+        {
+            setNameValid(false);
         }
     }
     const choosePage=()=>
@@ -47,10 +56,13 @@ const Pretraga=()=>
         else if(categoryValid!=false)
         {
             categorySend(category);
+            //console.log(category);
         }
-        else
+        else if(nameValid!=false)
         {
             nameSend(name);
+            //console.log(name);
+
         }
 
 
@@ -97,15 +109,16 @@ const Pretraga=()=>
     {     
         localStorage.setItem("Category", data);
         history.push("ViewProducts");
+        console.log(data);
     };
+   
     const nameSend=(data)=>
     {
         localStorage.setItem("Name", data);
-        
+        history.push("ViewProductsName");
+        console.log(data);
     }
 
-     //var category = value;
-    // console.log(category);
     const categoryArray = [
         {
             label: "Mlečni proizvodi",
@@ -138,10 +151,10 @@ const Pretraga=()=>
         }
       ];
     
-      const dos=[
-         {label: "Lično preuzimanje"},
-          {label: "Dostava kurirskom službom"}
-      ];
+    //   const dos=[
+    //      {label: "Lično preuzimanje"},
+    //       {label: "Dostava kurirskom službom"}
+    //   ];
 
    
 

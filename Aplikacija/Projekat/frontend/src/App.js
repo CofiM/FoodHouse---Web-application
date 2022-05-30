@@ -22,6 +22,7 @@ import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 import Domacinstvo from "./Main/Domacinstvo";
 import ViewProducts from "./Main/ViewProducts";
+import ViewProductsName from "./Main/ViewProductsName";
 
 
 function App() {
@@ -89,6 +90,9 @@ function App() {
             </Route>
             <Route path="/ViewProducts">
               <ViewProducts />
+            </Route>
+            <Route path="/ViewProductsName">
+              <ViewProductsName />
             </Route>
 
             <Route path="*">
