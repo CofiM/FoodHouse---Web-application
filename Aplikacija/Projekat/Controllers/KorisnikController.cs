@@ -55,6 +55,31 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("PreuzetiKorisnika/{idK}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiKorisnika(int idK)
+        {
+            if (idK < 0)
+            {
+                return BadRequest("Nevalidan ID!");
+            }
+            try
+            {
+                var korisnik = await Context.Korisnici.Where(p => p.ID == idK).FirstOrDefaultAsync();
+                if (korisnik == null)
+                {
+                    throw new Exception("Ne postoji korisnik!");
+                }
+                return Ok(korisnik);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
         [Route("VratiPorukeKorisnika/{id}")]
         [EnableCors("CORS")]
         [HttpGet]

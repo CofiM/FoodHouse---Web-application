@@ -2,19 +2,25 @@ import React, { useState, useEffect } from "react";
 import ProizvodCard from "../Components/Proizvod/ProizvodCard";
 import classes from "./Domacinstvo.module.css";
 import ModalComment from "./CommentModal";
+import { useHistory } from "react-router-dom";
 
 function Domacinstvo() {
   const ID = JSON.parse(localStorage.getItem("DomacinstvoID"));
-  const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
-  const [productShowcomment, setProductShowcomment] = useState([]);
+  const [product, setProduct] = useState([]);
   const handleClose = () => {
     setOpen(false);
   };
   const onClickCommentHandler = (ID) => {
-    setProductShowcomment(product.find((el) => el.ID == ID));
-    console.log(productShowcomment);
+    setProduct(products.find((el) => el.ID == ID));
+    console.log(product);
     setOpen(true);
+  };
+  const history = useHistory();
+  const onClickCartHandler = (ID) => {
+    const p = products.find((el) => el.ID == ID);
+    history.push({ pathname: "/Proizvod", product: p });
   };
   useEffect(() => {
     const fetchProductHandler = async () => {
@@ -46,15 +52,15 @@ function Domacinstvo() {
           Komentari: kom,
         };
       });
-      setProduct(transformedDataProduct);
+      setProducts(transformedDataProduct);
     };
     fetchProductHandler();
   }, []);
-  console.log(product);
+  console.log(products);
   return (
     <div>
       <div className={classes.allProducts}>
-        {product.map((prod) => (
+        {products.map((prod) => (
           <ProizvodCard
             className={classes.Product}
             naziv={prod.Naziv}
@@ -63,6 +69,7 @@ function Domacinstvo() {
             opis={prod.Opis}
             ocena={prod.Ocena}
             onClickComment={() => onClickCommentHandler(prod.ID)}
+            onClickCart={() => onClickCartHandler(prod.ID)}
           />
         ))}
       </div>
@@ -70,7 +77,7 @@ function Domacinstvo() {
         {open && (
           <ModalComment
             show={open}
-            komentar={productShowcomment.Komentari}
+            komentar={product.Komentari}
             onClose={handleClose}
           />
         )}

@@ -41,7 +41,7 @@ export default function RecipeReviewCard(props) {
       <CardHeader
         action={
           <IconButton aria-label="settings">
-            <AddShoppingCartIcon />
+            <AddShoppingCartIcon onClick={props.onClickCart} />
           </IconButton>
         }
         title={props.naziv}
@@ -58,9 +58,7 @@ export default function RecipeReviewCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {/* <IconButton aria-label="add to favorites"> !!!!OVO MOZE DA SE ISKORISTI AKO STAVLJAMO KOMENTARE*/}
         <Rating name="read-only" value={props.ocena} readOnly />
-        {/* </IconButton> */}
         <IconButton aria-label="comment" onClick={props.onClickComment}>
           <CommentIcon />
         </IconButton>
