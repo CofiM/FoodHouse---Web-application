@@ -105,6 +105,37 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("VratiDostavljacaZaDomacinstvo/{id}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiDostavljacaZaDomacinstvo(int id)
+        {
+            if (id < 0)
+            {
+                return BadRequest("Nevalidan id!");
+            }
+            try
+            {
+                var domacinstvo = await Context.Domacinstva
+                .Where(p => p.ID == id)
+                .Include(p => p.Dostavljac)
+                .Select(p => new{
+                    p.Dostavljac
+                })
+                .FirstOrDefaultAsync();
+                if (domacinstvo == null)
+                {
+                    return BadRequest("Ne postoji domacinstvo sa zadatim ID");
+                }
+                return Ok(domacinstvo);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
         
         [Route("PreuzmiSvaDomacinstvo")]
         [EnableCors("CORS")]
@@ -153,17 +184,15 @@ namespace SWE___PROJEKAT.Controllers
                 {
                     return BadRequest("Nepostoje domacinstvo sa zadatim id!");
                 }
-
-                // var poruke = await Context.Poruke
-                //             .Include(p => p.Domacinstvo).Include(p => p.Dostavljac).Include(p => p.Korisnik).Where(p => p.Domacinstvo.ID == id)
-                //             .Select(p => new {
-                //                 p.ID,
-                //                 p.sadrzaj,
-                //                 p.Domacinstvo,
-                //                 p.Dostavljac,
-                //                 p.Korisnik
-                //             }).ToArrayAsync();
-                return Ok(domacinstvo);
+                var poruke = await Context.Poruke
+                            .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == id)
+                            .Select(p => new {
+                                p.ID,
+                                p.sadrzaj,
+                                p.Dostavljac,
+                                p.Domacinstvo
+                            }).ToArrayAsync();
+                return Ok(poruke);
             }
             catch (Exception e)
             {
