@@ -4,6 +4,7 @@ import Header from "./Header/Header";
 import "./App.css";
 import Poslovi from "./Main/Poslovi";
 import Domacinstva from "./Main/Domacinstva";
+import Domacinstvo from "./Main/Domacinstvo";
 import Naslovna from "./Main/Naslovna";
 import Footer from "./Footer/Footer";
 import NotFound from "./Main/NotFound";
@@ -11,20 +12,19 @@ import Prijava from "./Components/Profil/Prijava";
 import Registracija from "./Components/Profil/Registracija";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
-import Domacinstvo from "./Main/Domacinstvo";
+import Inbox from "./Components/MailBox/Inbox";
+import Cart from "./Components/Korpa/Cart";
+import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
+
+import Proizvod from "./Components/Proizvod/Proizvod";
+import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
+import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
+import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
+import CartProvider from "./Components/Korpa/CartProvider";
 import ViewProducts from "./Main/ViewProducts";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
-import Inbox from "./Components/MailBox/Inbox";
-import Cart from "./Components/Korpa/Cart";
 
-import Proizvod from "./Components/Proizvod/Proizvod";
-
-import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
-import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
-
-import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
-import CartProvider from "./Components/Korpa/CartProvider";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -110,10 +110,12 @@ function App() {
               <Route path="/ViewProductsName">
                 <ViewProductsName />
               </Route>
+              <Route path="/ProbaZaOcenjivanje">
+                <ProbaZaOcenjivanje />
+              </Route>
               <Route path="/ViewProductsStrict">
                 <ViewProductsStrict />
               </Route>
-
               <Route path="*">
                 <NotFound />
               </Route>

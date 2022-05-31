@@ -147,7 +147,8 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var domacinstvo = await Context.Domacinstva.Where(p => p.ID == id).FirstOrDefaultAsync();
+                var domacinstvo = await Context.Domacinstva.Where(p => p.ID == id)
+                .Select(p=> new {p.inbox}).FirstOrDefaultAsync();
                 if (domacinstvo == null)
                 {
                     return BadRequest("Nepostoje domacinstvo sa zadatim id!");
@@ -156,7 +157,9 @@ namespace SWE___PROJEKAT.Controllers
                             .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == id)
                             .Select(p => new {
                                 p.ID,
-                                p.sadrzaj
+                                p.sadrzaj,
+                                p.Dostavljac,
+                                p.Domacinstvo
                             }).ToArrayAsync();
                 return Ok(poruke);
             }

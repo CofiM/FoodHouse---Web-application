@@ -241,10 +241,10 @@ namespace SWE___PROJEKAT.Controllers
             }
         } 
 
-        [Route("PosaljiPorukuDomacinDostavljac/{idDomacin}/{idDostavljac}/{por}")]
+        [Route("PosaljiPorukuDomacinDostavljac/{idDomacin}/{idDostavljac}/{por}/{tip}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> posaljiPorukuDomacinDostavljac(int idDomacin, int idDostavljac, string por)
+        public async Task<ActionResult> posaljiPorukuDomacinDostavljac(int idDomacin, int idDostavljac, string por, char tip)
         {
             if(idDomacin < 0 || idDostavljac < 0)
             {
@@ -271,6 +271,7 @@ namespace SWE___PROJEKAT.Controllers
                 poruka.Domacinstvo = proizvodjac;
                 poruka.Dostavljac = dostavljac;
                 poruka.Korisnik = null;
+                poruka.Tip = tip;
                 Context.Poruke.Add(poruka);
                 await Context.SaveChangesAsync();
                 proizvodjac.inbox.Add(poruka);

@@ -5,12 +5,13 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import UpdateProfileKorisnik from "./UpdateProfileKorisnik";
 import DesignProfileKorisnik from "./DesignProfileKorisnik";
+import { useEffect } from "react";
 
 
 const ProfilDomacinstvo = () => {
     const [isShowProfile, setIsShowProfile] = useState(true);
     const [isShowUpdateProfile, setIsShowUpdateProfile] = useState(false);
-
+    const [data, setData] = useState([]);
 
     const onClickProfileHandler = () => {
         setIsShowProfile(true);
@@ -21,6 +22,21 @@ const ProfilDomacinstvo = () => {
         setIsShowProfile(false);
         setIsShowUpdateProfile(true);
     }
+    
+    useEffect(() => {
+        const fetchProfile = async () => {
+          const id = localStorage.getItem("KorisnikID");
+          const response = await fetch("https://localhost:5001/Korisnik/PreuzetiKorisnika/"+id,{
+            method: 'GET',
+            headers: {
+              'Content-type': 'application/json;charset=UTF-8'
+            }
+          });
+          const data = await response.json();
+          setData(data);
+        }
+        fetchProfile();
+      }, [])
 
     return(
        <div className={classes.mainStyle}>
@@ -32,7 +48,8 @@ const ProfilDomacinstvo = () => {
                     />
                 </div>
                 <div className={classes.infHeader}>
-                    <p>Fifi</p>
+                    <p>{data.ime}</p>
+                    <p>{data.prezime}</p>
                     <p>Ovde da stavimo zivotni moto svakog coveka</p>
                 </div>
            </div>
@@ -46,13 +63,20 @@ const ProfilDomacinstvo = () => {
            <div className={classes.mainPart}>
                 { isShowProfile &&
                     <DesignProfileKorisnik 
-                    Ime="Lazar" 
-                    Prezime="Najdanovic" 
-                    Username="Sule Spanac" 
-                    Email="lazar@gmail.com"
+                    Ime={data.ime} 
+                    Prezime={data.prezime}
+                    Username={data.username} 
+                    Email={data.email}
                     />
                 }
-                { isShowUpdateProfile && <UpdateProfileKorisnik /> }
+                { isShowUpdateProfile && 
+                    <UpdateProfileKorisnik 
+                        Ime={data.ime} 
+                        Prezime={data.prezime}
+                        Username={data.username} 
+                        Email={data.email}
+                    /> 
+                }
            </div>
        </div>
     );

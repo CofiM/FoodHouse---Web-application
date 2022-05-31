@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -18,6 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Rating } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
+import { useState } from "react";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,22 +31,15 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
-  const [expanded, setExpanded] = React.useState(false);
-
+  const [expanded, setExpanded] = useState(false);
+  const [val, setVal] = useState(0);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const [val, setValue] = useState(0);
+
   return (
     <Card sx={{ width: 320, m: 2 }}>
-      <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <AddShoppingCartIcon onClick={props.onClickCart} />
-          </IconButton>
-        }
-        title={props.naziv}
-      />
+      <CardHeader title={props.naziv} />
       <CardMedia
         component="img"
         height="194"
@@ -59,7 +52,13 @@ export default function RecipeReviewCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Rating name="read-only" value={props.ocena} readOnly />
+        <Rating
+          name="simple-controlled"
+          value={val}
+          onChange={(event, newValue) => {
+            setVal(newValue);
+          }}
+        />
         <IconButton aria-label="comment" onClick={props.onClickComment}>
           <CommentIcon />
         </IconButton>
