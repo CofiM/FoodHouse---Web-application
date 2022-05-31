@@ -24,6 +24,7 @@ import CartProvider from "./Components/Korpa/CartProvider";
 import ViewProducts from "./Main/ViewProducts";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
+import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 
 
 function App() {
@@ -116,6 +117,12 @@ function App() {
               <Route path="/ViewProductsStrict">
                 <ViewProductsStrict />
               </Route>
+              <Route path="/HouseholdView">
+                <HouseholdView />
+              </Route>
+
+
+
               <Route path="*">
                 <NotFound />
               </Route>
