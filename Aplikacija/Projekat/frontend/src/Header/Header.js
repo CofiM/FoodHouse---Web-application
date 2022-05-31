@@ -22,6 +22,7 @@ import MailBox from "../Components/MailBox/MailBox";
 import ProfileKorisnik from "../Components/Profil/ProfileKorisnik";
 import ProfileDostavljac from "../Components/Profil/ProfileDostavljac";
 import ProfileDomacinstvo from "../Components/Profil/ProfileDomacinstvo";
+import CartBox from "../Components/Korpa/CartBox";
 
 const settings = ['Profile', 'Logout'];
 
@@ -214,7 +215,7 @@ const ResponsiveAppBar = (props) => {
                 sx={{color:'white'}}
                 onClick= {() => onClickCart("Cart")}
               >
-                  <ShoppingCartOutlinedIcon/>
+                  <CartBox/>
               </Button>
             </Box>}
 

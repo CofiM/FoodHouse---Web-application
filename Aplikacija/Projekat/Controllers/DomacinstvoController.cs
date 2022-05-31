@@ -127,6 +127,7 @@ namespace SWE___PROJEKAT.Controllers
                     p.Tip,
                     p.Poslovi,
                     p.Proizvodi,
+                    p.Dostavljac
                 }).ToListAsync();
                 return Ok(domacinstva);
             }
