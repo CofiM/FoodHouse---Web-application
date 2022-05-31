@@ -20,6 +20,7 @@ export default function SignIn(){
   const history = useHistory();
   const [textEmail, setTextEmail] = useState('');
   const [textPassword, setTextPassword] = useState('');
+  const [labelIsShown, setLabelIsShown] = useState(false);
 
   const onChangeEmailHandler = (event) => {
     setTextEmail(event.target.value);
@@ -39,12 +40,14 @@ export default function SignIn(){
       password: data.get("password"),
     });
 
-    console.log(textEmail, textPassword);
-    /* fetchLoginDomacinstvoHandler();
-    fetchLoginDostavljacHandler();
-    fetchLoginKorisnikHandler(); */
-    fetchLoginClient();
-  };
+
+    if(textEmail === null || textPassword === null || !/^[a-zA-Z0-9+_.-]+@[a-z]+[.]+[c]+[o]+[m]$/.test(textEmail))
+      setLabelIsShown(true);
+
+
+      console.log(textEmail, textPassword);
+      fetchLoginClient();
+    };
 
   async function fetchLoginClient(){
     const response = await fetch("https://localhost:5001/Administrator/GetAccount/"+textEmail+"/"+textPassword,
@@ -60,7 +63,6 @@ export default function SignIn(){
     localStorage.setItem("Korisnik",data.tip);
 
     
-
 
     if(data.tip === "K"){
       let path = "Naslovna";
@@ -122,7 +124,7 @@ export default function SignIn(){
               autoComplete="current-password"
               onChange={onChangePasswordHandler}
             />
-
+            {labelIsShown && <p style={{color:"red"}}> Nevalidan unos za e-mail ili sifru </p>}
             <Button
               type="submit"
               fullWidth

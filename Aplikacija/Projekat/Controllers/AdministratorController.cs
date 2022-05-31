@@ -241,10 +241,10 @@ namespace SWE___PROJEKAT.Controllers
             }
         } 
 
-        [Route("PosaljiPorukuDomacinDostavljac/{idDomacin}/{idDostavljac}/{por}")]
+        [Route("PosaljiPorukuDomacinDostavljac/{idDomacin}/{idDostavljac}/{por}/{tip}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> posaljiPorukuDomacinDostavljac(int idDomacin, int idDostavljac, string por)
+        public async Task<ActionResult> posaljiPorukuDomacinDostavljac(int idDomacin, int idDostavljac, string por, char tip)
         {
             if(idDomacin < 0 || idDostavljac < 0)
             {
@@ -256,21 +256,22 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var dostavljac = await Context.Dostavljaci.Where(p => p.ID == idDostavljac).FirstOrDefaultAsync(); 
-                if(dostavljac == null)
-                {
-                    throw new Exception("Ne postoji dostavljac!");
-                }
                 var proizvodjac = await Context.Domacinstva.Where(p => p.ID == idDomacin).FirstOrDefaultAsync(); 
                 if(proizvodjac == null)
                 {
                     throw new Exception("Ne postoji proizvodjac!");
+                }
+                var dostavljac = await Context.Dostavljaci.Where(p => p.ID == idDostavljac).FirstOrDefaultAsync(); 
+                if(dostavljac == null)
+                {
+                    throw new Exception("Ne postoji dostavljac!");
                 }
                 Poruka poruka = new Poruka();
                 poruka.sadrzaj = por;
                 poruka.Domacinstvo = proizvodjac;
                 poruka.Dostavljac = dostavljac;
                 poruka.Korisnik = null;
+                poruka.Tip = tip;
                 Context.Poruke.Add(poruka);
                 await Context.SaveChangesAsync();
                 proizvodjac.inbox.Add(poruka);

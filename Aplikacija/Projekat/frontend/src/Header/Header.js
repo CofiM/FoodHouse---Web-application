@@ -83,13 +83,24 @@ const ResponsiveAppBar = (props) => {
       }
       if(type === "Logout")
       {
+        const type = localStorage.getItem("Korisnik");
         localStorage.removeItem("Korisnik");
+        if(type === "P"){
+          localStorage.removeItem("DomacinstvoID");
+        }
+        else if(type === "K"){
+          localStorage.removeItem("KorisnikID");
+        }
+        else if( type === "D"){
+          localStorage.removeItem("DostavljacID");
+        }
+
         let path = "Naslovna";
         history.push(path);
       }
       setAnchorElUser(null);
     }
-
+    
     const onClickMailBox = () => {
         let path = "Inbox";
         history.push(path);

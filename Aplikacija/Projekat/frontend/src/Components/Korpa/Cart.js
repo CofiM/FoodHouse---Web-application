@@ -12,6 +12,9 @@ import { useHistory } from 'react-router-dom';
 
 
 
+import CartItem from "./CartItem";
+import classes from "./Cart.module.css";
+import CartContext from "./CartContext";
 
 
 

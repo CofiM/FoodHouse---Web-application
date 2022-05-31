@@ -105,6 +105,37 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("VratiDostavljacaZaDomacinstvo/{id}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiDostavljacaZaDomacinstvo(int id)
+        {
+            if (id < 0)
+            {
+                return BadRequest("Nevalidan id!");
+            }
+            try
+            {
+                var domacinstvo = await Context.Domacinstva
+                .Where(p => p.ID == id)
+                .Include(p => p.Dostavljac)
+                .Select(p => new{
+                    p.Dostavljac
+                })
+                .FirstOrDefaultAsync();
+                if (domacinstvo == null)
+                {
+                    return BadRequest("Ne postoji domacinstvo sa zadatim ID");
+                }
+                return Ok(domacinstvo);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
         
         [Route("PreuzmiSvaDomacinstvo")]
         [EnableCors("CORS")]
@@ -148,7 +179,8 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var domacinstvo = await Context.Domacinstva.Where(p => p.ID == id).FirstOrDefaultAsync();
+                var domacinstvo = await Context.Domacinstva.Where(p => p.ID == id)
+                .Select(p=> new {p.inbox}).FirstOrDefaultAsync();
                 if (domacinstvo == null)
                 {
                     return BadRequest("Nepostoje domacinstvo sa zadatim id!");
@@ -157,7 +189,9 @@ namespace SWE___PROJEKAT.Controllers
                             .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == id)
                             .Select(p => new {
                                 p.ID,
-                                p.sadrzaj
+                                p.sadrzaj,
+                                p.Dostavljac,
+                                p.Domacinstvo
                             }).ToArrayAsync();
                 return Ok(poruke);
             }

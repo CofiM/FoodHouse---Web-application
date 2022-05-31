@@ -9,12 +9,12 @@ function InputNumber(props) {
         <label>{props.label}:</label>
       </div>
       <div className={classes.inputDiv}>
-        {/* <input type="number" placeholder={props.placeholder} /> */}
         <TextField
           sx={{ width: "25ch" }}
           id="standard-number"
           label={props.label}
           type="number"
+          defaultValue={props.value}
           variant="standard"
         />
       </div>
