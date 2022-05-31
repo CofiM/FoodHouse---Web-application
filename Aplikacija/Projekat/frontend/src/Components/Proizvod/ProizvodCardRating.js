@@ -18,6 +18,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Rating } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
 import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -32,7 +34,6 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = useState(false);
-  const [val, setVal] = useState(0);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -52,16 +53,9 @@ export default function RecipeReviewCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Rating
-          name="simple-controlled"
-          value={val}
-          onChange={(event, newValue) => {
-            setVal(newValue);
-          }}
-        />
-        <IconButton aria-label="comment" onClick={props.onClickComment}>
-          <CommentIcon />
-        </IconButton>
+        <Button variant="contained" disableElevation onClick={props.onClick}>
+          Ostavi recenziju
+        </Button>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

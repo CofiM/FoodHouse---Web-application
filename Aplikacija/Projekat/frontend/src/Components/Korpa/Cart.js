@@ -1,14 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from "react";
 
-import CartItem from './CartItem';
-import classes from './Cart.module.css';
-import CartContext from './CartContext';
-import { useState } from 'react';
-
-
-
-
-
+import CartItem from "./CartItem";
+import classes from "./Cart.module.css";
+import CartContext from "./CartContext";
 
 const Cart = (props) => {
   // const cartCtx = useContext(CartContext);
@@ -47,12 +41,12 @@ const Cart = (props) => {
   });
 
   const cartItems = (
-    <ul className={classes['cart-items']}>
+    <ul className={classes["cart-items"]}>
       {props.cart.map((item) => (
         <CartItem
           key={item.id}
           thatItem={item}
-           // onRemove={props}
+          // onRemove={props}
           // onAdd={cartItemAddHandler.bind(null, item)}
           // onDelete={cartItemDeleteHandler.bind(null,item.id)}
           onChangeAmount={props.handleChange}
@@ -73,8 +67,6 @@ const Cart = (props) => {
         <button className={classes.button}>Order</button>
       </div>
     </div>
-        
-
   );
 };
 
