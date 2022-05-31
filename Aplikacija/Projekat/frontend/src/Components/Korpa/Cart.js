@@ -1,4 +1,4 @@
-import { useContext,useEffect } from 'react';
+import { useContext,useEffect , useState} from 'react';
 
 import CartItem from './CartItem';
 import classes from './Cart.module.css';
@@ -66,10 +66,10 @@ const Cart = (props) => {
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
-        <span>{totalAmount}</span>
+        
       </div>
       <div className={classes.actions}>
-        {hasItems && <button className={classes.button}>Order</button>}
+       <button className={classes.button}>Order</button>
       </div>
     </div>
         

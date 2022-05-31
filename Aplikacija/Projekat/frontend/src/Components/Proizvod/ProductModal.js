@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
 
-export default function BasicModal(props) {
+export default function BasicModal() {
     const [open, setOpen] = React.useState(props.show);
   
     return (
@@ -24,10 +24,13 @@ export default function BasicModal(props) {
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               {props.message}
             </Typography>
-            <div className={classes.rowDesign}>
-              <Button onClick={props.onClose}>Obrisi poruku</Button>
+            <div /*className={classes.rowDesign}*/>
+              {/* <Button onClick={props.onClose}>Obrisi poruku</Button>
               <Button onClick={props.onClose}>Odbij</Button>
-              <Button onClick={props.onClose}>Prihvati</Button>
+              <Button onClick={props.onClose}>Prihvati</Button> */}
+             <input type="text">Naziv proizvoda</input>
+             
+
             </div>
           </Box>
         </Modal>
