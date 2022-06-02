@@ -256,15 +256,15 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var dostavljac = await Context.Dostavljaci.Where(p => p.ID == idDostavljac).FirstOrDefaultAsync(); 
-                if(dostavljac == null)
-                {
-                    throw new Exception("Ne postoji dostavljac!");
-                }
                 var proizvodjac = await Context.Domacinstva.Where(p => p.ID == idDomacin).FirstOrDefaultAsync(); 
                 if(proizvodjac == null)
                 {
                     throw new Exception("Ne postoji proizvodjac!");
+                }
+                var dostavljac = await Context.Dostavljaci.Where(p => p.ID == idDostavljac).FirstOrDefaultAsync(); 
+                if(dostavljac == null)
+                {
+                    throw new Exception("Ne postoji dostavljac!");
                 }
                 Poruka poruka = new Poruka();
                 poruka.sadrzaj = por;

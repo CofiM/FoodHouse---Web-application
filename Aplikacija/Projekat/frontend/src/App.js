@@ -4,7 +4,6 @@ import Header from "./Header/Header";
 import "./App.css";
 import Poslovi from "./Main/Poslovi";
 import Domacinstva from "./Main/Domacinstva";
-import Domacinstvo from "./Main/Domacinstvo";
 import Naslovna from "./Main/Naslovna";
 import Footer from "./Footer/Footer";
 import NotFound from "./Main/NotFound";
@@ -15,6 +14,7 @@ import Dostavljaci from "./Main/Dostavljaci";
 import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
 import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
+import Domacinstvo from "./Main/Domacinstvo";
 
 import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
@@ -25,6 +25,9 @@ import ViewProducts from "./Main/ViewProducts";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
+import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
+import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
+import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 
 
 function App() {
@@ -119,6 +122,15 @@ function App() {
               </Route>
               <Route path="/HouseholdView">
                 <HouseholdView />
+              </Route>
+              <Route path="/ViewJobsLocation">
+                <ViewJobsLocation />
+              </Route>
+              <Route path="/ViewJobsDate">
+                <ViewJobsDate />
+              </Route>
+              <Route path="/ViewJobsDateLocation">
+                <ViewJobsDateLocation />
               </Route>
 
 

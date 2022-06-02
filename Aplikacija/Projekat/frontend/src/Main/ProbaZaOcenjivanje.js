@@ -1,8 +1,35 @@
 import React, { useState, useEffect } from "react";
 import ProizvodCardRating from "../Components/Proizvod/ProizvodCardRating";
+import ModalInput from "./ModalInput";
 
 function ProbaZaOcenjivanje() {
   const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [open, setOpen] = useState(false);
+  const onReviewHandler = (ID) => {
+    setProduct(products.find((el) => el.ID === ID));
+    setOpen(true);
+  };
+  async function onClickSaveReviewHandler(val, comm) {
+    const response = await fetch(
+      "https://localhost:5001/Recenzija/DodatiRecenziju/" +
+        val +
+        "/" +
+        comm +
+        "/" +
+        product.ID,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    setOpen(false);
+  }
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     const fetchProductHandler = async () => {
       console.log("uslo");
@@ -45,8 +72,18 @@ function ProbaZaOcenjivanje() {
           kolicina={prod.Kolicina}
           cena={prod.Cena}
           opis={prod.Opis}
+          onClick={() => onReviewHandler(prod.ID)}
         />
       ))}
+      <div>
+        {open && (
+          <ModalInput
+            show={open}
+            onClose={handleClose}
+            onClickSaveReview={onClickSaveReviewHandler}
+          />
+        )}
+      </div>
     </div>
   );
 }
