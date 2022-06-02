@@ -15,6 +15,7 @@ function InputText(props) {
           label={props.label}
           defaultValue={props.value}
           variant="standard"
+          onChange = {props.onChange}
         />
       </div>
     </div>

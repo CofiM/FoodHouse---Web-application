@@ -45,14 +45,16 @@ function InputNumber(props) {
           <Input
             id="standard-adornment-password"
             type={values.showPassword ? "text" : "password"}
-            value={values.password}
-            onChange={handleChange("password")}
+            value={props.value}
+            /* onChange={handleChange("password")} */
+            onChange = {props.onChange}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
+                  
                 >
                   {values.showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>

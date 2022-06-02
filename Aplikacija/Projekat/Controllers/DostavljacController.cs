@@ -185,30 +185,81 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("PromeniSifruDostavljaca/{email}/{pass}/{newPass}")]
+        [NonAction]
+        public bool CheckEmail(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
+        [Route("PromeniSifruDostavljaca/{email}/{pass}/{newPass}/{ime}/{prezime}/{username}/{cena}/{telefon}")]
         [EnableCors("CORS")]
         [HttpPut]
-        public async Task<ActionResult> promeniSifruDostavljaca(String email, String pass, String newPass)
+        public async Task<ActionResult> promeniSifruDostavljaca(string email, string pass, string newPass, 
+                string ime, string prezime, string username, int cena, string telefon)
         {
-            if (String.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(email))
             {
                 return BadRequest("Morate da unesete email!");
+            }
+            if( string.IsNullOrWhiteSpace(pass) || string.IsNullOrWhiteSpace(newPass) )
+            {
+                return BadRequest("Morate da unesete sifru!");
+            }
+            if(!CheckEmail(email))
+            {
+                return BadRequest("Nevalidan unos za e-mail!");
+            }
+            if( string.IsNullOrWhiteSpace(ime) )
+            {
+                return BadRequest("Nevalidan unos za ime!");
+            }
+            if( string.IsNullOrWhiteSpace(username) )
+            {
+                return BadRequest("Nevalidan unos za username!");
+            }
+            if( string.IsNullOrWhiteSpace(prezime) )
+            {
+                return BadRequest("Nevalidan unos za prezime!");
+            }
+            if( cena < 0 )
+            {
+                return BadRequest("Nevalidan unos za cenu!");
+            }
+            if( string.IsNullOrWhiteSpace(telefon) )
+            {
+                return BadRequest("Nevalidan unos za ime!");
             }
             try
             {
                 var dostavljac = await Context.Dostavljaci
-                .Where(p => p.email == email && p.Password == pass)
+                .Where(p => p.email == email )
                 .FirstOrDefaultAsync();
-                if (dostavljac != null)
+                if (dostavljac == null)
+                {
+                    return BadRequest("Ne postoji domacinstvo!");
+                }
+                if( pass == newPass )
                 {
                     dostavljac.Password = newPass;
+                    dostavljac.Ime = ime;
+                    dostavljac.Prezime = prezime;
+                    dostavljac.Username = username;
+                    dostavljac.Cena = cena;
+                    dostavljac.telefon = telefon;
+                    Context.Dostavljaci.Update(dostavljac);
                     await Context.SaveChangesAsync();
                     return Ok("Uspesno izmenjena sifra!");
                 }
-                else
-                {
-                    return BadRequest("Nevalidan email ili sifra!");
-                }
+                return BadRequest("Neuspesna izmena!");
             }
             catch (Exception e)
             {
