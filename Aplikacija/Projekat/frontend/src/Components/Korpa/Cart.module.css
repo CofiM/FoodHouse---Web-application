@@ -13,10 +13,13 @@
     font-weight: bold;
     font-size: 1.5rem;
     margin: 1rem 0;
+    margin-left: 20px;
+    margin-right: 20px;
   }
   
   .actions {
     text-align: right;
+    margin-right: 20px;
   }
   
   .actions button {
@@ -43,5 +46,9 @@
   .actions .button {
     background-color: #8a2b06;
     color: white;
+  }
+  .button:focus{
+    outline: none;
+  box-shadow: none;
   }
   

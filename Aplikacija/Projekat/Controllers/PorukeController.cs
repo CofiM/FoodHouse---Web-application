@@ -29,14 +29,23 @@ namespace SWE___PROJEKAT.Controllers
         {
             try
             {
-                var poruke = await Context.Poruke.Include(p => p.Domacinstvo).Include(p => p.Dostavljac).Include(p => p.Korisnik)
-                .Where(p => p.Domacinstvo.ID == idD)
-                .Select(p => new{
-                    p.sadrzaj,
-                    p.Domacinstvo,
-                    p.Dostavljac,
-                    p.Korisnik
-                }).ToArrayAsync();
+                var poruke = await Context.Poruke
+                                .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == idD)
+                                .Include(p => p.Dostavljac).Include(p => p.Korisnik)
+                                .Select(p => new{
+                                    p.ID,
+                                    p.sadrzaj,
+                                    p.Domacinstvo.Naziv,
+                                    p.Dostavljac.Ime,
+                                    p.Dostavljac.Prezime,
+                                    imeKorisnik = p.Korisnik.Ime,
+                                    prezimeKorisnika = p.Korisnik.Prezime,
+                                    emailKorisnik = p.Korisnik.email,
+                                    emailDostavljac = p.Dostavljac.email,
+                                    p.Dostavljac,
+                                    p.Tip,
+                                    p.Flag
+                                }).ToArrayAsync();
                 return Ok(poruke);
             }
             catch(Exception e)
@@ -44,5 +53,117 @@ namespace SWE___PROJEKAT.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [Route("PreuzmiPorukeDostavljac/{idD}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiPorukeDostavljac(int idD)
+        {
+            try
+            {
+                var poruke = await Context.Poruke
+                                .Include(p => p.Dostavljac).Where(p => p.Dostavljac.ID == idD)
+                                .Include(p => p.Dostavljac).Include(p => p.Korisnik)
+                                .Select(p => new{
+                                    p.ID,
+                                    p.sadrzaj,
+                                    p.Domacinstvo.Naziv,
+                                    p.Dostavljac.Ime,
+                                    p.Dostavljac.Prezime,
+                                    imeKorisnik = p.Korisnik.Ime,
+                                    prezimeKorisnika = p.Korisnik.Prezime,
+                                    emailKorisnik = p.Korisnik.email,
+                                    emailDostavljac = p.Dostavljac.email,
+                                    p.Dostavljac,
+                                    p.Tip,
+                                    p.Flag
+                                }).ToArrayAsync();
+                return Ok(poruke);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("PreuzmiPoruke/{ClientID}/{type}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiPoruke(int clientID, char type)
+        {
+            try
+            {
+                
+                if( type == 'P' )
+                {
+                    var poruke = await Context.Poruke
+                                .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == clientID)
+                                .Include(p => p.Dostavljac).Include(p => p.Korisnik)
+                                .Select(p => new{
+                                    p.ID,
+                                    p.sadrzaj,
+                                    p.Domacinstvo.Naziv,
+                                    p.Dostavljac.Ime,
+                                    p.Dostavljac.Prezime,
+                                    imeKorisnik = p.Korisnik.Ime,
+                                    prezimeKorisnika = p.Korisnik.Prezime,
+                                    emailKorisnik = p.Korisnik.email,
+                                    emailDostavljac = p.Dostavljac.email,
+                                    p.Dostavljac,
+                                    p.Tip,
+                                    p.Flag
+                                }).ToArrayAsync();
+                                return Ok(poruke);
+                }
+                if( type == 'D' )
+                {
+                    var poruke = await Context.Poruke
+                                .Include(p => p.Dostavljac).Where(p => p.Dostavljac.ID == clientID)
+                                .Include(p => p.Domacinstvo).Include(p => p.Korisnik)
+                                .Select(p => new{
+                                    p.ID,
+                                    p.sadrzaj,
+                                    p.Domacinstvo.Naziv,
+                                    p.Dostavljac.Ime,
+                                    p.Dostavljac.Prezime,
+                                    imeKorisnik = p.Korisnik.Ime,
+                                    prezimeKorisnika = p.Korisnik.Prezime,
+                                    emailKorisnik = p.Korisnik.email,
+                                    emailDostavljac = p.Dostavljac.email,
+                                    p.Dostavljac,
+                                    p.Tip,
+                                    p.Flag
+                                }).ToArrayAsync();
+                                return Ok(poruke);
+                }
+                if( type == 'K' )
+                {
+                    var poruke = await Context.Poruke
+                                .Include(p => p.Korisnik).Where(p => p.Korisnik.ID == clientID)
+                                .Include(p => p.Domacinstvo).Include(p => p.Dostavljac)
+                                .Select(p => new{
+                                    p.ID,
+                                    p.sadrzaj,
+                                    p.Domacinstvo.Naziv,
+                                    p.Dostavljac.Ime,
+                                    p.Dostavljac.Prezime,
+                                    imeKorisnik = p.Korisnik.Ime,
+                                    prezimeKorisnika = p.Korisnik.Prezime,
+                                    emailKorisnik = p.Korisnik.email,
+                                    emailDostavljac = p.Dostavljac.email,
+                                    p.Dostavljac,
+                                    p.Tip,
+                                    p.Flag
+                                }).ToArrayAsync();
+                                return Ok(poruke);
+                }
+                return BadRequest("Nije dodato!");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }

@@ -11,7 +11,7 @@ import OutboxRoundedIcon from '@mui/icons-material/OutboxRounded';
 export default function SelectedListItem(props) {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-  const handleListItemClick = ( index) => {
+  const handleListItemClick = (index) => {
     setSelectedIndex(index);
     localStorage.setItem("sidebar", index);
   };
@@ -21,7 +21,7 @@ export default function SelectedListItem(props) {
       <List component="nav" aria-label="main mailbox folders">
         <ListItemButton
           selected={selectedIndex === 0}
-          onDoubleClick={(event) => handleListItemClick( 0)}
+          onDoubleClick={(event) => handleListItemClick(0)}
           onClick={props.onClick()}
         >
           <ListItemIcon>
@@ -34,7 +34,7 @@ export default function SelectedListItem(props) {
       <List component="nav" aria-label="secondary mailbox folder">
         <ListItemButton
           selected={selectedIndex === 1}
-          onDoubleClick={(event) => handleListItemClick( 1)}
+          onDoubleClick={(event) => handleListItemClick(1)}
           onClick={props.onClick}
         >
         <ListItemIcon>

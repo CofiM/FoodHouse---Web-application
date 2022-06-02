@@ -105,6 +105,37 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("VratiDostavljacaZaDomacinstvo/{id}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiDostavljacaZaDomacinstvo(int id)
+        {
+            if (id < 0)
+            {
+                return BadRequest("Nevalidan id!");
+            }
+            try
+            {
+                var domacinstvo = await Context.Domacinstva
+                .Where(p => p.ID == id)
+                .Include(p => p.Dostavljac)
+                .Select(p => new{
+                    p.Dostavljac
+                })
+                .FirstOrDefaultAsync();
+                if (domacinstvo == null)
+                {
+                    return BadRequest("Ne postoji domacinstvo sa zadatim ID");
+                }
+                return Ok(domacinstvo);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
         
         [Route("PreuzmiSvaDomacinstvo")]
         [EnableCors("CORS")]
@@ -127,6 +158,7 @@ namespace SWE___PROJEKAT.Controllers
                     p.Tip,
                     p.Poslovi,
                     p.Proizvodi,
+                    p.Dostavljac
                 }).ToListAsync();
                 return Ok(domacinstva);
             }
@@ -207,7 +239,7 @@ namespace SWE___PROJEKAT.Controllers
         [Route("PromeniSifruDomacinstva/{email}/{pass}/{newPass}")]
         [EnableCors("CORS")]
         [HttpPut]
-        public async Task<ActionResult> promeniSifruDomacinstva(String email, String pass, String newPass)
+        public async Task<ActionResult> promeniSifruDomacinstva(string email, string pass, string newPass)
         {
             if (String.IsNullOrWhiteSpace(email))
             {
@@ -228,6 +260,88 @@ namespace SWE___PROJEKAT.Controllers
                 {
                     return BadRequest("Nevalidan email ili sifra!");
                 }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        
+        [NonAction]
+        public bool CheckEmail(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
+        [Route("IzmeniProfilDomacinstva/{email}/{pass}/{newPass}/{naziv}/{username}/{adresa}/{telefon}/{datum}")]
+        [EnableCors("CORS")]
+        [HttpPut]
+        public async Task<ActionResult> izmeniProfilDomacinstva(string email, string pass, string newPass, 
+            string naziv, string username, string adresa, string telefon, DateTime datum)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest("Morate da unesete email!");
+            }
+            if(!CheckEmail(email))
+            {
+                return BadRequest("Nevalidan unos za e-mail!");
+            }
+            if( string.IsNullOrWhiteSpace(pass) || string.IsNullOrWhiteSpace(newPass) )
+            {
+                return BadRequest("Morate da unesete password!");
+            }
+            if(string.IsNullOrWhiteSpace(naziv))
+            {
+                return BadRequest("Morate da unesete naziv domacinstva!");
+            }
+            if(string.IsNullOrWhiteSpace(username))
+            {
+                return BadRequest("Morate da unesete username domacinstva!");
+            }
+            if(string.IsNullOrWhiteSpace(adresa))
+            {
+                return BadRequest("Morate da unesete adresu domacinstva!");
+            }
+            if(string.IsNullOrWhiteSpace(telefon))
+            {
+                return BadRequest("Morate da unesete telefon domacinstva!");
+            }
+            if(datum == null)
+            {
+                return BadRequest("Morate da unesete dan otvorenih vrata domacinstva!");
+            }
+            try
+            {
+                var domacinstvo = await Context.Domacinstva
+                .Where(p => p.email == email)
+                .FirstOrDefaultAsync();
+                if (domacinstvo == null)
+                {
+                    return BadRequest("Ne postoji domacinstvo!");
+                }
+                if(pass == newPass)
+                {
+                    domacinstvo.Password = newPass;
+                    domacinstvo.Naziv = naziv;
+                    domacinstvo.Username = username;
+                    domacinstvo.Adresa = adresa;
+                    domacinstvo.telefon = telefon;
+                    domacinstvo.otvorenaVrata = datum;
+                    Context.Domacinstva.Update(domacinstvo);
+                    await Context.SaveChangesAsync();
+                    return Ok("Uspesno izmenjena sifra!");
+                }
+                return BadRequest("Neuspesna izmena!");
             }
             catch (Exception e)
             {
@@ -269,9 +383,6 @@ namespace SWE___PROJEKAT.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-
-
 
         [Route("DodatiPosao/{idD}/{brRadnihMesta}/{datumPocetka}/{opis}/{cena}")]
         [EnableCors("CORS")]
@@ -576,6 +687,46 @@ namespace SWE___PROJEKAT.Controllers
                 }
             }
             catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        [Route("PrihvatiPosao/{idDomacinstva}/{type}/{ime}/{prezime}")]
+        [EnableCors("CORS")]
+        [HttpPut]
+        public async Task<ActionResult> prihvatiPosao(int idDomacinstva, char type, string ime, string prezime)
+        {
+            if(string.IsNullOrWhiteSpace(ime) || ime.Length > 30)
+            {
+                return BadRequest("Nevalidan unos!");
+            }
+            if(string.IsNullOrWhiteSpace(prezime) || prezime.Length > 30)
+            {
+                return BadRequest("Nevalidan unos!");
+            }
+            try
+            {
+                if(type == 'K')
+                {
+                    var korisnik = await Context.Korisnici.Where(p => p.Ime == ime && p.Prezime == prezime).FirstOrDefaultAsync();
+                    var poruka = await Context.Poruke.Where(p => p.Domacinstvo.ID == idDomacinstva && p.Korisnik.ID == korisnik.ID).FirstOrDefaultAsync();
+                    poruka.Flag = true;
+                    Context.Poruke.Update(poruka);
+                    await Context.SaveChangesAsync();
+                    return Ok("Uspesan update!");
+                }
+
+                var dostavljac = await Context.Dostavljaci.Where(p => p.Ime == ime && p.Prezime == prezime).FirstOrDefaultAsync();
+                var poruka1 = await Context.Poruke.Where(p => p.Domacinstvo.ID == idDomacinstva && p.Dostavljac.ID == dostavljac.ID).FirstOrDefaultAsync();
+                poruka1.Flag=true;
+                Context.Poruke.Update(poruka1);
+                await Context.SaveChangesAsync();
+                return Ok("Uspesan update!");
+
+            }
+            catch(Exception e)
             {
                 return BadRequest(e.Message);
             }

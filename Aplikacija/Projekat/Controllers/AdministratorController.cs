@@ -241,10 +241,10 @@ namespace SWE___PROJEKAT.Controllers
             }
         } 
 
-        [Route("PosaljiPorukuDomacinDostavljac/{idDomacin}/{idDostavljac}/{por}/{tip}")]
+        [Route("PosaljiPorukuDomacinDostavljac/{idDomacin}/{idDostavljac}/{por}/{tip}/{flag}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> posaljiPorukuDomacinDostavljac(int idDomacin, int idDostavljac, string por, char tip)
+        public async Task<ActionResult> posaljiPorukuDomacinDostavljac(int idDomacin, int idDostavljac, string por, char tip, bool flag)
         {
             if(idDomacin < 0 || idDostavljac < 0)
             {
@@ -256,15 +256,15 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var dostavljac = await Context.Dostavljaci.Where(p => p.ID == idDostavljac).FirstOrDefaultAsync(); 
-                if(dostavljac == null)
-                {
-                    throw new Exception("Ne postoji dostavljac!");
-                }
                 var proizvodjac = await Context.Domacinstva.Where(p => p.ID == idDomacin).FirstOrDefaultAsync(); 
                 if(proizvodjac == null)
                 {
                     throw new Exception("Ne postoji proizvodjac!");
+                }
+                var dostavljac = await Context.Dostavljaci.Where(p => p.ID == idDostavljac).FirstOrDefaultAsync(); 
+                if(dostavljac == null)
+                {
+                    throw new Exception("Ne postoji dostavljac!");
                 }
                 Poruka poruka = new Poruka();
                 poruka.sadrzaj = por;
@@ -272,6 +272,7 @@ namespace SWE___PROJEKAT.Controllers
                 poruka.Dostavljac = dostavljac;
                 poruka.Korisnik = null;
                 poruka.Tip = tip;
+                poruka.Flag = flag;
                 Context.Poruke.Add(poruka);
                 await Context.SaveChangesAsync();
                 proizvodjac.inbox.Add(poruka);
@@ -284,10 +285,152 @@ namespace SWE___PROJEKAT.Controllers
             }
         } 
 
-        [Route("PosaljiPorukuDomacinKorisnik/{idDomacin}/{idKorisnik}/{por}")]
+        [Route("PosaljiPorukuOdStraneProizvodjaca/{idDomacin}/{receiverEmail}/{message}/{senderType}/{flag}/{receiverType}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> posaljiPorukuDomacinKorisnik(int idDomacin, int idKorisnik, string por)
+        public async Task<ActionResult> posaljiPorukuOdStraneProizvodjaca(int idDomacin, string receiverEmail, string message, char senderType, bool flag, char receiverType)
+        {
+            if(!CheckEmail(receiverEmail))
+            {
+                return BadRequest("Nevalidan unos!");
+            }
+            if(string.IsNullOrWhiteSpace(message) || message.Length > 500)
+            {
+                return BadRequest("Nevalidan unos za poruku!");
+            }
+            try
+            {
+                Poruka poruka = new Poruka();
+                var proizvodjac = await Context.Domacinstva.Where(p => p.ID == idDomacin).FirstOrDefaultAsync(); 
+                if(proizvodjac == null)
+                {
+                    throw new Exception("Ne postoji proizvodjac!");
+                }
+
+                if( receiverType == 'K'){
+                    var korisnik = await Context.Korisnici.Where(p => p.email == receiverEmail).FirstOrDefaultAsync();
+                    if(korisnik == null)
+                    {
+                        throw new Exception("Ne postoji korisnik sa tim mejlom!");
+                    }
+
+                    
+                    poruka.sadrzaj = message;
+                    poruka.Domacinstvo = proizvodjac;
+                    poruka.Korisnik = korisnik;
+                    poruka.Dostavljac = null;
+                    poruka.Tip = senderType;
+                    poruka.Flag = flag;
+                    Context.Poruke.Add(poruka);
+                    await Context.SaveChangesAsync();
+                    proizvodjac.inbox.Add(poruka);
+                    korisnik.inbox.Add(poruka);
+                    return Ok("Uspesno poslata poruka!");
+                }
+               
+                var dostavljac = await Context.Dostavljaci.Where(p => p.email == receiverEmail).FirstOrDefaultAsync(); 
+                if(dostavljac == null)
+                {
+                    throw new Exception("Ne postoji dostavljac!");
+                }
+                
+                poruka.sadrzaj = message;
+                poruka.Domacinstvo = proizvodjac;
+                poruka.Dostavljac = dostavljac;
+                poruka.Korisnik = null;
+                poruka.Tip = senderType;
+                poruka.Flag = flag;
+                Context.Poruke.Add(poruka);
+                await Context.SaveChangesAsync();
+                proizvodjac.inbox.Add(poruka);
+                dostavljac.inbox.Add(poruka);
+                return Ok("Uspesno poslata poruka!");
+            }
+            catch( Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("ObrisiPoruku/{ClientID}/{MessageID}/{type}")]
+        [EnableCors("CORS")]
+        [HttpDelete]
+        public async Task<ActionResult> obrisiPoruku(int ClientID, int MessageID, char type)
+        {
+            try
+            {
+                if(type == 'P')
+                {
+                    var domacinstvo = await Context.Domacinstva.FindAsync(ClientID);
+                    if( domacinstvo ==  null)
+                    {
+                        throw new Exception("Ne postoji domacinstvo!");
+                    }
+                    var poruka = await Context.Poruke.FindAsync(MessageID);
+                    if(poruka == null){
+                        return BadRequest("Ne postoji poruka!");
+                    }
+                    domacinstvo.inbox.Remove(poruka);
+                    poruka.Domacinstvo = null;
+                    await Context.SaveChangesAsync();
+                    if(poruka.Korisnik == null && poruka.Dostavljac == null){
+                        Context.Poruke.Remove(poruka);
+                    }
+                    await Context.SaveChangesAsync();
+                    return Ok("Uspesno obrisana poruka!");
+                }
+                if( type == 'D')
+                {
+                    var dostavljac = await Context.Dostavljaci.FindAsync(ClientID);
+                    if(dostavljac == null)
+                    {
+                        throw new Exception("Ne postoji dostavljac!");
+                    }
+                    var poruka = await Context.Poruke.FindAsync(MessageID);
+                    if(poruka == null){
+                        return BadRequest("Ne postoji poruka!");
+                    }
+                    dostavljac.inbox.Remove(poruka);
+                    poruka.Dostavljac = null;
+                    await Context.SaveChangesAsync();
+                    if(poruka.Domacinstvo == null){
+                        Context.Poruke.Remove(poruka);
+                    }
+                    await Context.SaveChangesAsync();
+                    return Ok("Uspesno obrisana poruka!");
+                }
+                if( type == 'K')
+                {
+                    var korisnik = await Context.Korisnici.FindAsync(ClientID);
+                    if(korisnik == null)
+                    {
+                        throw new Exception("Ne postoji korisnik!");
+                    }
+                    var poruka = await Context.Poruke.FindAsync(MessageID);
+                    if(poruka == null){
+                        return BadRequest("Ne postoji poruka!");
+                    }
+                    korisnik.inbox.Remove(poruka);
+                    poruka.Korisnik = null;
+                    await Context.SaveChangesAsync();
+                    if(poruka.Domacinstvo == null){
+                        Context.Poruke.Remove(poruka);
+                    }
+                    await Context.SaveChangesAsync();
+                    return Ok("Uspesno obrisana poruka!");
+                }
+                return Ok("");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("PosaljiPorukuDomacinKorisnik/{idDomacin}/{idKorisnik}/{por}/{tip}/{flag}")]
+        [EnableCors("CORS")]
+        [HttpPost]
+        public async Task<ActionResult> posaljiPorukuDomacinKorisnik(int idDomacin, int idKorisnik, string por, char tip, bool flag)
         {
             if(idDomacin < 0 || idKorisnik < 0)
             {
@@ -314,6 +457,8 @@ namespace SWE___PROJEKAT.Controllers
                 poruka.Domacinstvo = proizvodjac;
                 poruka.Korisnik = korisnik;
                 poruka.Dostavljac = null;
+                poruka.Tip = tip;
+                poruka.Flag = flag;
                 Context.Poruke.Add(poruka);
                 await Context.SaveChangesAsync();
                 proizvodjac.inbox.Add(poruka);

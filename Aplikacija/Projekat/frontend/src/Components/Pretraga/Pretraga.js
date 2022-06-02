@@ -24,7 +24,6 @@ const Pretraga=()=>
 
     const handleChangeCategory = (e) => {
         setCategory(e.target.value);
-    
         if(category.length!=0)
         {
             setCategoryValid(true);
@@ -134,8 +133,8 @@ const Pretraga=()=>
 
             <div>
                 <select className={classes.category} onChange={handleChangeCategory}>
-                    {categoryArray.map((option) => (
-                        <option value={option.value}>{option.label}</option>
+                    {categoryArray.map((option, index) => (
+                        <option key={index} value={option.value}>{option.label}</option>
                     ))}
                 </select>    
             </div>
