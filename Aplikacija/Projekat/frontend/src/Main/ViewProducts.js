@@ -58,7 +58,11 @@ const ViewProducts = ()=>
         let newState=[...allProducts];
         setValue(e.target.value);
 
+<<<<<<< HEAD
         if(value==1)
+=======
+        if(e.target.value==1)
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
         {
       
             console.log(newState);
@@ -74,7 +78,11 @@ const ViewProducts = ()=>
                 />
             ))}
         }
+<<<<<<< HEAD
         else if(value==2)
+=======
+        else if(e.target.value==2)
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
         {
             { newState 
                 .sort((a, b) => a.naziv > b.naziv ? 1 : -1)

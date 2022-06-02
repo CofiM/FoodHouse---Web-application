@@ -8,7 +8,7 @@ function Domacinstvo() {
   const ID = JSON.parse(localStorage.getItem("DomacinstvoID"));
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
-  const [product, setProduct] = useState([]);
+  const [product, setProduct]=useState(); 
   const handleClose = () => {
     setOpen(false);
   };

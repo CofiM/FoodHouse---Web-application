@@ -20,12 +20,20 @@ const Inbox = () => {
   const [clientType, setClientType] = React.useState("");
   const [producer, setProducer] = React.useState(false);
   const [consumer, setConsumer] = React.useState(true);
+<<<<<<< HEAD
+=======
+  const [message, setMessage] = React.useState("");
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
 
   const handleClose = () => {
     setOpen(false);
   };
 
+<<<<<<< HEAD
   const onClickMessage = (index, ime, prezime, naziv, tip, email) => {
+=======
+  const onClickMessage = (index, ime, prezime, naziv, tip, email, poruka) => {
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
     console.log("Ulazim u message" + index);
     localStorage.setItem("index", index);
     setOpen(true);
@@ -34,7 +42,19 @@ const Inbox = () => {
     setName(naziv);
     setType(tip);
     setReceiverEmail(email);
+<<<<<<< HEAD
     //console.log(firstName, lastName, name, type, receiverEmail);
+=======
+    if(poruka  === "Dobili ste posao!" || poruka === "Apliciranje za posao")
+    {
+      setMessage("Dobili ste posao na gazdinstvu: " + name + ". Cestitamo!");
+    }
+    else
+    {
+      setMessage("Niste dobili posao na gazdinstvu: " + name + ". Izvinite!");
+    }
+  
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
   };
 
   const onSideBarClick = () => {
@@ -50,6 +70,10 @@ const Inbox = () => {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
     const fetchMessage = async () => {
       console.log("Ulazim");
       const tip = localStorage.getItem("Korisnik");
@@ -81,8 +105,12 @@ const Inbox = () => {
           }
         })
         setData(transformedData);
+<<<<<<< HEAD
         console.log("Message ID  je " + messageID);
         console.log(data);
+=======
+        console.log(transformedData);
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
       }
       else if( tip === "D"){
         console.log("Ulazim u D");
@@ -195,7 +223,11 @@ const Inbox = () => {
   const onClickAccept = () => {
       console.log("Ulazim u onClickAccept");
       console.log(type);
+<<<<<<< HEAD
       const message = "Dobili ste posao!";
+=======
+      const message = "Dobili ste posao na gazdinstvu: ";
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
       const flag = true;
       console.log(receiverEmail, message, flag, type);
       sendMessageProducer( receiverEmail, message, flag, type );
@@ -217,34 +249,54 @@ const Inbox = () => {
       </div>
       <div className={classes.rightSide}>
         <div className={classes.MessagesDiv}>
+<<<<<<< HEAD
           { inbox && data.map( (d, index) => {
+=======
+          {inbox && data.map( (d, index) => {
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
               if( d.Tip === "D" && clientType === "P" )
                 return <MessageCard 
                           receiver={d.ImeD + " " + d.PrezimeD} 
                           shortMessage={d.Poruka}
                           onClickIcon={handleClose}
+<<<<<<< HEAD
                           onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD)}
+=======
+                          onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD, d.Poruka)}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
                         />
               if( d.Tip === "K" && clientType === "P" )
                 return  <MessageCard 
                           receiver={d.ImeK + " " + d.PrezimeK} 
                           shortMessage={d.Poruka}
                           onClickIcon={handleClose}
+<<<<<<< HEAD
                           onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK)}
+=======
+                          onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.Poruka)}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
                         />
               if( d.Tip === "P" && clientType === "D")
                 return  <MessageCard 
                           receiver={d.NazivP} 
                           shortMessage={d.Poruka}
                           onClickIcon={handleClose}
+<<<<<<< HEAD
                           onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailK)}
+=======
+                          onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailK, d.Poruka)}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
                         />
               if( d.Tip === "P" && clientType === "K")
               return  <MessageCard 
                         receiver={d.NazivP} 
                         shortMessage={d.Poruka}
                         onClickIcon={handleClose}
+<<<<<<< HEAD
                         onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK)}
+=======
+                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.Poruka)}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
                       />
             }
           )}
@@ -255,28 +307,44 @@ const Inbox = () => {
               return  <MessageCard
                         receiver={d.NazivP}
                         shortMessage={d.Poruka}
+<<<<<<< HEAD
                         onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip)}
+=======
+                        onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD, d.Poruka)}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
                       />
             
             if( clientType === "P" && d.Tip === "P" && d.EmailD === null )
               return  <MessageCard
                         receiver={d.NazivP}
                         shortMessage={d.Poruka}
+<<<<<<< HEAD
                         onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip)}
+=======
+                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.Poruka)}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
                       />
             
             if( clientType === 'K' && d.Tip === 'K' )
               return  <MessageCard
                         receiver={d.ImeK + " " + d.PrezimeK}
                         shortMessage={d.Poruka}
+<<<<<<< HEAD
                         onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip)}
+=======
+                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.Poruka)}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
                       />
 
             if( clientType === 'D' && d.Tip === 'D' )
               return  <MessageCard
                         receiver={d.ImeD + " " + d.PrezimeD}
                         shortMessage={d.Poruka}
+<<<<<<< HEAD
                         onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip)}
+=======
+                        onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD, d.Poruka)}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
                       />
             
             }
@@ -284,7 +352,11 @@ const Inbox = () => {
           )}
         </div>
         <div className={classes.Message}>
+<<<<<<< HEAD
           {inbox && clientType === "P" ?
+=======
+          {inbox && (clientType === "P" ?
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
             <Message
               show={open}
               title="Posao"
@@ -312,21 +384,35 @@ const Inbox = () => {
               tip={type}
               producer = {producer}
               consuer = {consumer}
+<<<<<<< HEAD
               message={"Dobili ste posao na gazdinstvu: " + name + "!"}
+=======
+              message={message}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
               onClose={handleClose}
               onClickAcceptHandler = { onClickAccept }
               onClickDeclineHandler = { onClickDecline }
               onClickDeleteHandler = { onClickDelete }
             />
+<<<<<<< HEAD
           } 
           {outbox && clientType === "P" ?
             <Message
+=======
+          )} 
+          {outbox && (clientType === "P" && type ==="P" ?
+            <MessageConsumer
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
               show={open}
               outbox={outbox}
               title="Posao"
               sender={name}
               receiver={firstName + " " + lastName}
+<<<<<<< HEAD
               message={"Dobili ste posao na gazdinstv: " + name + "!"}
+=======
+              message={message}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
               onClose={handleClose}
               onClickDeleteHandler = {onClickDelete}
             />
@@ -337,11 +423,19 @@ const Inbox = () => {
               title="Posao"
               sender={firstName + " " + lastName}
               receiver={name}
+<<<<<<< HEAD
               message={"Zahtev za posao na gazdinstv: " + name + "!"}
               onClose={handleClose}
               onClickDeleteHandler = {onClickDelete}
             />
           }
+=======
+              message={"Zahtev za posao na gazdinstvu: " + name}
+              onClose={handleClose}
+              onClickDeleteHandler = {onClickDelete}
+            />
+          )}
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
         </div>
       </div>
     </div>
