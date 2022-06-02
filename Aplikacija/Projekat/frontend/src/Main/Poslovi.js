@@ -1,93 +1,121 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect } from "react";
 import classes from "./Poslovi.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
+import { useHistory } from "react-router-dom";
 
 
 
 
 const Poslovi = () => {
-    const [isChangeLokacija, setIsChangeLokacija] = useState(false);
-    const [isChangeDatum, setIsChangeDatum] = useState(false);
     const [allJobs, setAllJobs] = useState([]);
-    const [cardIsShown, setCardIsShown] = useState(false);
-
+    const [adresa, setAdresa]=useState("");
+    const [validAdresa,setValidAdresa]=useState(false);
+    const [datum, setDatum]=useState(null);
+    const [validDatum,setValidDatum]=useState(false);
     
-    const LokacijaHandler = () => {
-        setIsChangeLokacija(true);
-    }
 
-    const DatumHandler = () => {
-        setIsChangeDatum(true);
-    }
-
-    const fetchJobsHandler = useCallback( async () => {
-        setCardIsShown(true);
-        try{
-            const response = await fetch('https://localhost:5001/Posao/PreuzetiPosloveZaDomacinstvo/2');
-            if(!response.ok){
-                throw new Error('Something went wrong!');
-            }
-
-            const data = await response.json();
-
-            const jobs = data.map((job) => {
-                return{
-                    opis: job.opis,
-                    brojRadnihMesta: job.brojRadnihMesta,
-                    datumPosla: job.datum,
-                    cena: job.cena,
-                    domacin: job.naziv,
-                    adresa: job.adresa
-                };
-            });
-            setAllJobs(jobs);
-            console.log(jobs);
-        }catch (error) {
-            console.log(error.message);
+    const adresaHandler=(event)=>
+    {
+        setAdresa(event.target.value);
+        if(event.target.value!="")
+        {
+            setValidAdresa(true);
         }
+        else
+        {
+            setValidAdresa(false);
+        }
+    };
+
+    const datumHandler=(event)=>
+    {
+        setDatum(event.target.value);
+       if(event.target.value!=null)
+       {
+           setValidDatum(true);
+       }
+       else
+       {
+           setValidDatum(false);
+       }
+    }
+    const choosePage=()=>
+    {
+        if(validAdresa!=false && validDatum!=false)
+        {
+            sendDateAndLocation(adresa,datum);
+        }
+        else if(validAdresa!=false)
+        {
+            sendLocation(adresa);
+            console.log(adresa);
+        }
+        else if(validDatum!=false)
+        {
+            sendDate(datum);
+            console.log(datum);
+        }
+
+    }
+
+    useEffect(() => {
+    async function fetchJobs() {
+    const response = await fetch('https://localhost:5001/Posao/PreuzetiPoslove',
+    {
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/json;charset=UTF-8'
+        }
+    });
+    
+    const data = await response.json();
+    
+    const jobs= data.map((job)=>{
+    return{
+        opis: job.opis,
+        brojRadnihMesta: job.brojRadnihMesta,
+        datumPosla: job.datum,
+        cena: job.cena,
+        domacin: job.naziv,
+        adresa: job.adresa
+    };
+    });
+    
+    setAllJobs(jobs);
+    console.log(jobs);
+    };
+    fetchJobs();
     }, []);
 
-    useEffect( () => {
-        fetchJobsHandler();
-    },[fetchJobsHandler]);
-
-
-    async function onClickSearch() {
-        console.log("ulazim u fetch");
-        setCardIsShown(true);
-        const response = await fetch('https://localhost:5001/Posao/PreuzetiPosloveZaDomacinstvo/2');
-            if(!response.ok){
-                throw new Error('Something went wrong!');
-            }
-
-            const data = await response.json();
-
-            const jobs = data.map((job) => {
-                return{
-                    opis: job.opis,
-                    brojRadnihMesta: job.brojRadnihMesta,
-                    datumPosla: job.datum,
-                    cena: job.cena,
-                    domacin: job.naziv,
-                    adresa: job.adresa
-                };
-            });
-            setAllJobs(jobs);
-            console.log(jobs);
+    const history=useHistory();
+    const sendLocation=(data)=>
+    {
+        localStorage.setItem("Adress",data);
+        history.push("ViewJobsLocation");
     }
+    const sendDate=(data)=>
+    {
+        localStorage.setItem("Date",data);
+        history.push("ViewJobsDate");
+    }
+    const sendDateAndLocation=(adress,date)=>
+    {
+        localStorage.setItem("Date",date);
+        localStorage.setItem("Adress",adress);
+        history.push("ViewJobsDateLocation");
+    }
+
 
     return(
         <div className={classes.search}>
             <form>
                 <div className={classes.searchDiv}>
-                    <input type="text" placeholder="Lokacija" onClick={LokacijaHandler} />
-                    <input type="date" value="2022-05-15" min="2022-01-01" max="2022-12-31" onClick={DatumHandler} />
-                    {/*{!isChangeDatum && !isChangeLokacija && <button className={classes.disabled} onClick={fetchJobsHandler}>Pretraži</button>}*/}
-                    {/*{(isChangeDatum || isChangeLokacija) && <button className={classes.enabled} onClick={fetchJobsHandler}>Pretraži</button>}*/}
-                    <button onClick={fetchJobsHandler}>Pretrazi</button>
+                    <input type="text" placeholder="Lokacija" onChange={adresaHandler} />
+                    <input type="date" min="2022-01-01" max="2022-12-31" onChange={datumHandler}/>
+                    <button onClick={choosePage} >Pretrazi</button>
                 </div>
                 <div>
-                    {cardIsShown &&  allJobs.map((job) => (
+                    { allJobs.map((job) => (
                        <PosloviCard
                             opis = {job.opis}
                             brRadnihMesta = {job.brojRadnihMesta}
@@ -101,6 +129,8 @@ const Poslovi = () => {
             </form>
         </div>
     );
-};
 
+
+
+};
 export default Poslovi;

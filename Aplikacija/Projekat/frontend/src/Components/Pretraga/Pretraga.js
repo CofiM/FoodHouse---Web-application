@@ -24,7 +24,7 @@ const Pretraga=()=>
 
     const handleChangeCategory = (e) => {
         setCategory(e.target.value);
-        if(category.length!=0)
+        if(e.target.value!=0)
         {
             setCategoryValid(true);
         }
@@ -32,23 +32,19 @@ const Pretraga=()=>
         {
             setCategoryValid(false);
         }
-       // console.log(categoryValid);
     };
 
     const handleChangeName = (e) =>
     {
-        //e.preventDefault();
         setName(e.target.value);
-        if(name.length>0)
+        if(e.target.value!="")
         {
-
             setNameValid(true);
         }
         else
         {
             setNameValid(false);
         }
-       // console.log(nameValid);
     };
 
     const choosePage = () =>
@@ -60,12 +56,12 @@ const Pretraga=()=>
         else if(categoryValid != false)
         {
             categorySend(category);
-            //console.log(category);
+            console.log(category);
         }
         else if(nameValid != false)
         {
             nameSend(name);
-            //console.log(name);
+            console.log(name);
         }
     }
 
@@ -83,14 +79,14 @@ const Pretraga=()=>
     {     
         localStorage.setItem("Category", data);
         history.push("ViewProducts");
-        console.log(data);
+        //console.log(data);
     };
    
     const nameSend=(data)=>
     {
         localStorage.setItem("Name", data);
         history.push("ViewProductsName");
-        console.log(data);
+       // console.log(data);
     }
 
     const categoryArray = [
