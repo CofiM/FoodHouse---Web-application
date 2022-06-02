@@ -4,17 +4,9 @@ import CartItem from './CartItem';
 import classes from './Cart.module.css';
 import classes2 from './CartItem.module.css';
 import CartContext from './CartContext';
-import { CartProvider, useCart } from "react-use-cart";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useCart } from "react-use-cart";
 import { useHistory } from 'react-router-dom';
 
-
-
-
-
-import CartItem from "./CartItem";
-import classes from "./Cart.module.css";
-import CartContext from "./CartContext";
 
 
 

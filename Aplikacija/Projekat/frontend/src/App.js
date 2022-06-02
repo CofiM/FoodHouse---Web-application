@@ -17,12 +17,12 @@ import ViewProductsStrict from "./Main/ViewProductsStrict";
 import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
 import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
-
+import { CartProvider } from 'react-use-cart';
+import Domacinstvo from "./Main/Domacinstvo";
 import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
-import { CartProvider, useCart } from "react-use-cart";
 
 
 function App() {
