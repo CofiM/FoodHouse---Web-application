@@ -166,31 +166,71 @@ namespace SWE___PROJEKAT.Controllers
             }
         }*/
 
+        [NonAction]
+        public bool CheckEmail(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
 
 
-        [Route("PromenitiSifruKorisnika/{email}/{pass}/{newPass}")]
+        [Route("PromenitiSifruKorisnika/{email}/{pass}/{newPass}/{ime}/{prezime}/{username}")]
         [EnableCors("CORS")]
         [HttpPut]
-        public async Task<ActionResult> promeniSifruKorisnika(String email, String pass, String newPass)
+        public async Task<ActionResult> promeniSifruKorisnika(string email, string pass, string newPass,
+            string ime, string prezime, string username)
         {
-            if (String.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(email))
             {
                 return BadRequest("Morate da unesete email!");
             }
+            if( string.IsNullOrWhiteSpace(pass) || string.IsNullOrWhiteSpace(newPass) )
+            {
+                return BadRequest("Morate da unesete sifru!");
+            }
+            if(!CheckEmail(email))
+            {
+                return BadRequest("Nevalidan unos za e-mail!");
+            }
+            if( string.IsNullOrWhiteSpace(ime) )
+            {
+                return BadRequest("Nevalidan unos za ime!");
+            }
+            if( string.IsNullOrWhiteSpace(username) )
+            {
+                return BadRequest("Nevalidan unos za username!");
+            }
+            if( string.IsNullOrWhiteSpace(prezime) )
+            {
+                return BadRequest("Nevalidan unos za prezime!");
+            }
             try
             {
-                var korisnik = await Context.Korisnici.Where(p => p.email == email && p.Password == pass).FirstOrDefaultAsync();
-                if (korisnik != null)
+                var korisnik = await Context.Korisnici.Where(p => p.email == email).FirstOrDefaultAsync();
+                if (korisnik == null)
+                {
+                    return BadRequest("Ne postoji domacinstvo!");
+                }
+                if( pass == newPass )
                 {
                     korisnik.Password = newPass;
+                    korisnik.Ime = ime;
+                    korisnik.Prezime = prezime;
+                    korisnik.Username = username;
+                    
                     Context.Korisnici.Update(korisnik);
                     await Context.SaveChangesAsync();
                     return Ok("Uspesno izmenjena sifra!");
                 }
-                else
-                {
-                    return BadRequest("Nevalidan email ili sifra!");
-                }
+                return BadRequest("Neuspesna izmena!");
             }
             catch (Exception e)
             {

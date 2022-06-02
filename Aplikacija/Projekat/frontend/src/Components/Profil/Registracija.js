@@ -159,17 +159,7 @@ export default function SignUp() {
                 />
               </Grid>
               
-              {/* <Grid item xs={12}>
-              <input type="radio" value="Proizvodjac" id="Proizvodjac"  name="flag"/>
              
-            <label >Proizvodjac</label>
-            <input type="radio" value="Dostavljac" id="Dostavljac" name="flag"/>
-            
-            <label>Dostavljac</label>
-            <input type="radio" value="Kupac" id="Kupac" name="flag"/>
-            
-            <label>Kupac</label>
-              </Grid> */}
 
             </Grid>
             <Button

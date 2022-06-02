@@ -16,6 +16,7 @@ function InputNumber(props) {
           type="number"
           defaultValue={props.value}
           variant="standard"
+          onChange = {props.onChange}
         />
       </div>
     </div>

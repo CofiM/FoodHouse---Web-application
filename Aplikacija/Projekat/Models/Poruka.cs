@@ -19,6 +19,9 @@ namespace Models
         [Required]
         public char Tip { get; set; }
 
+        
+        public bool Flag { get; set; }
+
         public Domacinstvo Domacinstvo { get; set; }
 
         [JsonIgnore]
