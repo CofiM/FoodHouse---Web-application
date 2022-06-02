@@ -20,12 +20,11 @@ import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
 import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
 
-import { CartProvider } from 'react-use-cart';
+import { CartProvider } from "react-use-cart";
 import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
-import { CartProvider, useCart } from "react-use-cart";
 
 function App() {
   // const [cart, setCart] = useState([]);
@@ -113,27 +112,9 @@ function App() {
               <Route path="/ViewProductsStrict">
                 <ViewProductsStrict />
               </Route>
-<<<<<<< HEAD
               <Route path="/HouseHoldView">
                 <HouseHoldView />
               </Route>
-=======
-              <Route path="/HouseholdView">
-                <HouseholdView />
-              </Route>
-              <Route path="/ViewJobsLocation">
-                <ViewJobsLocation />
-              </Route>
-              <Route path="/ViewJobsDate">
-                <ViewJobsDate />
-              </Route>
-              <Route path="/ViewJobsDateLocation">
-                <ViewJobsDateLocation />
-              </Route>
-
-
-
->>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
               <Route path="*">
                 <NotFound />
               </Route>

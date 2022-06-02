@@ -1,23 +1,9 @@
-<<<<<<< HEAD
 import { useContext, useEffect, useState } from "react";
 import classes2 from "./CartItem.module.css";
 import { CartProvider, useCart } from "react-use-cart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useHistory } from "react-router-dom";
 import React from "react";
-=======
-import { useContext, useEffect, useState } from 'react';
-
-import CartItem from './CartItem';
-import classes from './Cart.module.css';
-import classes2 from './CartItem.module.css';
-import CartContext from './CartContext';
-import { useCart } from "react-use-cart";
-import { useHistory } from 'react-router-dom';
-
-
-
->>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
 
 import CartItem from "./CartItem";
 import classes from "./Cart.module.css";
