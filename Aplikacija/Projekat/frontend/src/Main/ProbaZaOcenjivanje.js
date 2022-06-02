@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProizvodCardRating from "../Components/Proizvod/ProizvodCardRating";
 import ModalInput from "./ModalInput";
+import classes from "../Components/Domacinstvo/ChangeDomacinstvoProduct.module.css";
 
 function ProbaZaOcenjivanje() {
   const [products, setProducts] = useState([]);
@@ -65,7 +66,7 @@ function ProbaZaOcenjivanje() {
     fetchProductHandler();
   }, []);
   return (
-    <div>
+    <div className={classes.allProducts}>
       {products.map((prod) => (
         <ProizvodCardRating
           naziv={prod.Naziv}

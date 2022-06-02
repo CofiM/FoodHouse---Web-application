@@ -316,13 +316,6 @@ namespace SWE___PROJEKAT.Controllers
             {
                 return BadRequest("Morate da unesete telefon domacinstva!");
             }
-<<<<<<< HEAD
-=======
-            if(datum == null)
-            {
-                return BadRequest("Morate da unesete dan otvorenih vrata domacinstva!");
-            }
->>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
             try
             {
                 var domacinstvo = await Context.Domacinstva

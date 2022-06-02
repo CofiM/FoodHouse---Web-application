@@ -24,11 +24,7 @@ const Pretraga=()=>
 
     const handleChangeCategory = (e) => {
         setCategory(e.target.value);
-<<<<<<< HEAD
         if(category.length!=0)
-=======
-        if(e.target.value!=0)
->>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
         {
             setCategoryValid(true);
         }
