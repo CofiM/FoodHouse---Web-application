@@ -9,6 +9,7 @@ import Footer from "./Footer/Footer";
 import NotFound from "./Main/NotFound";
 import Prijava from "./Components/Profil/Prijava";
 import Registracija from "./Components/Profil/Registracija";
+import HouseHoldView from "./Components/Domacinstvo/HouseholdView";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import ViewProducts from "./Main/ViewProducts";
@@ -24,17 +25,7 @@ import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
-
-
-
-import HouseholdView from "./Components/Domacinstvo/HouseholdView";
-import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
-import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
-import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
-
-
-import { useCart } from "react-use-cart";
-
+import { CartProvider, useCart } from "react-use-cart";
 
 function App() {
   // const [cart, setCart] = useState([]);
@@ -122,6 +113,11 @@ function App() {
               <Route path="/ViewProductsStrict">
                 <ViewProductsStrict />
               </Route>
+<<<<<<< HEAD
+              <Route path="/HouseHoldView">
+                <HouseHoldView />
+              </Route>
+=======
               <Route path="/HouseholdView">
                 <HouseholdView />
               </Route>
@@ -137,6 +133,7 @@ function App() {
 
 
 
+>>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
               <Route path="*">
                 <NotFound />
               </Route>
