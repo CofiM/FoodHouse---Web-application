@@ -19,11 +19,6 @@ const style = {
 };
 
 export default function BasicModal(props) {
-  /* const [open, setOpen] = React.useState(props.show);
-  const [accept, setAccept] = React.useState(false);
-  const [decline, setDecline] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false); */
   const [type, setType] = React.useState("");
 
   /* async function fetchUpdateMessage(type, firstName, lastName){

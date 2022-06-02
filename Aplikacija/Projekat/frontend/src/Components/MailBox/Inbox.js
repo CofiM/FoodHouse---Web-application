@@ -20,12 +20,13 @@ const Inbox = () => {
   const [clientType, setClientType] = React.useState("");
   const [producer, setProducer] = React.useState(false);
   const [consumer, setConsumer] = React.useState(true);
+  const [message, setMessage] = React.useState("");
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const onClickMessage = (index, ime, prezime, naziv, tip, email) => {
+  const onClickMessage = (index, ime, prezime, naziv, tip, email, poruka) => {
     console.log("Ulazim u message" + index);
     localStorage.setItem("index", index);
     setOpen(true);
@@ -34,7 +35,15 @@ const Inbox = () => {
     setName(naziv);
     setType(tip);
     setReceiverEmail(email);
-    //console.log(firstName, lastName, name, type, receiverEmail);
+    if(poruka  === "Dobili ste posao!" || poruka === "Apliciranje za posao")
+    {
+      setMessage("Dobili ste posao na gazdinstvu: " + name + ". Cestitamo!");
+    }
+    else
+    {
+      setMessage("Niste dobili posao na gazdinstvu: " + name + ". Izvinite!");
+    }
+  
   };
 
   const onSideBarClick = () => {
@@ -50,6 +59,7 @@ const Inbox = () => {
   };
 
   useEffect(() => {
+    
     const fetchMessage = async () => {
       console.log("Ulazim");
       const tip = localStorage.getItem("Korisnik");
@@ -81,8 +91,7 @@ const Inbox = () => {
           }
         })
         setData(transformedData);
-        console.log("Message ID  je " + messageID);
-        console.log(data);
+        console.log(transformedData);
       }
       else if( tip === "D"){
         console.log("Ulazim u D");
@@ -195,7 +204,7 @@ const Inbox = () => {
   const onClickAccept = () => {
       console.log("Ulazim u onClickAccept");
       console.log(type);
-      const message = "Dobili ste posao!";
+      const message = "Dobili ste posao na gazdinstvu: ";
       const flag = true;
       console.log(receiverEmail, message, flag, type);
       sendMessageProducer( receiverEmail, message, flag, type );
@@ -217,34 +226,34 @@ const Inbox = () => {
       </div>
       <div className={classes.rightSide}>
         <div className={classes.MessagesDiv}>
-          { inbox && data.map( (d, index) => {
+          {inbox && data.map( (d, index) => {
               if( d.Tip === "D" && clientType === "P" )
                 return <MessageCard 
                           receiver={d.ImeD + " " + d.PrezimeD} 
                           shortMessage={d.Poruka}
                           onClickIcon={handleClose}
-                          onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD)}
+                          onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD, d.Poruka)}
                         />
               if( d.Tip === "K" && clientType === "P" )
                 return  <MessageCard 
                           receiver={d.ImeK + " " + d.PrezimeK} 
                           shortMessage={d.Poruka}
                           onClickIcon={handleClose}
-                          onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK)}
+                          onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.Poruka)}
                         />
               if( d.Tip === "P" && clientType === "D")
                 return  <MessageCard 
                           receiver={d.NazivP} 
                           shortMessage={d.Poruka}
                           onClickIcon={handleClose}
-                          onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailK)}
+                          onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailK, d.Poruka)}
                         />
               if( d.Tip === "P" && clientType === "K")
               return  <MessageCard 
                         receiver={d.NazivP} 
                         shortMessage={d.Poruka}
                         onClickIcon={handleClose}
-                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK)}
+                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.Poruka)}
                       />
             }
           )}
@@ -255,28 +264,28 @@ const Inbox = () => {
               return  <MessageCard
                         receiver={d.NazivP}
                         shortMessage={d.Poruka}
-                        onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip)}
+                        onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD, d.Poruka)}
                       />
             
             if( clientType === "P" && d.Tip === "P" && d.EmailD === null )
               return  <MessageCard
                         receiver={d.NazivP}
                         shortMessage={d.Poruka}
-                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip)}
+                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.Poruka)}
                       />
             
             if( clientType === 'K' && d.Tip === 'K' )
               return  <MessageCard
                         receiver={d.ImeK + " " + d.PrezimeK}
                         shortMessage={d.Poruka}
-                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip)}
+                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.Poruka)}
                       />
 
             if( clientType === 'D' && d.Tip === 'D' )
               return  <MessageCard
                         receiver={d.ImeD + " " + d.PrezimeD}
                         shortMessage={d.Poruka}
-                        onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip)}
+                        onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD, d.Poruka)}
                       />
             
             }
@@ -284,7 +293,7 @@ const Inbox = () => {
           )}
         </div>
         <div className={classes.Message}>
-          {inbox && clientType === "P" ?
+          {inbox && (clientType === "P" ?
             <Message
               show={open}
               title="Posao"
@@ -312,21 +321,21 @@ const Inbox = () => {
               tip={type}
               producer = {producer}
               consuer = {consumer}
-              message={"Dobili ste posao na gazdinstvu: " + name + "!"}
+              message={message}
               onClose={handleClose}
               onClickAcceptHandler = { onClickAccept }
               onClickDeclineHandler = { onClickDecline }
               onClickDeleteHandler = { onClickDelete }
             />
-          } 
-          {outbox && clientType === "P" ?
-            <Message
+          )} 
+          {outbox && (clientType === "P" && type ==="P" ?
+            <MessageConsumer
               show={open}
               outbox={outbox}
               title="Posao"
               sender={name}
               receiver={firstName + " " + lastName}
-              message={"Dobili ste posao na gazdinstv: " + name + "!"}
+              message={message}
               onClose={handleClose}
               onClickDeleteHandler = {onClickDelete}
             />
@@ -337,11 +346,11 @@ const Inbox = () => {
               title="Posao"
               sender={firstName + " " + lastName}
               receiver={name}
-              message={"Zahtev za posao na gazdinstv: " + name + "!"}
+              message={"Zahtev za posao na gazdinstvu: " + name}
               onClose={handleClose}
               onClickDeleteHandler = {onClickDelete}
             />
-          }
+          )}
         </div>
       </div>
     </div>
