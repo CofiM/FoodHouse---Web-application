@@ -190,3 +190,23 @@
     }
 
   }
+
+  .sortSelect
+  {
+    margin-top: 10px;
+    width: 320px;
+    margin-left: 18px;
+    height: 30px;
+    border-radius: 25px;
+
+  }
+  .productsView
+  {
+    display: flex;
+    flex-direction: row;
+  }
+  .positionSelect
+  {
+    display: flex;
+    justify-content: center;
+  }

@@ -74,14 +74,14 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("PostaviDostavljaca/{usernameD}/{id}")]
+        [Route("PostaviDostavljaca/{idD}/{id}")]
         [EnableCors("CORS")]
         [HttpPut]
-        public async Task<ActionResult> postaviDostavljaca(String usernameD, int id)
+        public async Task<ActionResult> postaviDostavljaca(int idD, int id)
         {
-            if (String.IsNullOrWhiteSpace(usernameD) || usernameD.Length > 30)
+            if (idD < 0)
             {
-                return BadRequest("Nevalidna vrednost za username");
+                return BadRequest("Nevalidna vrednost za idD");
             }
             if (id < 0)
             {
@@ -90,7 +90,7 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var domacinstvo = await Context.Domacinstva
-                .Where(p => p.Username == usernameD)
+                .Where(p => p.ID == idD)
                 .FirstOrDefaultAsync();
                 if (domacinstvo != null)
                 {

@@ -105,6 +105,37 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("VratiDostavljacaZaDomacinstvo/{id}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiDostavljacaZaDomacinstvo(int id)
+        {
+            if (id < 0)
+            {
+                return BadRequest("Nevalidan id!");
+            }
+            try
+            {
+                var domacinstvo = await Context.Domacinstva
+                .Where(p => p.ID == id)
+                .Include(p => p.Dostavljac)
+                .Select(p => new{
+                    p.Dostavljac
+                })
+                .FirstOrDefaultAsync();
+                if (domacinstvo == null)
+                {
+                    return BadRequest("Ne postoji domacinstvo sa zadatim ID");
+                }
+                return Ok(domacinstvo);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
         
         [Route("PreuzmiSvaDomacinstvo")]
         [EnableCors("CORS")]
@@ -127,6 +158,7 @@ namespace SWE___PROJEKAT.Controllers
                     p.Tip,
                     p.Poslovi,
                     p.Proizvodi,
+                    p.Dostavljac
                 }).ToListAsync();
                 return Ok(domacinstva);
             }

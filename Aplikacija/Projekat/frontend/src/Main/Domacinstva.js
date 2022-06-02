@@ -27,7 +27,7 @@ function Domacinstva() {
           Telefon: domacinstvo.telefon,
           Adresa: domacinstvo.adresa,
           OtvorenaVrata: domacinstvo.otvorenaVrata,
-          Tip: domacinstvo.Tip,
+          Tip: domacinstvo.tip,
           Poslovi: domacinstvo.poslovi,
           Proizvodi: domacinstvo.proizvodi,
         };
