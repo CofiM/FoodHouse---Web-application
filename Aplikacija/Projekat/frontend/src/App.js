@@ -12,6 +12,7 @@ import Registracija from "./Components/Profil/Registracija";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import ViewProducts from "./Main/ViewProducts";
+import Domacinstvo from "./Main/Domacinstvo";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
 import Inbox from "./Components/MailBox/Inbox";
@@ -23,7 +24,6 @@ import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 import { CartProvider, useCart } from "react-use-cart";
-
 
 function App() {
   // const [cart, setCart] = useState([]);
@@ -82,10 +82,10 @@ function App() {
                 <Inbox />
               </Route>
               <Route path="/Proizvod">
-                <Proizvod  />
+                <Proizvod />
               </Route>
               <Route path="/Cart">
-                <Cart/>
+                <Cart />
               </Route>
               <Route path="/ProfilDostavljac">
                 <ProfilDostavljac />
