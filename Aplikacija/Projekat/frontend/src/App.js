@@ -9,6 +9,7 @@ import Footer from "./Footer/Footer";
 import NotFound from "./Main/NotFound";
 import Prijava from "./Components/Profil/Prijava";
 import Registracija from "./Components/Profil/Registracija";
+import HouseHoldView from "./Components/Domacinstvo/HouseholdView";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import ViewProducts from "./Main/ViewProducts";
@@ -110,6 +111,9 @@ function App() {
               </Route>
               <Route path="/ViewProductsStrict">
                 <ViewProductsStrict />
+              </Route>
+              <Route path="/HouseHoldView">
+                <HouseHoldView />
               </Route>
               <Route path="*">
                 <NotFound />
