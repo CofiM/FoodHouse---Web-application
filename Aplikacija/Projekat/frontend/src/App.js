@@ -19,25 +19,21 @@ import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
 import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
 
-import Domacinstvo from "./Main/Domacinstvo";
-
 import { CartProvider } from 'react-use-cart';
 import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 
-import CartProvider from "./Components/Korpa/CartProvider";
-import ViewProducts from "./Main/ViewProducts";
-import ViewProductsName from "./Main/ViewProductsName";
-import ViewProductsStrict from "./Main/ViewProductsStrict";
+
+
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 
 
-import { CartProvider, useCart } from "react-use-cart";
+import { useCart } from "react-use-cart";
 
 
 function App() {
