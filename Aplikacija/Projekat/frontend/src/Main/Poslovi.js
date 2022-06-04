@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import classes from "./Poslovi.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
+import SearchBar from "../Components/Search/SearchBar";
+
 
 
 
@@ -12,6 +14,9 @@ const Poslovi = () => {
     const [validAdresa,setValidAdresa]=useState(false);
     const [datum, setDatum]=useState(null);
     const [validDatum,setValidDatum]=useState(false);
+
+    const [locations,setLocations]=useState();
+
     
 
     const adresaHandler=(event)=>
@@ -85,6 +90,30 @@ const Poslovi = () => {
     console.log(jobs);
     };
     fetchJobs();
+
+    async function fetchLocations()
+    {
+        const res=await fetch('https://localhost:5001/Domacinstvo/PreuzmiLokacije',
+        {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json;charset=UTF-8'
+            }
+        });
+
+
+        const dat=await res.json();
+        const locs=dat.map((loc)=>{
+            return{
+                adresa: loc.adresa
+            };
+        });
+        setLocations(locs);
+    }
+    fetchLocations();
+
+
+
     }, []);
 
     const history=useHistory();
@@ -111,6 +140,7 @@ const Poslovi = () => {
             <form>
                 <div className={classes.searchDiv}>
                     <input type="text" placeholder="Lokacija" onChange={adresaHandler} />
+                    {/* { <SearchBar placeholder="Unesite lokaciju"  data={locations} ></SearchBar>} */}
                     <input type="date" min="2022-01-01" max="2022-12-31" onChange={datumHandler}/>
                     <button onClick={choosePage} >Pretrazi</button>
                 </div>
@@ -119,7 +149,7 @@ const Poslovi = () => {
                        <PosloviCard
                             opis = {job.opis}
                             brRadnihMesta = {job.brojRadnihMesta}
-                            datum = {job.datumPosla}
+                            datum = {job.datumPosla.split("T")[0]}
                             cena = {job.cena}
                             domacin = {job.domacin}
                             adresa = {job.adresa}

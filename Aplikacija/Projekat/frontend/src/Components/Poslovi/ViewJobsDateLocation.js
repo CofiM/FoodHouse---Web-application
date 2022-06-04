@@ -54,7 +54,7 @@ const ViewJobsDateLocation=()=>{
                        <PosloviCard
                             opis = {job.opis}
                             brRadnihMesta = {job.brojRadnihMesta}
-                            datum = {job.datumPosla}
+                            datum = {job.datumPosla.split("T")[0]}
                             cena = {job.cena}
                             domacin = {job.domacin}
                             adresa = {job.adresa}
