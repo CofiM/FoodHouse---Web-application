@@ -54,7 +54,6 @@ export default function BasicModal(props) {
 
   return (
     <div>
-      
       <Modal
         open={props.show}
         onClose={props.onClose}
@@ -76,7 +75,7 @@ export default function BasicModal(props) {
           </Typography>
           <div className={classes.rowDesign}>
             <Button onClick={props.onClickDeleteHandler}>Obrisi poruku</Button>
-            <Button onClick={props.onClickDeclineHandler}>Odbij   </Button>
+            <Button onClick={props.onClickDeclineHandler}>Odbij </Button>
             <Button onClick={props.onClickAcceptHandler}>Prihvati </Button>
           </div>
         </Box>

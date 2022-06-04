@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import AddModal from "./AddModal";
 import UpdateModal from "./UpdateModal";
 import classes from "./ChangeDomacinstvoProduct.module.css";
+//LOCAL STORAGE NE RADI NE ZNAM ZASTO!!!!!!!!!
 
 function HouseHoldView() {
   const ID = JSON.parse(localStorage.getItem("DomacinstvoID"));
@@ -50,7 +51,7 @@ function HouseHoldView() {
   ) => {
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/DodatiProizvod/" +
-        ID +
+        1 +
         "/" +
         naziv +
         "/" +
@@ -99,7 +100,7 @@ function HouseHoldView() {
   const fetchProductHandler = async () => {
     console.log("uslo");
     const response = await fetch(
-      "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvo/" + ID
+      "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvo/" + 1
     );
     const data = await response.json();
     console.log(data);

@@ -59,7 +59,7 @@ export default function BasicCard(props) {
         </Typography>
       </CardContent>
       <CardActions sx={{alignItems:"center", justifyContent:"center"}}>
-        <Button size="medium" onClick={props.klik} onDoubleClick = {onDoubleClickHandler} > Prijavi se</Button>
+        <Button size="medium" onClick={props.onClicksignIn}> Prijavi se</Button>
       </CardActions>
     </Card>
   );

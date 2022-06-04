@@ -57,12 +57,12 @@ const Inbox = () => {
       console.log("Ulazim");
       const tip = localStorage.getItem("Korisnik");
       setClientType(tip);
-      console.log("ClientType: "+ clientType);
+      console.log("ClientType: " + clientType);
       console.log("Type: " + tip);
-      if(tip === "P"){
+      if (tip === "P") {
         console.log("Ulazim u P");
         setProducer(true);
-        
+
         const ID = localStorage.getItem("DomacinstvoID");
         const response = await fetch(
           "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
@@ -70,7 +70,7 @@ const Inbox = () => {
         const data = await response.json();
         const transformedData = data.map(function (d) {
           setMessageID(d.id);
-          return{
+          return {
             ID: d.id,
             Poruka: d.sadrzaj,
             ImeD: d.ime,
@@ -98,7 +98,7 @@ const Inbox = () => {
         const data = await response.json();
         const transformedData = data.map(function (d) {
           setMessageID(d.id);
-          return{
+          return {
             ID: d.id,
             Poruka: d.sadrzaj,
             ImeD: d.ime,
@@ -115,8 +115,7 @@ const Inbox = () => {
         setData(transformedData);
         console.log("Message ID  je " + messageID);
         console.log(data);
-      }
-      else if( tip === "K"){
+      } else if (tip === "K") {
         console.log("Ulazim u K");
         setProducer(false);
         const ID = localStorage.getItem("KorisnikID");
@@ -126,7 +125,7 @@ const Inbox = () => {
         const data = await response.json();
         const transformedData = data.map(function (d) {
           setMessageID(d.id);
-          return{
+          return {
             ID: d.id,
             Poruka: d.sadrzaj,
             ImeD: d.ime,
@@ -144,11 +143,16 @@ const Inbox = () => {
         console.log("Message ID  je " + messageID);
         console.log(data);
       }
-    } 
+    };
     fetchMessage();
   }, []);
 
-  async function sendMessageProducer(receiverEmail, message, flag, receiverType){
+  async function sendMessageProducer(
+    receiverEmail,
+    message,
+    flag,
+    receiverType
+  ) {
     const DomacinstvoID = localStorage.getItem("DomacinstvoID");
     console.log("ULAZIM");
     const response = await fetch("https://localhost:5001/Administrator/PosaljiPoruku/" + DomacinstvoID + "/" +
@@ -158,21 +162,27 @@ const Inbox = () => {
       headers: {
         'Content-Type': 'application/json'
       }
-    });
+    );
     const data = await response.json();
     console.log(data);
-  } 
+  }
 
-  async function deleteMessage(ClientID, MessageID, Type)
-  {
-    const response = await fetch("https://localhost:5001/Administrator/ObrisiPoruku/" + ClientID
-        + "/" + MessageID + "/" + Type, {
-          method: 'DELETE',
-          body: JSON.stringify({title: 'Uspesno je obrisana poruka'}),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
+  async function deleteMessage(ClientID, MessageID, Type) {
+    const response = await fetch(
+      "https://localhost:5001/Administrator/ObrisiPoruku/" +
+        ClientID +
+        "/" +
+        MessageID +
+        "/" +
+        Type,
+      {
+        method: "DELETE",
+        body: JSON.stringify({ title: "Uspesno je obrisana poruka" }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const data = await response.json();
   }
 
@@ -181,22 +191,17 @@ const Inbox = () => {
     const type = localStorage.getItem("Korisnik");
     let clientID = "";
     console.log(type);
-    if(type === "K")
-    {
-       clientID = localStorage.getItem("KorisnikID");
-    }
-    else if( type === "P")
-    {
-       clientID = localStorage.getItem("DomacinstvoID");
-    }
-    else if( type === "D")
-    {
+    if (type === "K") {
+      clientID = localStorage.getItem("KorisnikID");
+    } else if (type === "P") {
+      clientID = localStorage.getItem("DomacinstvoID");
+    } else if (type === "D") {
       clientID = localStorage.getItem("DostavljacID");
     }
     console.log(clientID);
     deleteMessage(clientID, messageID, type);
     handleClose();
-  }
+  };
 
   const onClickAccept = () => {
       console.log("Ulazim u onClickAccept");
@@ -212,9 +217,9 @@ const Inbox = () => {
     console.log("Ulazim u onClickDecline");
     const message = "Niste prihvaceni za posao. Izvinite!";
     const flag = false;
-    sendMessageProducer( receiverEmail, message, flag, type );
+    sendMessageProducer(receiverEmail, message, flag, type);
     handleClose();
-  }
+  };
 
   async function fetchUpdateDeliverer() {
     const response = await fetch("https://localhost:5001/Domacinstvo/PostaviDostavljacaDomacinstvu/" + household + "/" +
@@ -335,7 +340,28 @@ const Inbox = () => {
             
             }
 
-          )}
+              if (clientType === "K" && d.Tip === "K")
+                return (
+                  <MessageCard
+                    receiver={d.ImeK + " " + d.PrezimeK}
+                    shortMessage={d.Poruka}
+                    onClick={() =>
+                      onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip)
+                    }
+                  />
+                );
+
+              if (clientType === "D" && d.Tip === "D")
+                return (
+                  <MessageCard
+                    receiver={d.ImeD + " " + d.PrezimeD}
+                    shortMessage={d.Poruka}
+                    onClick={() =>
+                      onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip)
+                    }
+                  />
+                );
+            })}
         </div>
         <div className={classes.Message}>
           
@@ -344,17 +370,17 @@ const Inbox = () => {
               show={open}
               title="Posao"
               sender={firstName + " " + lastName}
-              firstName = {firstName}
-              lastName = {lastName}
+              firstName={firstName}
+              lastName={lastName}
               receiver={name}
               tip={type}
-              producer = {producer}
-              consuer = {consumer}
+              producer={producer}
+              consuer={consumer}
               message={"Zahtev za posao na gazdinstvu: " + name}
               onClose={handleClose}
-              onClickAcceptHandler = { onClickAccept }
-              onClickDeclineHandler = { onClickDecline }
-              onClickDeleteHandler = { onClickDelete }
+              onClickAcceptHandler={onClickAccept}
+              onClickDeclineHandler={onClickDecline}
+              onClickDeleteHandler={onClickDelete}
             />
             :
             (clientType === "D" ?
@@ -403,7 +429,7 @@ const Inbox = () => {
               receiver={firstName + " " + lastName}
               message={"Dobili ste posao na gazdinstvu: " + name + "!"}
               onClose={handleClose}
-              onClickDeleteHandler = {onClickDelete}
+              onClickDeleteHandler={onClickDelete}
             />
             :
             ( clientType === "D" ? 
