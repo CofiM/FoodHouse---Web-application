@@ -46,7 +46,8 @@ namespace SWE___PROJEKAT.Controllers
                     p.email,
                     p.Tip,
                     p.Poslovi,
-                    p.Proizvodi
+                    p.Proizvodi,
+                    p.Dostavljac
                 }).FirstOrDefaultAsync();
                 if (domacinstvo != null)
                 {
@@ -78,6 +79,7 @@ namespace SWE___PROJEKAT.Controllers
                 .Where(p => p.ID == id)
                 .Include(p => p.Proizvodi)
                 .ThenInclude(p => p.Recenzije)
+                .Include(p => p.Dostavljac)
                 .Select(p => new
                 {
                     p.Naziv,
@@ -88,7 +90,8 @@ namespace SWE___PROJEKAT.Controllers
                     p.Adresa,
                     p.otvorenaVrata,
                     p.Poslovi,
-                    p.Proizvodi
+                    p.Proizvodi,
+                    p.Dostavljac
                 }).FirstOrDefaultAsync();
                 if (domacinstvo != null)
                 {
@@ -135,8 +138,84 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        [Route("PostaviDostavljacaDomacinstvu/{emailDomacinstva}/{emailDostavljaca}")]
+        [EnableCors("CORS")]
+        [HttpPut]
+        public async Task<ActionResult> postaviDostaljacaDomacinstvu(string emailDomacinstva, string emailDostavljaca)
+        {
+            if( string.IsNullOrWhiteSpace(emailDomacinstva) )
+            {
+                return BadRequest("Morate da unesete e-mail za domacinstvo!");
+            }
+            if( string.IsNullOrWhiteSpace(emailDostavljaca) )
+            {
+                return BadRequest("Morate da unesete e-mail za dostavljaca!");
+            }
+            if( !CheckEmail(emailDomacinstva) )
+            {
+                return BadRequest("Nevalidan e-mail domacinstva!");
+            }
+            if( !CheckEmail(emailDostavljaca) )
+            {
+                return BadRequest("Nevalidan e-mail dostavljaca!");
+            }
+            try
+            {
+                var domacinstvo = await Context.Domacinstva.Where(p => p.email == emailDomacinstva).FirstOrDefaultAsync();
+                if( domacinstvo == null )
+                {
+                    throw new Exception("Ne postoji domacinstvo!");
+                }
+                var dostavljac = await Context.Dostavljaci.Where(p => p.email == emailDostavljaca).FirstOrDefaultAsync();
+                if( dostavljac == null )
+                {
+                    throw new Exception("Ne postoji dostavljac!");
+                }
+                domacinstvo.Dostavljac = dostavljac;
+                Context.Domacinstva.Update(domacinstvo);
+                await Context.SaveChangesAsync();
+                return Ok("Uspesno azurirano domacinstvo");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
-        
+        [Route("ObrisiDostavljacaDomacinstvu/{emailDomacinstva}")]
+        [EnableCors("CORS")]
+        [HttpPut]
+        public async Task<ActionResult> obrisiDostavljacaDomacinstvu(string emailDomacinstva)
+        {
+            if( string.IsNullOrWhiteSpace(emailDomacinstva) )
+            {
+                return BadRequest("Morate da unesete e-mail za domacinstvo!");
+            }
+            if( !CheckEmail(emailDomacinstva) )
+            {
+                return BadRequest("Nevalidan e-mail domacinstva!");
+            }
+            try
+            {
+                var domacinstvo = await Context.Domacinstva
+                                    .Include(p => p.Dostavljac)
+                                    .Where(p => p.email == emailDomacinstva)
+                                    .FirstOrDefaultAsync();
+                if( domacinstvo == null )
+                {
+                    throw new Exception("Ne postoji domacinstvo!");
+                }
+                domacinstvo.Dostavljac = null;
+                //Context.Domacinstva.Update(domacinstvo);
+                await Context.SaveChangesAsync();
+                return Ok("Uspesno azurirano domacinstvo");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("PreuzmiSvaDomacinstvo")]
         [EnableCors("CORS")]
         [HttpGet]
@@ -335,10 +414,6 @@ namespace SWE___PROJEKAT.Controllers
             if(string.IsNullOrWhiteSpace(telefon))
             {
                 return BadRequest("Morate da unesete telefon domacinstva!");
-            }
-            if(datum == null)
-            {
-                return BadRequest("Morate da unesete dan otvorenih vrata domacinstva!");
             }
             try
             {

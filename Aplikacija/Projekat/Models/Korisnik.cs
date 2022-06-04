@@ -36,6 +36,10 @@ namespace Models
         [Required]
         public char Tip { get; set; }
 
+        [Required]
+        [MaxLength(100)]
+        public string Adresa { get; set; }
+
         public List<Poruka> inbox { get; set; }
 
         // VEZE --------------------------

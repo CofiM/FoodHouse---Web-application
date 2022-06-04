@@ -182,11 +182,11 @@ namespace SWE___PROJEKAT.Controllers
         }
 
 
-        [Route("PromenitiSifruKorisnika/{email}/{pass}/{newPass}/{ime}/{prezime}/{username}")]
+        [Route("PromenitiSifruKorisnika/{email}/{pass}/{newPass}/{ime}/{prezime}/{username}/{adresa}")]
         [EnableCors("CORS")]
         [HttpPut]
         public async Task<ActionResult> promeniSifruKorisnika(string email, string pass, string newPass,
-            string ime, string prezime, string username)
+            string ime, string prezime, string username, string adresa)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -212,6 +212,10 @@ namespace SWE___PROJEKAT.Controllers
             {
                 return BadRequest("Nevalidan unos za prezime!");
             }
+            if( string.IsNullOrWhiteSpace(adresa) )
+            {
+                return BadRequest("Nevalidan unos za adresu");
+            }
             try
             {
                 var korisnik = await Context.Korisnici.Where(p => p.email == email).FirstOrDefaultAsync();
@@ -225,7 +229,7 @@ namespace SWE___PROJEKAT.Controllers
                     korisnik.Ime = ime;
                     korisnik.Prezime = prezime;
                     korisnik.Username = username;
-                    
+                    korisnik.Adresa = adresa;
                     Context.Korisnici.Update(korisnik);
                     await Context.SaveChangesAsync();
                     return Ok("Uspesno izmenjena sifra!");

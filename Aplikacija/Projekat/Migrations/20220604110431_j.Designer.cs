@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models;
 
 namespace SWE___PROJEKAT.Migrations
 {
     [DbContext(typeof(ProjekatContext))]
-    partial class ProjekatContextModelSnapshot : ModelSnapshot
+    [Migration("20220604110431_j")]
+    partial class j
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,11 +171,6 @@ namespace SWE___PROJEKAT.Migrations
 
                     b.Property<int?>("AdministratorID")
                         .HasColumnType("int");
-
-                    b.Property<string>("Adresa")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Ime")
                         .IsRequired()

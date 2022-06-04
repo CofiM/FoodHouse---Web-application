@@ -24,7 +24,7 @@ const Pretraga=()=>
 
     const handleChangeCategory = (e) => {
         setCategory(e.target.value);
-        if(e.target.value!=0)
+        if(category.length!=0)
         {
             setCategoryValid(true);
         }

@@ -1,0 +1,9 @@
+.allDostavljaci {
+    width: fit-content;
+    margin: auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+.Dostavljaci {
+    width: 500px;
+}

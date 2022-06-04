@@ -8,14 +8,14 @@ import Typography from '@mui/material/Typography';
 
 export default function DostavljacCard(props) {
   return (
-    <Card sx={{ minWidth: 275, background:"grey", width: "100%", marginTop: "5%" }} >
-      <CardContent sx={{width: "100%" }}>
-        <Typography 
+    <Card sx={{ minWidth: 275, width: 320, m: 2  }}>
+      <CardContent>
+      <Typography 
             sx={{fontSize:24 , fontWeight: 800, textDecoration: "underline"}}             
             color="text" 
             gutterBottom
         >
-          {props.ime}
+          {props.ime + " " + props.prezime}
         </Typography>
         <Typography 
             sx={{ fontSize:18 , fontWeight: 400 }} 
@@ -40,7 +40,7 @@ export default function DostavljacCard(props) {
         </Typography>
       </CardContent>
       <CardActions sx={{alignItems:"center", justifyContent:"center"}}>
-        <Button size="medium"> Izaberi</Button>
+        <Button size="medium" onClick={props.onClick}> Izaberi</Button>
       </CardActions>
     </Card>
   );

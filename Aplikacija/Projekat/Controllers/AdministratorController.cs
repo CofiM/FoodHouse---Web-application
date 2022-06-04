@@ -107,11 +107,11 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("DodatiKorisnika/{ime}/{prezime}/{username}/{password}/{email}/{tip}")]
+        [Route("DodatiKorisnika/{ime}/{prezime}/{username}/{password}/{email}/{tip}/{adresa}")]
         [EnableCors("CORS")]
         [HttpPost]
         public async Task<ActionResult> dodajKorisnik(string ime, string prezime, string username, 
-                                        string password, string email, char tip)
+                                        string password, string email, char tip, string adresa)
         {
             if(string.IsNullOrWhiteSpace(ime) || ime.Length > 30)
             {
@@ -133,6 +133,10 @@ namespace SWE___PROJEKAT.Controllers
             {
                 return BadRequest("Nevalidan unos za email!");
             }
+            if( string.IsNullOrWhiteSpace(adresa) || adresa.Length > 100 )
+            {
+                return BadRequest("Nevalidan unos za adresu!");
+            }
             try
             {
                 if(!CheckEmail(email))
@@ -151,6 +155,7 @@ namespace SWE___PROJEKAT.Controllers
                 k.Password = password;
                 k.email = email;
                 k.Tip = tip;
+                k.Adresa = adresa;
                 Context.Korisnici.Add(k);
                 await Context.SaveChangesAsync();
                 return Ok("Uspesno dodat korisnik!");
@@ -285,10 +290,10 @@ namespace SWE___PROJEKAT.Controllers
             }
         } 
 
-        [Route("PosaljiPorukuOdStraneProizvodjaca/{idDomacin}/{receiverEmail}/{message}/{senderType}/{flag}/{receiverType}")]
+        [Route("PosaljiPoruku/{idDomacin}/{receiverEmail}/{message}/{senderType}/{flag}/{receiverType}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> posaljiPorukuOdStraneProizvodjaca(int idDomacin, string receiverEmail, string message, char senderType, bool flag, char receiverType)
+        public async Task<ActionResult> posaljiPoruku(int idDomacin, string receiverEmail, string message, char senderType, bool flag, char receiverType)
         {
             if(!CheckEmail(receiverEmail))
             {
@@ -308,6 +313,7 @@ namespace SWE___PROJEKAT.Controllers
                 }
 
                 if( receiverType == 'K'){
+                    
                     var korisnik = await Context.Korisnici.Where(p => p.email == receiverEmail).FirstOrDefaultAsync();
                     if(korisnik == null)
                     {

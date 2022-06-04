@@ -24,6 +24,8 @@ namespace Models
 
         public DbSet<Poruka> Poruke { get; set; }
 
+        //public DbSet<FileUpload> Slike { get; set; }
+
         public ProjekatContext(DbContextOptions opt) : base(opt)
         {
             

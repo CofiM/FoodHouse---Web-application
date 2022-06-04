@@ -30,6 +30,13 @@ const DesignProfile = (props) => {
         <div className={classes.labelRight}>
           <label>{props.Email}</label>
         </div>
+
+        <div className={classes.labelLeft}>
+          <label>Adresa:</label>
+        </div>
+        <div className={classes.labelRight}>
+          <label>{props.Adresa}</label>
+        </div>
       </div>
     </div>
   );

@@ -57,6 +57,63 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+         [Route("IzmeniProizvod/{id}/{naziv}/{kolicina}/{cena}/{opis}/{kategorija}")]
+        [EnableCors("CORS")]
+        [HttpPut]
+        public async Task<ActionResult> izmeniProizvod(int id, string naziv, int kolicina, int cena, string opis, string kategorija)
+        {
+            try
+            {
+                    var proizvod =  await Context.Proizvodi
+                .Where(p => p.ID == id)
+                .FirstOrDefaultAsync();
+                    if (proizvod != null)
+                    {
+                        proizvod.Naziv = naziv;
+                        proizvod.Kolicina = kolicina;
+                        proizvod.Cena = cena;
+                        proizvod.Opis = opis;
+                        proizvod.Kategorija = kategorija;
+                        await Context.SaveChangesAsync();
+                        return Ok("Uspesno izmenjen proizvod!");
+                    }
+                    else
+                    {
+                        return BadRequest("Nije pronadjen proizvod!");
+                    }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("ObrisatiProizvod/{id}")]
+        [EnableCors("CORS")]
+        [HttpDelete]
+        public async Task<ActionResult> obrisatiProizvod(int id)
+        {
+            if(id < 0)
+            {
+                return BadRequest("Nevalidan unos za id!");
+            }
+            try
+            {
+                var proizvod = await Context.Proizvodi.Where(p => p.ID==id).FirstOrDefaultAsync();
+                if(proizvod == null)
+                {
+                    throw new Exception("Ne postoji proizvod!");
+                }
+                Context.Proizvodi.Remove(proizvod);
+                await Context.SaveChangesAsync();
+                return Ok("Izbrisan proizvod!");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [Route("PreuzetiProizvodeZaDomacinstvoZaKategoriju/{idDomacinstva}/{kategorija}")]
         [EnableCors("CORS")]
         [HttpGet]

@@ -67,12 +67,14 @@ namespace SWE___PROJEKAT.Controllers
                 var poslovi = await Context.Poslovi
                             .Include(p => p.Domacinstvo)
                             .Select(p => new {
+                                p.ID,
                                 p.brojRadnihMesta,
                                 p.Datum,
                                 p.Opis,
                                 p.Cena,
                                 p.Domacinstvo.Naziv,
-                                p.Domacinstvo.Adresa
+                                p.Domacinstvo.Adresa,
+                                idDomacinstva = p.Domacinstvo.ID
                             }).ToArrayAsync();
                 if(poslovi == null)
                 {

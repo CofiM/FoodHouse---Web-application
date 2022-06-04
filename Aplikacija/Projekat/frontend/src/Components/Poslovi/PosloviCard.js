@@ -7,6 +7,11 @@ import Typography from '@mui/material/Typography';
 
 
 export default function BasicCard(props) {
+
+  const onDoubleClickHandler = () => {
+    console.log("DOUBLE CLICK");
+  }
+
   return (
     <Card sx={{ minWidth: 275, background:"grey", width: "100%", marginTop: "5%" }} >
       <CardContent sx={{width: "100%" }}>
@@ -54,7 +59,7 @@ export default function BasicCard(props) {
         </Typography>
       </CardContent>
       <CardActions sx={{alignItems:"center", justifyContent:"center"}}>
-        <Button size="medium"> Prijavi se</Button>
+        <Button size="medium" onClick={props.onClicksignIn}> Prijavi se</Button>
       </CardActions>
     </Card>
   );
