@@ -266,5 +266,83 @@ namespace SWE___PROJEKAT.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [Route("PreuzmiDostavljace")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiDostavljace()
+        {
+            try{
+                var dostavljaci = await Context.Dostavljaci.Select( p => new {
+                    p.ID,
+                    p.Ime,
+                    p.Prezime,
+                    p.Username,
+                    p.email,
+                    p.Cena,
+                    p.telefon,
+                    p.Tip
+                }).ToListAsync();
+                return Ok(dostavljaci);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        [Route("PosaljiPoruku/{id}/{receiverEmail}/{message}/{senderType}/{flag}/{receiverType}")]
+        [EnableCors("CORS")]
+        [HttpPost]
+        public async Task<ActionResult> posaljiPoruku(int id, string receiverEmail, string message, char senderType, bool flag, char receiverType)
+        {
+            if(!CheckEmail(receiverEmail))
+            {
+                return BadRequest("Nevalidan unos!");
+            }
+            if(string.IsNullOrWhiteSpace(message) || message.Length > 500)
+            {
+                return BadRequest("Nevalidan unos za poruku!");
+            }
+            try
+            {
+                Poruka poruka = new Poruka();
+                var dostavljac = await Context.Dostavljaci.Where(p => p.ID == id).FirstOrDefaultAsync(); 
+                if(dostavljac == null)
+                {
+                    throw new Exception("Ne postoji dostavljac!");
+                }
+
+                if( receiverType == 'P'){
+                    
+                    var proizvodjac = await Context.Domacinstva.Where(p => p.email == receiverEmail).FirstOrDefaultAsync();
+                    if(proizvodjac == null)
+                    {
+                        throw new Exception("Ne postoji domacinstvo sa tim mejlom!");
+                    }
+
+                    
+                    poruka.sadrzaj = message;
+                    poruka.Domacinstvo = proizvodjac;
+                    poruka.Korisnik = null;
+                    poruka.Dostavljac = dostavljac;
+                    poruka.Tip = senderType;
+                    poruka.Flag = flag;
+                    Context.Poruke.Add(poruka);
+                    await Context.SaveChangesAsync();
+                    proizvodjac.inbox.Add(poruka);
+                    dostavljac.inbox.Add(poruka);
+                    return Ok("Uspesno poslata poruka!");
+                }
+               
+                
+                return BadRequest("Greska!");
+            }
+            catch( Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

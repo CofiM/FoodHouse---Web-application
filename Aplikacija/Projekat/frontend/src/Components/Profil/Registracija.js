@@ -28,7 +28,7 @@ export default function SignUp() {
   const [textEmail, setTextEmail] = useState("");
   const [textUsername, setTextUsername] = useState("");
   const [textPassword, setTextPassword] = useState("");
-
+  const [textAdresa, setTextAdresa] = useState("");
 
   const onChangeImeHandler = (event) => {
     setTextIme(event.target.value);
@@ -50,6 +50,9 @@ export default function SignUp() {
     setTextPassword(event.target.value);
   }
 
+  const onChangeAdresaHandler = (event) => {
+    setTextAdresa(event.target.value);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -65,7 +68,7 @@ export default function SignUp() {
 
   async function fetchAddNewKorisnik(){
     const response = await fetch("https://localhost:5001/Administrator/DodatiKorisnika/" + textIme + "/" +
-        textPrezime + "/" + textUsername + "/" + textPassword + "/" + textEmail + "/K"
+        textPrezime + "/" + textUsername + "/" + textPassword + "/" + textEmail + "/K" + "/" + textAdresa
     ,{
       method: 'POST',
       body: JSON.stringify({title: 'Uspesno je dodat'}),
@@ -87,7 +90,7 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            marginTop: 5,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -158,7 +161,17 @@ export default function SignUp() {
                   onChange = {onChangePasswordHandler} 
                 />
               </Grid>
-              
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="adresa"
+                  label="Adresa"
+                  name="adresa"
+                  autoComplete="adresa"
+                  onChange = {onChangeAdresaHandler} 
+                />
+              </Grid>
              
 
             </Grid>

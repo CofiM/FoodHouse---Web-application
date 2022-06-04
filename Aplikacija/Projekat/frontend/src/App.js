@@ -16,6 +16,7 @@ import ViewProducts from "./Main/ViewProducts";
 import Domacinstvo from "./Main/Domacinstvo";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
+import ViewJobsLocation from "./Components/Poslovi/ViewJobsDateLocation";
 import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
 import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
@@ -25,25 +26,10 @@ import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
-import { CartProvider, useCart } from "react-use-cart";
+import { useCart } from "react-use-cart";
 
 function App() {
-  // const [cart, setCart] = useState([]);
-
-  // const handleClick = (item) => {
-  //   if (cart.indexOf(item) !== -1) return;
-  //   setCart([...cart, item]);
-  // };
-
-  // const handleChange = (item, d) => {
-  //   const ind = cart.indexOf(item);
-  //   const arr = cart;
-  //   arr[ind].amount += d;
-
-  //   if (arr[ind].amount === 0) arr[ind].amount = 1;
-  //   setCart([...arr]);
-  // };
-
+  
   return (
     <CartProvider>
       <div className="App">
@@ -77,7 +63,7 @@ function App() {
               <Route path="/dodajPosao">
                 <DodajPosao />
               </Route>
-              <Route path="/Dostavljaci">
+              <Route path="/Dostavljači">
                 <Dostavljaci />
               </Route>
               <Route path="/Inbox">
@@ -113,27 +99,12 @@ function App() {
               <Route path="/ViewProductsStrict">
                 <ViewProductsStrict />
               </Route>
-<<<<<<< HEAD
               <Route path="/HouseHoldView">
                 <HouseHoldView />
-              </Route>
-=======
-              <Route path="/HouseholdView">
-                <HouseholdView />
               </Route>
               <Route path="/ViewJobsLocation">
                 <ViewJobsLocation />
               </Route>
-              <Route path="/ViewJobsDate">
-                <ViewJobsDate />
-              </Route>
-              <Route path="/ViewJobsDateLocation">
-                <ViewJobsDateLocation />
-              </Route>
-
-
-
->>>>>>> 3b088597a622ddd27f0a7df7911fcce9e92c29a8
               <Route path="*">
                 <NotFound />
               </Route>

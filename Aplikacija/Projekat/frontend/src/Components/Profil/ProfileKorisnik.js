@@ -50,7 +50,6 @@ const ProfilDomacinstvo = () => {
                 <div className={classes.infHeader}>
                     <p>{data.ime}</p>
                     <p>{data.prezime}</p>
-                    <p>Ovde da stavimo zivotni moto svakog coveka</p>
                 </div>
            </div>
            <div className={classes.medium}>
@@ -67,6 +66,7 @@ const ProfilDomacinstvo = () => {
                     Prezime={data.prezime}
                     Username={data.username} 
                     Email={data.email}
+                    Adresa = {data.adresa}
                     />
                 }
                 { isShowUpdateProfile && 
@@ -75,6 +75,7 @@ const ProfilDomacinstvo = () => {
                         Prezime={data.prezime}
                         Username={data.username} 
                         Email={data.email}
+                        Adresa = {data.adresa}
                     /> 
                 }
            </div>

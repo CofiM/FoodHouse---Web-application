@@ -10,11 +10,12 @@ const DesignProfile = (props) => {
   const [username, setUsername] = useState(props.Username);
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [adresa, setAdresa] = useState(props.Adresa)
 
   async function fetchUpdateProfile(){
     
     const response = await fetch("https://localhost:5001/Korisnik/PromenitiSifruKorisnika/" + props.Email + "/" +
-    password + "/" + newPassword + "/" + ime + "/" + prezime + "/" + username ,{
+    password + "/" + newPassword + "/" + ime + "/" + prezime + "/" + username + "/" + adresa,{
       method: 'PUT',
       body: JSON.stringify({title: 'Uspesno je azuriran'}),
       headers: {
@@ -45,6 +46,10 @@ const DesignProfile = (props) => {
     setNewPassword(event.target.value);
   }
 
+  const onChangeAdresaHandler = (event) => {
+    setAdresa(event.target.value);
+  }
+
   const updateProfileHandler = (event) => {
     event.preventDefault();
     console.log("Ulazim");
@@ -61,6 +66,8 @@ const DesignProfile = (props) => {
         
         <InputPassword label="Password" value={password} onChange={onChangePasswordHandler}/>
         <InputPassword label="Confirm password" value={newPassword} onChange={onChangeNewPasswordHandler}/>
+        <InputText label="Adresa" value={adresa} onChange={onChangeAdresaHandler}/>
+
       </div>
       <div className={classes.buttonDiv}>
         <button className={classes.buttonDesign} onClick={updateProfileHandler}>Izmeni</button>
