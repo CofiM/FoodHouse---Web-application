@@ -86,7 +86,7 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("PreuzmiPoruke/{ClientID}/{type}")]
+        [Route("PreuzmiPoruke/{clientID}/{type}")]
         [EnableCors("CORS")]
         [HttpGet]
         public async Task<ActionResult> preuzmiPoruke(int clientID, char type)
@@ -98,7 +98,8 @@ namespace SWE___PROJEKAT.Controllers
                 {
                     var poruke = await Context.Poruke
                                 .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == clientID)
-                                .Include(p => p.Dostavljac).Include(p => p.Korisnik)
+                                .Include(p => p.Dostavljac)
+                                .Include(p => p.Korisnik)
                                 .Select(p => new{
                                     p.ID,
                                     p.sadrzaj,
@@ -109,6 +110,7 @@ namespace SWE___PROJEKAT.Controllers
                                     prezimeKorisnika = p.Korisnik.Prezime,
                                     emailKorisnik = p.Korisnik.email,
                                     emailDostavljac = p.Dostavljac.email,
+                                    emailDomacinstvo = p.Domacinstvo.email,
                                     p.Dostavljac,
                                     p.Tip,
                                     p.Flag
@@ -130,6 +132,7 @@ namespace SWE___PROJEKAT.Controllers
                                     prezimeKorisnika = p.Korisnik.Prezime,
                                     emailKorisnik = p.Korisnik.email,
                                     emailDostavljac = p.Dostavljac.email,
+                                    emailDomacinstvo = p.Domacinstvo.email,
                                     p.Dostavljac,
                                     p.Tip,
                                     p.Flag
@@ -151,6 +154,7 @@ namespace SWE___PROJEKAT.Controllers
                                     prezimeKorisnika = p.Korisnik.Prezime,
                                     emailKorisnik = p.Korisnik.email,
                                     emailDostavljac = p.Dostavljac.email,
+                                    emailDomacinstvo = p.Domacinstvo.email,
                                     p.Dostavljac,
                                     p.Tip,
                                     p.Flag
