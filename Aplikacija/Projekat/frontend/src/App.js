@@ -64,9 +64,6 @@ function App() {
               <Route path="/Poslovi">
                 <Poslovi />
               </Route>
-              <Route path="/Poslovi">
-                <Poslovi />
-              </Route>
               <Route path="/Prijava">
                 <Prijava />
               </Route>

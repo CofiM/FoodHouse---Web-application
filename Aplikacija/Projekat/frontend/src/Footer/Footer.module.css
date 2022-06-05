@@ -1,17 +1,17 @@
-.footer{
-    display: flex;
-    flex-direction: column;
-    background-color: #454d5e;
-    padding-top: 10px;
-    padding-bottom: 0px;
-    position:fixed;
-    bottom:0;
-    width:100%;
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: #454d5e;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  bottom: 0;
+  width: 100%;
+  margin-top: auto;
 }
-.footerHigh{
-    height: 125px;
+.footerHigh {
+  height: 125px;
 }
 
-.footerLow{
-    height: 25px;
+.footerLow {
+  height: 25px;
 }
