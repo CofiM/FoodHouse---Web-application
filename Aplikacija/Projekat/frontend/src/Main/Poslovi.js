@@ -17,8 +17,8 @@ const Poslovi = () => {
 
 
   const onClicksignInHandler = async (ID, IDDomacinstva) => {
-    setJob(allJobs.find((el) => el.id == ID));
-    console.log(job.opis);
+    // setJob(allJobs.find((el) => el.id == ID));
+    // console.log(job.opis);
     const response = await fetch(
       " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
         IDDomacinstva +
@@ -156,7 +156,7 @@ const Poslovi = () => {
 
   return (
     <div className={classes.search}>
-      <form>
+      <form className={classes.divForma}>
         <div className={classes.searchDiv}>
           <input type="text" placeholder="Lokacija" onChange={adresaHandler} />
           {/* <SearchBar placeholder="Unesite lokaciju" data={locations}></SearchBar> */}
@@ -184,6 +184,21 @@ const Poslovi = () => {
           ))}
         </div>
       </form>
+      <div className={classes.divWorks}>
+        {allJobs.map((job) => (
+          <PosloviCard
+            opis={job.opis}
+            brRadnihMesta={job.brojRadnihMesta}
+            datum={job.datumPosla}
+            cena={job.cena}
+            domacin={job.domacin}
+            adresa={job.adresa}
+            onClicksignIn={() =>
+              onClicksignInHandler(job.id, job.idDomacinstva)
+            }
+          />
+        ))}
+      </div>
     </div>
   );
 };
