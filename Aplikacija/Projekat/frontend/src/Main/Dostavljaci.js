@@ -7,11 +7,11 @@ const Dostavljaci = () => {
     const [emailDostavljac, setEmailDostavljac] = useState(""); 
 
 
-    async function sendMessageProducer(receiverEmail, message, flag, receiverType){
+    async function sendMessageProducer(receiverEmail, message, flag, receiverType, shown){
         const DomacinstvoID = localStorage.getItem("DomacinstvoID");
         console.log("ULAZIM");
         const response = await fetch("https://localhost:5001/Administrator/PosaljiPoruku/" + DomacinstvoID + "/" +
-        receiverEmail + "/" + message + "/P/" + flag + "/" + receiverType,{
+        receiverEmail + "/" + message + "/P/" + flag + "/" + receiverType + "/" + shown,{
           method: 'POST',
           body: JSON.stringify({title: 'Uspesno je poslata poruka'}),
           headers: {
@@ -26,8 +26,9 @@ const Dostavljaci = () => {
         console.log("Ulazim!");
         const message = "Zahtev za posao!";
         const flag = false;
-        const receiverType = "D"
-        sendMessageProducer(emailDostavljac, message, flag, receiverType);
+        const receiverType = "D";
+        const shown = false;
+        sendMessageProducer(emailDostavljac, message, flag, receiverType, shown);
     }
 
 

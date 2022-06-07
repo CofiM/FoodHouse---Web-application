@@ -43,7 +43,6 @@ const ViewJobsDate=()=>{
             searchWithData();
     }, []);
 
-
         return (
             <div className={classes.search}>
          

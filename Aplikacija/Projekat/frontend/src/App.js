@@ -22,7 +22,6 @@ import Cart from "./Components/Korpa/Cart";
 import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
 
 
-
 import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
@@ -39,8 +38,6 @@ import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 
 
 
-
-import { useCart } from "react-use-cart";
 
 
 function App() {

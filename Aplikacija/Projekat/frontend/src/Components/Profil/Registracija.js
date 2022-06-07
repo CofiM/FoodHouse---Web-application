@@ -63,6 +63,8 @@ export default function SignUp() {
     });
     console.log(textIme, textPrezime, textUsername, textPassword, textEmail);
     fetchAddNewKorisnik();
+    let path = "Prijava";
+    history.push(path);
   };
 
 
@@ -79,8 +81,7 @@ export default function SignUp() {
     const data = await response.json();
     console.log(data);
 
-    let path = "Prijava";
-    history.push(path);
+    
   }
 
 

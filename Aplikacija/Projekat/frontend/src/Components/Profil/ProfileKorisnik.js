@@ -76,6 +76,7 @@ const ProfilDomacinstvo = () => {
                         Username={data.username} 
                         Email={data.email}
                         Adresa = {data.adresa}
+                        
                     /> 
                 }
            </div>

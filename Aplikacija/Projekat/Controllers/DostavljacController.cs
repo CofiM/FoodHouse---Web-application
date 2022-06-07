@@ -38,7 +38,8 @@ namespace SWE___PROJEKAT.Controllers
                             p.telefon,
                             p.Ime,
                             p.Prezime,
-                            p.Tip
+                            p.Tip,
+                            p.Domacinstva
                             }).FirstOrDefaultAsync();
                 return Ok(dostavljac);
             }
@@ -292,10 +293,10 @@ namespace SWE___PROJEKAT.Controllers
         }
 
 
-        [Route("PosaljiPoruku/{id}/{receiverEmail}/{message}/{senderType}/{flag}/{receiverType}")]
+        [Route("PosaljiPoruku/{id}/{receiverEmail}/{message}/{senderType}/{flag}/{receiverType}/{shown}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> posaljiPoruku(int id, string receiverEmail, string message, char senderType, bool flag, char receiverType)
+        public async Task<ActionResult> posaljiPoruku(int id, string receiverEmail, string message, char senderType, bool flag, char receiverType, bool shown)
         {
             if(!CheckEmail(receiverEmail))
             {
@@ -329,6 +330,7 @@ namespace SWE___PROJEKAT.Controllers
                     poruka.Dostavljac = dostavljac;
                     poruka.Tip = senderType;
                     poruka.Flag = flag;
+                    poruka.Shown = shown;
                     Context.Poruke.Add(poruka);
                     await Context.SaveChangesAsync();
                     proizvodjac.inbox.Add(poruka);

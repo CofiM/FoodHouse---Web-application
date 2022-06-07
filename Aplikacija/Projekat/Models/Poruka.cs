@@ -22,6 +22,8 @@ namespace Models
         
         public bool Flag { get; set; }
 
+        public bool Shown { get; set; }
+
         public Domacinstvo Domacinstvo { get; set; }
 
         [JsonIgnore]

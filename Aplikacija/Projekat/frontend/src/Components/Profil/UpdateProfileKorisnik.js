@@ -3,8 +3,11 @@ import InputText from "../UI/InputText";
 import InputPassword from "../UI/InputPassword";
 import Button from "@mui/material/Button";
 import classes from "./UpdateProfileDostavljac.module.css";
+import { useHistory } from 'react-router-dom';
+
 
 const DesignProfile = (props) => {
+  const history = useHistory();
   const [ime, setIme] = useState(props.Ime);
   const [prezime, setPrezime] = useState(props.Prezime);
   const [username, setUsername] = useState(props.Username);

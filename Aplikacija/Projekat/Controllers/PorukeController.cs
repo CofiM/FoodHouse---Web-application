@@ -43,6 +43,7 @@ namespace SWE___PROJEKAT.Controllers
                                     emailKorisnik = p.Korisnik.email,
                                     emailDostavljac = p.Dostavljac.email,
                                     p.Dostavljac,
+                                    p.Shown,
                                     p.Tip,
                                     p.Flag
                                 }).ToArrayAsync();
@@ -75,6 +76,7 @@ namespace SWE___PROJEKAT.Controllers
                                     emailKorisnik = p.Korisnik.email,
                                     emailDostavljac = p.Dostavljac.email,
                                     p.Dostavljac,
+                                    p.Shown,
                                     p.Tip,
                                     p.Flag
                                 }).ToArrayAsync();
@@ -112,6 +114,7 @@ namespace SWE___PROJEKAT.Controllers
                                     emailDostavljac = p.Dostavljac.email,
                                     emailDomacinstvo = p.Domacinstvo.email,
                                     p.Dostavljac,
+                                    p.Shown,
                                     p.Tip,
                                     p.Flag
                                 }).ToArrayAsync();
@@ -134,6 +137,7 @@ namespace SWE___PROJEKAT.Controllers
                                     emailDostavljac = p.Dostavljac.email,
                                     emailDomacinstvo = p.Domacinstvo.email,
                                     p.Dostavljac,
+                                    p.Shown,
                                     p.Tip,
                                     p.Flag
                                 }).ToArrayAsync();
@@ -156,12 +160,36 @@ namespace SWE___PROJEKAT.Controllers
                                     emailDostavljac = p.Dostavljac.email,
                                     emailDomacinstvo = p.Domacinstvo.email,
                                     p.Dostavljac,
+                                    p.Shown,
                                     p.Tip,
                                     p.Flag
                                 }).ToArrayAsync();
                                 return Ok(poruke);
                 }
                 return BadRequest("Nije dodato!");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("AzurirajVidljivostPoruke/{idPoruke}/{shown}")]
+        [EnableCors("CORS")]
+        [HttpPut]
+        public async Task<ActionResult> azurirajVidljivostPoruke(int idPoruke, bool shown)
+        {
+            try
+            {
+                var poruka = await Context.Poruke.FindAsync(idPoruke);
+                if( poruka == null )
+                {
+                    throw new Exception("Ne postoji poruka sa tim ID!");
+                }
+                poruka.Shown = shown;
+                Context.Poruke.Update(poruka);
+                await Context.SaveChangesAsync();
+                return Ok("Uspesno je azurirano!");
             }
             catch(Exception e)
             {
