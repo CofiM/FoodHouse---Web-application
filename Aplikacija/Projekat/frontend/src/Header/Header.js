@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Logo from "../pictures/logo.png";
 import { useHistory } from 'react-router-dom';
+import { useEffect } from "react";
 import classes from "./Header.module.css";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { HeaderItems } from "./HeaderComponentsKorisnik";
@@ -30,9 +31,12 @@ const ResponsiveAppBar = (props) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const history = useHistory();
+    const [clientType, setClientType] = React.useState("");
     const [korisnikIsLoggedIn, setKorisnikIsLoggedIn] = React.useState(true);
     const [isValid, setIsValid] = React.useState(true);
-  
+    const [data, setData] = React.useState([]);
+    const [numberMessages, setNumberMessages] = React.useState(0);
+
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
     };
@@ -85,6 +89,7 @@ const ResponsiveAppBar = (props) => {
       {
         const type = localStorage.getItem("Korisnik");
         localStorage.removeItem("Korisnik");
+        localStorage.setItem("messageNumber", 0);
         if(type === "P"){
           localStorage.removeItem("DomacinstvoID");
         }
@@ -110,6 +115,7 @@ const ResponsiveAppBar = (props) => {
     const items = () => {
       const flag = localStorage.getItem("Korisnik");
       console.log(flag);
+
       if(flag === "" || flag === null){
         return HeaderItems;
       }
@@ -128,6 +134,93 @@ const ResponsiveAppBar = (props) => {
       
     }
     
+/*     useEffect(() => {
+      const fetchMessage = async () => {
+        console.log("Ulazim");
+        const tip = localStorage.getItem("Korisnik");
+        setClientType(tip);
+        if (tip === "P") {
+          console.log("Ulazim u P");
+          const ID = localStorage.getItem("DomacinstvoID");
+          const response = await fetch(
+            "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+          );
+          const data = await response.json();
+          const transformedData = data.map(function (d) {
+            return {
+              ID: d.id,
+              Poruka: d.sadrzaj,
+              ImeD: d.ime,
+              PrezimeD: d.prezime,
+              ImeK: d.imeKorisnik,
+              PrezimeK: d.prezimeKorisnika,
+              NazivP: d.naziv,
+              Tip: d.tip,
+              EmailD: d.emailDostavljac,
+              EmailK: d.emailKorisnik,
+              EmailP: d.emailDomacinstvo,
+              Shown: d.shown
+            }
+          })
+          setData(transformedData);
+          console.log(data);
+        }
+        else if( tip === "D"){
+          console.log("Ulazim u D");
+          const ID = localStorage.getItem("DostavljacID");
+          const response = await fetch(
+            "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+          );
+          const data = await response.json();
+          const transformedData = data.map(function (d) {
+            return {
+              ID: d.id,
+              Poruka: d.sadrzaj,
+              ImeD: d.ime,
+              PrezimeD: d.prezime,
+              ImeK: d.imeKorisnik,
+              PrezimeK: d.prezimeKorisnika,
+              NazivP: d.naziv,
+              Tip: d.tip,
+              EmailD: d.emailDostavljac,
+              EmailK: d.emailKorisnik,
+              EmailP: d.emailDomacinstvo,
+              Shown: d.shown
+            }
+          })
+          setData(transformedData);
+          console.log(data);
+        } else if (tip === "K") {
+          console.log("Ulazim u K");
+          const ID = localStorage.getItem("KorisnikID");
+          const response = await fetch(
+            "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+          );
+          const data = await response.json();
+          const transformedData = data.map(function (d) {
+            return {
+              ID: d.id,
+              Poruka: d.sadrzaj,
+              ImeD: d.ime,
+              PrezimeD: d.prezime,
+              ImeK: d.imeKorisnik,
+              PrezimeK: d.prezimeKorisnika,
+              NazivP: d.naziv,
+              Tip: d.tip,
+              EmailD: d.emailDostavljac,
+              EmailK: d.emailKorisnik,
+              EmailP: d.emailDomacinstvo,
+              Shown: d.shown
+            }
+          })
+          setData(transformedData);
+          console.log(data);
+        }
+      };
+      fetchMessage();
+    }, []); */
+
+
     return (
       <AppBar position="static" >
         <Container maxWidth="xl">
@@ -236,7 +329,7 @@ const ResponsiveAppBar = (props) => {
                   sx={{color:'white'}}
                   onClick={onClickMailBox}
                 >
-                    <MailBox number="1" />
+                <MailBox number={localStorage.getItem("messageNumber")} />
                 </Button>
             </Box>}
 

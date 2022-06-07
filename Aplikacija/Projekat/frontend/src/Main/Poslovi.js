@@ -12,8 +12,8 @@ const Poslovi = () => {
   const [job, setJob] = useState();
 
   const onClicksignInHandler = async (ID, IDDomacinstva) => {
-    setJob(allJobs.find((el) => el.id == ID));
-    console.log(job.opis);
+    //setJob(allJobs.find((el) => el.id == ID));
+    //console.log(job.opis);
     const response = await fetch(
       " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
         IDDomacinstva +

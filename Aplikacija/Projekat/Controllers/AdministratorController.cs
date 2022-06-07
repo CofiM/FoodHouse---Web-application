@@ -290,10 +290,10 @@ namespace SWE___PROJEKAT.Controllers
             }
         } 
 
-        [Route("PosaljiPoruku/{idDomacin}/{receiverEmail}/{message}/{senderType}/{flag}/{receiverType}")]
+        [Route("PosaljiPoruku/{idDomacin}/{receiverEmail}/{message}/{senderType}/{flag}/{receiverType}/{shown}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> posaljiPoruku(int idDomacin, string receiverEmail, string message, char senderType, bool flag, char receiverType)
+        public async Task<ActionResult> posaljiPoruku(int idDomacin, string receiverEmail, string message, char senderType, bool flag, char receiverType, bool shown)
         {
             if(!CheckEmail(receiverEmail))
             {
@@ -327,6 +327,7 @@ namespace SWE___PROJEKAT.Controllers
                     poruka.Dostavljac = null;
                     poruka.Tip = senderType;
                     poruka.Flag = flag;
+                    poruka.Shown = shown;
                     Context.Poruke.Add(poruka);
                     await Context.SaveChangesAsync();
                     proizvodjac.inbox.Add(poruka);
@@ -346,6 +347,7 @@ namespace SWE___PROJEKAT.Controllers
                 poruka.Korisnik = null;
                 poruka.Tip = senderType;
                 poruka.Flag = flag;
+                poruka.Shown = shown;
                 Context.Poruke.Add(poruka);
                 await Context.SaveChangesAsync();
                 proizvodjac.inbox.Add(poruka);
