@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from 'react';
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,25 +12,23 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import Header from "../../Header/Header";
 const theme = createTheme();
 
-export default function SignIn(){
+export default function SignIn() {
   const history = useHistory();
-  const [textEmail, setTextEmail] = useState('');
-  const [textPassword, setTextPassword] = useState('');
+  const [textEmail, setTextEmail] = useState("");
+  const [textPassword, setTextPassword] = useState("");
   const [labelIsShown, setLabelIsShown] = useState(false);
 
   const onChangeEmailHandler = (event) => {
     setTextEmail(event.target.value);
-  }
+  };
 
   const onChangePasswordHandler = (event) => {
     setTextPassword(event.target.value);
-  }
-
-
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -40,45 +38,49 @@ export default function SignIn(){
       password: data.get("password"),
     });
 
-
-    if(textEmail === null || textPassword === null || !/^[a-zA-Z0-9+_.-]+@[a-z]+[.]+[c]+[o]+[m]$/.test(textEmail))
+    if (
+      textEmail === null ||
+      textPassword === null ||
+      !/^[a-zA-Z0-9+_.-]+@[a-z]+[.]+[c]+[o]+[m]$/.test(textEmail)
+    )
       setLabelIsShown(true);
 
+    console.log(textEmail, textPassword);
+    fetchLoginClient();
+  };
 
-      console.log(textEmail, textPassword);
-      fetchLoginClient();
-    };
-
-  async function fetchLoginClient(){
-    const response = await fetch("https://localhost:5001/Administrator/GetAccount/"+textEmail+"/"+textPassword,
-    {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json;charset=UTF-8'
+  async function fetchLoginClient() {
+    const response = await fetch(
+      "https://localhost:5001/Administrator/GetAccount/" +
+        textEmail +
+        "/" +
+        textPassword,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+        },
       }
-    });
+    );
 
     const data = await response.json();
-    
-    localStorage.setItem("Korisnik",data.tip);
 
-    
+    localStorage.setItem("Korisnik", data.tip);
 
-    if(data.tip === "K"){
+    if (data.tip === "K") {
       let path = "Naslovna";
       history.push(path);
       localStorage.setItem("KorisnikID", data.id);
-    }
-    else if ( data.tip === "D"){
+    } else if (data.tip === "D") {
       let path = "Dostavljac";
       history.push(path);
       localStorage.setItem("DostavljacID", data.id);
-    }
-    else if ( data.tip === "P"){
+    } else if (data.tip === "P") {
       let path = "Domaćinstvo";
       history.push(path);
       localStorage.setItem("DomacinstvoID", data.id);
     }
+    window.location.reload(false); //REFRESH PAGE
   }
   return (
     <ThemeProvider theme={theme}>
@@ -124,7 +126,12 @@ export default function SignIn(){
               autoComplete="current-password"
               onChange={onChangePasswordHandler}
             />
-            {labelIsShown && <p style={{color:"red"}}> Nevalidan unos za e-mail ili sifru </p>}
+            {labelIsShown && (
+              <p style={{ color: "red" }}>
+                {" "}
+                Nevalidan unos za e-mail ili sifru{" "}
+              </p>
+            )}
             <Button
               type="submit"
               fullWidth

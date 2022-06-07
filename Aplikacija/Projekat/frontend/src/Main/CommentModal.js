@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
 
 const style = {
   position: "absolute",
@@ -18,12 +19,10 @@ const style = {
 
 export default function BasicModal(props) {
   console.log(props.komentar.length);
-  let transformedCom = [];
+  let text = "";
   props.komentar.forEach((el) => {
-    el = el + "\n";
-    transformedCom.push(el);
+    text += el + "\n";
   });
-  console.log(transformedCom);
   return (
     <div>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
@@ -35,9 +34,18 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {props.komentar}
+            {/* {props.komentar.length > 0 ? text : "Nema komentara"} */}
+            <TextField
+              sx={{ width: 330 }}
+              disabled={true}
+              id="outlined-multiline-static"
+              multiline
+              rows={props.komentar.length == 0 ? 1 : props.komentar.length * 2}
+              defaultValue={
+                props.komentar.length == 0 ? "Nema komentara" : text
+              }
+            />
           </Typography>
-          ;
           <div>
             <Button onClick={props.onClose}>Zatvori</Button>
           </div>
