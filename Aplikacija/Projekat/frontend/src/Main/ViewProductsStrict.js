@@ -53,7 +53,11 @@ const ViewProductsStrict = ()=>
         },
         { 
             value: 2,
-            label: "Po ceni"
+            label: "Po ceni u rastućem"
+        },
+        { 
+            value: 3,
+            label: "Po ceni u opadajućem"
         }
     ];
 
@@ -62,12 +66,12 @@ const ViewProductsStrict = ()=>
         let newState=[...allProducts];
         setValue(e.target.value);
 
-        if(value==1)
+        if(e.target.value==1)
         {
       
             console.log(newState);
             { newState 
-                .sort((a, b) => a.cena - b.cena  )
+                .sort((a, b) =>  a.naziv > b.naziv  ? 1: -1 )
                 .map((product) =>
                 (
                 <ProizvodCard
@@ -78,10 +82,24 @@ const ViewProductsStrict = ()=>
                 />
             ))}
         }
-        else if(value==2)
+        else if(e.target.value==2)
         {
             { newState 
-                .sort((a, b) => a.naziv > b.naziv ? 1 : -1)
+                .sort((a, b) => a.cena > b.cena ? 1 : -1)
+                .map((product) =>
+                (
+                <ProizvodCard
+                naziv={product.naziv}
+                opis = {product.opis}
+                cena= {product.cena}
+                kolicina = {product.kolicina}
+                />
+            ))}
+        }
+        else if(e.target.value==3)
+        {
+            { newState 
+                .sort((a, b) => a.cena < b.cena ? 1 : -1)
                 .map((product) =>
                 (
                 <ProizvodCard

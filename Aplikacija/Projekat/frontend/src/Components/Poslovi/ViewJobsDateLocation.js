@@ -10,10 +10,12 @@ const ViewJobsDateLocation=()=>{
 
     const adress = localStorage.getItem("Adress");
     const date = localStorage.getItem("Date");
+    localStorage.removeItem("Adress");
+    localStorage.removeItem("Date");
 
         useEffect(() => {
         async function searchWithDataAndLocation() {
-            const response = await fetch('https://localhost:5001/Posao/PreuzmiPoslove/'+adress+'/'+date,
+            const response = await fetch('https://localhost:5001/Posao/PreuzmiPoslove/'+ adress +'/'+date,
             {
                 method: 'GET',
                 headers: {

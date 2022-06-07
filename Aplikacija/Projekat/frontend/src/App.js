@@ -16,7 +16,7 @@ import ViewProducts from "./Main/ViewProducts";
 import Domacinstvo from "./Main/Domacinstvo";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
-import ViewJobsLocation from "./Components/Poslovi/ViewJobsDateLocation";
+import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
 import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
 import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
