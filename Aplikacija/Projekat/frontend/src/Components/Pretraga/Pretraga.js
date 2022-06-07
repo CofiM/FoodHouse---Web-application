@@ -23,8 +23,10 @@ const Pretraga=()=>
     const [nameValid, setNameValid] = useState(false);
 
     const handleChangeCategory = (e) => {
+        //buttonPretraga.disabled("false");
+        
         setCategory(e.target.value);
-        if(category.length!=0)
+        if(e.target.value!="")
         {
             setCategoryValid(true);
         }
@@ -48,7 +50,8 @@ const Pretraga=()=>
     };
 
     const choosePage = () =>
-    {   
+    {  
+        
         if(categoryValid != false && nameValid != false)
         {
             categoryAndNameSend(category,name);
@@ -128,17 +131,23 @@ const Pretraga=()=>
         </div>
 
             <div>
-                <select className={classes.category} onChange={handleChangeCategory}>
+                <select className={classes.category} onChange={handleChangeCategory} placeholder="Kategorija">
+                <option  value="">Kategorija</option>
                     {categoryArray.map((option, index) => (
                         <option key={index} value={option.value}>{option.label}</option>
                     ))}
                 </select>    
             </div>
 
-       <div>
-           <Button className={classes.buttonPretraga} variant="contained" color="success" onClick={choosePage} >
+       <div className="button">
+           <Button  className={classes.buttonPretraga} variant="contained" color="success" onClick={choosePage} >
             Pretraga
             </Button>
+            {/* {formIsValid && 
+                <Button disabled={true} className={classes.buttonPretraga} variant="contained" color="success" onClick={choosePage} >
+                        Pretraga
+                </Button>
+            } */}
       </div>
       
     </div>
