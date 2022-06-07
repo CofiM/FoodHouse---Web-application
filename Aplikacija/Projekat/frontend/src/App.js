@@ -31,7 +31,6 @@ import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
-import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 
 function App() {
