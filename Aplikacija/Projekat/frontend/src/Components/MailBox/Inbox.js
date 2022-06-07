@@ -162,7 +162,7 @@ const Inbox = () => {
       headers: {
         'Content-Type': 'application/json'
       }
-    );
+  });
     const data = await response.json();
     console.log(data);
   }
@@ -340,28 +340,28 @@ const Inbox = () => {
             
             }
 
-              if (clientType === "K" && d.Tip === "K")
-                return (
-                  <MessageCard
-                    receiver={d.ImeK + " " + d.PrezimeK}
-                    shortMessage={d.Poruka}
-                    onClick={() =>
-                      onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip)
-                    }
-                  />
-                );
+              // if(clientType === "K" && d.Tip === "K")
+              //   return (
+              //     <MessageCard
+              //       receiver={d.ImeK + " " + d.PrezimeK}
+              //       shortMessage={d.Poruka}
+              //       onClick={() =>
+              //         onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip)
+              //       }
+              //     />
+              //   );
 
-              if (clientType === "D" && d.Tip === "D")
-                return (
-                  <MessageCard
-                    receiver={d.ImeD + " " + d.PrezimeD}
-                    shortMessage={d.Poruka}
-                    onClick={() =>
-                      onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip)
-                    }
-                  />
-                );
-            })}
+              // if (clientType === "D" && d.Tip === "D")
+              //   return (
+              //     <MessageCard
+              //       receiver={d.ImeD + " " + d.PrezimeD}
+              //       shortMessage={d.Poruka}
+              //       onClick={() =>
+              //         onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip)
+              //       }
+              //     />
+              //   );
+            )}
         </div>
         <div className={classes.Message}>
           

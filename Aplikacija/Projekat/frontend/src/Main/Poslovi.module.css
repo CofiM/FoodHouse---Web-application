@@ -1,35 +1,49 @@
-.search{
+.search {
     display: flex;
     justify-content: center;
-    background-color: #59657b;
-    height: 50px;
-}
-.searchDiv{
+    flex-direction: column;
+    align-items: center;
+  }
+  .searchDiv {
     height: 100%;
-}
-
-.searchDiv > input{
+  }
+   
+  .searchDiv > input {
     height: 100%;
     font-size: 18px;
-}
-
-.searchDiv > button{
+  }
+   
+  .searchDiv > button {
     height: 100%;
     font-size: 20px;
     font-weight: bold;
-}
-
-.disabled {
+  }
+   
+  .divForma {
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    background-color: #59657b;
+    width: 100%;
+  }
+   
+  .divWorks {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+  }
+   
+  .disabled {
     opacity: 0.6;
     cursor: not-allowed;
-}
-
-.enabled{
+  }
+   
+  .enabled {
     cursor: pointer;
-}
-
-.card{
+  }
+   
+  .card {
     width: 100%;
     margin-left: 10%;
-    margin-right:  10%;
-}
+    margin-right: 10%;
+  }

@@ -41,7 +41,7 @@ const ViewJobsDate=()=>{
             searchWithData();
     }, []);
 
-<<<<<<< HEAD
+
         return (
             <div className={classes.search}>
          
@@ -65,7 +65,7 @@ const ViewJobsDate=()=>{
             
         </div>
         );
-=======
+
     const onClickPosaoCard = () => {
         console.log("ULAZIM!");
         //console.log(index);
@@ -95,7 +95,7 @@ const ViewJobsDate=()=>{
         
     </div>
     );
->>>>>>> bb0dbf65cc7c94ed536370a6f4b8d9810c5e0c9e
+
 
 
 };

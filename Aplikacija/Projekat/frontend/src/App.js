@@ -21,7 +21,7 @@ import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
 import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
 
-<<<<<<< HEAD
+
 
 import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
@@ -33,18 +33,15 @@ import CartProvider from "./Components/Korpa/CartProvider";
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
-import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
-import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
+import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 
-=======
-import { CartProvider } from "react-use-cart";
-import Proizvod from "./Components/Proizvod/Proizvod";
-import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
-import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
-import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
+
+
+
+
 import { useCart } from "react-use-cart";
->>>>>>> bb0dbf65cc7c94ed536370a6f4b8d9810c5e0c9e
+
 
 function App() {
   
@@ -122,6 +119,12 @@ function App() {
               </Route>
               <Route path="/ViewJobsLocation">
                 <ViewJobsLocation />
+              </Route>
+              <Route path="/ViewJobsDate">
+                <ViewJobsDate />
+              </Route>
+              <Route path="/ViewJobsDateLocation">
+                <ViewJobsDateLocation />
               </Route>
               <Route path="*">
                 <NotFound />
