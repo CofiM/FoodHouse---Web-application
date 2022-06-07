@@ -31,9 +31,12 @@ import CartProvider from "./Components/Korpa/CartProvider";
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
-import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
-import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
+import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
+
+
+
+
 
 
 function App() {
@@ -109,6 +112,12 @@ function App() {
               </Route>
               <Route path="/ViewJobsLocation">
                 <ViewJobsLocation />
+              </Route>
+              <Route path="/ViewJobsDate">
+                <ViewJobsDate />
+              </Route>
+              <Route path="/ViewJobsDateLocation">
+                <ViewJobsDateLocation />
               </Route>
               <Route path="*">
                 <NotFound />
