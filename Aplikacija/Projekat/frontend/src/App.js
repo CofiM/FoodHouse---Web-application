@@ -33,6 +33,7 @@ import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
+import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
 
 
 
