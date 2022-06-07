@@ -2,35 +2,80 @@ import React, { useState, useEffect } from "react";
 import classes from "./Poslovi.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
-
+import SearchBar from "../Components/Search/SearchBar";
+ 
+ 
 const Poslovi = () => {
-  const [allJobs, setAllJobs] = useState([]);
-  const [adresa, setAdresa] = useState("");
-  const [validAdresa, setValidAdresa] = useState(false);
-  const [datum, setDatum] = useState(null);
-  const [validDatum, setValidDatum] = useState(false);
-  const [job, setJob] = useState();
-
-  const onClicksignInHandler = async (ID, IDDomacinstva) => {
-    //setJob(allJobs.find((el) => el.id == ID));
-    //console.log(job.opis);
-    const response = await fetch(
-      " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
-        IDDomacinstva +
-        "/" +
-        2 +
-        "/Zahtev za posao/" +
-        "K/" +
-        false,
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-      }
-    );
-  };
-
+    const [allJobs, setAllJobs] = useState([]);
+    const [adresa, setAdresa]=useState("");
+    const [validAdresa,setValidAdresa]=useState(false);
+    const [datum, setDatum]=useState(null);
+    const [validDatum,setValidDatum]=useState(false);
+ 
+    const [locations,setLocations]=useState();
+ 
+ 
+ 
+    const [job, setJob] = useState();
+ 
+ 
+    const onClicksignInHandler = async (ID, IDDomacinstva) => {
+      //setJob(allJobs.find((el) => el.id == ID));
+      //console.log(ID);
+      localStorage.setItem("PosaoID", ID);
+      const KorisnikID = localStorage.getItem("KorisnikID");
+      localStorage.setItem("IdKorisnik", KorisnikID);
+      //console.log(job.opis);
+      const response = await fetch(
+        " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
+          IDDomacinstva +
+          "/" +
+          KorisnikID +
+          "/Zahtev za posao/" +
+          "K/" +
+          false,
+        {
+          method: "POST",
+          headers: {
+              'Content-type': 'application/json;charset=UTF-8'
+          }
+      });
+  
+      /* const data = await response.json();
+  
+      const jobs= data.map((job)=>{
+      return{
+          opis: job.opis,
+          brojRadnihMesta: job.brojRadnihMesta,
+          datumPosla: job.datum,
+          cena: job.cena,
+          domacin: job.naziv,
+          adresa: job.adresa
+      };
+      });
+  
+      setAllJobs(jobs);
+      console.log(jobs); */
+    
+    };
+    //fetch();
+ 
+ 
+    const history=useHistory();
+    const sendLocation=(data) => {
+        localStorage.setItem("Adress",data);
+        history.push("ViewJobsLocation");
+    }
+    const sendDate = (data) => {
+        localStorage.setItem("Date",data);
+        history.push("ViewJobsDate");
+    }
+    const sendDateAndLocation = (adress,date) => {
+        localStorage.setItem("Date",date);
+        localStorage.setItem("Adress",adress);
+        history.push("ViewJobsDateLocation");
+    }
+ 
   const adresaHandler = (event) => {
     setAdresa(event.target.value);
     if (event.target.value != "") {
@@ -39,7 +84,7 @@ const Poslovi = () => {
       setValidAdresa(false);
     }
   };
-
+ 
   const datumHandler = (event) => {
     setDatum(event.target.value);
     if (event.target.value != null) {
@@ -59,7 +104,7 @@ const Poslovi = () => {
       console.log(datum);
     }
   };
-
+ 
   useEffect(() => {
     async function fetchJobs() {
       const response = await fetch(
@@ -71,7 +116,7 @@ const Poslovi = () => {
           },
         }
       );
-
+ 
       const data = await response.json();
       const jobs = data.map((job) => {
         return {
@@ -85,33 +130,40 @@ const Poslovi = () => {
           idDomacinstva: job.idDomacinstva,
         };
       });
-
+ 
       setAllJobs(jobs);
       console.log(jobs);
     }
     fetchJobs();
+    async function fetchLocations()
+    {
+        const res=await fetch('https://localhost:5001/Domacinstvo/PreuzmiLokacije',
+        {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json;charset=UTF-8'
+            }
+        });
+ 
+ 
+        const dat=await res.json();
+        const locs=dat.map((loc)=>{
+            return{
+                adresa: loc.adresa
+            };
+        });
+        setLocations(locs);
+    }
+    fetchLocations();
+ 
   }, []);
-
-  const history = useHistory();
-  const sendLocation = (data) => {
-    localStorage.setItem("Adress", data);
-    history.push("ViewJobsLocation");
-  };
-  const sendDate = (data) => {
-    localStorage.setItem("Date", data);
-    history.push("ViewJobsDate");
-  };
-  const sendDateAndLocation = (adress, date) => {
-    localStorage.setItem("Date", date);
-    localStorage.setItem("Adress", adress);
-    history.push("ViewJobsDateLocation");
-  };
-
+ 
   return (
     <div className={classes.search}>
       <form>
         <div className={classes.searchDiv}>
           <input type="text" placeholder="Lokacija" onChange={adresaHandler} />
+          {/* <SearchBar placeholder="Unesite lokaciju" data={locations}></SearchBar> */}
           <input
             type="date"
             min="2022-01-01"
@@ -125,7 +177,7 @@ const Poslovi = () => {
             <PosloviCard
               opis={job.opis}
               brRadnihMesta={job.brojRadnihMesta}
-              datum={job.datumPosla}
+              datum={job.datumPosla.split("T")[0]}
               cena={job.cena}
               domacin={job.domacin}
               adresa={job.adresa}
@@ -140,3 +192,4 @@ const Poslovi = () => {
   );
 };
 export default Poslovi;
+ 
