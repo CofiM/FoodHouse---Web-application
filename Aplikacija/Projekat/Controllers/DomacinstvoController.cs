@@ -47,7 +47,8 @@ namespace SWE___PROJEKAT.Controllers
                     p.Tip,
                     p.Poslovi,
                     p.Proizvodi,
-                    p.Dostavljac
+                    p.Dostavljac,
+                    p.inbox
                 }).FirstOrDefaultAsync();
                 if (domacinstvo != null)
                 {
@@ -172,7 +173,10 @@ namespace SWE___PROJEKAT.Controllers
                     throw new Exception("Ne postoji dostavljac!");
                 }
                 domacinstvo.Dostavljac = dostavljac;
+                await Context.SaveChangesAsync();
                 Context.Domacinstva.Update(domacinstvo);
+                dostavljac.Domacinstva.Add( domacinstvo );
+                //Context.Dostavljaci.Update(dostavljac);
                 await Context.SaveChangesAsync();
                 return Ok("Uspesno azurirano domacinstvo");
             }

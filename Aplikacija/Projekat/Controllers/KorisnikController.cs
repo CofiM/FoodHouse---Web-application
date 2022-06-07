@@ -42,7 +42,20 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var korisnik = await Context.Korisnici.Where(p => p.email == email && p.Password == password).FirstOrDefaultAsync();
+                var korisnik = await Context.Korisnici
+                        .Where(p => p.email == email && p.Password == password)
+                        .Include(p => p.KorisnikPosao)
+                        .Select(p => new {
+                            p.Ime,
+                            p.Prezime,
+                            p.Username,
+                            p.email,
+                            p.Tip,
+                            p.Adresa,
+                            p.inbox,
+                            p.KorisnikPosao
+                        })
+                        .FirstOrDefaultAsync();
                 if (korisnik == null)
                 {
                     throw new Exception("Ne postoji korisnik!");
@@ -252,9 +265,9 @@ namespace SWE___PROJEKAT.Controllers
             {
                 var spoj = await Context.Spojevi.Where(p => p.Korisnik.ID == idKorisnika
                                                         && p.Posao.ID == idPosla).FirstOrDefaultAsync();
-                if (spoj == null)
+                if (spoj != null)
                 {
-                    throw new Exception("Korisnik nije aplicirao za ovaj posao!");
+                    throw new Exception("Korisnik je vec aplicirao za ovaj posao!");
                 }
                 var posao = await Context.Poslovi.FindAsync(idPosla);
                 if (posao == null)
@@ -266,7 +279,7 @@ namespace SWE___PROJEKAT.Controllers
                 {
                     throw new Exception("Ne postoji korisnik!");
                 }
-                if (posao.brojRadnihMesta != 0)
+                if (posao.brojRadnihMesta > 0)
                 {
                     Spoj s = new Spoj();
                     s.Korisnik = korisnik;

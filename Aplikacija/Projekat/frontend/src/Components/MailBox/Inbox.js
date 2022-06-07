@@ -23,11 +23,14 @@ const Inbox = () => {
   const [household, setHousehold] = React.useState("");
   const [messageNumber, setMessageNumber] = React.useState(0);
   const [messageSender, setMessageSender] = React.useState("");
+  const [shownFlag, setShownFlag] = React.useState("");
+
+
   const handleClose = () => {
     setOpen(false);
   };
 
-  const onClickMessage = (index, ime, prezime, naziv, tip, email, emailP, por) => {
+  const onClickMessage = (index, ime, prezime, naziv, tip, email, emailP, por, shownFlag) => {
     console.log("Ulazim u message" + index);
     localStorage.setItem("index", index);
     setOpen(true);
@@ -38,8 +41,11 @@ const Inbox = () => {
     setReceiverEmail(email);
     setHousehold(emailP);
     setMessageSender(por);
-    const shown = true
-    updateMessage(index, shown);
+    if(shownFlag === false){
+      const shown = true
+      updateMessage(index, shown);
+    }
+    console.log(type);
   };
 
   async function updateMessage(messageID, shown){
@@ -68,30 +74,20 @@ const Inbox = () => {
 
   useEffect(() => {
     const fetchMessage = async () => {
-      console.log("Ulazim");
       const tip = localStorage.getItem("Korisnik");
       setClientType(tip);
-      console.log("ClientType: " + clientType);
-      console.log("Type: " + tip);
       if (tip === "P") {
-        console.log("Ulazim u P");
-        setProducer(true);
-
+        
         const ID = localStorage.getItem("DomacinstvoID");
         const response = await fetch(
           "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
         );
-        const data = await response.json();
+        const da = await response.json();
         let pom = 0;
-        const transformedData = data.map(function (d) {
+        const transformedData = da.map(function (d) {
+          if(d.shown == false && d.tip !== 'P')
+            pom++;
           setMessageID(d.id);
-          if(d.tip !== 'P' && d.shown == false)
-          {
-            /* let pom = messageNumber + 1;
-            setMessageNumber(pom);
-            console.log("BR: " + messageNumber); */
-            pom = pom++;
-          }
           return {
             ID: d.id, 
             Poruka: d.sadrzaj,
@@ -103,15 +99,13 @@ const Inbox = () => {
             Tip: d.tip,
             EmailD: d.emailDostavljac,
             EmailK: d.emailKorisnik,
-            EmailP: d.emailDomacinstvo
+            EmailP: d.emailDomacinstvo,
+            Shown: d.shown
           }
           
         })
         setData(transformedData);
-        console.log("Message ID  je " + messageID);
-        console.log("  primljenih poruka je :" + messageNumber );
         localStorage.setItem("messageNumber", pom);
-        console.log(data);
         
       }
       else if( tip === "D"){
@@ -121,18 +115,12 @@ const Inbox = () => {
         const response = await fetch(
           "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
         );
+        let pom=0;
         const data = await response.json();
-        let pom  =0;
         const transformedData = data.map(function (d) {
+          if(d.shown == false && d.tip !== 'D')
+            pom++;
           setMessageID(d.id);
-          if(d.tip !== 'D' && d.shown == false)
-          {
-            /* let pom = messageNumber + 1;
-            setMessageNumber(pom);
-            console.log("BR: " + messageNumber);
-            console.log(pom); */
-            pom = pom + 1;
-          }
           return {
             ID: d.id,
             Poruka: d.sadrzaj,
@@ -144,32 +132,25 @@ const Inbox = () => {
             Tip: d.tip,
             EmailD: d.emailDostavljac,
             EmailK: d.emailKorisnik,
-            EmailP: d.emailDomacinstvo
+            EmailP: d.emailDomacinstvo,
+            Shown: d.shown
           }
         })
-        localStorage.setItem("messageNumber", pom);
         setData(transformedData);
-        console.log("Message ID  je " + messageID);
-        console.log(data);
-        
+        localStorage.setItem("messageNumber", pom);
+
       } else if (tip === "K") {
         console.log("Ulazim u K");
-        //setProducer(false);
         const ID = localStorage.getItem("KorisnikID");
         const response = await fetch(
           "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
         );
         const data = await response.json();
-        
         let pom = 0;
-        console.log("Pom iznosi: " + pom);
         const transformedData = data.map(function (d) {
-          //setMessageID(d.id);
-          if( d.tip !=='K' && d.shown === false)
-          {
-            pom = pom + 1;
-            console.log("Pom iznosi: " + pom);
-          }
+          setMessageID(d.id);
+          if(d.shown == false && d.tip !== 'P')
+            pom++;
           return {
             ID: d.id,
             Poruka: d.sadrzaj,
@@ -181,17 +162,17 @@ const Inbox = () => {
             Tip: d.tip,
             EmailD: d.emailDostavljac,
             EmailK: d.emailKorisnik,
-            EmailP: d.emailDomacinstvo
+            EmailP: d.emailDomacinstvo,
+            Shown: d.shown
           }
         })
-        console.log("BR: " + pom );
-        localStorage.setItem("messageNumber", pom);
         setData(transformedData);
-        console.log(data);
-        
+        console.log(transformedData);
+        localStorage.setItem("messageNumber", pom);
       }
     };
     fetchMessage();
+    unreadMessagesHandler();
   }, []);
 
   async function sendMessageProducer(
@@ -260,6 +241,7 @@ const Inbox = () => {
       const shown = false;
       console.log(receiverEmail, message, flag, type);
       sendMessageProducer( receiverEmail, message, flag, type,shown );
+      fetchUpdateClientJobs();
       handleClose();
   }
 
@@ -283,6 +265,23 @@ const Inbox = () => {
     });
     const data = await response.json();
     console.log(data);
+  }
+
+  async function fetchUpdateClientJobs(){
+    const posaoID = localStorage.getItem("PosaoID");
+    const korisnikID = localStorage.getItem("IdKorisnik")
+    const response = await fetch("https://localhost:5001/Korisnik/DodatiPosao/" + posaoID + "/" +
+    korisnikID ,{
+      method: 'POST',
+      body: JSON.stringify({title: 'Uspesno je dodat posao korisniku!'}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
+    //console.log(data);
+    localStorage.removeItem("PosaoID");
+    localStorage.removeItem("IdKorisnik");
   }
 
   async function sendMessageDeliverer(receiverEmail, message, flag, receiverType, shown){
@@ -312,6 +311,114 @@ const Inbox = () => {
     handleClose();
   }
 
+  const receiveMessagesHandler = () => {
+    let temp = 0;
+    const korisnik = localStorage.getItem("Korisnik");
+    if( korisnik === "P" ){
+      data.map( (d) => {
+        if( d.Tip !== "P" )
+        {
+          temp++;
+        }
+      });
+      return temp;
+    }
+    else if( korisnik === "D" ){
+      data.map( (d) => {
+        if( d.Tip !== "D" )
+        {
+          temp++;
+        }
+      });
+      return temp;
+    }
+    else if( korisnik === "K" )
+    {
+      data.map( (d) => {
+        if( d.Tip !== "K" )
+        {
+          temp++;
+        }
+      });
+      return temp;
+    }
+  }
+
+  const senderMessagesHandler = () => {
+    let temp = 0;
+    const korisnik = localStorage.getItem("Korisnik");
+    if( korisnik === "P" ){
+      data.map( (d) => {
+        if( d.Tip === "P" )
+        {
+          temp++;
+        }
+      });
+      return temp;
+    }
+    else if( korisnik === "D" ){
+      data.map( (d) => {
+        if( d.Tip === "D" )
+        {
+          temp++;
+        }
+      });
+      return temp;
+    }
+    else if( korisnik === "K" )
+    {
+      data.map( (d) => {
+        if( d.Tip === "K" )
+        {
+          temp++;
+        }
+      });
+      return temp;
+    }
+  }
+
+  const unreadMessagesHandler = () => {
+    console.log("Ulazim u unreadMessagesHandler!");
+    let numberUnreadMessages = 0;
+    const korisnik = localStorage.getItem("Korisnik");
+    console.log(data);
+    if( korisnik === "P" ){
+      console.log("Ulazim u P!");
+      //console.log(data);
+      data.map( (d) => {
+        console.log("USLO");
+        if( d.Tip !== "P" && d.Shown == false )
+        { 
+          console.log("Ulazim u if!");
+          numberUnreadMessages = numberUnreadMessages + 1;
+        }
+      });
+      localStorage.setItem("messagesNumber", numberUnreadMessages);
+      console.log("BR: " + numberUnreadMessages);
+    }
+    else if( korisnik === "D" ){
+      data.map( (d) => {
+        if( d.Shown === false )
+        {
+          numberUnreadMessages++;
+        }
+      });
+      localStorage.setItem("messagesNumber", numberUnreadMessages);
+      console.log(numberUnreadMessages);
+    }
+    else if( korisnik === "K" )
+    {
+      data.map( (d) => {
+        if( d.Shown === false )
+        {
+          numberUnreadMessages++;
+        }
+      });
+      localStorage.setItem("messagesNumber", numberUnreadMessages);
+      console.log(numberUnreadMessages);
+    }
+  }
+
   return (
     <div className={classes.main}>
       <div className={classes.leftSide}>
@@ -319,46 +426,61 @@ const Inbox = () => {
       </div>
       <div className={classes.rightSide}>
         <div className={classes.MessagesDiv}>
-          { inbox && data.length === 0 && 
-            <NoMessageCard 
-              shortMessage={"No messages!"}
-            />
+          {inbox && (data.length === 0 ?  
+              <NoMessageCard 
+                shortMessage={"No messages!"}
+              />
+              : (receiveMessagesHandler() === 0 && 
+              <NoMessageCard 
+                shortMessage={"No messages!"}
+              />)
+            )
           }
+          
           { inbox &&  data.map( (d, index) => {
               if( d.Tip === "D" && clientType === "P" )
                 return <MessageCard 
                           receiver={d.ImeD + " " + d.PrezimeD} 
                           shortMessage={d.Poruka}
                           onClickIcon={handleClose}
-                          onClick={() => onClickMessage(d.ID, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD, d.EmailP, d.Poruka)}
+                          onClick={() => onClickMessage(d.ID, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD, d.EmailP, d.Poruka, d.Shown)}
                         />
               if( d.Tip === "K" && clientType === "P" )
                 return  <MessageCard 
                           receiver={d.ImeK + " " + d.PrezimeK} 
                           shortMessage={d.Poruka}
                           onClickIcon={handleClose}
-                          onClick={() => onClickMessage(d.ID, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.EmailP, d.Poruka)}
+                          onClick={() => onClickMessage(d.ID, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.EmailP, d.Poruka, d.Shown)}
                         />
               if( d.Tip === "P" && clientType === "D")
                 return  <MessageCard 
                           receiver={d.NazivP} 
                           shortMessage={d.Poruka}
                           onClickIcon={handleClose}
-                          onClick={() => onClickMessage(d.ID, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD, d.EmailP, d.Poruka)}
+                          onClick={() => onClickMessage(d.ID, d.ImeD, d.PrezimeD, d.NazivP, d.Tip, d.EmailD, d.EmailP, d.Poruka, d.Shown)}
                         />
               if( d.Tip === "P" && clientType === "K")
               return  <MessageCard 
                         receiver={d.NazivP} 
                         shortMessage={d.Poruka}
                         onClickIcon={handleClose}
-                        onClick={() => onClickMessage(d.ID, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.EmailP, d.Poruka)}
+                        onClick={() => onClickMessage(d.ID, d.ImeK, d.PrezimeK, d.NazivP, d.Tip, d.EmailK, d.EmailP, d.Poruka, d.Shown)}
                       />
             }
           )}
-          { outbox && data.length === 0 && 
-            <NoMessageCard 
-              shortMessage={"No messages!"}
-            />
+          {outbox && (data.length === 0 ?  
+              <NoMessageCard 
+                shortMessage={"No messages!"}
+              />
+              : 
+              ( senderMessagesHandler() === 0 ? 
+                <NoMessageCard 
+                  shortMessage={"No messages!"}
+                />
+                :
+                null
+              )
+            )
           }
           { outbox && data.map( (d, index) => {
             if( clientType === 'P' && d.Tip === 'P' &&  d.EmailK === null)
@@ -366,28 +488,28 @@ const Inbox = () => {
               return  <MessageCard
                         receiver={d.NazivP}
                         shortMessage={d.Poruka}
-                        onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip,"", d.EmailP, d.Poruka)}
+                        onClick={() => onClickMessage(d.ID, d.ImeD, d.PrezimeD, d.NazivP, d.Tip,"", d.EmailP, d.Poruka, d.Shown)}
                       />
             
             if( clientType === "P" && d.Tip === "P" && d.EmailD === null )
               return  <MessageCard
                         receiver={d.NazivP}
                         shortMessage={d.Poruka}
-                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip,"", d.EmailP, d.Poruka)}
+                        onClick={() => onClickMessage(d.ID, d.ImeK, d.PrezimeK, d.NazivP, d.Tip,"", d.EmailP, d.Poruka, d.Shown)}
                       />
             
             if( clientType === 'K' && d.Tip === 'K' )
               return  <MessageCard
                         receiver={d.ImeK + " " + d.PrezimeK}
                         shortMessage={d.Poruka}
-                        onClick={() => onClickMessage(index, d.ImeK, d.PrezimeK, d.NazivP, d.Tip,"", d.EmailP, d.Poruka)}
+                        onClick={() => onClickMessage(d.ID, d.ImeK, d.PrezimeK, d.NazivP, d.Tip,"", d.EmailP, d.Poruka, d.Shown)}
                       />
 
             if( clientType === 'D' && d.Tip === 'D' )
               return  <MessageCard
                         receiver={d.ImeD + " " + d.PrezimeD}
                         shortMessage={d.Poruka}
-                        onClick={() => onClickMessage(index, d.ImeD, d.PrezimeD, d.NazivP, d.Tip,"", d.EmailP, d.Poruka)}
+                        onClick={() => onClickMessage(d.ID, d.ImeD, d.PrezimeD, d.NazivP, d.Tip,"", d.EmailP, d.Poruka, d.Shown)}
                       />
             
             }
@@ -457,7 +579,7 @@ const Inbox = () => {
               title="Posao"
               sender={name}
               receiver={firstName + " " + lastName}
-              message={"Dobili ste posao na gazdinstvu: " + name + "!"}
+              message={messageSender + " S postovanjem domacinstvo: " + name + "."}
               onClose={handleClose}
               onClickDeleteHandler={onClickDelete}
             />

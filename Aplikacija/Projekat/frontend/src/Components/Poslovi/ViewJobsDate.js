@@ -41,7 +41,6 @@ const ViewJobsDate=()=>{
             searchWithData();
     }, []);
 
-<<<<<<< HEAD
         return (
             <div className={classes.search}>
          
@@ -65,37 +64,6 @@ const ViewJobsDate=()=>{
             
         </div>
         );
-=======
-    const onClickPosaoCard = () => {
-        console.log("ULAZIM!");
-        //console.log(index);
-    }
-
-    return (
-        <div className={classes.search}>
-        
-            {/* <div className={classes.searchDiv}>
-                <input type="text" placeholder="Lokacija" onChange={adresaHandler} />
-                <input type="date" value="2022-05-15" min="2022-01-01" max="2022-12-31" />
-                <button onClick={searchWithLocation} >Pretrazi</button>
-            </div> */}
-            <div>
-                { allJobs.map((job) => (
-                    <PosloviCard
-                        opis = {job.opis}
-                        brRadnihMesta = {job.brojRadnihMesta}
-                        datum = {job.datumPosla}
-                        cena = {job.cena}
-                        domacin = {job.domacin}
-                        adresa = {job.adresa}
-                        klik = { onClickPosaoCard }
-                    />
-                    ))}
-            </div>
-        
-    </div>
-    );
->>>>>>> bb0dbf65cc7c94ed536370a6f4b8d9810c5e0c9e
 
 
 };

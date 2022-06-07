@@ -38,7 +38,8 @@ namespace SWE___PROJEKAT.Controllers
                             p.telefon,
                             p.Ime,
                             p.Prezime,
-                            p.Tip
+                            p.Tip,
+                            p.Domacinstva
                             }).FirstOrDefaultAsync();
                 return Ok(dostavljac);
             }
