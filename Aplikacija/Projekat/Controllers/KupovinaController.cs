@@ -22,28 +22,36 @@ namespace SWE___PROJEKAT.Controllers
             Context = context;
         }
 
-        [Route("DodatiKupovinu/{idP}/{idKorisnika}")]
+        [Route("DodatiKupovinu/{idProizvoda}/{idKorisnika}/{idDostavljaca}/{suma}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> dodajKupovinu(int idP, int idKorisnika)
+        public async Task<ActionResult> dodajKupovinu(int idProizvoda, int idKorisnika,int idDostavljaca,int suma)
         {
-            if (idP < 0)
+            if (idProizvoda < 0)
             {
                 return BadRequest("Pogresan ID proizvoda!");
             }
-            if (idKorisnika < 0)
+            if (idKorisnika     < 0)
             {
                 return BadRequest("Pogresan ID korisnika!");
             }
+             if (suma < 0)
+            {
+                return BadRequest("Pogresna suma");
+            }
+
             try
             {
                 var proizvod = await Context.Proizvodi
-                .Where(p => p.ID == idP)
+                .Where(p => p.ID == idProizvoda)
                 .Include(p => p.Domacinstvo)
                 .ThenInclude(p => p.Dostavljac)
                 .FirstOrDefaultAsync();
                 var korisnik = await Context.Korisnici
                 .Where(p => p.ID == idKorisnika)
+                .FirstOrDefaultAsync();
+                var dostavljac = await Context.Dostavljaci
+                .Where(p=>p.ID == idDostavljaca)
                 .FirstOrDefaultAsync();
                 if (proizvod == null || korisnik == null)
                 {
@@ -51,14 +59,15 @@ namespace SWE___PROJEKAT.Controllers
                 }
                 else
                 {
-                    var dostavljac = proizvod.Domacinstvo.Dostavljac;
+                    
                     var kupovina = new Kupovina();
                     kupovina.Proizvod = proizvod;
                     kupovina.Korisnik = korisnik;
                     kupovina.Dostavljac = dostavljac;
-                    //Nisam nista dalje radio jer ne razumem ovo ProizvodFK zar to
-                    //isto kao i proizvod?
-                    return Ok("CAO");
+                    kupovina.KolicinaProizvoda = suma;
+                    Context.Kupovine.Add(kupovina);
+                    await Context.SaveChangesAsync();
+                    return Ok(kupovina);
                 }
             }
             catch (Exception e)
@@ -66,6 +75,67 @@ namespace SWE___PROJEKAT.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [Route("PreuzetiKupovineZaDostavljaca/{idDostavljaca}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> PreuzmitiKupovineZaDostavljaca(int idDostavljaca)
+        {
+            try
+            {
+                var kupovine = await Context.Kupovine.Include(p => p.Dostavljac)
+                    .Where(p=>p.Dostavljac.ID==idDostavljaca)
+                    .Select(p=>new{
+                        ime = p.Korisnik.Ime,
+                        prezime = p.Korisnik.Prezime,
+                        adresaKorisnika = p.Korisnik.Adresa,
+                        proizvodNaziv = p.Proizvod.Naziv,
+                        kolicinaProizvoda = p.KolicinaProizvoda,
+                        domacinstvoNaziv = p.Proizvod.Domacinstvo.Naziv,
+                        domacinstvoAdresa = p.Proizvod.Domacinstvo.Adresa
+                    })
+                    .ToListAsync();
+                // var kupovine = Context.Dostavljaci.Include(p=>p.Korpa).Where(p=>p.Dostavljac.ID==idDostavljaca).ToListAsync();
+
+                if(kupovine == null)
+                {
+                    throw new Exception("Ne postoje narudzbine za tog korisnika");
+                }
+                return Ok(kupovine);
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Route("PreuzetiKupovineZaKorisnika/{idKorisnika}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> PreuzmitiKupovineZaKorisnika(int idKorisnika)
+        {
+            try
+            {
+                var kupovine = await Context.Kupovine.Include(p => p.Korisnik)
+                    .Where(p=>p.Korisnik.ID==idKorisnika)
+                    .Select(p=>new{
+                        proizvodNaziv = p.Proizvod.Naziv,
+                        kolicinaProizvoda = p.KolicinaProizvoda,
+                        domacinstvoNaziv = p.Proizvod.Domacinstvo.Naziv,
+                        domacinstvoAdresa = p.Proizvod.Domacinstvo.Adresa
+                    })
+                    .ToListAsync();
+                // var kupovine = Context.Dostavljaci.Include(p=>p.Korpa).Where(p=>p.Dostavljac.ID==idDostavljaca).ToListAsync();
+
+                if(kupovine == null)
+                {
+                    throw new Exception("Ne postoje narudzbine za tog korisnika");
+                }
+                return Ok(kupovine);
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }  
 
     }
 }
