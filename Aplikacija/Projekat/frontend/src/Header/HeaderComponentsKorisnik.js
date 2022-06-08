@@ -11,7 +11,7 @@ export const HeaderItems = [
     },
     {
         id: 2,
-        label: 'Poslovi',
-        route: 'poslovi',
+        label: 'Posao',
+        route: 'posao',
     }
 ]

@@ -3,7 +3,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import TextField from "@mui/material/TextField";
+import classes from "./CartModal.module.css";
+import {useCart} from 'react-use-cart';
 
 const style = {
   position: "absolute",
@@ -17,12 +18,20 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal(props) {
-  console.log(props.komentar.length);
-  let text = "";
-  props.komentar.forEach((el) => {
-    text += el + "\n";
-  });
+export default function CartModal(props) {
+
+
+  const{cartTotal}=useCart();
+
+  let sab1 = {cartTotal}.cartTotal;
+  let sab2 = +props.dost;
+  let zbir = sab1 + sab2;
+  console.log(sab1);
+  console.log(sab2);
+  console.log(zbir);
+
+
+  console.log(props.dost);
   return (
     <div>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
@@ -33,21 +42,18 @@ export default function BasicModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {/* {props.komentar.length > 0 ? text : "Nema komentara"} */}
-            <TextField
-              sx={{ width: 330 }}
-              disabled={true}
-              id="outlined-multiline-static"
-              multiline
-              rows={props.komentar.length == 0 ? 1 : props.komentar.length * 2}
-              defaultValue={
-                props.komentar.length == 0 ? "Nema komentara" : text
-              }
-            />
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Ukupan racun iznosi : {zbir}.00 din
           </Typography>
-          <div>
-            <Button onClick={props.onClose}>Zatvori</Button>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            racun proizvoda : {cartTotal}.00 din <br></br> + dostava:{props.dost}.00 din
+          </Typography>
+          <p>
+            Da li ste sigurni da zelite da porucite proizvode?
+          </p>
+          <div className={classes.rowDesign}>
+            <Button onClick={props.onPrihvati}>Prihvati</Button>
+            <Button onClick={props.onClose}>Odbij</Button>
           </div>
         </Box>
       </Modal>

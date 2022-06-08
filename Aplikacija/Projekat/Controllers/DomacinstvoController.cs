@@ -532,20 +532,12 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("IzmeniPosao/{usernameD}/{id}/{brRadnihMesta}/{datumPocetka}/{opis}/{cena}")]
+        [Route("IzmeniPosao/{DomacinstvoID}/{id}/{brRadnihMesta}/{datumPocetka}/{opis}/{cena}")]
         [EnableCors("CORS")]
         [HttpPut]
-        public async Task<ActionResult> izmeniPosao(string usernameD, int id, int brRadnihMesta, DateTime datumPocetka,
-                                    String opis, int cena)
+        public async Task<ActionResult> izmeniPosao(int DomacinstvoID, int id, int brRadnihMesta, DateTime datumPocetka,
+                                    string opis, int cena)
         {
-            if (id < 0)
-            {
-                return BadRequest("Nevalidna vrednost za ID!");
-            }
-            if (string.IsNullOrWhiteSpace(usernameD) || usernameD.Length > 30)
-            {
-                return BadRequest("Nevalidan unos za username!");
-            }
             if (brRadnihMesta < 0 || brRadnihMesta > 200)
             {
                 return BadRequest("Nevalidna vrednost za broj radnih mesta!");
@@ -561,10 +553,10 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var domacinstvo = await Context.Domacinstva
-                .Where(p => p.Username == usernameD)
+                .Where(p => p.ID == DomacinstvoID)
                 .Include(p => p.Poslovi)
                 .FirstOrDefaultAsync();
-                if (domacinstvo != null)
+                if ( domacinstvo != null )
                 {
                     var posao = domacinstvo.Poslovi
                     .Where(p => p.ID == id)
@@ -594,26 +586,18 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("IzbrisiPosao/{usernameD}/{id}")]
+        [Route("IzbrisiPosao/{ID}/{idPosla}")]
         [EnableCors("CORS")]
         [HttpDelete]
-        public async Task<ActionResult> izbrisiPosao(string usernameD, int id)
+        public async Task<ActionResult> izbrisiPosao(int ID, int idPosla)
         {
-            if (string.IsNullOrWhiteSpace(usernameD) || usernameD.Length > 30)
-            {
-                return BadRequest("Nevalidan unos za username!");
-            }
-            if (id < 0)
-            {
-                return BadRequest("Nevalidan id!");
-            }
             try
             {
-                var domacinstvo = await Context.Domacinstva.Where(p => p.Username == usernameD).FirstOrDefaultAsync();
+                var domacinstvo = await Context.Domacinstva.FindAsync(ID);
                 if (domacinstvo != null)
                 {
                     var posao = await Context.Poslovi
-                    .Where(p => p.ID == id && p.Domacinstvo == domacinstvo)
+                    .Where(p => p.ID == idPosla && p.Domacinstvo == domacinstvo)
                     .FirstOrDefaultAsync();
                     if (posao != null)
                     {

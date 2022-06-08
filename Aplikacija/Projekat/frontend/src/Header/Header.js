@@ -1,21 +1,21 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
 import Logo from "../pictures/logo.png";
-import { useHistory } from 'react-router-dom';
-import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useEffect,useState} from "react";
 import classes from "./Header.module.css";
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { HeaderItems } from "./HeaderComponentsKorisnik";
 import { HeaderItemsDostavljac } from "./HeaderComponentsDostavljac";
 import { HeaderItemsDomacinstvo } from "./HeaderComponentsDomacinstvo";
@@ -24,45 +24,55 @@ import ProfileKorisnik from "../Components/Profil/ProfileKorisnik";
 import ProfileDostavljac from "../Components/Profil/ProfileDostavljac";
 import ProfileDomacinstvo from "../Components/Profil/ProfileDomacinstvo";
 import CartBox from "../Components/Korpa/CartBox";
+import {useCart} from "react-use-cart";
+import WarningModal from "../Components/Domacinstvo/WarningModal.js"
 
-const settings = ['Profile', 'Logout'];
+const settings = ["Profile", "Logout"];
 
 const ResponsiveAppBar = (props) => {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const history = useHistory();
-    const [clientType, setClientType] = React.useState("");
-    const [korisnikIsLoggedIn, setKorisnikIsLoggedIn] = React.useState(true);
-    const [isValid, setIsValid] = React.useState(true);
-    const [data, setData] = React.useState([]);
-    const [numberMessages, setNumberMessages] = React.useState(0);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const history = useHistory();
+  const [clientType, setClientType] = React.useState("");
+  const [korisnikIsLoggedIn, setKorisnikIsLoggedIn] = React.useState(true);
+  const [isValid, setIsValid] = React.useState(true);
+  const [data, setData] = React.useState([]);
+  const [numberMessages, setNumberMessages] = React.useState(0);
+  const [openWarning, setOpenWarning] = useState(false);
+
+    const {emptyCart}=useCart();
 
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
     };
 
-    const handleOpenUserMenu = (event) => {
-      setAnchorElUser(event.currentTarget);
-    };
-  
-    const handleCloseNavMenu = () => {
-      setAnchorElNav(null);
-    };
-  
-    const handleCloseUserMenu = () => {
-      setAnchorElUser(null);
-    };
-    
-    const onClickHandler = (type) => {
-      let path=type;
-      history.push(path);
-      setAnchorElNav(null);
-    }
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
-    const onClickCart = (type) => {
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const onClickHandler = (type) => {
+    let path = type;
+    history.push(path);
+    setAnchorElNav(null);
+  };
+
+  const onClickCart = (type) => {
+    let korisnik = localStorage.getItem("Korisnik");
+    if (korisnik != null) {
       let path = type;
       history.push(path);
+    } else {
+      setOpenWarning(true);
     }
+  };
 
     const onClickProfile = (type) => {
       if( type === "Profile")
@@ -94,7 +104,16 @@ const ResponsiveAppBar = (props) => {
           localStorage.removeItem("DomacinstvoID");
         }
         else if(type === "K"){
-          localStorage.removeItem("KorisnikID");
+          let idKorisnika = localStorage.getItem("KorisnikID");
+          // const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
+          fetch("https://localhost:5001/Narudzbine/ObrisiNarudzbine/"+idKorisnika,{
+                  method:'DELETE',
+                  body:JSON.stringify({title:'Uspesno dodatno'}),
+                  headers:{
+                    'Content-Type':'application/json'
+                  }
+                }).then(localStorage.removeItem("KorisnikID")).then(emptyCart())
+
         }
         else if( type === "D"){
           localStorage.removeItem("DostavljacID");
@@ -103,38 +122,59 @@ const ResponsiveAppBar = (props) => {
         let path = "Naslovna";
         history.push(path);
       }
-      setAnchorElUser(null);
     }
-    
-    const onClickMailBox = () => {
-        let path = "Inbox";
-        history.push(path);
-        console.log("Inbox");
+  //   if (type === "Logout") {
+  //     const type = localStorage.getItem("Korisnik");
+  //     localStorage.removeItem("Korisnik");
+  //     localStorage.setItem("messageNumber", 0);
+  //     if (type === "P") {
+  //       localStorage.removeItem("DomacinstvoID");
+  //     } else if (type === "K") {
+  //       localStorage.removeItem("KorisnikID");
+  //     } else if (type === "D") {
+  //       localStorage.removeItem("DostavljacID");
+  //     }
+
+  //     let path = "Naslovna";
+  //     history.push(path);
+  //     window.location.reload(false);
+  //   }
+  //   setAnchorElUser(null);
+  // };
+
+  const handleCloseWarning = () => {
+    setOpenWarning(false);
+  };
+
+  const onClickMailBox = () => {
+    let korisnik = localStorage.getItem("Korisnik");
+    if (korisnik != null) {
+      let path = "Inbox";
+      history.push(path);
+      console.log("Inbox");
+    } else {
+      setOpenWarning(true);
     }
+  };
 
-    const items = () => {
-      const flag = localStorage.getItem("Korisnik");
-      console.log(flag);
+  const items = () => {
+    const flag = localStorage.getItem("Korisnik");
 
-      if(flag === "" || flag === null){
-        return HeaderItems;
-      }
-      if(flag === "K"){
-        return HeaderItems;
-      }
-      else if( flag === "P"){
-        /* let path = "Domacinstvo";
+    if (flag === "" || flag === null) {
+      return HeaderItems;
+    }
+    if (flag === "K") {
+      return HeaderItems;
+    } else if (flag === "P") {
+      /* let path = "Domacinstvo";
         history.push(path); */
-        return HeaderItemsDomacinstvo;
-      }
-      else if( flag === "D")
-      {
-        return HeaderItemsDostavljac;
-      }
-      
+      return HeaderItemsDomacinstvo;
+    } else if (flag === "D") {
+      return HeaderItemsDostavljac;
     }
-    
-/*     useEffect(() => {
+  };
+
+  /*     useEffect(() => {
       const fetchMessage = async () => {
         console.log("Ulazim");
         const tip = localStorage.getItem("Korisnik");
@@ -220,154 +260,168 @@ const ResponsiveAppBar = (props) => {
       fetchMessage();
     }, []); */
 
+  return (
+    // <div>
+    //   <div>
+    //     {openWarning && (
+    //       <WarningModal show={openWarning} onClose={handleCloseWarning} />
+    //     )}
+    //   </div>
+    <AppBar position="static">
+      <div>
+        {openWarning && (
+          <WarningModal show={openWarning} onClose={handleCloseWarning} />
+        )}
+      </div>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            <img src={Logo} alt="Logo" width="200" height="80" />
+          </Typography>
 
-    return (
-      <AppBar position="static" >
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="/"
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
               sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
+                display: { xs: "block", md: "none" },
               }}
             >
-                <img src={Logo} alt="Logo" width="200" height="80"/>
-            </Typography>
-  
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: 'block', md: 'none' },
-                }}
-              >
-                {items().map((page) => (
-                  <MenuItem 
-                  key={page.id} 
-                  onClick={() => onClickHandler(page.label)}
-                  >
-                  <Typography textAlign="center">{page.label}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href=""
-              sx={{
-                mr: 2,
-                display: { xs: 'flex', md: 'none' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              <img src={Logo} alt="Logo" width="200" height="80"/>
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               {items().map((page) => (
-                  <React.Fragment>
-                    <Button
-                    key={page.id}
-                    onClick={() => onClickHandler(page.label)}
-                    className={classes.button}
-                    sx={{ my: 2, color: 'white', display: 'block' }}
-                    >
-                      {page.label}
-                    </Button>
-                  </React.Fragment>
-              ))}
-            </Box>
-            {korisnikIsLoggedIn && <Box sx={{color:"black", marginRight:'1%'}}>
-              <Button 
-                sx={{color:'white'}}
-                onClick= {() => onClickCart("Cart")}
-              >
-                  <CartBox/>
-              </Button>
-            </Box>}
-
-            
-            {isValid && <Box sx={{color:"black", marginRight:'2%'}}>
-                <Button
-                  sx={{color:'white'}}
-                  onClick={onClickMailBox}
+                <MenuItem
+                  key={page.id}
+                  onClick={() => onClickHandler(page.label)}
                 >
-                <MailBox number={localStorage.getItem("messageNumber")} />
+                  <Typography textAlign="center">{page.label}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: "flex", md: "none" },
+              flexGrow: 1,
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+              color: "inherit",
+              textDecoration: "none",
+            }}
+          >
+            <img src={Logo} alt="Logo" width="200" height="80" />
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {items().map((page) => (
+              <React.Fragment>
+                <Button
+                  key={page.id}
+                  onClick={() => onClickHandler(page.label)}
+                  className={classes.button}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page.label}
                 </Button>
-            </Box>}
-
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+              </React.Fragment>
+            ))}
+          </Box>
+          {korisnikIsLoggedIn && (
+            <Box sx={{ color: "black", marginRight: "1%" }}>
+              <Button
+                sx={{ color: "white" }}
+                onClick={() => onClickCart("Cart")}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={() => {onClickProfile(setting)}}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
+                <CartBox />
+              </Button>
             </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    );
-};
+          )}
 
+          {isValid && (
+            <Box sx={{ color: "black", marginRight: "2%" }}>
+              <Button sx={{ color: "white" }} onClick={onClickMailBox}>
+                <MailBox number={localStorage.getItem("messageNumber")} />
+              </Button>
+            </Box>
+          )}
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem
+                  key={setting}
+                  onClick={() => {
+                    onClickProfile(setting);
+                  }}
+                >
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+    //</div>
+  );
+};
 
 export default ResponsiveAppBar;

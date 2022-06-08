@@ -6,6 +6,7 @@ import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import classes from "./AddModal.module.css";
 
 const style = {
   position: "absolute",
@@ -18,6 +19,37 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const categoryArray = [
+  {
+    label: "Mlečni proizvodi",
+    value: "Mlečni proizvodi",
+  },
+  {
+    label: "Med i proizvodi od meda",
+    value: "Med i proizvodi od meda",
+  },
+  {
+    label: "Rakije",
+    value: "Rakije",
+  },
+  {
+    label: "Meso i mesne prerađevine",
+    value: "Meso i mesne prerađevinekije",
+  },
+  {
+    label: "Domaća jaja",
+    value: "Domaća jaja",
+  },
+  {
+    label: "Džem i slatko",
+    value: "Džem i slatko",
+  },
+  {
+    label: "Voće i povrće",
+    value: "Voće i povrće",
+  },
+];
 
 export default function BasicModal(props) {
   const [open, setOpen] = useState(props.show);
@@ -63,40 +95,52 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           <TextField
+            sx={{ m: 2 }}
             onChange={nazivChange}
-            helperText="Unesite naziv"
             id="demo-helper-text-misaligned"
             value={naziv}
             label="Naziv"
           />
           <TextField
             onChange={kolicinaChange}
-            helperText="Unesite kolicinu"
+            sx={{ m: 2 }}
             id="demo-helper-text-misaligned"
             value={kolicina}
             label="Kolicina"
           />
           <TextField
             onChange={cenaChange}
-            helperText="Unesite cenu"
+            sx={{ m: 2 }}
             id="demo-helper-text-misaligned"
             value={cena}
             label="Cena"
           />
           <TextField
             onChange={opisChange}
-            helperText="Unesite opis"
+            sx={{ m: 2 }}
             id="demo-helper-text-misaligned"
             value={opis}
             label="Opis"
           />
-          <TextField
+          {/* <TextField
             onChange={kategorijaChange}
-            helperText="Unesite kategoriju"
+            sx={{ m: 2 }}
             id="demo-helper-text-misaligned"
             value={kategorija}
             label="Kategorija"
-          />
+          /> */}
+          <select
+            className={classes.category}
+            onChange={kategorijaChange}
+            placeholder="Kategorija"
+          >
+            <option value="">Kategorija</option>
+            {categoryArray.map((option, index) => (
+              <option key={index} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
           <div>
             <Button onClick={props.onClose}>Otkazi</Button>
             <Button onClick={sendArgument}>Izmeni proizvod</Button>

@@ -17,7 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Rating } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -34,23 +34,27 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
-  const [expanded, setExpanded] = useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
+    const [expanded, setExpanded] = useState(false);
+    const [date, setDate] = useState("");
+    const [dateStart, setDateStart] = useState(props.datum);
+    
+    useEffect(() => {
+        const myArray = dateStart.split("T");
+        let datum = myArray[0];
+        setDate(datum);
+    },[]);
   return (
-    <Card sx={{ width: 320, m: 2 }}>
-      <CardHeader title={props.naziv} />
-      <CardMedia
-        component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
-      />
+    <Card sx={{ width: 320, height: 230, m: 2 }}>
+      <CardHeader title={props.opis} />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          Cena za kolicinu: {props.kolicina} je: {props.cena} dinara.
+          Broj slobodnih radnih mesta: {props.brojRadnihMesta}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Zarada: {props.cena}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Datum početka posla: {date}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -66,16 +70,8 @@ export default function RecipeReviewCard(props) {
           onClick={props.onClickDelete}
           size="large"
         >
-          <DeleteIcon sx={{ fontSize: "40px" }} />
+          <DeleteIcon />
         </IconButton>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>

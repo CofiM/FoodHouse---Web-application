@@ -107,11 +107,11 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("DodatiKorisnika/{ime}/{prezime}/{username}/{password}/{email}/{tip}/{adresa}")]
+        [Route("DodatiKorisnika/{ime}/{prezime}/{username}/{password}/{confPassword}/{email}/{tip}/{adresa}")]
         [EnableCors("CORS")]
         [HttpPost]
         public async Task<ActionResult> dodajKorisnik(string ime, string prezime, string username, 
-                                        string password, string email, char tip, string adresa)
+                                        string password, string confPassword, string email, char tip, string adresa)
         {
             if(string.IsNullOrWhiteSpace(ime) || ime.Length > 30)
             {
@@ -125,7 +125,8 @@ namespace SWE___PROJEKAT.Controllers
             {
                 return BadRequest("Nevalidan unos za username!");
             }
-            if(string.IsNullOrWhiteSpace(password) || password.Length > 50)
+            if(string.IsNullOrWhiteSpace(password) || password.Length > 50 
+                || string.IsNullOrWhiteSpace(confPassword) || confPassword.Length > 50)
             {
                 return BadRequest("Nevalidan unos za password!");
             }
@@ -148,17 +149,24 @@ namespace SWE___PROJEKAT.Controllers
                 {
                     throw new Exception("Postoji vec korisnik sa ovim mejlom!");
                 }
-                Korisnik k = new Korisnik();
-                k.Ime = ime;
-                k.Prezime = prezime;
-                k.Username = username;
-                k.Password = password;
-                k.email = email;
-                k.Tip = tip;
-                k.Adresa = adresa;
-                Context.Korisnici.Add(k);
-                await Context.SaveChangesAsync();
-                return Ok("Uspesno dodat korisnik!");
+                if( password == confPassword )
+                {
+                    Korisnik k = new Korisnik();
+                    k.Ime = ime;
+                    k.Prezime = prezime;
+                    k.Username = username;
+                    k.Password = password;
+                    k.email = email;
+                    k.Tip = tip;
+                    k.Adresa = adresa;
+                    Context.Korisnici.Add(k);
+                    await Context.SaveChangesAsync();
+                    return Ok("Uspesno dodat korisnik!");
+                }
+                else
+                {
+                    return BadRequest("Neuspesno!");
+                }
             }
             catch(Exception e)
             {

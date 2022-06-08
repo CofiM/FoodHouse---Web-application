@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import TextField from "@mui/material/TextField";
 
 const style = {
   position: "absolute",
@@ -18,14 +17,8 @@ const style = {
 };
 
 export default function BasicModal(props) {
-  console.log(props.komentar.length);
-  let text = "";
-  props.komentar.forEach((el) => {
-    text += el + "\n";
-  });
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
         open={props.show}
         onClose={props.onClose}
@@ -34,20 +27,11 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {/* {props.komentar.length > 0 ? text : "Nema komentara"} */}
-            <TextField
-              sx={{ width: 330 }}
-              disabled={true}
-              id="outlined-multiline-static"
-              multiline
-              rows={props.komentar.length == 0 ? 1 : props.komentar.length * 2}
-              defaultValue={
-                props.komentar.length == 0 ? "Nema komentara" : text
-              }
-            />
+            Da li ste sigurni da zelite da izbrisete posao?
           </Typography>
           <div>
-            <Button onClick={props.onClose}>Zatvori</Button>
+            <Button onClick={props.onClose}>Otkazi</Button>
+            <Button onClick={props.onDelete}>Potvrdi</Button>
           </div>
         </Box>
       </Modal>
