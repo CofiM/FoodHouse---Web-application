@@ -24,6 +24,7 @@ namespace Models
 
         public DbSet<Poruka> Poruke { get; set; }
 
+        public DbSet<Narudzbina> Narudzbine {get; set;}
 
         public ProjekatContext(DbContextOptions opt) : base(opt)
         {

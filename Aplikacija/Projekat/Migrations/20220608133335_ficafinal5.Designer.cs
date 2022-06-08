@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models;
 
 namespace SWE___PROJEKAT.Migrations
 {
     [DbContext(typeof(ProjekatContext))]
-    partial class ProjekatContextModelSnapshot : ModelSnapshot
+    [Migration("20220608133335_ficafinal5")]
+    partial class ficafinal5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,9 +223,6 @@ namespace SWE___PROJEKAT.Migrations
                     b.Property<int?>("DostavljacID")
                         .HasColumnType("int");
 
-                    b.Property<int>("KolicinaProizvoda")
-                        .HasColumnType("int");
-
                     b.Property<int?>("KorisnikID")
                         .HasColumnType("int");
 
@@ -240,46 +239,6 @@ namespace SWE___PROJEKAT.Migrations
                         .IsUnique();
 
                     b.ToTable("Kupovine");
-                });
-
-            modelBuilder.Entity("Models.Narudzbina", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("CenaDostavljaca")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CenaProizvoda")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DomacinstvoFK")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DostavljacFK")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImeProizvoda")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("KorisnikFK")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProizvodFK")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProveriDostava")
-                        .HasColumnType("int");
-
-                    b.Property<int>("brojProizvoda")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Narudzbine");
                 });
 
             modelBuilder.Entity("Models.Poruka", b =>
