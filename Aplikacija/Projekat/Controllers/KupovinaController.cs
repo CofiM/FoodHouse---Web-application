@@ -47,12 +47,15 @@ namespace SWE___PROJEKAT.Controllers
                 .Include(p => p.Domacinstvo)
                 .ThenInclude(p => p.Dostavljac)
                 .FirstOrDefaultAsync();
+
                 var korisnik = await Context.Korisnici
                 .Where(p => p.ID == idKorisnika)
                 .FirstOrDefaultAsync();
+
                 var dostavljac = await Context.Dostavljaci
                 .Where(p=>p.ID == idDostavljaca)
                 .FirstOrDefaultAsync();
+                
                 if (proizvod == null || korisnik == null)
                 {
                     return BadRequest("Nije pronadjen proizvod ili korinik");

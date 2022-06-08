@@ -35,6 +35,7 @@ import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 import Posao from "./Main/Poslovi";
 import Narudzbine from "./Main/Narudzbina";
+import IstorijaKupovina from "./Components/Kupovina/IstorijaKupovina";
 
 
 function App() {
@@ -124,6 +125,9 @@ function App() {
               </Route>
               <Route path="/Narudžbine">
                 <Narudzbine />
+              </Route>
+              <Route path="/IstorijaKupovina">
+                <IstorijaKupovina />
               </Route>
               <Route path="*">
                 <NotFound />

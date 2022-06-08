@@ -1,0 +1,15 @@
+.mainStyle {
+    display: flex;
+    flex-direction: column;
+    background-color: darkgrey;
+}
+
+.infHeader {
+    font-size: 26px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid;
+    border-bottom: thin medium;
+}
