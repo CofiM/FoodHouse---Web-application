@@ -13,6 +13,7 @@ const ViewJobsLocations=()=>
     const [allJobs, setAllJobs] = useState([]);
 
     const adress = localStorage.getItem("Adress");
+    localStorage.removeItem("Adress");
    useEffect(() => {
     async function searchWithLocation() {
         const response = await fetch('https://localhost:5001/Posao/PreuzetiPoslovePoAdresi/'+ adress,

@@ -16,15 +16,14 @@ import ViewProducts from "./Main/ViewProducts";
 import Domacinstvo from "./Main/Domacinstvo";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
+import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
 import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
 import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
 
-
 import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
-
 
 import CartProvider from "./Components/Korpa/CartProvider";
 
@@ -33,15 +32,8 @@ import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
-import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
-
-
-
-
-
 
 function App() {
-  
   return (
     <CartProvider>
       <div className="App">

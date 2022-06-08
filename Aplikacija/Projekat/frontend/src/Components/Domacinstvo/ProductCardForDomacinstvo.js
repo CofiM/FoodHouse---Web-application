@@ -61,7 +61,11 @@ export default function RecipeReviewCard(props) {
         >
           Izmeni proizvod
         </Button>
-        <IconButton aria-label="comment" onClick={props.onClickDelete}>
+        <IconButton
+          aria-label="comment"
+          onClick={props.onClickDelete}
+          size="large"
+        >
           <DeleteIcon />
         </IconButton>
         <ExpandMore

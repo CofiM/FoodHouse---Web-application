@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from 'react';
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import Header from "../../Header/Header";
 
 import Visibility from '@mui/icons-material/Visibility';
@@ -24,16 +24,12 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 
 const theme = createTheme();
-
-
-
-
-export default function SignIn(){
+ 
+export default function SignIn() {
   const history = useHistory();
-  const [textEmail, setTextEmail] = useState('');
-  //const [textPassword, setTextPassword] = useState('');
+  const [textEmail, setTextEmail] = useState("");
   const [labelIsShown, setLabelIsShown] = useState(false);
-
+ 
   const [pass, setPass] = React.useState({
     password: '',
     weight: '',
@@ -58,14 +54,12 @@ export default function SignIn(){
 
   const onChangeEmailHandler = (event) => {
     setTextEmail(event.target.value);
-  }
-
+  };
+ 
   /* const onChangePasswordHandler = (event) => {
     setTextPassword(event.target.value);
-  } */
-
-
-
+  }; */
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -73,44 +67,49 @@ export default function SignIn(){
       email: data.get("email"),
       password: data.get("password"),
     });
-
-
-    if(textEmail === null || pass.password === null || !/^[a-zA-Z0-9+_.-]+@[a-z]+[.]+[c]+[o]+[m]$/.test(textEmail))
+ 
+    if (
+      textEmail === null ||
+      pass.password === null ||
+      !/^[a-zA-Z0-9+_.-]+@[a-z]+[.]+[c]+[o]+[m]$/.test(textEmail)
+    )
       setLabelIsShown(true);
-
-
-      console.log(textEmail, pass.password);
-      fetchLoginClient();
-    };
-
-  async function fetchLoginClient(){
-    const response = await fetch("https://localhost:5001/Administrator/GetAccount/"+textEmail+"/"+pass.password,
-    {
-      method: 'GET',
-      headers: {
-        'Content-type': 'application/json;charset=UTF-8'
+ 
+    fetchLoginClient();
+  };
+ 
+  async function fetchLoginClient() {
+    const response = await fetch(
+      "https://localhost:5001/Administrator/GetAccount/" +
+        textEmail +
+        "/" +
+        pass.password,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+        },
       }
-    });
-
+    );
+ 
     const data = await response.json();
-    
-    localStorage.setItem("Korisnik",data.tip);
-
-    if(data.tip === "K"){
+ 
+    localStorage.setItem("Korisnik", data.tip);
+ 
+    if (data.tip === "K") {
       let path = "Naslovna";
       history.push(path);
       localStorage.setItem("KorisnikID", data.id);
-    }
-    else if ( data.tip === "D"){
+    } else if (data.tip === "D") {
       let path = "Dostavljac";
       history.push(path);
       localStorage.setItem("DostavljacID", data.id);
-    }
-    else if ( data.tip === "P"){
+    } else if (data.tip === "P") {
       let path = "Domaćinstvo";
       history.push(path);
       localStorage.setItem("DomacinstvoID", data.id);
     }
+    window.location.reload(false); //REFRESH PAGE
   }
   return (
     <ThemeProvider theme={theme}>
@@ -145,8 +144,7 @@ export default function SignIn(){
               autoFocus
               onChange={onChangeEmailHandler}
             />
-            <Grid item xs={12}>
-              <FormControl sx={{ width: 400 }} variant="outlined">
+            <FormControl sx={{ width: 400 }} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput
                       id="outlined-adornment-password"
@@ -168,8 +166,12 @@ export default function SignIn(){
                       label="Password"
                     />
                   </FormControl>
-              </Grid>
-            {labelIsShown && <p style={{color:"red"}}> Nevalidan unos za e-mail ili sifru </p>}
+            {labelIsShown && (
+              <p style={{ color: "red" }}>
+                {" "}
+                Nevalidan unos za e-mail ili sifru{" "}
+              </p>
+            )}
             <Button
               type="submit"
               fullWidth
