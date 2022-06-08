@@ -13,7 +13,7 @@ import HouseHoldView from "./Components/Domacinstvo/HouseholdView";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import ViewProducts from "./Main/ViewProducts";
-import Domacinstvo from "./Main/Domacinstvo";
+import Domacinstvo from "./Components/Domacinstvo/HouseholdView";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
 import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
