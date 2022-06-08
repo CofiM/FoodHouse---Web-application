@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Header from "./Header/Header";
 import "./App.css";
 import Poslovi from "./Components/Domacinstvo/JobsView";
-import Domacinstva from "./Main/Domacinstvo";
+import Domacinstva from "./Main/Domacinstva";
 import Naslovna from "./Main/Naslovna";
 import Footer from "./Footer/Footer";
 import NotFound from "./Main/NotFound";
@@ -32,6 +32,7 @@ import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
+import Posao from "./Main/Poslovi";
 
 function App() {
   return (
@@ -53,7 +54,7 @@ function App() {
                 <Domacinstva />
               </Route>
               <Route path="/Posao">
-                <Poslovi />
+                <Posao />
               </Route>
               <Route path="/Prijava">
                 <Prijava />
