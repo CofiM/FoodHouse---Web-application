@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import classes from "./Poslovi.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
-import SearchBar from "../Components/Search/SearchBar";
+
  
- 
+
 const Poslovi = () => {
     const [allJobs, setAllJobs] = useState([]);
     const [adresa, setAdresa]=useState("");
@@ -13,6 +13,7 @@ const Poslovi = () => {
     const [validDatum,setValidDatum]=useState(false);
  
     const [locations,setLocations]=useState();
+
 
 
   const onClicksignInHandler = async (ID, IDDomacinstva) => {
@@ -138,6 +139,7 @@ const Poslovi = () => {
     // fetchLocations();
 
   }, []);
+
  
   return (
     <div className={classes.search}>
@@ -172,5 +174,6 @@ const Poslovi = () => {
     </div>
   );
 };
+
 export default Poslovi;
  
