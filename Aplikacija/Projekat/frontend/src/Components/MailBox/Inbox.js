@@ -102,9 +102,9 @@ const Inbox = () => {
             EmailP: d.emailDomacinstvo,
             Shown: d.shown
           }
-          
-        })
+        });
         setData(transformedData);
+        console.log("Broj poruke: " + pom);
         localStorage.setItem("messageNumber", pom);
         
       }
@@ -137,6 +137,8 @@ const Inbox = () => {
           }
         })
         setData(transformedData);
+        console.log(transformedData);
+        console.log("Broj poruka: " + pom);
         localStorage.setItem("messageNumber", pom);
 
       } else if (tip === "K") {
@@ -230,6 +232,7 @@ const Inbox = () => {
     }
     console.log(clientID);
     deleteMessage(clientID, messageID, type);
+    window.location.reload(false); //REFRESH PAGE
     handleClose();
   };
 
@@ -304,6 +307,18 @@ const Inbox = () => {
     console.log(household, receiverEmail);
     fetchUpdateDeliverer();
     const mess = "Prihvatio sam Vasu ponudu za dostavljaca!";
+    const typeFlag = false;
+    const recvType = "P";
+    const shown = false;
+    sendMessageDeliverer(household, mess, typeFlag, recvType, shown);
+    handleClose();
+  }
+
+  const onClickDeclineDeliverer = () => {
+    console.log("Ulazim u deliverer!");
+    console.log(household, receiverEmail);
+    fetchUpdateDeliverer();
+    const mess = "Vasa ponuda za dostavljaca je odbijena. Izvinite!";
     const typeFlag = false;
     const recvType = "P";
     const shown = false;
@@ -549,7 +564,7 @@ const Inbox = () => {
                 message={"Zahtev za posao dostavljaca za domacinstvo: " + name}
                 onClose={handleClose}
                 onClickAcceptHandler = { onClickAcceptDeliverer }
-                onClickDeclineHandler = { onClickDecline }
+                onClickDeclineHandler = { onClickDeclineDeliverer }
                 onClickDeleteHandler = { onClickDelete }
               />
               :

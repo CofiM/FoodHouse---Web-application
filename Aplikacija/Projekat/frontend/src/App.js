@@ -26,7 +26,6 @@ import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 
-import CartProvider from "./Components/Korpa/CartProvider";
 
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 
@@ -34,6 +33,10 @@ import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 import Posao from "./Main/Poslovi";
+import Narudzbine from "./Main/Narudzbina";
+import IstorijaKupovina from "./Components/Kupovina/IstorijaKupovina";
+import {CartProvider} from "react-use-cart";
+
 
 function App() {
   return (
@@ -119,6 +122,12 @@ function App() {
               </Route>
               <Route path="/Domacinstvo">
                 <JednoDomacinstvo />
+              </Route>
+              <Route path="/Narudžbine">
+                <Narudzbine />
+              </Route>
+              <Route path="/IstorijaKupovina">
+                <IstorijaKupovina />
               </Route>
               <Route path="*">
                 <NotFound />

@@ -101,7 +101,7 @@ export default function SignIn() {
       history.push(path);
       localStorage.setItem("KorisnikID", data.id);
     } else if (data.tip === "D") {
-      let path = "Dostavljac";
+      let path = "Narudžbine";
       history.push(path);
       localStorage.setItem("DostavljacID", data.id);
     } else if (data.tip === "P") {
