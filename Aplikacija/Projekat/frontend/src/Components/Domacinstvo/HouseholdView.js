@@ -9,29 +9,36 @@ import classes from "./ChangeDomacinstvoProduct.module.css";
 //LOCAL STORAGE NE RADI NE ZNAM ZASTO!!!!!!!!!
 
 function HouseHoldView() {
-  const ID = JSON.parse(localStorage.getItem("DomacinstvoID"));
+  //const ID = JSON.parse(localStorage.getItem("DomacinstvoID"));
   const [products, setProducts] = useState([]);
   const [openDelete, setOpenDelete] = useState(false);
   const [openAddNew, setOpenAddNew] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [product, setProduct] = useState([]);
+
   const handleCloseDelete = () => {
     setOpenDelete(false);
   };
+
   const handleCloseAdd = () => {
     setOpenAddNew(false);
   };
+
   const handleCloseUpdate = () => {
     setOpenUpdate(false);
   };
+
   const onClickUpdateHandler = (ID) => {
     setProduct(products.find((el) => el.ID == ID));
     console.log("USLO U UPDATE");
     setOpenUpdate(true);
   };
+
   const onClickAddHandelr = () => {
     setOpenAddNew(true);
   };
+
+
   const onDeleteHandler = async () => {
     const response = await fetch(
       "https://localhost:5001/Proizvod/ObrisatiProizvod/" + product.ID,
@@ -42,6 +49,7 @@ function HouseHoldView() {
     setOpenDelete(false);
     fetchProductHandler();
   };
+
   const onClickAddNewProductHandler = async (
     naziv,
     kolicina,
@@ -49,9 +57,10 @@ function HouseHoldView() {
     opis,
     kategorija
   ) => {
+    const ID = localStorage.getItem("DomacinstvoID");
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/DodatiProizvod/" +
-        1 +
+        ID +
         "/" +
         naziv +
         "/" +
@@ -67,6 +76,7 @@ function HouseHoldView() {
     setOpenAddNew(false);
     fetchProductHandler();
   };
+
   const onClickSaveChangeHandler = async (
     naziv,
     kolicina,
@@ -92,15 +102,17 @@ function HouseHoldView() {
     setOpenUpdate(false);
     fetchProductHandler();
   };
+
   const onClickDeleteHandler = (ID) => {
-    console.log("Uslo u delete");
     setProduct(products.find((el) => el.ID == ID));
     setOpenDelete(true);
   };
+
   const fetchProductHandler = async () => {
     console.log("uslo");
+    const ID = localStorage.getItem("DomacinstvoID");
     const response = await fetch(
-      "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvo/" + 1
+      "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvo/" + ID
     );
     const data = await response.json();
     console.log(data);
@@ -128,10 +140,13 @@ function HouseHoldView() {
     });
     setProducts(transformedDataProduct);
   };
+
   useEffect(() => {
     fetchProductHandler();
   }, []);
+
   console.log(products);
+
   return (
     <div>
       <div className={classes.allProducts}>

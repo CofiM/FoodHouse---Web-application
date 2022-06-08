@@ -42,11 +42,13 @@ const Poslovi = () => {
         localStorage.setItem("Adress",data);
         history.push("ViewJobsLocation");
     }
+
     const sendDate = (data) => {
         localStorage.setItem("Date",data);
         history.push("ViewJobsDate");
        
     }
+
     const sendDateAndLocation = (adress,date) => {
         localStorage.setItem("Date",date);
        // console.log(date);
@@ -72,6 +74,7 @@ const Poslovi = () => {
       setValidDatum(false);
     }
   };
+  
   const choosePage = () => {
     if (validAdresa != false && validDatum != "") {
       sendDateAndLocation(adresa, datum);
