@@ -6,6 +6,11 @@ import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import { useTheme } from "@mui/material/styles";
+import classes from "./AddModal.module.css";
 
 const style = {
   position: "absolute",
@@ -19,6 +24,26 @@ const style = {
   p: 4,
 };
 
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 export default function BasicModal(props) {
   const [open, setOpen] = useState(props.show);
   const [value, setValue] = useState(0);
@@ -26,7 +51,41 @@ export default function BasicModal(props) {
   const [kolicina, setKolicina] = useState("");
   const [cena, setCena] = useState("");
   const [opis, setOpis] = useState("");
-  const [kategorija, setKategorija] = useState("");
+  const [kategorija, setKategorija] = useState([]);
+  const [category, setCategory] = useState("Kategorija");
+  const handleChangeCategory = (e) => {
+    setCategory(e.target.value);
+  };
+  const categoryArray = [
+    {
+      label: "Mlečni proizvodi",
+      value: "Mlečni proizvodi",
+    },
+    {
+      label: "Med i proizvodi od meda",
+      value: "Med i proizvodi od meda",
+    },
+    {
+      label: "Rakije",
+      value: "Rakije",
+    },
+    {
+      label: "Meso i mesne prerađevine",
+      value: "Meso i mesne prerađevinekije",
+    },
+    {
+      label: "Domaća jaja",
+      value: "Domaća jaja",
+    },
+    {
+      label: "Džem i slatko",
+      value: "Džem i slatko",
+    },
+    {
+      label: "Voće i povrće",
+      value: "Voće i povrće",
+    },
+  ];
 
   const nazivChange = (e) => {
     setNaziv(e.target.value);
@@ -46,7 +105,7 @@ export default function BasicModal(props) {
   };
   const kategorijaChange = (e) => {
     setKategorija(e.target.value);
-    console.log(kategorija);
+    console.log(e.target.value);
   };
 
   const sendArgument = () => {
@@ -63,40 +122,52 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           <TextField
+            sx={{ m: 2 }}
             onChange={nazivChange}
-            helperText="Unesite naziv"
             id="demo-helper-text-misaligned"
             value={naziv}
             label="Naziv"
           />
           <TextField
+            sx={{ m: 2 }}
             onChange={kolicinaChange}
-            helperText="Unesite kolicinu"
             id="demo-helper-text-misaligned"
             value={kolicina}
             label="Kolicina"
           />
           <TextField
+            sx={{ m: 2 }}
             onChange={cenaChange}
-            helperText="Unesite cenu"
             id="demo-helper-text-misaligned"
             value={cena}
             label="Cena"
           />
           <TextField
+            sx={{ m: 2 }}
             onChange={opisChange}
-            helperText="Unesite opis"
             id="demo-helper-text-misaligned"
             value={opis}
             label="Opis"
           />
-          <TextField
+          {/* <TextField
             onChange={kategorijaChange}
             helperText="Unesite kategoriju"
             id="demo-helper-text-misaligned"
             value={kategorija}
             label="Kategorija"
-          />
+          /> */}
+          <select
+            className={classes.category}
+            onChange={kategorijaChange}
+            placeholder="Kategorija"
+          >
+            <option value="">Kategorija</option>
+            {categoryArray.map((option, index) => (
+              <option key={index} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
           <div>
             <Button onClick={props.onClose}>Otkazi</Button>
             <Button onClick={sendArgument}>Dodaj</Button>

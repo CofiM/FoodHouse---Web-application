@@ -66,7 +66,7 @@ export default function RecipeReviewCard(props) {
           onClick={props.onClickDelete}
           size="large"
         >
-          <DeleteIcon />
+          <DeleteIcon sx={{ fontSize: "40px" }} />
         </IconButton>
         <ExpandMore
           expand={expanded}
