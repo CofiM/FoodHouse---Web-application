@@ -17,6 +17,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
 
 
 const theme = createTheme();
@@ -29,10 +36,56 @@ export default function SignUp() {
   const [textUsername, setTextUsername] = useState("");
   const [textPassword, setTextPassword] = useState("");
   const [textAdresa, setTextAdresa] = useState("");
+  const [labelIsShown, setLabelIsShown] = useState(false);
+
+
+  const [pass, setPass] = React.useState({
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  });
+
+  const [confirmPass, setConfirmPass] = React.useState({
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  });
 
   const onChangeImeHandler = (event) => {
     setTextIme(event.target.value);
   }
+
+  const handleChangePassword = (prop) => (event) => {
+    setPass({ ...pass, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setPass({
+      ...pass,
+      showPassword: !pass.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleChangeConfirmPassword = (prop) => (event) => {
+    setConfirmPass({ ...confirmPass, [prop]: event.target.value });
+  };
+
+  const handleClickShowConfirmPassword = () => {
+    setConfirmPass({
+      ...confirmPass,
+      showPassword: !confirmPass.showPassword,
+    });
+  };
+
+  const handleMouseDownConfirmPassword = (event) => {
+    event.preventDefault();
+  };
 
   const onChangePrezimeHandler = (event) => {
     setTextPrezime(event.target.value);
@@ -61,16 +114,22 @@ export default function SignUp() {
       email: data.get('email'),
       password: data.get('password'),
     });
-    console.log(textIme, textPrezime, textUsername, textPassword, textEmail);
-    fetchAddNewKorisnik();
-    let path = "Prijava";
-    history.push(path);
+
+    if(textEmail === null || !/^[a-zA-Z0-9+_.-]+@[a-z]+[.]+[c]+[o]+[m]$/.test(textEmail))
+      setLabelIsShown(true);
+
+    else{
+      fetchAddNewKorisnik();
+      let path = "Prijava";
+      history.push(path);
+    }
   };
 
 
   async function fetchAddNewKorisnik(){
     const response = await fetch("https://localhost:5001/Administrator/DodatiKorisnika/" + textIme + "/" +
-        textPrezime + "/" + textUsername + "/" + textPassword + "/" + textEmail + "/K" + "/" + textAdresa
+        textPrezime + "/" + textUsername + "/" + pass.password + "/" + confirmPass.password + "/" + 
+        textEmail + "/K" + "/" + textAdresa
     ,{
       method: 'POST',
       body: JSON.stringify({title: 'Uspesno je dodat'}),
@@ -91,7 +150,7 @@ export default function SignUp() {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 5,
+            marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -151,16 +210,52 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Sifra"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  onChange = {onChangePasswordHandler} 
-                />
+              <FormControl sx={{ width: 400 }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                    <OutlinedInput
+                      id="outlined-adornment-password"
+                      type={pass.showPassword ? 'text' : 'password'}
+                      value={pass.password}
+                      onChange={handleChangePassword('password')}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {pass.showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      label="Password"
+                    />
+                  </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl sx={{ width: 400 }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password"> Confirm password</InputLabel>
+                    <OutlinedInput
+                      id="outlined-adornment-password"
+                      type={confirmPass.showPassword ? 'text' : 'password'}
+                      value={confirmPass.password}
+                      onChange={handleChangeConfirmPassword('password')}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowConfirmPassword}
+                            onMouseDown={handleMouseDownConfirmPassword}
+                            edge="end"
+                          >
+                            {confirmPass.showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      label="Confirm Password"
+                    />
+                  </FormControl>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -173,9 +268,8 @@ export default function SignUp() {
                   onChange = {onChangeAdresaHandler} 
                 />
               </Grid>
-             
-
             </Grid>
+            {labelIsShown && <p style={{color:"red"}}> Nevalidan unos za e-mail </p>}
             <Button
               type="submit"
               fullWidth

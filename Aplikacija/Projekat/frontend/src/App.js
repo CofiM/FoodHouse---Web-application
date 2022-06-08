@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Header from "./Header/Header";
 import "./App.css";
-import Poslovi from "./Main/Poslovi";
-import Domacinstva from "./Main/Domacinstva";
+import Poslovi from "./Components/Domacinstvo/JobsView";
+import Domacinstva from "./Main/Domacinstvo";
 import Naslovna from "./Main/Naslovna";
 import Footer from "./Footer/Footer";
 import NotFound from "./Main/NotFound";
@@ -13,7 +13,7 @@ import HouseHoldView from "./Components/Domacinstvo/HouseholdView";
 import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import ViewProducts from "./Main/ViewProducts";
-import Domacinstvo from "./Main/Domacinstvo";
+import Domacinstvo from "./Components/Domacinstvo/HouseholdView";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
 import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
@@ -52,7 +52,7 @@ function App() {
               <Route path="/Domaćinstva">
                 <Domacinstva />
               </Route>
-              <Route path="/Poslovi">
+              <Route path="/Posao">
                 <Poslovi />
               </Route>
               <Route path="/Prijava">
@@ -111,6 +111,9 @@ function App() {
               </Route>
               <Route path="/ViewJobsDateLocation">
                 <ViewJobsDateLocation />
+              </Route>
+              <Route path="/Poslovi">
+                <Poslovi />
               </Route>
               <Route path="*">
                 <NotFound />

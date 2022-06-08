@@ -114,7 +114,6 @@ const ResponsiveAppBar = (props) => {
 
     const items = () => {
       const flag = localStorage.getItem("Korisnik");
-      console.log(flag);
 
       if(flag === "" || flag === null){
         return HeaderItems;

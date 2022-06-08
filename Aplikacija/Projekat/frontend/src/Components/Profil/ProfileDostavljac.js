@@ -48,9 +48,7 @@ const ProfilDostavljac = () => {
                     />
                 </div>
                 <div className={classes.infHeader}>
-                    <p>{data.ime}</p>
-                    <p>{data.prezime}</p>
-                    <p>Ovde da stavimo zivotni moto svakog coveka</p>
+                    <p>{data.ime + " " + data.prezime}</p>
                 </div>
            </div>
            <div className={classes.medium}>

@@ -14,22 +14,52 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useHistory } from "react-router-dom";
 import Header from "../../Header/Header";
-const theme = createTheme();
 
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputAdornment from '@mui/material/InputAdornment';
+
+const theme = createTheme();
+ 
 export default function SignIn() {
   const history = useHistory();
   const [textEmail, setTextEmail] = useState("");
-  const [textPassword, setTextPassword] = useState("");
   const [labelIsShown, setLabelIsShown] = useState(false);
+ 
+  const [pass, setPass] = React.useState({
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  });
+
+  const handleChangePassword = (prop) => (event) => {
+    setPass({ ...pass, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setPass({
+      ...pass,
+      showPassword: !pass.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const onChangeEmailHandler = (event) => {
     setTextEmail(event.target.value);
   };
-
-  const onChangePasswordHandler = (event) => {
+ 
+  /* const onChangePasswordHandler = (event) => {
     setTextPassword(event.target.value);
-  };
-
+  }; */
+ 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -37,24 +67,23 @@ export default function SignIn() {
       email: data.get("email"),
       password: data.get("password"),
     });
-
+ 
     if (
       textEmail === null ||
-      textPassword === null ||
+      pass.password === null ||
       !/^[a-zA-Z0-9+_.-]+@[a-z]+[.]+[c]+[o]+[m]$/.test(textEmail)
     )
       setLabelIsShown(true);
-
-    console.log(textEmail, textPassword);
+ 
     fetchLoginClient();
   };
-
+ 
   async function fetchLoginClient() {
     const response = await fetch(
       "https://localhost:5001/Administrator/GetAccount/" +
         textEmail +
         "/" +
-        textPassword,
+        pass.password,
       {
         method: "GET",
         headers: {
@@ -62,11 +91,11 @@ export default function SignIn() {
         },
       }
     );
-
+ 
     const data = await response.json();
-
+ 
     localStorage.setItem("Korisnik", data.tip);
-
+ 
     if (data.tip === "K") {
       let path = "Naslovna";
       history.push(path);
@@ -115,17 +144,28 @@ export default function SignIn() {
               autoFocus
               onChange={onChangeEmailHandler}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Sifra"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={onChangePasswordHandler}
-            />
+            <FormControl sx={{ width: 400 }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                    <OutlinedInput
+                      id="outlined-adornment-password"
+                      type={pass.showPassword ? 'text' : 'password'}
+                      value={pass.password}
+                      onChange={handleChangePassword('password')}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                            edge="end"
+                          >
+                            {pass.showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                      label="Password"
+                    />
+                  </FormControl>
             {labelIsShown && (
               <p style={{ color: "red" }}>
                 {" "}

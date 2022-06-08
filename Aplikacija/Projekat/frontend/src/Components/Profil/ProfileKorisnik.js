@@ -48,8 +48,7 @@ const ProfilDomacinstvo = () => {
                     />
                 </div>
                 <div className={classes.infHeader}>
-                    <p>{data.ime}</p>
-                    <p>{data.prezime}</p>
+                    <p>{data.ime + " " + data.prezime}</p>
                 </div>
            </div>
            <div className={classes.medium}>
