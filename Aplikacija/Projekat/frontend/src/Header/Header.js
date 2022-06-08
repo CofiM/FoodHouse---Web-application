@@ -25,6 +25,7 @@ import ProfileDostavljac from "../Components/Profil/ProfileDostavljac";
 import ProfileDomacinstvo from "../Components/Profil/ProfileDomacinstvo";
 import CartBox from "../Components/Korpa/CartBox";
 import {useCart} from "react-use-cart";
+import WarningModal from "../Components/Domacinstvo/WarningModal.js"
 
 const settings = ["Profile", "Logout"];
 
