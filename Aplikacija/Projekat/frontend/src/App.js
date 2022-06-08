@@ -120,6 +120,9 @@ function App() {
               <Route path="/Domacinstvo">
                 <JednoDomacinstvo />
               </Route>
+              <Route path="/Narudžbine">
+                <Narudzbine />
+              </Route>
               <Route path="*">
                 <NotFound />
               </Route>
