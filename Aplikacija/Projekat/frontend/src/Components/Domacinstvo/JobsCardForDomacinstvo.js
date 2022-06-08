@@ -17,7 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Rating } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -37,10 +37,12 @@ export default function RecipeReviewCard(props) {
     const [expanded, setExpanded] = useState(false);
     const [date, setDate] = useState("");
     const [dateStart, setDateStart] = useState(props.datum);
-
-    /* const myArray = dateStart.otvorenaVrata.split("T");
-    let datum = myArray[0];
-    setDate(datum); */
+    
+    useEffect(() => {
+        const myArray = dateStart.split("T");
+        let datum = myArray[0];
+        setDate(datum);
+    },[]);
   return (
     <Card sx={{ width: 320, height: 230, m: 2 }}>
       <CardHeader title={props.opis} />

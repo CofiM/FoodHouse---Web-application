@@ -33,6 +33,7 @@ import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
+import Posao from "./Main/Poslovi";
 
 function App() {
   return (
@@ -54,7 +55,7 @@ function App() {
                 <Domacinstva />
               </Route>
               <Route path="/Posao">
-                <Poslovi />
+                <Posao />
               </Route>
               <Route path="/Prijava">
                 <Prijava />
