@@ -2,10 +2,8 @@ import React,{ useRef,useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import classes from './Proizvod.module.css';
 import ImageGallery from './ImageGallery';
-import { useEffect } from 'react';
-import { CartProvider, useCart } from "react-use-cart";
+import { useCart } from "react-use-cart";
 import CheckBox from '../Proizvod/CheckBox';
-import { compose } from '@mui/system';
 
 
 const Proizvod = (props) => {

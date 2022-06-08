@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import classes from './Cart.module.css';
 import classes2 from './CartItem.module.css';
-import { CartProvider, useCart } from "react-use-cart";
+import { useCart } from "react-use-cart";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useHistory } from 'react-router-dom';
 import CartModal from "./CartModal.js";
@@ -18,6 +18,7 @@ const Cart = (props) => {
     isEmpty,
     totalUniqueItems,
     items,
+    inCart,
     updateItemQuantity,
     removeItem,
     cartTotal,
