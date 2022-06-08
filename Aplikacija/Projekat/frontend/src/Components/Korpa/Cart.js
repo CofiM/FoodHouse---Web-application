@@ -5,11 +5,14 @@ import classes2 from './CartItem.module.css';
 import { useCart } from "react-use-cart";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useHistory } from 'react-router-dom';
-import CartModal from "./CartModal.js";
+import ModalCart from './ModalCart';
 
 const Cart = (props) => {
   const [open, setOpen] = useState(false);
   const [dostava,setDostava] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -21,6 +24,7 @@ const Cart = (props) => {
     inCart,
     updateItemQuantity,
     removeItem,
+    emptyCart,
     cartTotal,
   } = useCart();
 
@@ -91,18 +95,41 @@ const Cart = (props) => {
   async function onNaruciHandler() 
   {
 
-            var req = new XMLHttpRequest();
-            req.open('GET','https://localhost:5001/Narudzbine/IzracunajDostavu/'+idKorisnika, false);
-            req.setRequestHeader('Content-Type', 'application/json');
-            req.onload  = function() {
-               var jsonResponse = JSON.parse(req.responseText);
-               // do something with jsonResponse
-               console.log(jsonResponse);
-               setDostava(jsonResponse);
-            };
-            req.send(null);
-    
-    setOpen(true);
+            // var req = new XMLHttpRequest();
+            // req.open('GET','https://localhost:5001/Narudzbine/IzracunajDostavu/'+idKorisnika, false);
+            // req.setRequestHeader('Content-Type', 'application/json');
+            // req.onload  = function() {
+            //    var jsonResponse = JSON.parse(req.responseText);
+            //    // do something with jsonResponse
+            //    console.log(jsonResponse);
+            //    setDostava(jsonResponse);
+            // };
+            // req.send(null);
+            // setOpen(true);
+            var datum = fetch("https://localhost:5001/Narudzbine/PreuzetiNarudzbine/" + idKorisnika)
+                  .then((response) => response.json())
+                  .then((data) => {
+                  return Promise.all(data.map(item => {
+                  return fetch("https://localhost:5001/Kupovina/DodatiKupovinu/"+item.proizvodFK+"/"+idKorisnika+"/"+item.dostavljacFK+"/"+item.brojProizvoda,{
+                   method:'POST',
+                  body:JSON.stringify({title:'Uspesno dodatno'}),
+                  headers:{
+                    'Content-Type':'application/json'
+                  }})
+                    .then(data => {
+                      item["filters"] = data
+                      return item
+                    })
+                }));
+              }).then(
+                fetch("https://localhost:5001/Narudzbine/ObrisiNarudzbine/"+idKorisnika,{
+                  method:'DELETE',
+                   body:JSON.stringify({title:'Uspesno dodatno'}),
+                  headers:{
+                    'Content-Type':'application/json'
+                  }
+                })
+              ).then(emptyCart())
   }
 
   console.log(items);
@@ -126,19 +153,13 @@ const Cart = (props) => {
             <button onClick={()=>UpdateQuantityPlus(item.id, +item.quantity + 1)}>+</button>
             <button onClick={() => RemoveItem(item.id)}><ion-icon name="trash"></ion-icon></button>
           </div>
-          <div className={classes.actions}>
-            <button onClick={onNaruciHandler}className={classes.button}>Naruci</button>
-            <button onClick={()=>{ history.push({ pathname: "/Naslovna"})}} className={classes.button}>Vrati se na soping <ion-icon name="cart"></ion-icon></button>
-          </div>
-          <div>
-            <CartModal>
-              show={open}
-              dost={dostava}
-              onClose={handleClose}
-            </CartModal>
-          </div>
           </li>
         ))}
+         <div className={classes.actions}>
+            <button onClick={()=>{setModalOpen(true)}}className={classes.button}>Naruci</button>
+            <button onClick={()=>{ history.push({ pathname: "/Naslovna"})}} className={classes.button}>Vrati se na soping <ion-icon name="cart"></ion-icon></button>
+          </div>
+          {modalOpen && <ModalCart setOpenModal={setModalOpen} />}
       </ul>
     </div>
   );

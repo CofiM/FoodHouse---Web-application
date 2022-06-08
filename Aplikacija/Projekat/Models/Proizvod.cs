@@ -37,7 +37,5 @@ namespace Models
         [JsonIgnore]
         public virtual List<Recenzija> Recenzije { get; set; }
 
-        [JsonIgnore]
-        public virtual Kupovina Kupovina { get; set; }
     }
 }

@@ -227,7 +227,7 @@ namespace SWE___PROJEKAT.Migrations
                     b.Property<int?>("KorisnikID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProizvodFK")
+                    b.Property<int?>("ProizvodID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -236,8 +236,7 @@ namespace SWE___PROJEKAT.Migrations
 
                     b.HasIndex("KorisnikID");
 
-                    b.HasIndex("ProizvodFK")
-                        .IsUnique();
+                    b.HasIndex("ProizvodID");
 
                     b.ToTable("Kupovine");
                 });
@@ -486,10 +485,8 @@ namespace SWE___PROJEKAT.Migrations
                         .HasForeignKey("KorisnikID");
 
                     b.HasOne("Models.Proizvod", "Proizvod")
-                        .WithOne("Kupovina")
-                        .HasForeignKey("Models.Kupovina", "ProizvodFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("ProizvodID");
 
                     b.Navigation("Dostavljac");
 
@@ -604,8 +601,6 @@ namespace SWE___PROJEKAT.Migrations
 
             modelBuilder.Entity("Models.Proizvod", b =>
                 {
-                    b.Navigation("Kupovina");
-
                     b.Navigation("Recenzije");
                 });
 #pragma warning restore 612, 618
