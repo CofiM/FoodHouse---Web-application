@@ -35,6 +35,7 @@ import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 import Posao from "./Main/Poslovi";
 import Narudzbine from "./Main/Narudzbina";
 import IstorijaKupovina from "./Components/Kupovina/IstorijaKupovina";
+import {CartProvider} from "react-use-cart";
 
 
 function App() {

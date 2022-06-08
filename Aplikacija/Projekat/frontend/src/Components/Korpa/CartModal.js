@@ -18,11 +18,9 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal(props) {
-  const [open, setOpen] = React.useState(props.show);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-    console.log(props.dost);
+export default function CartModal(props) {
+
+
   const{cartTotal}=useCart();
 
   let sab1 = {cartTotal}.cartTotal;
@@ -32,47 +30,8 @@ export default function BasicModal(props) {
   console.log(sab2);
   console.log(zbir);
 
-  //podaci za kupovinu
-  const idKorisnika = localStorage.getItem("KorisnikID");
-  const ImeKorisnika = localStorage.getItem("ImeKorisnika");
-  const MailKorisnika = localStorage.getItem("MailKorisnika");
 
-  // async function PrihvatiHandler(func)
-  // {
-  //   const response = await fetch(
-  //     "https://localhost:5001/Narudzbine/PreuzetiNarudzbine/" + idKorisnika
-  //   );
-  //   const data = await response.json();
-  //   console.log(data);
-  //   data.map((el)=>{
-  //     console.log(el);
-  //     //  const res = fetch("https://localhost:5001/Kupovina/DodatiKupovinu/"+idKorisnika+"/"+data.DomacinstvoFK+"/"+data.DostavljacFK+"/"+data.ProizvodFK+"/"+data.ImeKorisnika+"/"+"adresa"+"/"+"mail"+"/"+data.brojProizvoda+"/"+data.proveriDostava+"/"+data.imeProizvoda+"/"+"06464568784");
-  //    });
-    
-  // }
-
-  async function PrihvatiHandler(prop){
-    var datum = fetch("https://localhost:5001/Narudzbine/PreuzetiNarudzbine/" + idKorisnika)
-      .then((response) => response.json())
-      .then((data) => {
-          return Promise.all(data.map(item => {
-            //item.full_name returns the repositorie name
-            return fetch("https://localhost:5001/Kupovina/DodatiKupovinu/"+idKorisnika+"/"+item.domacinstvoFK+"/"+item.dostavljacFK+"/"+item.proizvodFK+"/"+"ime"+"/"+"adresa"+"/"+"mail@gmail.com"+"/"+item.brojProizvoda+"/"+item.proveriDostava+"/"+item.imeProizvoda+"/"+"0649434713",{
-             method:'POST',
-            body:JSON.stringify({title:'Uspesno dodatno'}),
-            headers:{
-              'Content-Type':'application/json'
-            }})
-              .then(data => {
-                item["filters"] = data
-                return item
-              })
-          }));
-        }).then(data => console.log(data))
-      }
-
-
-     console.log(props.dost);
+  console.log(props.dost);
   return (
     <div>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
@@ -93,7 +52,7 @@ export default function BasicModal(props) {
             Da li ste sigurni da zelite da porucite proizvode?
           </p>
           <div className={classes.rowDesign}>
-            <Button onClick={()=>PrihvatiHandler(props.onClose)}>Prihvati</Button>
+            <Button onClick={props.onPrihvati}>Prihvati</Button>
             <Button onClick={props.onClose}>Odbij</Button>
           </div>
         </Box>

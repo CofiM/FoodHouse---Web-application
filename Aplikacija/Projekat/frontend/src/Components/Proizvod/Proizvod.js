@@ -6,6 +6,7 @@ import { useCart } from "react-use-cart";
 import CheckBox from '../Proizvod/CheckBox';
 
 
+
 const Proizvod = (props) => {
   
   const cenaDostave = JSON.parse(localStorage.getItem("CenaDostave"));
@@ -13,7 +14,9 @@ const Proizvod = (props) => {
   const idDostavljaca = JSON.parse(localStorage.getItem("idDostavljaca"));
   const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
   const imeDomacinstva = JSON.parse(localStorage.getItem("naz"));
-  
+
+  let type = localStorage.getItem("Korisnik");
+
 
   const [checked, setChecked] = React.useState(false);
 
@@ -123,7 +126,7 @@ const Proizvod = (props) => {
                 value={checked}
                 onChange={handleChange}
             />
-            <div className = {classes['purchase-info']}>
+              <div className = {classes['purchase-info']}>
               <input ref={amountInputRef} type='number' min='1' max='100' step='1' defaultValue='1'/>
               <button onClick={checkItem} type = 'button' className = {classes.btn}>
                 Dodaj u korpu

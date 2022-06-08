@@ -24,6 +24,7 @@ import ProfileKorisnik from "../Components/Profil/ProfileKorisnik";
 import ProfileDostavljac from "../Components/Profil/ProfileDostavljac";
 import ProfileDomacinstvo from "../Components/Profil/ProfileDomacinstvo";
 import CartBox from "../Components/Korpa/CartBox";
+import {useCart} from "react-use-cart";
 
 const settings = ['Profile', 'Logout'];
 
@@ -36,6 +37,8 @@ const ResponsiveAppBar = (props) => {
     const [isValid, setIsValid] = React.useState(true);
     const [data, setData] = React.useState([]);
     const [numberMessages, setNumberMessages] = React.useState(0);
+
+    const {emptyCart}=useCart();
 
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -94,7 +97,16 @@ const ResponsiveAppBar = (props) => {
           localStorage.removeItem("DomacinstvoID");
         }
         else if(type === "K"){
-          localStorage.removeItem("KorisnikID");
+          let idKorisnika = localStorage.getItem("KorisnikID");
+          // const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
+          fetch("https://localhost:5001/Narudzbine/ObrisiNarudzbine/"+idKorisnika,{
+                  method:'DELETE',
+                  body:JSON.stringify({title:'Uspesno dodatno'}),
+                  headers:{
+                    'Content-Type':'application/json'
+                  }
+                }).then(localStorage.removeItem("KorisnikID")).then(emptyCart())
+
         }
         else if( type === "D"){
           localStorage.removeItem("DostavljacID");
