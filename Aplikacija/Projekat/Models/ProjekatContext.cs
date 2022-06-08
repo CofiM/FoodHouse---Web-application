@@ -35,10 +35,10 @@ namespace Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Proizvod>()
-                        .HasOne(s => s.Kupovina)
-                        .WithOne(p => p.Proizvod)
-                        .HasForeignKey<Kupovina>(a => a.ProizvodFK);
+            // modelBuilder.Entity<Proizvod>()
+            //             .HasOne(s => s.Kupovina)
+            //             .WithOne(p => p.Proizvod)
+            //             .HasForeignKey<Kupovina>(a => a.ProizvodFK);
 
         }
     }

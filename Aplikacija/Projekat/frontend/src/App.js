@@ -26,7 +26,6 @@ import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 
-import CartProvider from "./Components/Korpa/CartProvider";
 
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 

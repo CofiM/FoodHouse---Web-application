@@ -2,10 +2,8 @@ import React,{ useRef,useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import classes from './Proizvod.module.css';
 import ImageGallery from './ImageGallery';
-import { useEffect } from 'react';
-import { CartProvider, useCart } from "react-use-cart";
+import { useCart } from "react-use-cart";
 import CheckBox from '../Proizvod/CheckBox';
-import { compose } from '@mui/system';
 
 
 const Proizvod = (props) => {
@@ -38,9 +36,17 @@ const Proizvod = (props) => {
 
    async function fetchAddNewDelivery(dal,count)
    {
-    console.log(dal);
-     console.log(count);
-     const response = await fetch('https://localhost:5001/Narudzbine/DodatiNarudzbinu/'+idKorisnika+'/'+proba.id+'/'+idDomacinstva+'/'+idDostavljaca+'/'+cenaDostave+'/'+dal+'/'+count+'/'+proba.price+'/'+proba.name,{
+     let temp = 0;
+     if(dal === 0)
+     {
+        temp = 0;
+     }
+     else
+     {
+        temp = idDostavljaca;
+     }
+      console.log(dal);
+     const response = await fetch('https://localhost:5001/Narudzbine/DodatiNarudzbinu/'+idKorisnika+'/'+proba.id+'/'+idDomacinstva+'/'+temp+'/'+cenaDostave+'/'+dal+'/'+count+'/'+proba.price+'/'+proba.name,{
        method:'POST',
        body:JSON.stringify({title:'Uspesno dodatno'}),
        headers:{

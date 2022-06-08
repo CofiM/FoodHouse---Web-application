@@ -9,9 +9,6 @@ namespace Models
         public int ID { get; set; }
 
         [Required]
-        public int ProizvodFK { get; set; }
-
-        [Required]
         public int KolicinaProizvoda {get; set;}
 
         // veze ------------------------------

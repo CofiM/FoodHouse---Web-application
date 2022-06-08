@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SWE___PROJEKAT.Migrations
 {
-    public partial class V1 : Migration
+    public partial class fil : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,16 +23,40 @@ namespace SWE___PROJEKAT.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Narudzbine",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    KorisnikFK = table.Column<int>(type: "int", nullable: false),
+                    ProizvodFK = table.Column<int>(type: "int", nullable: false),
+                    DomacinstvoFK = table.Column<int>(type: "int", nullable: false),
+                    DostavljacFK = table.Column<int>(type: "int", nullable: false),
+                    CenaDostavljaca = table.Column<int>(type: "int", nullable: false),
+                    CenaProizvoda = table.Column<int>(type: "int", nullable: false),
+                    ProveriDostava = table.Column<int>(type: "int", nullable: false),
+                    brojProizvoda = table.Column<int>(type: "int", nullable: false),
+                    ImeProizvoda = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Narudzbine", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Dostavljač",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Ime = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Prezime = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Username = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(name: "E-mail", type: "nvarchar(max)", nullable: false),
                     Cena = table.Column<int>(type: "int", nullable: false),
                     Brtelefona = table.Column<string>(name: "Br. telefona", type: "nvarchar(max)", nullable: false),
+                    Tip = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     AdministratorID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -57,6 +81,8 @@ namespace SWE___PROJEKAT.Migrations
                     Username = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(name: "E-mail", type: "nvarchar(max)", nullable: false),
+                    Tip = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    Adresa = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     AdministratorID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -83,6 +109,7 @@ namespace SWE___PROJEKAT.Migrations
                     Brtelefona = table.Column<string>(name: "Br. telefona", type: "nvarchar(max)", nullable: false),
                     Adresa = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Danotvorenihvrata = table.Column<DateTime>(name: "Dan otvorenih vrata", type: "datetime2", nullable: false),
+                    Tip = table.Column<string>(type: "nvarchar(1)", nullable: false),
                     DostavljacID = table.Column<int>(type: "int", nullable: true),
                     AdministratorID = table.Column<int>(type: "int", nullable: true)
                 },
@@ -99,6 +126,43 @@ namespace SWE___PROJEKAT.Migrations
                         name: "FK_Domaćinstvo_Dostavljač_DostavljacID",
                         column: x => x.DostavljacID,
                         principalTable: "Dostavljač",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Poruka",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    sadrzaj = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Tip = table.Column<string>(type: "nvarchar(1)", nullable: false),
+                    Flag = table.Column<bool>(type: "bit", nullable: false),
+                    Shown = table.Column<bool>(type: "bit", nullable: false),
+                    DomacinstvoID = table.Column<int>(type: "int", nullable: true),
+                    DostavljacID = table.Column<int>(type: "int", nullable: true),
+                    KorisnikID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Poruka", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Poruka_Domaćinstvo_DomacinstvoID",
+                        column: x => x.DomacinstvoID,
+                        principalTable: "Domaćinstvo",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Poruka_Dostavljač_DostavljacID",
+                        column: x => x.DostavljacID,
+                        principalTable: "Dostavljač",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Poruka_Korisnik_KorisnikID",
+                        column: x => x.KorisnikID,
+                        principalTable: "Korisnik",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -182,9 +246,10 @@ namespace SWE___PROJEKAT.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProizvodFK = table.Column<int>(type: "int", nullable: false),
+                    KolicinaProizvoda = table.Column<int>(type: "int", nullable: false),
                     DostavljacID = table.Column<int>(type: "int", nullable: true),
-                    KorisnikID = table.Column<int>(type: "int", nullable: true)
+                    KorisnikID = table.Column<int>(type: "int", nullable: true),
+                    ProizvodID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -202,11 +267,11 @@ namespace SWE___PROJEKAT.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Kupovine_Proizvodi_ProizvodFK",
-                        column: x => x.ProizvodFK,
+                        name: "FK_Kupovine_Proizvodi_ProizvodID",
+                        column: x => x.ProizvodID,
                         principalTable: "Proizvodi",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -261,10 +326,24 @@ namespace SWE___PROJEKAT.Migrations
                 column: "KorisnikID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kupovine_ProizvodFK",
+                name: "IX_Kupovine_ProizvodID",
                 table: "Kupovine",
-                column: "ProizvodFK",
-                unique: true);
+                column: "ProizvodID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Poruka_DomacinstvoID",
+                table: "Poruka",
+                column: "DomacinstvoID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Poruka_DostavljacID",
+                table: "Poruka",
+                column: "DostavljacID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Poruka_KorisnikID",
+                table: "Poruka",
+                column: "KorisnikID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Poslovi_DomacinstvoID",
@@ -296,6 +375,12 @@ namespace SWE___PROJEKAT.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Kupovine");
+
+            migrationBuilder.DropTable(
+                name: "Narudzbine");
+
+            migrationBuilder.DropTable(
+                name: "Poruka");
 
             migrationBuilder.DropTable(
                 name: "Recenzije");
