@@ -3,7 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Header from "./Header/Header";
 import "./App.css";
 import Poslovi from "./Components/Domacinstvo/JobsView";
-import Domacinstva from "./Main/Domacinstvo";
+import Domacinstva from "./Main/Domacinstva";
 import Naslovna from "./Main/Naslovna";
 import Footer from "./Footer/Footer";
 import NotFound from "./Main/NotFound";
@@ -14,6 +14,7 @@ import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import ViewProducts from "./Main/ViewProducts";
 import Domacinstvo from "./Components/Domacinstvo/HouseholdView";
+import JednoDomacinstvo from "./Main/Domacinstvo";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
 import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
@@ -114,6 +115,9 @@ function App() {
               </Route>
               <Route path="/Poslovi">
                 <Poslovi />
+              </Route>
+              <Route path="/Domacinstvo">
+                <JednoDomacinstvo />
               </Route>
               <Route path="*">
                 <NotFound />

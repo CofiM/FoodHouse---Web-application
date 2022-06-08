@@ -9,7 +9,7 @@ function Domacinstvo() {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState();
-  const [ratingOfDomacinstvo, setRatingOfDomacinstvo] = useState(0);
+  const [ratingOfDomacinstvo, setRatingOfDomacinstvo] = useState(0.0);
   const handleClose = () => {
     setOpen(false);
   };
@@ -44,8 +44,10 @@ function Domacinstvo() {
         comments = [];
         pros = pros / prod.recenzije.length;
         console.log(pros);
-        rating = rating + pros;
-        console.log(rating);
+        if (prod.recenzije.length > 0) {
+          rating = rating + pros;
+          console.log(rating);
+        }
         return {
           ID: prod.id,
           Cena: prod.cena,
@@ -58,13 +60,14 @@ function Domacinstvo() {
         };
       });
       setProducts(transformedDataProduct);
+      rating = rating / transformedDataProduct.length;
       console.log(rating);
       setRatingOfDomacinstvo(rating);
-      console.log(ratingOfDomacinstvo);
     };
     fetchProductHandler();
   }, []);
   console.log(products);
+  console.log(ratingOfDomacinstvo);
   return (
     <div>
       <div className={classes.allProducts}>
