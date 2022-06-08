@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Header from "./Header/Header";
 import "./App.css";
-import Poslovi from "./Main/Poslovi";
+import Poslovi from "./Components/Domacinstvo/JobsView";
 import Domacinstva from "./Main/Domacinstva";
 import Naslovna from "./Main/Naslovna";
 import Footer from "./Footer/Footer";
@@ -14,6 +14,7 @@ import DodajPosao from "./Components/Poslovi/DodajPosao";
 import Dostavljaci from "./Main/Dostavljaci";
 import ViewProducts from "./Main/ViewProducts";
 import Domacinstvo from "./Components/Domacinstvo/HouseholdView";
+import JednoDomacinstvo from "./Main/Domacinstvo";
 import ViewProductsName from "./Main/ViewProductsName";
 import ViewProductsStrict from "./Main/ViewProductsStrict";
 import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
@@ -32,6 +33,7 @@ import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
+import Posao from "./Main/Poslovi";
 
 function App() {
   return (
@@ -52,8 +54,8 @@ function App() {
               <Route path="/Domaćinstva">
                 <Domacinstva />
               </Route>
-              <Route path="/Poslovi">
-                <Poslovi />
+              <Route path="/Posao">
+                <Posao />
               </Route>
               <Route path="/Prijava">
                 <Prijava />
@@ -111,6 +113,12 @@ function App() {
               </Route>
               <Route path="/ViewJobsDateLocation">
                 <ViewJobsDateLocation />
+              </Route>
+              <Route path="/Poslovi">
+                <Poslovi />
+              </Route>
+              <Route path="/Domacinstvo">
+                <JednoDomacinstvo />
               </Route>
               <Route path="*">
                 <NotFound />

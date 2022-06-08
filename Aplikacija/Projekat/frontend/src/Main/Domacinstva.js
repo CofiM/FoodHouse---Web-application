@@ -7,7 +7,7 @@ function Domacinstva() {
   const history = useHistory();
   const openDomacinstvo = (ID) => {
     localStorage.setItem("DomacinstvoID", ID);
-    let path = "Domaćinstvo";
+    let path = "Domacinstvo";
     history.push(path);
   };
   const [domacinstva, setDomacinstva] = useState([]);

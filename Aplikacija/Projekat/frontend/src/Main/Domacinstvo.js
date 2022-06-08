@@ -5,10 +5,11 @@ import ModalComment from "./CommentModal";
 import { useHistory } from "react-router-dom";
 
 function Domacinstvo() {
-  const ID = JSON.parse(localStorage.getItem("DomacinstvoID"));
+  const ID = localStorage.getItem("DomacinstvoID");
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
-  const [product, setProduct]=useState(); 
+  const [product, setProduct] = useState();
+  const [ratingOfDomacinstvo, setRatingOfDomacinstvo] = useState(0.0);
   const handleClose = () => {
     setOpen(false);
   };
@@ -31,6 +32,7 @@ function Domacinstvo() {
       const data = await response.json();
       console.log(data);
       let comments = [];
+      let rating = 0;
       const transformedDataProduct = data.map(function (prod) {
         let pros = 0;
         prod.recenzije.forEach((el) => {
@@ -41,6 +43,11 @@ function Domacinstvo() {
         let kom = comments;
         comments = [];
         pros = pros / prod.recenzije.length;
+        console.log(pros);
+        if (prod.recenzije.length > 0) {
+          rating = rating + pros;
+          console.log(rating);
+        }
         return {
           ID: prod.id,
           Cena: prod.cena,
@@ -53,10 +60,14 @@ function Domacinstvo() {
         };
       });
       setProducts(transformedDataProduct);
+      rating = rating / transformedDataProduct.length;
+      console.log(rating);
+      setRatingOfDomacinstvo(rating);
     };
     fetchProductHandler();
   }, []);
   console.log(products);
+  console.log(ratingOfDomacinstvo);
   return (
     <div>
       <div className={classes.allProducts}>

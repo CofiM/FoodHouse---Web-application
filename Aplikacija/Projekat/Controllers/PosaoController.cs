@@ -37,6 +37,7 @@ namespace SWE___PROJEKAT.Controllers
                 var poslovi = await Context.Poslovi
                             .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.ID == idDomacinstva)
                             .Select(p => new {
+                                p.ID,
                                 p.brojRadnihMesta,
                                 p.Datum,
                                 p.Opis,
