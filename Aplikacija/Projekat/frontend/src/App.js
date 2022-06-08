@@ -34,6 +34,8 @@ import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 import Posao from "./Main/Poslovi";
+import Narudzbine from "./Main/Narudzbina";
+
 
 function App() {
   return (
@@ -119,6 +121,9 @@ function App() {
               </Route>
               <Route path="/Domacinstvo">
                 <JednoDomacinstvo />
+              </Route>
+              <Route path="/Narudžbine">
+                <Narudzbine />
               </Route>
               <Route path="*">
                 <NotFound />
