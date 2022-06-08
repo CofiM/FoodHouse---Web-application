@@ -4,7 +4,7 @@ import ProizvodCard from "../Components/Proizvod/ProizvodCard";
 import ModalComment from "./CommentModal";
 import { useHistory } from "react-router-dom";
 import classes from "./ViewProduct.module.css";
-
+ 
 const ViewProducts = () => {
   const category = localStorage.getItem("Category");
   const [value, setValue] = useState();
@@ -36,9 +36,9 @@ const ViewProducts = () => {
           },
         }
       );
-
+ 
       const data = await response.json();
-
+ 
       let comments = [];
       const products = data.map(function (prod) {
         let pros = 0;
@@ -61,14 +61,14 @@ const ViewProducts = () => {
           Komentari: kom,
         };
       });
-
+ 
       setAllProducts(products);
       console.log(products);
     }
     fetchProductsHandler();
-    localStorage.removeItem("Category");
+   // localStorage.removeItem("Category");
   }, []);
-
+ 
   const sortArray = [
     {
       value: 1,
@@ -82,68 +82,102 @@ const ViewProducts = () => {
       value: 3,
       label: "Po ceni u opadajućem",
     },
+    {
+      value: 4,
+      label: "Po oceni",
+    }
   ];
-
+ 
   const arrayProducts = (e) => {
     let newState = [...allProducts];
     setValue(e.target.value);
-
+ 
     if (e.target.value == 1) {
       console.log(newState);
       {
         newState
-          .sort((a, b) => (a.naziv > b.naziv ? 1 : -1))
-          .map((product) => (
+          .sort((a, b) => (a.Naziv > b.Naziv ? 1 : -1))
+          .map((prod) => (
             <ProizvodCard
-              naziv={product.naziv}
-              opis={product.opis}
-              cena={product.cena}
-              kolicina={product.kolicina}
+            className={classes.Product}
+            naziv={prod.Naziv}
+            kolicina={prod.Kolicina}
+            cena={prod.Cena}
+            opis={prod.Opis}
+            ocena={prod.Ocena}
+            onClickComment={() => onClickCommentHandler(prod.ID)}
+            onClickCart={() => onClickCartHandler(prod.ID)}
             />
           ));
       }
     } else if (e.target.value == 2) {
       {
         newState
-          .sort((a, b) => (a.cena > b.cena ? 1 : -1))
-          .map((product) => (
+          .sort((a, b) => (a.Cena > b.Cena ? 1 : -1))
+          .map((prod) => (
             <ProizvodCard
-              naziv={product.naziv}
-              opis={product.opis}
-              cena={product.cena}
-              kolicina={product.kolicina}
+            className={classes.Product}
+            naziv={prod.Naziv}
+            kolicina={prod.Kolicina}
+            cena={prod.Cena}
+            opis={prod.Opis}
+            ocena={prod.Ocena}
+            onClickComment={() => onClickCommentHandler(prod.ID)}
+            onClickCart={() => onClickCartHandler(prod.ID)}
             />
           ));
       }
     } else if (e.target.value == 3) {
       {
         newState
-          .sort((a, b) => (a.cena < b.cena ? 1 : -1))
-          .map((product) => (
+          .sort((a, b) => (a.Cena < b.Cena ? 1 : -1))
+          .map((prod) => (
             <ProizvodCard
-              naziv={product.naziv}
-              opis={product.opis}
-              cena={product.cena}
-              kolicina={product.kolicina}
+            className={classes.Product}
+            naziv={prod.Naziv}
+            kolicina={prod.Kolicina}
+            cena={prod.Cena}
+            opis={prod.Opis}
+            ocena={prod.Ocena}
+            onClickComment={() => onClickCommentHandler(prod.ID)}
+            onClickCart={() => onClickCartHandler(prod.ID)}
             />
           ));
       }
     }
-    //  setValue(true);
+    else if (e.target.value == 4) {
+        {
+          newState
+            .sort((a, b) => (a.Ocena < b.Ocena ? 1 : -1))
+            .map((prod) => (
+              <ProizvodCard
+              className={classes.Product}
+              naziv={prod.Naziv}
+              kolicina={prod.Kolicina}
+              cena={prod.Cena}
+              opis={prod.Opis}
+              ocena={prod.Ocena}
+              onClickComment={() => onClickCommentHandler(prod.ID)}
+              onClickCart={() => onClickCartHandler(prod.ID)}
+              />
+            ));
+        }
+      }
+     //setValue(true);
     setAllProducts(newState);
     console.log(newState);
   };
-
+ 
   return (
     <div>
       <div className={classes.positionSelect}>
-        <select className={classes.sortSelect} onChange={arrayProducts}>
+        <select defaultValue={1} className={classes.sortSelect} onChange={arrayProducts}>
           {sortArray.map((option) => (
             <option value={option.value}>{option.label} </option>
           ))}
         </select>
       </div>
-
+ 
       <div className={classes.allProducts}>
         {allProducts.map((prod) => (
           <ProizvodCard
@@ -157,17 +191,6 @@ const ViewProducts = () => {
             onClickCart={() => onClickCartHandler(prod.ID)}
           />
         ))}
-
-        {/* { allProducts 
-                    .sort((a, b) => { return a.cena > b.cena ? 1 : -1 })
-                    .map(({product }) => (
-                    <ProizvodCard
-                    naziv={product.naziv}
-                    opis = {product.opis}
-                    cena= {product.cena}
-                    kolicina = {product.kolicina}
-                    />
-                ))} */}
         <div>
           {open && (
             <ModalComment
@@ -181,5 +204,5 @@ const ViewProducts = () => {
     </div>
   );
 };
-
+ 
 export default ViewProducts;
