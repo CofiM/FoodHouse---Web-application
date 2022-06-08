@@ -6,12 +6,15 @@ import Button from '@mui/material/Button';
 import UpdateProfileKorisnik from "./UpdateProfileKorisnik";
 import DesignProfileKorisnik from "./DesignProfileKorisnik";
 import { useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 
 
 const ProfilDomacinstvo = () => {
     const [isShowProfile, setIsShowProfile] = useState(true);
     const [isShowUpdateProfile, setIsShowUpdateProfile] = useState(false);
     const [data, setData] = useState([]);
+    const history = useHistory();
+
 
     const onClickProfileHandler = () => {
         setIsShowProfile(true);
@@ -22,7 +25,13 @@ const ProfilDomacinstvo = () => {
         setIsShowProfile(false);
         setIsShowUpdateProfile(true);
     }
-    
+
+    const onClickIstorijaKupovinaHandler = () => {
+        let path = "IstorijaKupovina";
+        history.push(path);
+    }
+
+
     useEffect(() => {
         const fetchProfile = async () => {
           const id = localStorage.getItem("KorisnikID");
@@ -55,7 +64,7 @@ const ProfilDomacinstvo = () => {
                 <Stack spacing={30} direction="row">
                     <Button variant="text" sx={{color:"black"}} onClick={onClickProfileHandler} >Profil</Button>
                     <Button variant="text" sx={{color:"black"}} onClick={onClickUpdateProfileHandler} >Izmeni profil</Button>
-                    <Button variant="text" sx={{color:"black"}}> Istorija kupovina </Button>
+                    <Button variant="text" sx={{color:"black"}} onClick={onClickIstorijaKupovinaHandler}> Istorija kupovina </Button>
                 </Stack>
            </div>
            <div className={classes.mainPart}>

@@ -4,6 +4,7 @@ import ProizvodCard from "../Components/Proizvod/ProizvodCard";
 import ModalComment from "./CommentModal";
 import { useHistory } from "react-router-dom";
 import classes from "./ViewProduct.module.css";
+import WarningModal from "../Components/Domacinstvo/WarningModal";
 
 const ViewProducts = () => {
   const category = localStorage.getItem("Category");
@@ -11,6 +12,7 @@ const ViewProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState();
+  const [openWarning, setOpenWarning] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
@@ -21,8 +23,16 @@ const ViewProducts = () => {
   };
   const history = useHistory();
   const onClickCartHandler = (ID) => {
-    const p = allProducts.find((el) => el.ID == ID);
-    history.push({ pathname: "/Proizvod", product: p });
+    let korisnik = localStorage.getItem("Korisnik");
+    if (korisnik != null) {
+      const p = allProducts.find((el) => el.ID == ID);
+      history.push({ pathname: "/Proizvod", product: p });
+    } else {
+      setOpenWarning(true);
+    }
+  };
+  const handleCloseWarning = () => {
+    setOpenWarning(false);
   };
   useEffect(() => {
     async function fetchProductsHandler() {
@@ -177,6 +187,11 @@ const ViewProducts = () => {
             />
           )}
         </div>
+      </div>
+      <div>
+        {openWarning && (
+          <WarningModal show={openWarning} onClose={handleCloseWarning} />
+        )}
       </div>
     </div>
   );

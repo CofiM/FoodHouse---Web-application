@@ -37,6 +37,7 @@ export default function RecipeReviewCard(props) {
     setExpanded(!expanded);
   };
   const [val, setValue] = useState(0);
+  let korisnik = localStorage.getItem("Korisnik");
   return (
     <Card sx={{ width: 320, m: 2 }}>
       <CardHeader
