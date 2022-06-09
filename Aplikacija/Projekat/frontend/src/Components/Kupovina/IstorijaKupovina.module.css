@@ -1,15 +1,24 @@
 .mainStyle {
-    display: flex;
-    flex-direction: column;
-    background-color: darkgrey;
+  display: flex;
+  flex-direction: column;
+  background-color: darkgrey;
 }
 
 .infHeader {
-    font-size: 26px;
-    font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: solid;
-    border-bottom: thin medium;
+  font-size: 26px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid;
+  border-bottom: thin medium;
+}
+.allProduct {
+  width: fit-content;
+  margin: auto;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+.Product {
+  width: 500px;
 }

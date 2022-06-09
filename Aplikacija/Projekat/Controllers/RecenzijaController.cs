@@ -82,7 +82,7 @@ namespace SWE___PROJEKAT.Controllers
                     throw new Exception("Ne postoji proizvod za koji hocemo da postavimo recenziju!");
                 }
                 var kupovina = await Context.Kupovine.Where(p => p.ID == idKupovine).FirstOrDefaultAsync();
-                kupovina.show = 1;
+                kupovina.show = 0;
                 Recenzija rec = new Recenzija();
                 rec.Ocena = ocena;
                 rec.Komentar = komentar;
