@@ -68,6 +68,7 @@ namespace SWE___PROJEKAT.Controllers
                     kupovina.Korisnik = korisnik;
                     kupovina.Dostavljac = dostavljac;
                     kupovina.KolicinaProizvoda = suma;
+                    kupovina.show = 0;
                     Context.Kupovine.Add(kupovina);
                     await Context.SaveChangesAsync();
                     return Ok(kupovina);
@@ -121,13 +122,18 @@ namespace SWE___PROJEKAT.Controllers
                 var kupovine = await Context.Kupovine.Include(p => p.Korisnik)
                     .Where(p=>p.Korisnik.ID==idKorisnika)
                     .Select(p=>new{
+                        p.ID,
+                        proizvodID = p.Proizvod.ID,
                         proizvodNaziv = p.Proizvod.Naziv,
+                        proizvodKolicina = p.Proizvod.Kolicina,
+                        proizvodCena = p.Proizvod.Cena,
+                        proizvodOpisa = p.Proizvod.Opis,
                         kolicinaProizvoda = p.KolicinaProizvoda,
+                        show = p.show,
                         domacinstvoNaziv = p.Proizvod.Domacinstvo.Naziv,
                         domacinstvoAdresa = p.Proizvod.Domacinstvo.Adresa
                     })
                     .ToListAsync();
-                // var kupovine = Context.Dostavljaci.Include(p=>p.Korpa).Where(p=>p.Dostavljac.ID==idDostavljaca).ToListAsync();
 
                 if(kupovine == null)
                 {

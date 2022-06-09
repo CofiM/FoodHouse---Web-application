@@ -8,7 +8,9 @@ namespace Models
 {
     public class FileUpload
     {
-        public IFormFile files { get; set; }
+        public IFormFile File { get; set; }
+
+        public int? Id { get; set; }
 
     }
 }

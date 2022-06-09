@@ -11,6 +11,8 @@ namespace Models
         [Required]
         public int KolicinaProizvoda {get; set;}
 
+        public int show { get; set; }
+
         // veze ------------------------------
 
         [JsonIgnore]

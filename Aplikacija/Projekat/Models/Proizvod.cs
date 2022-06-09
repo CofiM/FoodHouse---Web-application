@@ -30,6 +30,8 @@ namespace Models
         [MaxLength(100)]
         public string Kategorija { get; set; }
 
+        public string Slika { get; set; }
+
         // veze ------------------------------
         [JsonIgnore]
         public virtual Domacinstvo Domacinstvo { get; set; }
