@@ -16,11 +16,12 @@ const Poslovi = () => {
   const onClicksignInHandler = async (ID, IDDomacinstva) => {
     // setJob(allJobs.find((el) => el.id == ID));
     // console.log(job.opis);
+    const IDKorisnika = localStorage.getItem("KorisnikID");
     const response = await fetch(
       " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
         IDDomacinstva +
         "/" +
-        2 +
+        IDKorisnika +
         "/Zahtev za posao/" +
         "K/" +
         false,
@@ -169,4 +170,5 @@ const Poslovi = () => {
     </div>
   );
 };
+
 export default Poslovi;

@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../pictures/logo.png";
 import { useHistory } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect,useState} from "react";
 import classes from "./Header.module.css";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { HeaderItems } from "./HeaderComponentsKorisnik";
@@ -24,8 +24,8 @@ import ProfileKorisnik from "../Components/Profil/ProfileKorisnik";
 import ProfileDostavljac from "../Components/Profil/ProfileDostavljac";
 import ProfileDomacinstvo from "../Components/Profil/ProfileDomacinstvo";
 import CartBox from "../Components/Korpa/CartBox";
-import WarningModal from "../Components/Domacinstvo/WarningModal";
-import { useState } from "react";
+import {useCart} from "react-use-cart";
+import WarningModal from "../Components/Domacinstvo/WarningModal.js"
 
 const settings = ["Profile", "Logout"];
 
@@ -40,9 +40,11 @@ const ResponsiveAppBar = (props) => {
   const [numberMessages, setNumberMessages] = React.useState(0);
   const [openWarning, setOpenWarning] = useState(false);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+    const {emptyCart}=useCart();
+
+    const handleOpenNavMenu = (event) => {
+      setAnchorElNav(event.currentTarget);
+    };
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -72,41 +74,73 @@ const ResponsiveAppBar = (props) => {
     }
   };
 
-  const onClickProfile = (type) => {
-    if (type === "Profile") {
-      const flag = localStorage.getItem("Korisnik");
-      if (flag === null) {
-        let path = "Prijava";
-        history.push(path);
-      } else if (flag === "P") {
-        let path = "ProfilDomacinstvo";
-        history.push(path);
-      } else if (flag === "K") {
-        let path = "ProfilKorisnik";
-        history.push(path);
-      } else if (flag === "D") {
-        let path = "ProfilDostavljac";
-        history.push(path);
+    const onClickProfile = (type) => {
+      if( type === "Profile")
+      {
+        const flag = localStorage.getItem("Korisnik");
+        if( flag === null ){
+          let path = "Prijava";
+          history.push(path);
+        }
+        else if( flag === "P" ){
+          let path = "ProfilDomacinstvo";
+          history.push(path);
+        }
+        else if( flag === "K" ){
+          let path = "ProfilKorisnik";
+          history.push(path);
+        }
+        else if( flag === "D" ){
+          let path = "ProfilDostavljac";
+          history.push(path);
+        }
       }
-    }
-    if (type === "Logout") {
-      const type = localStorage.getItem("Korisnik");
-      localStorage.removeItem("Korisnik");
-      localStorage.setItem("messageNumber", 0);
-      if (type === "P") {
-        localStorage.removeItem("DomacinstvoID");
-      } else if (type === "K") {
-        localStorage.removeItem("KorisnikID");
-      } else if (type === "D") {
-        localStorage.removeItem("DostavljacID");
-      }
+      if(type === "Logout")
+      {
+        const type = localStorage.getItem("Korisnik");
+        localStorage.removeItem("Korisnik");
+        localStorage.setItem("messageNumber", 0);
+        if(type === "P"){
+          localStorage.removeItem("DomacinstvoID");
+        }
+        else if(type === "K"){
+          let idKorisnika = localStorage.getItem("KorisnikID");
+          // const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
+          fetch("https://localhost:5001/Narudzbine/ObrisiNarudzbine/"+idKorisnika,{
+                  method:'DELETE',
+                  body:JSON.stringify({title:'Uspesno dodatno'}),
+                  headers:{
+                    'Content-Type':'application/json'
+                  }
+                }).then(localStorage.removeItem("KorisnikID")).then(emptyCart())
 
-      let path = "Naslovna";
-      history.push(path);
-      window.location.reload(false);
+        }
+        else if( type === "D"){
+          localStorage.removeItem("DostavljacID");
+        }
+
+        let path = "Naslovna";
+        history.push(path);
+      }
     }
-    setAnchorElUser(null);
-  };
+  //   if (type === "Logout") {
+  //     const type = localStorage.getItem("Korisnik");
+  //     localStorage.removeItem("Korisnik");
+  //     localStorage.setItem("messageNumber", 0);
+  //     if (type === "P") {
+  //       localStorage.removeItem("DomacinstvoID");
+  //     } else if (type === "K") {
+  //       localStorage.removeItem("KorisnikID");
+  //     } else if (type === "D") {
+  //       localStorage.removeItem("DostavljacID");
+  //     }
+
+  //     let path = "Naslovna";
+  //     history.push(path);
+  //     window.location.reload(false);
+  //   }
+  //   setAnchorElUser(null);
+  // };
 
   const handleCloseWarning = () => {
     setOpenWarning(false);

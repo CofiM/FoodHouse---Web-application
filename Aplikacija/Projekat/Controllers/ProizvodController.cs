@@ -165,7 +165,9 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var proizvodi = await Context.Proizvodi
-                                .Include(p => p.Domacinstvo).Include(p => p.Recenzije).Where(p => p.Kategorija == kategorija)
+                                .Include(p => p.Domacinstvo)
+                                .Include(p=>p.Recenzije)
+                                .Where(p => p.Kategorija == kategorija)
                                 .Select(p => new{
                                     p.ID,
                                     p.Naziv,
@@ -200,7 +202,9 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var proizvodi = await Context.Proizvodi
-                                .Include(p => p.Domacinstvo).Where(p => p.Naziv == naziv)
+                                .Include(p => p.Domacinstvo)
+                                .Include(p=>p.Recenzije)
+                                .Where(p => p.Naziv == naziv)
                                 .Select(p => new{
                                     p.ID,
                                     p.Naziv,
@@ -208,7 +212,8 @@ namespace SWE___PROJEKAT.Controllers
                                     p.Cena,
                                     p.Opis,
                                     p.Kategorija,
-                                    nazivDomacinstva = p.Domacinstvo.Naziv
+                                    nazivDomacinstva = p.Domacinstvo.Naziv,
+                                    p.Recenzije
                                 }).ToListAsync();
                 if(proizvodi == null)
                 {
@@ -238,7 +243,9 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var proizvodi = await Context.Proizvodi
-                                .Include(p => p.Domacinstvo).Where(p => p.Naziv == naziv && p.Kategorija == kategorija)
+                                .Include(p => p.Domacinstvo)
+                                .Include(p=>p.Recenzije)
+                                .Where(p => p.Naziv == naziv && p.Kategorija == kategorija)
                                 .Select(p => new{
                                     p.ID,
                                     p.Naziv,
@@ -246,7 +253,8 @@ namespace SWE___PROJEKAT.Controllers
                                     p.Cena,
                                     p.Opis,
                                     p.Kategorija,
-                                    nazivDomacinstva = p.Domacinstvo.Naziv
+                                    nazivDomacinstva = p.Domacinstvo.Naziv,
+                                    p.Recenzije
                                 }).ToListAsync();
                 if(proizvodi == null)
                 {
