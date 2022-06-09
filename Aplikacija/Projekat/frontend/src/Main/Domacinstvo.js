@@ -92,8 +92,8 @@ function Domacinstvo() {
   console.log(domacinstvo);
   return (
     <div>
-      <div>
-        {domacinstvo.naziv}
+      <div className={classes.RatingWrap}>
+        <h1>{domacinstvo.naziv}</h1>
         <Rating
           name="read-only"
           value={ratingOfDomacinstvo}

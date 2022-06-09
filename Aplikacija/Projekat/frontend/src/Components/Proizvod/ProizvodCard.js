@@ -71,28 +71,39 @@ export default function RecipeReviewCard(props) {
       <CardHeader
         action={
           <IconButton aria-label="settings">
-            <AddShoppingCartIcon onClick={props.onClickCart} />
+            <AddShoppingCartIcon
+              onClick={props.onClickCart}
+              sx={{ fontSize: "40px" }}
+            />
           </IconButton>
         }
-        title={props.naziv}
+        title={props.naziv.toUpperCase()}
       />
       <CardMedia
         className={styles.media}
         component="img"
         height="300"
-        width="800"
         image={"data:image/png;base64," + image}
         alt={props.naziv}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.primary"
+          sx={{ fontSize: "20px" }}
+        >
           Cena za kolicinu: {props.kolicina} je: {props.cena} dinara.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Rating name="read-only" value={props.ocena} readOnly />
+        <Rating
+          name="read-only"
+          value={props.ocena}
+          readOnly
+          sx={{ fontSize: "40px" }}
+        />
         <IconButton aria-label="comment" onClick={props.onClickComment}>
-          <CommentIcon />
+          <CommentIcon sx={{ fontSize: "30px" }} />
         </IconButton>
         <ExpandMore
           expand={expanded}
@@ -100,7 +111,7 @@ export default function RecipeReviewCard(props) {
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          <ExpandMoreIcon sx={{ fontSize: "40px" }} />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

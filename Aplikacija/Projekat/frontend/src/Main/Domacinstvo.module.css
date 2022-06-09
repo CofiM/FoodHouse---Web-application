@@ -7,3 +7,19 @@
 .Product {
   width: 500px;
 }
+.RatingWrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem 0 1.5rem 0;
+}
+.RatingWrap h1 {
+  margin: 0;
+  margin-bottom: 5px;
+  color: white;
+}
+.Discription {
+  font-size: 20px;
+}
