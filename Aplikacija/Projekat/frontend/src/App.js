@@ -36,7 +36,8 @@ import Posao from "./Main/Poslovi";
 import Narudzbine from "./Main/Narudzbina";
 import IstorijaKupovina from "./Components/Kupovina/IstorijaKupovina";
 import {CartProvider} from "react-use-cart";
-
+import UsloviKoriscenja from "./Footer/UsloviKoriscenja";
+import Pravila from "./Footer/Pravila";
 
 function App() {
   return (
@@ -128,6 +129,12 @@ function App() {
               </Route>
               <Route path="/IstorijaKupovina">
                 <IstorijaKupovina />
+              </Route>
+              <Route path="/uslovi-koriscenja">
+                <UsloviKoriscenja />
+              </Route>
+              <Route path="/Pravila">
+                <Pravila />
               </Route>
               <Route path="*">
                 <NotFound />
