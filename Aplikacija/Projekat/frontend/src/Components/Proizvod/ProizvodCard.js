@@ -18,6 +18,20 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Rating } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
+import { useEffect } from "react";
+import { containerClasses } from "@mui/system";
+
+const styles = (theme) => ({
+  card: {
+    maxWidth: 400,
+  },
+  media: {
+    // this is the`className` passed to CardMedia later
+    height: 300, // as an example I am modifying width and height
+    width: "33%",
+    marginLeft: "33%",
+  },
+});
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -32,12 +46,26 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = React.useState(false);
+  const [image, setImage] = React.useState([]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   const [val, setValue] = useState(0);
   let korisnik = localStorage.getItem("Korisnik");
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://localhost:5001/FileUpload/" + props.id
+      );
+      const data = await response.json();
+      data.map((item) => {
+        setImage(item);
+      });
+      //setImage(data);
+    };
+    fetchData();
+  }, []);
   return (
     <Card sx={{ width: 320, m: 2 }}>
       <CardHeader
@@ -49,10 +77,12 @@ export default function RecipeReviewCard(props) {
         title={props.naziv}
       />
       <CardMedia
+        className={styles.media}
         component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
+        height="300"
+        width="800"
+        image={"data:image/png;base64," + image}
+        alt={props.naziv}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">

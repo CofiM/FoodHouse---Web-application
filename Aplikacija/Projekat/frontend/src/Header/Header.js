@@ -40,11 +40,11 @@ const ResponsiveAppBar = (props) => {
   const [numberMessages, setNumberMessages] = React.useState(0);
   const [openWarning, setOpenWarning] = useState(false);
 
-    const {emptyCart}=useCart();
+  const {emptyCart}=useCart();
 
-    const handleOpenNavMenu = (event) => {
-      setAnchorElNav(event.currentTarget);
-    };
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -74,55 +74,55 @@ const ResponsiveAppBar = (props) => {
     }
   };
 
-    const onClickProfile = (type) => {
-      if( type === "Profile")
-      {
-        const flag = localStorage.getItem("Korisnik");
-        if( flag === null ){
-          let path = "Prijava";
-          history.push(path);
-        }
-        else if( flag === "P" ){
-          let path = "ProfilDomacinstvo";
-          history.push(path);
-        }
-        else if( flag === "K" ){
-          let path = "ProfilKorisnik";
-          history.push(path);
-        }
-        else if( flag === "D" ){
-          let path = "ProfilDostavljac";
-          history.push(path);
-        }
+  const onClickProfile = (type) => {
+    if( type === "Profile")
+    {
+      const flag = localStorage.getItem("Korisnik");
+      if( flag === null ){
+        let path = "Prijava";
+        history.push(path);
       }
-      if(type === "Logout")
-      {
-        const type = localStorage.getItem("Korisnik");
-        localStorage.removeItem("Korisnik");
-        localStorage.setItem("messageNumber", 0);
-        if(type === "P"){
-          localStorage.removeItem("DomacinstvoID");
-        }
-        else if(type === "K"){
-          let idKorisnika = localStorage.getItem("KorisnikID");
-          // const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
-          fetch("https://localhost:5001/Narudzbine/ObrisiNarudzbine/"+idKorisnika,{
-                  method:'DELETE',
-                  body:JSON.stringify({title:'Uspesno dodatno'}),
-                  headers:{
-                    'Content-Type':'application/json'
-                  }
-                }).then(localStorage.removeItem("KorisnikID")).then(emptyCart())
-
-        }
-        else if( type === "D"){
-          localStorage.removeItem("DostavljacID");
-        }
-
-        let path = "Naslovna";
+      else if( flag === "P" ){
+        let path = "ProfilDomacinstvo";
+        history.push(path);
+      }
+      else if( flag === "K" ){
+        let path = "ProfilKorisnik";
+        history.push(path);
+      }
+      else if( flag === "D" ){
+        let path = "ProfilDostavljac";
         history.push(path);
       }
     }
+    if(type === "Logout")
+    {
+      const type = localStorage.getItem("Korisnik");
+      localStorage.removeItem("Korisnik");
+      localStorage.setItem("messageNumber", 0);
+      if(type === "P"){
+        localStorage.removeItem("DomacinstvoID");
+      }
+      else if(type === "K"){
+        let idKorisnika = localStorage.getItem("KorisnikID");
+        // const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
+        fetch("https://localhost:5001/Narudzbine/ObrisiNarudzbine/"+idKorisnika,{
+                method:'DELETE',
+                body:JSON.stringify({title:'Uspesno dodatno'}),
+                headers:{
+                  'Content-Type':'application/json'
+                }
+              }).then(localStorage.removeItem("KorisnikID")).then(emptyCart())
+
+      }
+      else if( type === "D"){
+        localStorage.removeItem("DostavljacID");
+      }
+      let path = "Naslovna";
+      history.push(path);
+      window.location.reload(false); //REFRESH PAGE
+    }
+  }
   //   if (type === "Logout") {
   //     const type = localStorage.getItem("Korisnik");
   //     localStorage.removeItem("Korisnik");
@@ -174,91 +174,8 @@ const ResponsiveAppBar = (props) => {
     }
   };
 
-  /*     useEffect(() => {
-      const fetchMessage = async () => {
-        console.log("Ulazim");
-        const tip = localStorage.getItem("Korisnik");
-        setClientType(tip);
-        if (tip === "P") {
-          console.log("Ulazim u P");
-          const ID = localStorage.getItem("DomacinstvoID");
-          const response = await fetch(
-            "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
-          );
-          const data = await response.json();
-          const transformedData = data.map(function (d) {
-            return {
-              ID: d.id,
-              Poruka: d.sadrzaj,
-              ImeD: d.ime,
-              PrezimeD: d.prezime,
-              ImeK: d.imeKorisnik,
-              PrezimeK: d.prezimeKorisnika,
-              NazivP: d.naziv,
-              Tip: d.tip,
-              EmailD: d.emailDostavljac,
-              EmailK: d.emailKorisnik,
-              EmailP: d.emailDomacinstvo,
-              Shown: d.shown
-            }
-          })
-          setData(transformedData);
-          console.log(data);
-        }
-        else if( tip === "D"){
-          console.log("Ulazim u D");
-          const ID = localStorage.getItem("DostavljacID");
-          const response = await fetch(
-            "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
-          );
-          const data = await response.json();
-          const transformedData = data.map(function (d) {
-            return {
-              ID: d.id,
-              Poruka: d.sadrzaj,
-              ImeD: d.ime,
-              PrezimeD: d.prezime,
-              ImeK: d.imeKorisnik,
-              PrezimeK: d.prezimeKorisnika,
-              NazivP: d.naziv,
-              Tip: d.tip,
-              EmailD: d.emailDostavljac,
-              EmailK: d.emailKorisnik,
-              EmailP: d.emailDomacinstvo,
-              Shown: d.shown
-            }
-          })
-          setData(transformedData);
-          console.log(data);
-        } else if (tip === "K") {
-          console.log("Ulazim u K");
-          const ID = localStorage.getItem("KorisnikID");
-          const response = await fetch(
-            "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
-          );
-          const data = await response.json();
-          const transformedData = data.map(function (d) {
-            return {
-              ID: d.id,
-              Poruka: d.sadrzaj,
-              ImeD: d.ime,
-              PrezimeD: d.prezime,
-              ImeK: d.imeKorisnik,
-              PrezimeK: d.prezimeKorisnika,
-              NazivP: d.naziv,
-              Tip: d.tip,
-              EmailD: d.emailDostavljac,
-              EmailK: d.emailKorisnik,
-              EmailP: d.emailDomacinstvo,
-              Shown: d.shown
-            }
-          })
-          setData(transformedData);
-          console.log(data);
-        }
-      };
-      fetchMessage();
-    }, []); */
+  
+  
 
   return (
     // <div>

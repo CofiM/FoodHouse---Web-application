@@ -107,6 +107,7 @@ function Domacinstvo() {
             className={classes.Product}
             naziv={prod.Naziv}
             kolicina={prod.Kolicina}
+            id={prod.ID}
             cena={prod.Cena}
             opis={prod.Opis}
             ocena={prod.Ocena}
