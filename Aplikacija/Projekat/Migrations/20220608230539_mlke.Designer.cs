@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Models;
 
 namespace SWE___PROJEKAT.Migrations
 {
     [DbContext(typeof(ProjekatContext))]
-    partial class ProjekatContextModelSnapshot : ModelSnapshot
+    [Migration("20220608230539_mlke")]
+    partial class mlke
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -390,9 +392,6 @@ namespace SWE___PROJEKAT.Migrations
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Slika")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
