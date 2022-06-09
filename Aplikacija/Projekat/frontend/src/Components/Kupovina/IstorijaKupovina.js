@@ -11,20 +11,20 @@ const IstorijaKupovina = () => {
   const [open, setOpen] = useState(false);
   const onReviewHandler = (ID) => {
     console.log(ID);
-    setProduct(products.find((el) => el.ID === ID));
+    setProduct(products.find((el) => el.Proizvod === ID));
     setOpen(true);
   };
-  console.log(product);
   async function onClickSaveReviewHandler(val, comm) {
+    console.log(product);
     const response = await fetch(
       "https://localhost:5001/Recenzija/DodatiRecenziju/" +
         val +
         "/" +
         comm +
         "/" +
-        product.ID +
+        product.Proizvod +
         "/" +
-        product.IDKupovine,
+        product.Kupovina,
       {
         method: "POST",
         headers: {
@@ -61,23 +61,55 @@ const IstorijaKupovina = () => {
       console.log(data);
       const transformedDataProducts = data.map(function (d) {
         return {
-          IDKupovine: d.id,
-          ID: d.proizvodID,
-          Kolicina: d.proizvodKolicina,
+          Kupovina: d.id,
+          Proizvod: d.proizvodID,
           Cena: d.proizvodCena,
           Naziv: d.proizvodNaziv,
           Opis: d.proizvodOpisa,
           Show: d.show,
         };
       });
+      let arr = [];
+      for (let i = 0; i < transformedDataProducts.length; i++) {
+        for (let j = i + 1; j < transformedDataProducts.length; j++) {
+          if (
+            transformedDataProducts[i].Proizvod ==
+            transformedDataProducts[j].Proizvod
+          ) {
+            arr.push(j);
+          }
+        }
+      }
+      var newArray = [];
+      var newArray = arr.filter(function (elem, pos) {
+        return arr.indexOf(elem) == pos;
+      });
+      console.log(newArray);
+      newArray.sort((a, b) => b - a);
+      console.log(newArray);
+      newArray.forEach((el) => {
+        console.log(el);
+        transformedDataProducts.splice(el, 1);
+      });
+      transformedDataProducts.forEach((el) => {
+        console.log("USLOOOO");
+        let index = transformedDataProducts.indexOf(el);
+        console.log(index);
+        if (el.Show == 0) {
+          console.log("SPLICE");
+          transformedDataProducts.splice(index, 1);
+        }
+      });
       console.log(transformedDataProducts);
-      const arr = [
-        ...new Map(
-          transformedDataProducts.map((item) => [JSON.stringify(item), item])
-        ).values(),
-      ];
-      setProducts(arr);
-      console.log(arr);
+      if (
+        transformedDataProducts.length == 1 &&
+        transformedDataProducts[0].Show == 0
+      ) {
+        console.log("USLOOOO U IFFFF");
+        setProducts([]);
+      } else {
+        setProducts(transformedDataProducts);
+      }
     };
     fetchOrders();
   }, []);
@@ -99,14 +131,15 @@ const IstorijaKupovina = () => {
           );
         })}
       </div>
-      <div>
+      <div className={classes.allProduct}>
         {products.map((prod) => (
           <ProizvodCardRating
+            className={classes.Product}
             naziv={prod.Naziv}
             kolicina={prod.Kolicina}
             cena={prod.Cena}
             opis={prod.Opis}
-            onClick={() => onReviewHandler(prod.ID)}
+            onClick={() => onReviewHandler(prod.Proizvod)}
           />
         ))}
       </div>

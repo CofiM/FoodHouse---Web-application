@@ -1,14 +1,15 @@
 import React from "react";
-
-
-import {jsApiLoader, useJsApiLoader, GoogleMap} from "@react-google-maps/api";
+import { jsApiLoader, useJsApiLoader, GoogleMap } from "@react-google-maps/api";
 import Pretraga from "../Components/Pretraga/Pretraga";
 import classes from "../Components/Pretraga/Pretraga.module.css";
-const center={lat:43.320904, lng: 21.89576};
+const center = { lat: 43.320904, lng: 21.89576 };
 const Naslovna = () => {
-  const {isLoaded} = useJsApiLoader({googleMapsApiKey:"AIzaSyDFzGoHWrB0dwGhYCIduSqQJuSWzsaZEds"});
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyDFzGoHWrB0dwGhYCIduSqQJuSWzsaZEds",
+  });
 
-  if (!isLoaded){ return <div>Loading..</div>;
+  if (!isLoaded) {
+    return <div>Loading..</div>;
   }
 
   return (
@@ -21,13 +22,13 @@ const Naslovna = () => {
           {" "}
           <Pretraga></Pretraga>
         </div>
-        <div className="App" style={{height:"80vh", width:"80%"}}>
-      <GoogleMap
-      zoom={8} center={center} mapContainerStyle={{width:'100%',height:'100%'}}
-      >
-
-      </GoogleMap>
-    </div>
+        <div className="App" style={{ height: "80vh", width: "80%" }}>
+          <GoogleMap
+            zoom={8}
+            center={center}
+            mapContainerStyle={{ width: 800, height: 600 }}
+          ></GoogleMap>
+        </div>
       </div>
     </div>
   );
