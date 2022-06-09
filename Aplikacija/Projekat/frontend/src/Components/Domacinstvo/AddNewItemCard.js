@@ -8,7 +8,7 @@ import slika from "./add-icon-614x460.png";
 
 export default function MultiActionAreaCard(props) {
   return (
-    <Card sx={{ maxWidth: 345, m: 2, width: 320, height: 366 }}>
+    <Card sx={{ maxWidth: 345, m: 2, width: 320, height: 390 }}>
       <CardActionArea onClick={props.onClickAdd}>
         <CardMedia
           component="img"

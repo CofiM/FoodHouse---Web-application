@@ -78,6 +78,98 @@ export default function SignIn() {
     fetchLoginClient();
   };
 
+  const fetchMessage = async () => {
+    const tip = localStorage.getItem("Korisnik");
+    if (tip === "P") {
+      
+      const ID = localStorage.getItem("DomacinstvoID");
+      const response = await fetch(
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+      );
+      const da = await response.json();
+      let pom = 0;
+      const transformedData = da.map(function (d) {
+        if(d.shown == false && d.tip !== 'P')
+          pom++;
+        
+        return {
+          ID: d.id, 
+          Poruka: d.sadrzaj,
+          ImeD: d.ime,
+          PrezimeD: d.prezime,
+          ImeK: d.imeKorisnik,
+          PrezimeK: d.prezimeKorisnika,
+          NazivP: d.naziv,
+          Tip: d.tip,
+          EmailD: d.emailDostavljac,
+          EmailK: d.emailKorisnik,
+          EmailP: d.emailDomacinstvo,
+          Shown: d.shown
+        }
+      });
+      console.log("Broj poruke: " + pom);
+      localStorage.setItem("messageNumber", pom);
+    }
+    else if( tip === "D"){
+      console.log("Ulazim u D");
+      const ID = localStorage.getItem("DostavljacID");
+      const response = await fetch(
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+      );
+      let pom=0;
+      const data = await response.json();
+      const transformedData = data.map(function (d) {
+        if(d.shown == false && d.tip !== 'D')
+          pom++;
+        return {
+          ID: d.id,
+          Poruka: d.sadrzaj,
+          ImeD: d.ime,
+          PrezimeD: d.prezime,
+          ImeK: d.imeKorisnik,
+          PrezimeK: d.prezimeKorisnika,
+          NazivP: d.naziv,
+          Tip: d.tip,
+          EmailD: d.emailDostavljac,
+          EmailK: d.emailKorisnik,
+          EmailP: d.emailDomacinstvo,
+          Shown: d.shown
+        }
+      })
+      console.log("Broj poruka: " + pom);
+      localStorage.setItem("messageNumber", pom);
+
+    } else if (tip === "K") {
+      console.log("Ulazim u K");
+      const ID = localStorage.getItem("KorisnikID");
+      const response = await fetch(
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+      );
+      const data = await response.json();
+      let pom = 0;
+      const transformedData = data.map(function (d) {
+        if(d.shown == false && d.tip !== 'P')
+          pom++;
+        return {
+          ID: d.id,
+          Poruka: d.sadrzaj,
+          ImeD: d.ime,
+          PrezimeD: d.prezime,
+          ImeK: d.imeKorisnik,
+          PrezimeK: d.prezimeKorisnika,
+          NazivP: d.naziv,
+          Tip: d.tip,
+          EmailD: d.emailDostavljac,
+          EmailK: d.emailKorisnik,
+          EmailP: d.emailDomacinstvo,
+          Shown: d.shown
+        }
+      })
+      localStorage.setItem("messageNumber", pom);
+    }
+  };
+
+
   async function fetchLoginClient() {
     const response = await fetch(
       "https://localhost:5001/Administrator/GetAccount/" +
@@ -91,26 +183,29 @@ export default function SignIn() {
         },
       }
     );
-
     const data = await response.json();
-
     localStorage.setItem("Korisnik", data.tip);
 
     if (data.tip === "K") {
       let path = "Naslovna";
       history.push(path);
       localStorage.setItem("KorisnikID", data.id);
+      fetchMessage();
     } else if (data.tip === "D") {
       let path = "Narudžbine";
       history.push(path);
       localStorage.setItem("DostavljacID", data.id);
+      fetchMessage();
+
     } else if (data.tip === "P") {
       let path = "Domaćinstvo";
       history.push(path);
       localStorage.setItem("DomacinstvoID", data.id);
+      fetchMessage();
     }
     window.location.reload(false); //REFRESH PAGE
   }
+
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
