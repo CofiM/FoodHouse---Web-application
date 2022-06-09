@@ -1,4 +1,4 @@
-import React,{ useRef,useState} from 'react';
+import React,{ useRef,useState,useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import classes from './Proizvod.module.css';
 import ImageGallery from './ImageGallery';
@@ -14,8 +14,22 @@ const Proizvod = (props) => {
   const idDostavljaca = JSON.parse(localStorage.getItem("idDostavljaca"));
   const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
   const imeDomacinstva = JSON.parse(localStorage.getItem("naz"));
-
   let type = localStorage.getItem("Korisnik");
+
+  const [show,setShow]=useState(false);
+
+  useEffect(()=>{
+    async function fetchData() {
+        const response = await fetch('https://localhost:5001/Domacinstvo/VratiDostavljacaZaDomacinstvo/'+idDomacinstva);
+        const data = await response.json();
+        console.log(data);
+        if(data.dostavljac!==null)
+        {
+          setShow(true);
+        }
+    }
+    fetchData();
+    },[]);
 
 
   const [checked, setChecked] = React.useState(false);
@@ -106,7 +120,7 @@ const Proizvod = (props) => {
   }
 
           if(!isLoading){return(<div  className = {classes['card-wrapper']}>
-            <ImageGallery/>
+            <ImageGallery  IdSlike={proba.id}/>
         
           <div className = {classes['product-content']}>
             <h2 classname = {classes['product-title']}>{location.product.Naziv}</h2>
@@ -120,12 +134,12 @@ const Proizvod = (props) => {
               <h2>O proizvodu: </h2>
               <p>{location.product.Opis}</p>
             </div>
-             <p>Usluga dostave : {cenaDostave}.00 din</p>  
-            <CheckBox
+             {show && <p>Usluga dostave : {cenaDostave}.00 din</p> }
+            {show &&<CheckBox
                 label="Dostava"
                 value={checked}
                 onChange={handleChange}
-            />
+            />}
               <div className = {classes['purchase-info']}>
               <input ref={amountInputRef} type='number' min='1' max='100' step='1' defaultValue='1'/>
               <button onClick={checkItem} type = 'button' className = {classes.btn}>
