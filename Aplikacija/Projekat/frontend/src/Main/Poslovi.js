@@ -2,19 +2,16 @@ import React, { useState, useEffect } from "react";
 import classes from "./Poslovi.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
-
- 
+import SearchBar from "../Components/Search/SearchBar";
 
 const Poslovi = () => {
-    const [allJobs, setAllJobs] = useState([]);
-    const [adresa, setAdresa]=useState("");
-    const [validAdresa,setValidAdresa]=useState(false);
-    const [datum, setDatum]=useState("");
-    const [validDatum,setValidDatum]=useState(false);
- 
-    const [locations,setLocations]=useState();
+  const [allJobs, setAllJobs] = useState([]);
+  const [adresa, setAdresa] = useState("");
+  const [validAdresa, setValidAdresa] = useState(false);
+  const [datum, setDatum] = useState("");
+  const [validDatum, setValidDatum] = useState(false);
 
-
+  const [locations, setLocations] = useState();
 
   const onClicksignInHandler = async (ID, IDDomacinstva) => {
     // setJob(allJobs.find((el) => el.id == ID));
@@ -31,43 +28,41 @@ const Poslovi = () => {
       {
         method: "POST",
         headers: {
-            'Content-type': 'application/json;charset=UTF-8'
-        }
-    });
-  }
-    
-    //fetch();
- 
- 
-    const history=useHistory();
-    const sendLocation=(data) => {
-        localStorage.setItem("Adress",data);
-        history.push("ViewJobsLocation");
-    }
+          "Content-type": "application/json;charset=UTF-8",
+        },
+      }
+    );
+  };
 
-    const sendDate = (data) => {
-        localStorage.setItem("Date",data);
-        history.push("ViewJobsDate");
-       
-    }
+  //fetch();
 
-    const sendDateAndLocation = (adress,date) => {
-        localStorage.setItem("Date",date);
-       // console.log(date);
-        localStorage.setItem("Adress",adress);
-        history.push("ViewJobsDateLocation");
-    }
- 
+  const history = useHistory();
+  const sendLocation = (data) => {
+    localStorage.setItem("Adress", data);
+    history.push("ViewJobsLocation");
+  };
+
+  const sendDate = (data) => {
+    localStorage.setItem("Date", data);
+    history.push("ViewJobsDate");
+  };
+
+  const sendDateAndLocation = (adress, date) => {
+    localStorage.setItem("Date", date);
+    // console.log(date);
+    localStorage.setItem("Adress", adress);
+    history.push("ViewJobsDateLocation");
+  };
+
   const adresaHandler = (event) => {
-   
     setAdresa(event.target.value);
-    if (event.target.value != "" ) {
+    if (event.target.value != "") {
       setValidAdresa(true);
     } else {
       setValidAdresa(false);
     }
   };
- 
+
   const datumHandler = (event) => {
     setDatum(event.target.value);
     if (event.target.value != "") {
@@ -76,7 +71,7 @@ const Poslovi = () => {
       setValidDatum(false);
     }
   };
-  
+
   const choosePage = () => {
     if (validAdresa != false && validDatum != "") {
       sendDateAndLocation(adresa, datum);
@@ -90,7 +85,7 @@ const Poslovi = () => {
       console.log(datum);
     }
   };
- 
+
   useEffect(() => {
     async function fetchJobs() {
       const response = await fetch(
@@ -102,7 +97,7 @@ const Poslovi = () => {
           },
         }
       );
- 
+
       const data = await response.json();
       const jobs = data.map((job) => {
         return {
@@ -116,7 +111,7 @@ const Poslovi = () => {
           idDomacinstva: job.idDomacinstva,
         };
       });
- 
+
       setAllJobs(jobs);
       console.log(jobs);
     }
@@ -131,7 +126,6 @@ const Poslovi = () => {
     //         }
     //     });
 
-
     //     const dat=await res.json();
     //     const locs=dat.map((loc)=>{
     //         return{
@@ -141,10 +135,8 @@ const Poslovi = () => {
     //     setLocations(locs);
     // }
     // fetchLocations();
-
   }, []);
 
- 
   return (
     <div className={classes.search}>
       <div className={classes.divForma}>
@@ -180,4 +172,3 @@ const Poslovi = () => {
 };
 
 export default Poslovi;
- 
