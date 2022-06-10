@@ -3,6 +3,7 @@ import classes from "./Poslovi.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
 import SearchBar from "../Components/Search/SearchBar";
+import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 
 const Poslovi = () => {
   const [allJobs, setAllJobs] = useState([]);
@@ -10,28 +11,34 @@ const Poslovi = () => {
   const [validAdresa, setValidAdresa] = useState(false);
   const [datum, setDatum] = useState("");
   const [validDatum, setValidDatum] = useState(false);
+  const [openWarning, setOpenWarning] = useState(false);
 
   const [locations, setLocations] = useState();
 
   const onClicksignInHandler = async (ID, IDDomacinstva) => {
+    let korisnik = localStorage.getItem("Korisnik");
+    if (korisnik != null) {
+      const IDKorisnika = localStorage.getItem("KorisnikID");
+      const response = await fetch(
+        " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
+          IDDomacinstva +
+          "/" +
+          IDKorisnika +
+          "/Zahtev za posao/" +
+          "K/" +
+          false,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json;charset=UTF-8",
+          },
+        }
+      );
+    } else {
+      setOpenWarning(true);
+    }
     // setJob(allJobs.find((el) => el.id == ID));
     // console.log(job.opis);
-    const IDKorisnika = localStorage.getItem("KorisnikID");
-    const response = await fetch(
-      " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
-        IDDomacinstva +
-        "/" +
-        IDKorisnika +
-        "/Zahtev za posao/" +
-        "K/" +
-        false,
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-      }
-    );
   };
 
   //fetch();
@@ -61,6 +68,10 @@ const Poslovi = () => {
     } else {
       setValidAdresa(false);
     }
+  };
+
+  const handleCloseWarning = () => {
+    setOpenWarning(false);
   };
 
   const datumHandler = (event) => {
@@ -166,6 +177,11 @@ const Poslovi = () => {
             }
           />
         ))}
+      </div>
+      <div>
+        {openWarning && (
+          <WarningModal show={openWarning} onClose={handleCloseWarning} />
+        )}
       </div>
     </div>
   );
