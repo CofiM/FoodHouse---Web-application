@@ -45,32 +45,32 @@ const DesignProfile = (props) => {
   }
   const changeNazivHandler = (event) => {
     setNaziv(event.target.value);
-    console.log(naziv);
+    
   };
 
   const changeUsernameHandler = (event) => {
     setUsername(event.target.value);
-    console.log(username);
+    
   };
 
   const changePasswordHandler = (event) => {
     setPassword(event.target.value);
-    console.log(password);
+    
   };
 
   const changeNewPasswordHandler = (event) => {
     setNewPassword(event.target.value);
-    console.log(newPassword);
+    
   };
 
   const changeAdresaHandler = (event) => {
     setAdresa(event.target.value);
-    console.log(adresa);
+    
   };
 
   const changeTelefonHandler = (event) => {
     setTelefon(event.target.value);
-    console.log(telefon);
+    
   };
 
   const changeDatumHandler = (event) => {
@@ -79,7 +79,7 @@ const DesignProfile = (props) => {
 
   const updateProfileHandler = (event) => {
     event.preventDefault();
-    console.log("Ulazim");
+    
     console.log(naziv, username, password, newPassword, adresa, telefon, datum);
     fetchUpdateProfile();
     window.location.reload(false); //REFRESH PAGE

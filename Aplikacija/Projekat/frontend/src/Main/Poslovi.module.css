@@ -3,6 +3,7 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding-top: 10px;
 }
 .searchDiv {
   height: 100%;
@@ -46,4 +47,16 @@
   width: 100%;
   margin-left: 10%;
   margin-right: 10%;
+}
+
+.buttonDesign{
+  border-radius: 8px;
+}
+
+.buttonDesign:hover{
+  background-color: gray;
+}
+
+.lokacijaDesign{
+  border-radius: 8px;
 }

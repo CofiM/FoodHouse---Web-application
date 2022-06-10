@@ -74,8 +74,6 @@ const DesignProfile = (props) => {
 
   const updateProfileHandler = (event) => {
     event.preventDefault();
-    console.log("Ulazim");
-
     fetchUpdateProfile();
     window.location.reload(false); //REFRESH PAGE
   };

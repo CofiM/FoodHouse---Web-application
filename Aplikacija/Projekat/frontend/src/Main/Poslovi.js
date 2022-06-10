@@ -17,8 +17,6 @@ const Poslovi = () => {
   const [locations, setLocations] = useState();
 
   const onClicksignInHandler = async (ID, IDDomacinstva) => {
-    // setJob(allJobs.find((el) => el.id == ID));
-    // console.log(job.opis);
     const IDKorisnika = localStorage.getItem("KorisnikID");
     const response = await fetch(
       " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
@@ -40,6 +38,7 @@ const Poslovi = () => {
   //fetch();
 
   const history = useHistory();
+
   const sendLocation = (data) => {
     localStorage.setItem("Adress", data);
     history.push("ViewJobsLocation");
@@ -144,15 +143,16 @@ const Poslovi = () => {
     <div className={classes.search}>
       <div className={classes.divForma}>
         <div className={classes.searchDiv}>
-          <input type="text" placeholder="Lokacija" onChange={adresaHandler} />
+          <input type="text" placeholder="Lokacija" onChange={adresaHandler} className={classes.lokacijaDesign}/>
           <input
             type="date"
             min="2022-01-01"
             max="2022-12-31"
             defaultValue={""}
             onChange={datumHandler}
+            className = {classes.lokacijaDesign}
           />
-          <button onClick={choosePage}>Pretrazi</button>
+          <button className={ classes.buttonDesign } onClick={choosePage}>Pretrazi</button>
         </div>
       </div>
       <div className={classes.divWorks}>

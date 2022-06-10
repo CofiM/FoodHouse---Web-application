@@ -2,11 +2,13 @@
     display: flex;
     flex-direction: row;
     margin-left: 10%;
+    margin-top: 10px;
 }
 
 .leftSide{
     display: flex;
     width: 20%;
+    background-color: "#3B5F41";
 }
 .rightSide{
     display: flex;
