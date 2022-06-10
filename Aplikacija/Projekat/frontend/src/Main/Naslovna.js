@@ -90,7 +90,8 @@ const Naslovna = () => {
 
   //console.log(locations);
 
-  if (!isLoaded){ return <div>Loading..</div>;
+  if (!isLoaded) {
+    return <div>Loading..</div>;
   }
  
   return (

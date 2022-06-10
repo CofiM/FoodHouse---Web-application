@@ -6,6 +6,7 @@ import { useCart } from "react-use-cart";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useHistory } from 'react-router-dom';
 import CartModal from './CartModal';
+import s2 from '../../pictures/f.png';
 
 const Cart = (props) => {
   const [open, setOpen] = useState(false);
@@ -32,7 +33,9 @@ const Cart = (props) => {
 
   if (isEmpty)
     return (
-      <div>
+      <div className={classes.center}>
+        <br/>
+        <br/>
         <p>prazno...</p>
       </div>
   );

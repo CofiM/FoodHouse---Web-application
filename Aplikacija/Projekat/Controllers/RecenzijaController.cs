@@ -61,10 +61,10 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [Route("DodatiRecenziju/{ocena}/{komentar}/{idProizvoda}")]
+        [Route("DodatiRecenziju/{ocena}/{komentar}/{idProizvoda}/{idKupovine}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> dodajRecenziju(int ocena, string komentar, int idProizvoda)
+        public async Task<ActionResult> dodajRecenziju(int ocena, string komentar, int idProizvoda, int idKupovine)
         {
             if(ocena < 1 || ocena > 5)
             {
@@ -81,6 +81,8 @@ namespace SWE___PROJEKAT.Controllers
                 {
                     throw new Exception("Ne postoji proizvod za koji hocemo da postavimo recenziju!");
                 }
+                var kupovina = await Context.Kupovine.Where(p => p.ID == idKupovine).FirstOrDefaultAsync();
+                kupovina.show = 0;
                 Recenzija rec = new Recenzija();
                 rec.Ocena = ocena;
                 rec.Komentar = komentar;

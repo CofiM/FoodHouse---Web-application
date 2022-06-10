@@ -12,10 +12,12 @@ function InputDate(props) {
       </div>
       <div className={classes.inputDiv}>
       <TextField
-        id="date"
-        label={props.label}
-        type="date"
-        defaultValue={props.value}
+        id = "date"
+        label = {props.label}
+        type = "date"
+        name = "startDate"
+        defaultValue = {props.value}
+        
         sx={{ width: 220 }}
         InputLabelProps={{
           shrink: true,

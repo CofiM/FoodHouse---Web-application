@@ -30,15 +30,19 @@ namespace SWE___PROJEKAT.Controllers
         [HttpPost]
 
         public async Task<string> Post([FromForm] FileUpload fileUpload){
+            if(!fileUpload.Id.HasValue){
+                return "Id nevalidan";
+            }
+            var uploadedFile = fileUpload.File;
             try{
-                if(fileUpload.files.Length > 0){
-                    string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
+                if(uploadedFile.Length > 0){
+                    string path = _webHostEnvironment.WebRootPath + "\\" + fileUpload.Id.Value + "\\";
                     if(!System.IO.Directory.Exists(path)){
                         System.IO.Directory.CreateDirectory(path);
                     }
-                    using (FileStream fileStream = System.IO.File.Create(path + fileUpload.files.FileName))
+                    using (FileStream fileStream = System.IO.File.Create(path + uploadedFile.FileName))
                     {
-                        fileUpload.files.CopyTo(fileStream);
+                        uploadedFile.CopyTo(fileStream);
                         fileStream.Flush();
                         return "Upload done";
                     }
@@ -52,17 +56,25 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-        [HttpGet("{fileName}")]
+        [HttpGet("{id}")]
 
-        public async Task<IActionResult> Get(string fileName)
+        public async Task<IActionResult> Get(int id)
         {
-            string path = _webHostEnvironment.WebRootPath + "\\uploads\\";
-            var filePath = path + fileName + ".png";
-            if(System.IO.File.Exists(filePath)){
-                byte[] b = System.IO.File.ReadAllBytes(filePath);
-                return File(b, "image/png");
+            string path = _webHostEnvironment.WebRootPath + "\\" + id + "\\";
+            var images = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).ToList();
+            var files = new List<byte[]>();
+            foreach (var image in images)
+            {
+                 byte[] b = System.IO.File.ReadAllBytes(image);
+                 files.Add(b);
             }
-            return null;
+            // var filePath = path + fileName + ".png";
+            // if(System.IO.File.Exists(filePath)){
+            //     byte[] b = System.IO.File.ReadAllBytes(filePath);
+            //     return File(b, "image/png");
+            // }
+            // return null;
+            return Ok(files);
         }
     }
 }

@@ -18,6 +18,20 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Rating } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
+import { useEffect } from "react";
+import { containerClasses } from "@mui/system";
+
+const styles = (theme) => ({
+  card: {
+    maxWidth: 400,
+  },
+  media: {
+    // this is the`className` passed to CardMedia later
+    height: 300, // as an example I am modifying width and height
+    width: "33%",
+    marginLeft: "33%",
+  },
+});
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -32,37 +46,64 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = React.useState(false);
+  const [image, setImage] = React.useState([]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   const [val, setValue] = useState(0);
   let korisnik = localStorage.getItem("Korisnik");
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://localhost:5001/FileUpload/" + props.id
+      );
+      const data = await response.json();
+      data.map((item) => {
+        setImage(item);
+      });
+      //setImage(data);
+    };
+    fetchData();
+  }, []);
   return (
     <Card sx={{ width: 320, m: 2 }}>
       <CardHeader
         action={
           <IconButton aria-label="settings">
-            <AddShoppingCartIcon onClick={props.onClickCart} />
+            <AddShoppingCartIcon
+              onClick={props.onClickCart}
+              sx={{ fontSize: "40px" }}
+            />
           </IconButton>
         }
-        title={props.naziv}
+        title={props.naziv.toUpperCase()}
       />
       <CardMedia
+        className={styles.media}
         component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
+        height="300"
+        image={"data:image/png;base64," + image}
+        alt={props.naziv}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.primary"
+          sx={{ fontSize: "20px" }}
+        >
           Cena za kolicinu: {props.kolicina} je: {props.cena} dinara.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Rating name="read-only" value={props.ocena} readOnly />
+        <Rating
+          name="read-only"
+          value={props.ocena}
+          readOnly
+          sx={{ fontSize: "40px" }}
+        />
         <IconButton aria-label="comment" onClick={props.onClickComment}>
-          <CommentIcon />
+          <CommentIcon sx={{ fontSize: "30px" }} />
         </IconButton>
         <ExpandMore
           expand={expanded}
@@ -70,7 +111,7 @@ export default function RecipeReviewCard(props) {
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          <ExpandMoreIcon sx={{ fontSize: "40px" }} />
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>

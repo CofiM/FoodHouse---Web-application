@@ -92,8 +92,8 @@ function Domacinstvo() {
   console.log(domacinstvo);
   return (
     <div>
-      <div>
-        {domacinstvo.naziv}
+      <div className={classes.RatingWrap}>
+        <h1>{domacinstvo.naziv}</h1>
         <Rating
           name="read-only"
           value={ratingOfDomacinstvo}
@@ -107,6 +107,7 @@ function Domacinstvo() {
             className={classes.Product}
             naziv={prod.Naziv}
             kolicina={prod.Kolicina}
+            id={prod.ID}
             cena={prod.Cena}
             opis={prod.Opis}
             ocena={prod.Ocena}

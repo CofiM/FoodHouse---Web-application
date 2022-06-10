@@ -10,37 +10,37 @@ export default function DostavljacCard(props) {
   return (
     <Card sx={{ minWidth: 275, width: 320, m: 2  }}>
       <CardContent>
-      <Typography 
-            sx={{fontSize:24 , fontWeight: 800, textDecoration: "underline"}}             
-            color="text" 
-            gutterBottom
-        >
-          {props.ime + " " + props.prezime}
-        </Typography>
-        <Typography 
-            sx={{ fontSize:18 , fontWeight: 400 }} 
-            color="text" 
-            gutterBottom
-        >
-          E-mail: {props.email}
-        </Typography>
-        <Typography 
-            sx={{ fontSize:18 , fontWeight: 400 }} 
-            color="text" 
-            gutterBottom
-        >
-          Usluga: {props.cena}
-        </Typography>
-        <Typography 
-            sx={{ fontSize:18 , fontWeight: 400 }} 
-            color="text" 
-            gutterBottom
-        >
-          Telefon: {props.telefon}
-        </Typography>
+          <Typography 
+              sx={{fontSize:24 , fontWeight: 800, textDecoration: "underline"}}             
+              color="text" 
+              gutterBottom
+          >
+            {props.ime + " " + props.prezime}
+          </Typography>
+          <Typography 
+              sx={{ fontSize:18 , fontWeight: 400 }} 
+              color="text" 
+              gutterBottom
+          >
+            E-mail: {props.email}
+          </Typography>
+          <Typography 
+              sx={{ fontSize:18 , fontWeight: 400 }} 
+              color="text" 
+              gutterBottom
+          >
+            Usluga: {props.cena} 
+          </Typography>
+          <Typography 
+              sx={{ fontSize:18 , fontWeight: 400 }} 
+              color="text" 
+              gutterBottom
+          >
+            Telefon: {props.telefon}
+          </Typography>
       </CardContent>
       <CardActions sx={{alignItems:"center", justifyContent:"center"}}>
-        <Button size="medium" onClick={props.onClick}> Izaberi</Button>
+        <Button size="medium" onClick={props.onClick} sx={{fontSize:22}}> Izaberi</Button>
       </CardActions>
     </Card>
   );
