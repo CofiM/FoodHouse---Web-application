@@ -13,7 +13,7 @@ export default function AlignItemsList(props) {
 
   return (
     <List 
-      sx={{ width: '100%', bgcolor: 'background.paper' }}
+      sx={{ width: '100%', bgcolor: '#E9EFC0', height: 64  }}
       onClick={props.onClick}
     >
       <ListItem alignItems="flex-start">

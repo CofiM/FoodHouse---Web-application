@@ -53,8 +53,8 @@ const ProfilDostavljac = () => {
            </div>
            <div className={classes.medium}>
                 <Stack spacing={30} direction="row">
-                    <Button variant="text" sx={{color:"black"}} onClick={onClickProfileHandler} >Profil</Button>
-                    <Button variant="text" sx={{color:"black"}} onClick={onClickUpdateProfileHandler} >Izmeni profil</Button>
+                    <Button variant="text" sx={{color:"white"}} onClick={onClickProfileHandler} >Profil</Button>
+                    <Button variant="text" sx={{color:"white"}} onClick={onClickUpdateProfileHandler} >Izmeni profil</Button>
                 </Stack>
            </div>
            <div className={classes.mainPart}>

@@ -10,7 +10,7 @@ function InputText(props) {
       </div>
       <div className={classes.inputDiv}>
         <TextField
-          sx={{ width: "25ch" }}
+          sx={{ width: "25ch", color: "white" }}
           id="standard-required"
           label={props.label}
           defaultValue={props.value}

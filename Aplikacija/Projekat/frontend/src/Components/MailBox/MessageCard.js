@@ -13,10 +13,10 @@ export default function AlignItemsList(props) {
 
   return (
     <List 
-      sx={{ width: '100%', bgcolor: 'background.paper' }}
+      sx={{ width: '100%', backgroundColor: '#E9EFC0', height: 64 }}
       onClick={props.onClick}
     >
-      <ListItem alignItems="flex-start">
+      <ListItem sx={{paddingTop: "0px" }}>
         <ListItemAvatar>
           <Avatar alt="" src="" />
         </ListItemAvatar>

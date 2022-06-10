@@ -1,7 +1,8 @@
 .mainStyle {
   display: flex;
   flex-direction: column;
-  background-color: darkgrey;
+  color: white;
+  background-color: #71a365;
   height: 100%;
   width: 100%;
 }
@@ -9,7 +10,7 @@
 .profileHeader {
   padding: 0 3rem;
   display: flex;
-  background-color: aquamarine;
+  background-color: #71a365;
   height: 30%;
   width: 100%;
 }
@@ -32,14 +33,14 @@
   display: flex;
   justify-content: space-around;
   height: 10%;
-
-  border-bottom: solid;
+  border-bottom: solid black;
   border-bottom: thin medium;
 
-  border-top: solid;
+  border-top: solid black;
   border-top: thin medium;
 }
 .mainPart {
   height: fit-content;
   padding-top: 0px;
+  color: white;
 }

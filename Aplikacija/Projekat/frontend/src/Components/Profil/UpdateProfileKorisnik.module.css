@@ -17,11 +17,12 @@
 .buttonDesign {
   width: 222px;
   font-size: 20px;
+  color: black;
   border-radius: 8px;
 }
 
 .buttonDesign:hover {
-  background-color: darkgray;
+  background-color: #B4E197;
 }
 
 .divDesign {

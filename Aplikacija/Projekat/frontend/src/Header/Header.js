@@ -191,7 +191,7 @@ const ResponsiveAppBar = (props) => {
     //       <WarningModal show={openWarning} onClose={handleCloseWarning} />
     //     )}
     //   </div>
-    <AppBar position="static">
+    <AppBar position="static" sx={{background: "#4E944F"}}>
       <div>
         {openWarning && (
           <WarningModal show={openWarning} onClose={handleCloseWarning} />
@@ -210,7 +210,8 @@ const ResponsiveAppBar = (props) => {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              //color: "inherit",
+              color: "#4E944F",
               textDecoration: "none",
             }}
           >

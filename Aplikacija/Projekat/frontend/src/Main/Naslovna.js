@@ -57,9 +57,7 @@ const Naslovna = () => {
             return{
               adresa: loc.adresa
             };
-
-                
-                
+            
             });
             setLocations(locs);
             
