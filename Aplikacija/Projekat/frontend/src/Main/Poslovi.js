@@ -12,7 +12,7 @@ const Poslovi = () => {
     const [datum, setDatum]=useState("");
     const [validDatum,setValidDatum]=useState(false);
  
-    const [locations,setLocations]=useState();
+   
 
 
 
