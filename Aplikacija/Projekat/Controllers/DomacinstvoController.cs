@@ -663,7 +663,7 @@ namespace SWE___PROJEKAT.Controllers
                     Context.Proizvodi.Add(proizvod);
                     await Context.SaveChangesAsync();
                     domacinstvo.Proizvodi.Add(proizvod);
-                    return Ok("Uspesno dodat proizvod " + proizvod.Naziv);
+                    return Ok(proizvod.ID);
                 }
                 else
                 {

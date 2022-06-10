@@ -3,16 +3,15 @@ import classes from "./Poslovi.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
 import SearchBar from "../Components/Search/SearchBar";
+import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 
 const Poslovi = () => {
-    const [allJobs, setAllJobs] = useState([]);
-    const [adresa, setAdresa]=useState("");
-    const [validAdresa,setValidAdresa]=useState(false);
-    const [datum, setDatum]=useState("");
-    const [validDatum,setValidDatum]=useState(false);
- 
-   
-
+  const [allJobs, setAllJobs] = useState([]);
+  const [adresa, setAdresa] = useState("");
+  const [validAdresa, setValidAdresa] = useState(false);
+  const [datum, setDatum] = useState("");
+  const [validDatum, setValidDatum] = useState(false);
+  const [openWarning, setOpenWarning] = useState(false);
 
   const [locations, setLocations] = useState();
 
@@ -57,12 +56,16 @@ const Poslovi = () => {
   };
 
   const adresaHandler = (event) => {
-    setAdresa(event.target.value);
+    setAdresa(event.target.value.split(","));
     if (event.target.value != "") {
       setValidAdresa(true);
     } else {
       setValidAdresa(false);
     }
+  };
+
+  const handleCloseWarning = () => {
+    setOpenWarning(false);
   };
 
   const datumHandler = (event) => {
@@ -118,25 +121,6 @@ const Poslovi = () => {
       console.log(jobs);
     }
     fetchJobs();
-    // async function fetchLocations()
-    // {
-    //     const res=await fetch('https://localhost:5001/Domacinstvo/PreuzmiLokacije',
-    //     {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-type': 'application/json;charset=UTF-8'
-    //         }
-    //     });
-
-    //     const dat=await res.json();
-    //     const locs=dat.map((loc)=>{
-    //         return{
-    //             adresa: loc.adresa
-    //         };
-    //     });
-    //     setLocations(locs);
-    // }
-    // fetchLocations();
   }, []);
 
   return (
@@ -169,6 +153,11 @@ const Poslovi = () => {
             }
           />
         ))}
+      </div>
+      <div>
+        {openWarning && (
+          <WarningModal show={openWarning} onClose={handleCloseWarning} />
+        )}
       </div>
     </div>
   );
