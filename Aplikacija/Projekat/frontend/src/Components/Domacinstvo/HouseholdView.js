@@ -38,7 +38,6 @@ function HouseHoldView() {
     setOpenAddNew(true);
   };
 
-
   const onDeleteHandler = async () => {
     const response = await fetch(
       "https://localhost:5001/Proizvod/ObrisatiProizvod/" + product.ID,
@@ -74,6 +73,8 @@ function HouseHoldView() {
       { method: "POST" }
     );
     setOpenAddNew(false);
+    const data = await response.json();
+    console.log(data);
     fetchProductHandler();
   };
 

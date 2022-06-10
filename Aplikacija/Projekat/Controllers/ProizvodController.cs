@@ -57,6 +57,41 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+         [Route("PreuzetiProizvodeZaDomacinstvoAdresa/{adresa}")]
+        [EnableCors("CORS")]
+        [HttpGet]
+        public async Task<ActionResult> preuzmiProizvodeZaDomacinstvoAdresa(string adresa)
+        {
+            try
+            {
+                var domacinstvo = await Context.Domacinstva.Where(p => p.Adresa == adresa).FirstOrDefaultAsync();
+                if(domacinstvo == null)
+                {
+                    throw new Exception("Ne postoji zadato domacinstvo!");
+                }
+                var proizvodi = await Context.Proizvodi
+                                .Include(p => p.Domacinstvo).Include(p => p.Recenzije).Where(p => p.Domacinstvo.Adresa == adresa)
+                                .Select(p => new{
+                                    p.ID,
+                                    p.Naziv,
+                                    p.Kolicina,
+                                    p.Cena,
+                                    p.Opis,
+                                    p.Kategorija,
+                                    p.Recenzije
+                                }).ToListAsync();
+                if(proizvodi == null)
+                {
+                    throw new Exception("Nije pronadjen!");
+                }
+                return Ok(proizvodi);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
          [Route("IzmeniProizvod/{id}/{naziv}/{kolicina}/{cena}/{opis}/{kategorija}")]
         [EnableCors("CORS")]
         [HttpPut]

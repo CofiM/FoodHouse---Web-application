@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import WarningModal from "../Components/Domacinstvo/WarningModal";
 
 function Domacinstvo() {
+  const Adresa = localStorage.getItem("DomacinstvoAdresa");
   const ID = localStorage.getItem("DomacinstvoID");
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
@@ -40,7 +41,8 @@ function Domacinstvo() {
     const fetchProductHandler = async () => {
       console.log("uslo");
       const response = await fetch(
-        "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvo/" + ID
+        "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvoAdresa/" +
+          Adresa
       );
       const data = await response.json();
       console.log(data);
