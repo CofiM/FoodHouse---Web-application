@@ -5,6 +5,7 @@ import classes from "../Components/Pretraga/Pretraga.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { alertClasses } from "@mui/material";
+import { useHistory } from "react-router-dom";
 const center={lat:43.320904, lng: 21.89576};
 let allCordinates=[];
 let allLocations=[];
@@ -68,7 +69,13 @@ const Naslovna = () => {
         fetchLocations();
         
   }, []);
-
+  const history = useHistory();
+  const sendAdress=(index)=>
+  {
+    console.log(allLocations[index])
+   localStorage.setItem("DomacinstvoAdresa", allLocations[index]);
+   history.push("Domacinstvo");
+  }
 
 console.log(objects);
   //console.log(locations);
@@ -76,6 +83,7 @@ console.log(objects);
   if (!isLoaded) {
     return <div>Loading..</div>;
   }
+
  
   return (
     <div className={classes.container}>
@@ -90,7 +98,7 @@ console.log(objects);
           {" "}
           <Pretraga></Pretraga>
         </div>
-        <div className="App" style={{height:"40vh", width:"30%"}}>
+        <div className={classes.maps}>
           
       <GoogleMap
       zoom={8} center={center} mapContainerStyle={{width:'100%',height:'100%'}}
@@ -101,7 +109,7 @@ console.log(objects);
       }}
       >
         {allCordinates.map((el,index)=>(
-          <Marker  position={el}>{allLocations[index]}</Marker>
+          <Marker title={allLocations[index]} position={el} onClick={()=>sendAdress(index)}></Marker>
           ))}
       </GoogleMap>
     </div>
