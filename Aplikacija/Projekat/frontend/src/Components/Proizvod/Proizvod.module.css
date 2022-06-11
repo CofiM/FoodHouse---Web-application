@@ -2,6 +2,13 @@
     max-width: 1100px;
     margin: 0 auto;
   }
+
+  h2{
+    font-size: 40px;
+  }
+  p{
+    font-size:20px;
+  }
   .img{
     width: 100%;
     display: block;
@@ -35,7 +42,7 @@
     padding: 2rem 1rem;
   }
   .product-title{
-    font-size: 3rem;
+    font-size: 10rem;
     text-transform: capitalize;
     font-weight: 700;
     position: relative;
@@ -75,7 +82,7 @@
   }
   .product-price{
     margin: 1rem 0;
-    font-size: 1rem;
+    font-size: 30px;
     font-weight: 700;
   }
   .product-price span{
@@ -94,7 +101,7 @@
     padding-bottom: 0.6rem;
   }
   .product-detail p{
-    font-size: 0.9rem;
+    font-size: 22px;
     padding: 0.3rem;
     opacity: 0.8;
   }
@@ -126,6 +133,7 @@
     outline: 0;
     margin-right: 0.2rem;
     margin-bottom: 1rem;
+    font-size: 18px;
   }
   .purchase-info input{
     width: 80px;

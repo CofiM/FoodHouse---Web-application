@@ -94,14 +94,26 @@ const Proizvod = (props) => {
     console.log(data);
   }
 
-  console.log(location.product);
+  const cenaProizvoda = localStorage.getItem("CenaProizvoda");
+  const idProizvoda = localStorage.getItem("IdProizvoda");
+  const kategorijaProizvoda = localStorage.getItem("KategorijaProizvoda");
+  const kolicinaProizvoda = localStorage.getItem("KolicinaProizvoda");
+  const nazivProizvoda = localStorage.getItem("NazivProizvoda");
+  const opisProizvoda = localStorage.getItem("OpisProizvoda");
 
-  let item = JSON.parse(JSON.stringify(location.product));
+  console.log(cenaProizvoda);
+  console.log(idProizvoda);
+  console.log(kategorijaProizvoda);
+  console.log(kolicinaProizvoda);
+  console.log(nazivProizvoda);
+  console.log(opisProizvoda);
+
+  // let item = JSON.parse(JSON.stringify(location.product));
   let proba = {
-    id: item.ID,
-    name: item.Naziv + " - " + imeDomacinstva,
-    price: item.Cena,
-    quantity: item.Kolicina,
+    id: idProizvoda,
+    name: nazivProizvoda + " - " + imeDomacinstva,
+    price: cenaProizvoda,
+    quantity: kolicinaProizvoda,
   };
 
   const checkItem = () => {
@@ -136,18 +148,18 @@ const Proizvod = (props) => {
         <ImageGallery IdSlike={proba.id} />
 
         <div className={classes["product-content"]}>
-          <h2 classname={classes["product-title"]}>{location.product.Naziv}</h2>
+          <h2 classname={classes["naslov"]}>{nazivProizvoda}</h2>
           <p>Zavisno od proizvoda,cena proizvoda je po komadu ili kilogramu</p>
 
           <div className={classes["product-price"]}>
             <p className="new-price">
-              Cena: <span>{location.product.Cena}.00 din</span>
+              Cena: <span>{cenaProizvoda}.00 din</span>
             </p>
           </div>
 
           <div className={classes["product-detail"]}>
             <h2>O proizvodu: </h2>
-            <p>{location.product.Opis}</p>
+            <p>{opisProizvoda}</p>
           </div>
           {show && <p>Usluga dostave : {cenaDostave}.00 din</p>}
           {show && (

@@ -11,6 +11,11 @@
     margin: 0 0 0.5rem 0;
     color: #363636;
   }
+
+  h3{
+    font-size: 25px;
+  }
+
   
   .summary {
     width: 10rem;
@@ -22,6 +27,7 @@
   .price {
     font-weight: bold;
     color: #8a2b06;
+    font-size: 20px;
   }
   
   .amount {
@@ -35,7 +41,7 @@
   .actions {
     display: flex;
     flex-direction: column;
-    margin-right: 5pxs;
+    margin-right: 40px;
   }
   
   @media (min-width: 768px) {
@@ -57,6 +63,7 @@
     cursor: pointer;
     margin-left: 1rem;
     margin: 0.25rem;
+
   }
   
   .cart-item button:hover,
