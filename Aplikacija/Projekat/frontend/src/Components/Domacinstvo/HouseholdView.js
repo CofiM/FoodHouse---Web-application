@@ -127,6 +127,7 @@ function HouseHoldView() {
       console.log(comments);
       let kom = comments;
       comments = [];
+      console.log(prod.id);
       pros = pros / prod.recenzije.length;
       return {
         ID: prod.id,
@@ -153,6 +154,8 @@ function HouseHoldView() {
       <div className={classes.allProducts}>
         {products.map((prod) => (
           <ProizvodCardForDomacinstvo
+            key={prod.ID}
+            id = {prod.ID}
             className={classes.Product}
             naziv={prod.Naziv}
             kolicina={prod.Kolicina}

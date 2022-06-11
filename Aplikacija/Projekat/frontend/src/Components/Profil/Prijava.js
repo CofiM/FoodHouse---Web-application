@@ -205,86 +205,93 @@ export default function SignIn() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" sx={{ background: "#83BD75" }}>
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+    <div style={{ background: "#E1E8C9", height: "100vh" }}>
+      <ThemeProvider theme={theme}>
+        <Container
+          component="main"
+          maxWidth="xs"
+          sx={{ background: "#83BD75" }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
-          <Typography component="h1" variant="h5">
-            Prijavi se
-          </Typography>
+          <CssBaseline />
           <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+            sx={{
+              // marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              paddingTop: 8,
+            }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email adresa"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={onChangeEmailHandler}
-            />
-            <FormControl sx={{ width: 400 }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-password"
-                type={pass.showPassword ? "text" : "password"}
-                value={pass.password}
-                onChange={handleChangePassword("password")}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {pass.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-            </FormControl>
-            {labelIsShown && (
-              <p style={{ color: "red" }}>
-                {" "}
-                Nevalidan unos za e-mail ili sifru{" "}
-              </p>
-            )}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
+            <Typography component="h1" variant="h5">
               Prijavi se
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <NavLink to="/Registracija" variant="body2">
-                  Nemate profil? Registrujte se
-                </NavLink>
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email adresa"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={onChangeEmailHandler}
+              />
+              <FormControl sx={{ width: 400 }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">
+                  Password
+                </InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={pass.showPassword ? "text" : "password"}
+                  value={pass.password}
+                  onChange={handleChangePassword("password")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {pass.showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
+              {labelIsShown && (
+                <p style={{ color: "red" }}>
+                  {" "}
+                  Nevalidan unos za e-mail ili sifru{" "}
+                </p>
+              )}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Prijavi se
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <NavLink to="/Registracija" variant="body2">
+                    Nemate profil? Registrujte se
+                  </NavLink>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+        </Container>
+      </ThemeProvider>
+    </div>
   );
 }

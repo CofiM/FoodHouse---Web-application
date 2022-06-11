@@ -77,7 +77,7 @@ const Naslovna = () => {
   //console.log(locations);
 
   if (!isLoaded) {
-    return <div>Loading..</div>;
+    return <div className={classes.Loading}>Loading...</div>;
   }
 
   return (
