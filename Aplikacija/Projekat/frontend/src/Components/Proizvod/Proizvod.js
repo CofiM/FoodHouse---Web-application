@@ -29,7 +29,6 @@ const Proizvod = (props) => {
         setIdDostavljaca(data.dostavljac.id);
         setShow(true);
       }
-      
     }
     fetchData();
   }, []);

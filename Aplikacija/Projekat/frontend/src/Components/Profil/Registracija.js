@@ -158,10 +158,10 @@ export default function SignUp() {
             paddingTop: 2
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, /* bgcolor: 'secondary.main' */ bgcolor:"grey" }}>
            
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" >
             Registruj se
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -276,7 +276,15 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ 
+                mt: 3, 
+                mb: 2,
+                background: "#BCCF7D", 
+                '&:hover': {
+                  background: "#4E944F"
+                  /* background: "#4B5E22" */
+                }
+              }}
             >
               Registruj se
             </Button>

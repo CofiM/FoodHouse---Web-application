@@ -26,8 +26,37 @@ import ProfileDomacinstvo from "../Components/Profil/ProfileDomacinstvo";
 import CartBox from "../Components/Korpa/CartBox";
 import { useCart } from "react-use-cart";
 import WarningModal from "../Components/Domacinstvo/WarningModal.js";
+import { textFieldClasses } from "@mui/material";
 
 const settings = ["Profile", "Logout"];
+
+function stringToColor(string) {
+  let hash = 0;
+  let i;
+
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = "#";
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+  /* eslint-enable no-bitwise */
+
+  return color;
+}
+function stringAvatar(name) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name),
+    },
+    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+  };
+}
 
 const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -41,6 +70,12 @@ const ResponsiveAppBar = (props) => {
   const [openWarning, setOpenWarning] = useState(false);
   const [crt, setCrt] = useState(false);
   const [mess, setMess] = useState(false);
+  const [profileAvatar, setProfileAvatar] = useState(false);
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [dom, setDom] = useState(false);
+  const [nazivDomacinstva, setNazivDomacinstva] = useState("");
   const { emptyCart } = useCart();
 
   useEffect(() => {
@@ -50,11 +85,28 @@ const ResponsiveAppBar = (props) => {
     } else {
       if (tip == "K") {
         setCrt(true);
+        setName(localStorage.getItem("IME").toUpperCase());
+        setSurname(localStorage.getItem("PREZIME").toUpperCase());
       }
+      if (tip == "D") {
+        setName(localStorage.getItem("IME").toUpperCase());
+        setSurname(localStorage.getItem("PREZIME").toUpperCase());
+      }
+      if (tip == "P") {
+        setDom(true);
+        setNazivDomacinstva(
+          localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase()
+        );
+      }
+      localStorage.removeItem("IME");
+      localStorage.removeItem("PREZIME");
+      localStorage.removeItem("NAZIVDOMACINSTVA");
       setMess(true);
+      setProfileAvatar(true);
+      setUsername(localStorage.getItem("Username").toUpperCase());
     }
   });
-
+  console.log(username);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -134,7 +186,6 @@ const ResponsiveAppBar = (props) => {
     }
   };
 
-
   const handleCloseWarning = () => {
     setOpenWarning(false);
   };
@@ -168,8 +219,7 @@ const ResponsiveAppBar = (props) => {
   };
 
   return (
-    
-    <AppBar position="static" sx={{background: "#4E944F"}}>
+    <AppBar position="static" sx={{ background: "#4E944F" }}>
       <div>
         {openWarning && (
           <WarningModal show={openWarning} onClose={handleCloseWarning} />
@@ -289,7 +339,21 @@ const ResponsiveAppBar = (props) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="" src="/static/images/avatar/2.jpg" />
+                {profileAvatar == false ? (
+                  <Avatar alt="" src="/static/images/avatar/2.jpg" />
+                ) : dom == false ? (
+                  <Avatar
+                    alt=""
+                    //src="/static/images/avatar/2.jpg"
+                    {...stringAvatar(name + " " + surname)}
+                  />
+                ) : (
+                  <Avatar
+                    alt=""
+                    //src="/static/images/avatar/2.jpg"
+                    {...stringAvatar(nazivDomacinstva)}
+                  />
+                )}
               </IconButton>
             </Tooltip>
             <Menu
