@@ -207,7 +207,7 @@ export default function SignIn() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} sx={{background:"#83BD75"}}>
       <Container component="main" maxWidth="xs" sx={{background:"#83BD75"}}>
         <CssBaseline />
         <Box
