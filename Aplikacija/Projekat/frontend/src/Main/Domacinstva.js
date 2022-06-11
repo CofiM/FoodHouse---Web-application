@@ -44,6 +44,8 @@ function Domacinstva() {
     <div className={classes.allDomacinstva}>
       {domacinstva.map((dom) => (
         <DomacinstvoCard
+          key={dom.ID}
+          id = {dom.ID}
           NazivDomacinstva={dom.Naziv}
           Adresa={dom.Adresa}
           Telefon={dom.Telefon}

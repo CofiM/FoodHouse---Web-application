@@ -30,7 +30,7 @@ const ImageGallery = (props) => {
           className={classes.selected}
         />
         <div className={classes.imgContainer}>
-          {show &&
+          {/* {show &&
             imageArray.map((img, index) => (
               <img
                 className={classes.image}
@@ -39,7 +39,7 @@ const ImageGallery = (props) => {
                 src={"data:image/png;base64," + img}
                 onClick={() => setSelectedImg(img)}
               />
-            ))}
+            ))} */}
         </div>
       </div>
     );
