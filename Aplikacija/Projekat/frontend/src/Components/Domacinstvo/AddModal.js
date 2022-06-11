@@ -150,7 +150,7 @@ export default function BasicModal(props) {
             console.log(ex);
           }
         }
-      )
+      ).then(props.onClose).then(window.location.reload(false))
   };
 
   async function  sendArgumentMultiple(){
