@@ -22,7 +22,7 @@ const O_nama = () => {
           <p><h2>Kvalitet</h2></p>
           <p>Pripremamo hranu koja jeste prava hrana, a ne jedinjenje svakojakih sastojaka. Kupovinom sezonskih namirnica izbegavamo njihovo intenzivno tretiranje hemijom i bezličan ukus.</p>
           <p><h2>Očuvanje tradicije</h2></p>
-          <p>Tradicionalna lokalna hrana izumire svuda u svetu – kupovinom proizvoda napravljenih po starim recepturama pomažemo njeno očuvanje.</p>`
+          <p>Tradicionalna lokalna hrana izumire svuda u svetu – kupovinom proizvoda napravljenih po starim recepturama pomažemo njeno očuvanje.</p>
       </div>
     )
 };
