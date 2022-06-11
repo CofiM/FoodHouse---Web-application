@@ -6,11 +6,11 @@ import { useCart } from "react-use-cart";
 import CheckBox from "../Proizvod/CheckBox";
 
 const Proizvod = (props) => {
-  const cenaDostave = JSON.parse(localStorage.getItem("CenaDostave"));
-  const idDomacinstva = JSON.parse(localStorage.getItem("DomacinstvoID"));
-  const idDostavljaca = JSON.parse(localStorage.getItem("idDostavljaca"));
-  const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
-  const imeDomacinstva = JSON.parse(localStorage.getItem("naz"));
+  const cenaDostave = localStorage.getItem("CenaDostave");
+  const idDomacinstva = localStorage.getItem("DomacinstvoID");
+  const idDostavljaca = localStorage.getItem("idDostavljaca");
+  const idKorisnika = localStorage.getItem("KorisnikID");
+  const imeDomacinstva = localStorage.getItem("naz");
   let type = localStorage.getItem("Korisnik");
 
   const [show, setShow] = useState(false);
@@ -26,6 +26,7 @@ const Proizvod = (props) => {
       if (data.dostavljac !== null) {
         setShow(true);
       }
+      
     }
     fetchData();
   }, []);
