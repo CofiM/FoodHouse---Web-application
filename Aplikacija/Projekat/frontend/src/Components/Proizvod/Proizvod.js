@@ -6,15 +6,22 @@ import { useCart } from "react-use-cart";
 import CheckBox from "../Proizvod/CheckBox";
 
 const Proizvod = (props) => {
+<<<<<<< HEAD
+  //const cenaDostave = JSON.parse(localStorage.getItem("CenaDostave"));
+  const idDomacinstva = JSON.parse(localStorage.getItem("DomacinstvoID"));
+  //const idDostavljaca = JSON.parse(localStorage.getItem("idDostavljaca"));
+  const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
+=======
   const cenaDostave = localStorage.getItem("CenaDostave");
   const idDomacinstva = localStorage.getItem("DomacinstvoID");
   const idDostavljaca = localStorage.getItem("idDostavljaca");
   const idKorisnika = localStorage.getItem("KorisnikID");
+>>>>>>> e1498ec8cc2e6eae12d0fb759de06fddf39be96b
   const imeDomacinstva = localStorage.getItem("naz");
   let type = localStorage.getItem("Korisnik");
-
   const [show, setShow] = useState(false);
-
+  const [cenaDostave, setCenaDostave] = useState(0);
+  const [idDostavljaca, setIdDostavljaca] = useState(0);
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(
@@ -22,15 +29,19 @@ const Proizvod = (props) => {
           idDomacinstva
       );
       const data = await response.json();
-      console.log(data);
+      console.log(data.dostavljac);
+      console.log(data.dostavljac.cena);
       if (data.dostavljac !== null) {
+        setCenaDostave(data.dostavljac.cena);
+        setIdDostavljaca(data.dostavljac.id);
         setShow(true);
       }
       
     }
     fetchData();
   }, []);
-
+  console.log(cenaDostave);
+  console.log(idDostavljaca);
   const [checked, setChecked] = React.useState(false);
 
   const handleChange = () => {
@@ -48,6 +59,7 @@ const Proizvod = (props) => {
   var obj;
 
   const [isLoading, setIsLoading] = useState(false);
+  console.log(checked);
 
   async function fetchAddNewDelivery(dal, count) {
     let temp = 0;
