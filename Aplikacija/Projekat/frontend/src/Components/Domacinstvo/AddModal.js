@@ -150,7 +150,7 @@ export default function BasicModal(props) {
             console.log(ex);
           }
         }
-      ).then(props.onClose).then(window.location.reload(false))
+      ).then(props.onClose)
   };
 
   async function  sendArgumentMultiple(){
@@ -251,12 +251,12 @@ export default function BasicModal(props) {
               <label className="slikaKnjige" htmlFor="file-upload"></label>
               <input type="file" onChange={saveFileSelected} />
 
-              <label className="slikaKnjige" htmlFor="file-upload"></label>
-              <input type="file" onChange={saveFileArraySelected} multiple/>
+              {/* <label className="slikaKnjige" htmlFor="file-upload"></label>
+              <input type="file" onChange={saveFileArraySelected} multiple/> */}
           <div>
             <Button onClick={props.onClose}>Otkazi</Button>
             <Button onClick={sendArgument}>Dodaj</Button>
-            <Button onClick={sendArgumentMultiple}>Dodaj vise</Button>
+            {/* <Button onClick={sendArgumentMultiple}>Dodaj vise</Button> */}
           </div>
         </Box>
       </Modal>

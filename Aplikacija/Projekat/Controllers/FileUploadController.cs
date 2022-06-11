@@ -119,7 +119,7 @@ namespace SWE___PROJEKAT.Controllers
             {
                 if (file.Length > 0)
                 {
-                    string path = _webHostEnvironment.WebRootPath + "\\dom\\" + id + "\\";
+                    string path = _webHostEnvironment.WebRootPath + "\\dom" + id + "\\";
                     if (!System.IO.Directory.Exists(path))
                     {
                         System.IO.Directory.CreateDirectory(path);
@@ -146,7 +146,7 @@ namespace SWE___PROJEKAT.Controllers
  
         public async Task<IActionResult> DomacinstvoGet(int id)
         {
-            string path = _webHostEnvironment.WebRootPath + "\\" + id + "\\";
+            string path = _webHostEnvironment.WebRootPath + "\\dom" + id + "\\";
             var images = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).ToList();
             var files = new List<byte[]>();
             foreach (var image in images)
