@@ -68,7 +68,7 @@ namespace SWE___PROJEKAT.Controllers
                     kupovina.Korisnik = korisnik;
                     kupovina.Dostavljac = dostavljac;
                     kupovina.KolicinaProizvoda = suma;
-                    kupovina.show = 0;
+                    kupovina.show = 1;
                     Context.Kupovine.Add(kupovina);
                     await Context.SaveChangesAsync();
                     return Ok(kupovina);
