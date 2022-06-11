@@ -142,6 +142,7 @@ const Poslovi = () => {
       <div className={classes.divWorks}>
         {allJobs.map((job) => (
           <PosloviCard
+            key={job.id}
             opis={job.opis}
             brRadnihMesta={job.brojRadnihMesta}
             datum={job.datumPosla.split("T")[0]}
