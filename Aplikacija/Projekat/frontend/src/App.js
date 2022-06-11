@@ -93,7 +93,7 @@ function App() {
               <Route path="/ProfilKorisnik">
                 <ProfilKorisnik />
               </Route>
-              <Route path="/domacinstvo">
+              <Route path="/domacinstvo" >
                 <Domacinstvo />
               </Route>
               <Route path="/ViewProducts">
@@ -123,7 +123,7 @@ function App() {
               <Route path="/poslovi">
                 <Poslovi />
               </Route>
-              <Route path="/Domacinstvo">
+              <Route path="/jednoDomacinstvo">
                 <JednoDomacinstvo />
               </Route>
               <Route path="/narudzbine">

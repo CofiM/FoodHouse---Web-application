@@ -116,7 +116,7 @@ const DesignProfile = (props) => {
         />
         <InputDate
           label="Dan otvorenih vrata"
-          value={datum}
+          value={Date.now}
           onChange={changeDatumHandler}
         />
       </div>

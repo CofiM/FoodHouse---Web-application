@@ -9,7 +9,7 @@ function Domacinstva() {
     localStorage.setItem("DomacinstvoID", ID);
     localStorage.setItem("DomacinstvoAdresa", Adresa);
     console.log("ID " + ID + "    ADRESA " + Adresa);
-    let path = "Domacinstvo";
+    let path = "jednoDomacinstvo";
     history.push(path);
   };
   const [domacinstva, setDomacinstva] = useState([]);
