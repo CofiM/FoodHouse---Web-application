@@ -146,7 +146,7 @@ const Cart = (props) => {
       <ul>
         {items.map((item)=>(
 
-            <li className={classes2["cart-item"]}>
+            <li key={item.id} className={classes2["cart-item"]}>
             <div>
               <h2>{item.name}</h2>
               <div className={classes2.summary}>
