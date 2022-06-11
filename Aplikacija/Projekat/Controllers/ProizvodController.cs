@@ -211,7 +211,8 @@ namespace SWE___PROJEKAT.Controllers
                                     p.Opis,
                                     p.Kategorija,
                                     nazivDomacinstva = p.Domacinstvo.Naziv,
-                                    p.Recenzije
+                                    p.Recenzije,
+                                    IdDomacinstva = p.Domacinstvo.ID
                                 }).ToListAsync();
                 if(proizvodi == null)
                 {
@@ -248,7 +249,8 @@ namespace SWE___PROJEKAT.Controllers
                                     p.Opis,
                                     p.Kategorija,
                                     nazivDomacinstva = p.Domacinstvo.Naziv,
-                                    p.Recenzije
+                                    p.Recenzije,
+                                    IdDomacinstva = p.Domacinstvo.ID
                                 }).ToListAsync();
                 if(proizvodi == null)
                 {
@@ -289,7 +291,8 @@ namespace SWE___PROJEKAT.Controllers
                                     p.Opis,
                                     p.Kategorija,
                                     nazivDomacinstva = p.Domacinstvo.Naziv,
-                                    p.Recenzije
+                                    p.Recenzije,
+                                    IdDomacinstva = p.Domacinstvo.ID
                                 }).ToListAsync();
                 if(proizvodi == null)
                 {
