@@ -79,9 +79,6 @@ const ResponsiveAppBar = (props) => {
           localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase()
         );
       }
-      // localStorage.removeItem("IME");
-      // localStorage.removeItem("PREZIME");
-      // localStorage.removeItem("NAZIVDOMACINSTVA");
       setMess(true);
       setProfileAvatar(true);
     }
