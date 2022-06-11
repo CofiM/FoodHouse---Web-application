@@ -14,10 +14,11 @@ export default function BasicCard(props) {
     <Card
       sx={{
         minWidth: 275,
-        background: "grey",
+        background: "#B4E197",
         width: "100%",
         marginTop: "5%",
         m: 2,
+        color: "white"
       }}
     >
       <CardContent sx={{ width: "100%" }}>
@@ -65,7 +66,7 @@ export default function BasicCard(props) {
         </Typography>
       </CardContent>
       <CardActions sx={{ alignItems: "center", justifyContent: "center" }}>
-        <Button size="medium" onClick={props.onClicksignIn}>
+        <Button size="medium" onClick={props.onClicksignIn} sx={{color:"white"}}>
           {" "}
           Prijavi se
         </Button>

@@ -38,6 +38,8 @@ import IstorijaKupovina from "./Components/Kupovina/IstorijaKupovina";
 import {CartProvider} from "react-use-cart";
 import UsloviKoriscenja from "./Footer/UsloviKoriscenja";
 import Pravila from "./Footer/Pravila";
+import O_nama from "./Main/O_nama";
+
 
 function App() {
   return (
@@ -55,7 +57,7 @@ function App() {
               <Route path="/Naslovna">
                 <Naslovna />
               </Route>
-              <Route path="/Domaćinstva">
+              <Route path="/domacinstva">
                 <Domacinstva />
               </Route>
               <Route path="/Posao">
@@ -70,7 +72,7 @@ function App() {
               <Route path="/dodajPosao">
                 <DodajPosao />
               </Route>
-              <Route path="/Dostavljači">
+              <Route path="/dostavljaci">
                 <Dostavljaci />
               </Route>
               <Route path="/Inbox">
@@ -91,7 +93,7 @@ function App() {
               <Route path="/ProfilKorisnik">
                 <ProfilKorisnik />
               </Route>
-              <Route path="/Domaćinstvo">
+              <Route path="/domacinstvo" >
                 <Domacinstvo />
               </Route>
               <Route path="/ViewProducts">
@@ -118,13 +120,13 @@ function App() {
               <Route path="/ViewJobsDateLocation">
                 <ViewJobsDateLocation />
               </Route>
-              <Route path="/Poslovi">
+              <Route path="/poslovi">
                 <Poslovi />
               </Route>
-              <Route path="/Domacinstvo">
+              <Route path="/jednoDomacinstvo">
                 <JednoDomacinstvo />
               </Route>
-              <Route path="/Narudžbine">
+              <Route path="/narudzbine">
                 <Narudzbine />
               </Route>
               <Route path="/IstorijaKupovina">
@@ -135,6 +137,9 @@ function App() {
               </Route>
               <Route path="/Pravila">
                 <Pravila />
+              </Route>
+              <Route path="/o-nama">
+                <O_nama/>
               </Route>
               <Route path="*">
                 <NotFound />

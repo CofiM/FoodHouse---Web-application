@@ -300,7 +300,8 @@ namespace SWE___PROJEKAT.Controllers
                 var domacinstva = await Context.Domacinstva
                 .Select(p => new
                 {
-                    p.Adresa
+                    p.Adresa,
+                    p.Naziv
                 }).ToListAsync();
                 return Ok(domacinstva);
             }

@@ -192,13 +192,13 @@ export default function SignIn() {
       localStorage.setItem("KorisnikID", data.id);
       fetchMessage();
     } else if (data.tip === "D") {
-      let path = "Narudžbine";
+      let path = "narudzbine";
       history.push(path);
       localStorage.setItem("DostavljacID", data.id);
       fetchMessage();
 
     } else if (data.tip === "P") {
-      let path = "Domaćinstvo";
+      let path = "domacinstvo";
       history.push(path);
       localStorage.setItem("DomacinstvoID", data.id);
       fetchMessage();
@@ -208,7 +208,7 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{background:"#83BD75"}}>
         <CssBaseline />
         <Box
           sx={{

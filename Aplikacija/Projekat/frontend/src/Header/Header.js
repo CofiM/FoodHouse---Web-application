@@ -133,24 +133,7 @@ const ResponsiveAppBar = (props) => {
       window.location.reload(false); //REFRESH PAGE
     }
   };
-  //   if (type === "Logout") {
-  //     const type = localStorage.getItem("Korisnik");
-  //     localStorage.removeItem("Korisnik");
-  //     localStorage.setItem("messageNumber", 0);
-  //     if (type === "P") {
-  //       localStorage.removeItem("DomacinstvoID");
-  //     } else if (type === "K") {
-  //       localStorage.removeItem("KorisnikID");
-  //     } else if (type === "D") {
-  //       localStorage.removeItem("DostavljacID");
-  //     }
 
-  //     let path = "Naslovna";
-  //     history.push(path);
-  //     window.location.reload(false);
-  //   }
-  //   setAnchorElUser(null);
-  // };
 
   const handleCloseWarning = () => {
     setOpenWarning(false);
@@ -185,12 +168,7 @@ const ResponsiveAppBar = (props) => {
   };
 
   return (
-    // <div>
-    //   <div>
-    //     {openWarning && (
-    //       <WarningModal show={openWarning} onClose={handleCloseWarning} />
-    //     )}
-    //   </div>
+    
     <AppBar position="static" sx={{background: "#4E944F"}}>
       <div>
         {openWarning && (
@@ -250,7 +228,7 @@ const ResponsiveAppBar = (props) => {
               {items().map((page) => (
                 <MenuItem
                   key={page.id}
-                  onClick={() => onClickHandler(page.label)}
+                  onClick={() => onClickHandler(page.route)}
                 >
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
@@ -280,7 +258,7 @@ const ResponsiveAppBar = (props) => {
               <React.Fragment>
                 <Button
                   key={page.id}
-                  onClick={() => onClickHandler(page.label)}
+                  onClick={() => onClickHandler(page.route)}
                   className={classes.button}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
