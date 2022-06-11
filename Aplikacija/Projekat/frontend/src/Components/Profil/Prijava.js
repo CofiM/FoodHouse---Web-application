@@ -177,7 +177,7 @@ export default function SignIn() {
       }
     );
     const data = await response.json();
-    localStorage.setItem("Username", data.username);
+    //localStorage.setItem("Username", data.username);
     localStorage.setItem("Korisnik", data.tip);
 
     if (data.tip === "K") {
@@ -207,11 +207,7 @@ export default function SignIn() {
   return (
     <div style={{ background: "#E1E8C9", height: "100vh" }}>
       <ThemeProvider theme={theme}>
-        <Container
-          component="main"
-          maxWidth="xs"
-          sx={{ background: "#83BD75" }}
-        >
+        <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
             sx={{
