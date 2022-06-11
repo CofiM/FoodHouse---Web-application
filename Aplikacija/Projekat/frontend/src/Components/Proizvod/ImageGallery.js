@@ -8,7 +8,7 @@ const ImageGallery = (props) => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("https://localhost:5001/FileUpload/" + 2);
+      const response = await fetch("https://localhost:5001/FileUpload/" + props.IdSlike);
       const data = await response.json();
       console.log(data);
       setImageArray(data);
@@ -19,6 +19,7 @@ const ImageGallery = (props) => {
     console.log(selectedImg);
     console.log(imageArray);
     console.log(show);
+    console.log(props.IdSlike);
   }, []);
   if (show == true) {
     return (

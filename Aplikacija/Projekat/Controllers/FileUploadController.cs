@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using Models;
+using System.Text;
 
 namespace SWE___PROJEKAT.Controllers
 {
@@ -27,32 +28,35 @@ namespace SWE___PROJEKAT.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
+        [Route("{id:int}")]
         [HttpPost]
 
-        public async Task<string> Post([FromForm] FileUpload fileUpload){
-            if(!fileUpload.Id.HasValue){
-                return "Id nevalidan";
-            }
-            var uploadedFile = fileUpload.File;
-            try{
-                if(uploadedFile.Length > 0){
-                    string path = _webHostEnvironment.WebRootPath + "\\" + fileUpload.Id.Value + "\\";
-                    if(!System.IO.Directory.Exists(path)){
+        public IActionResult Post([FromRoute]int id, [FromForm]IFormFile file)
+        {
+            try
+            {
+                if (file.Length > 0)
+                {
+                    string path = _webHostEnvironment.WebRootPath + "\\" + id + "\\";
+                    if (!System.IO.Directory.Exists(path))
+                    {
                         System.IO.Directory.CreateDirectory(path);
                     }
-                    using (FileStream fileStream = System.IO.File.Create(path + uploadedFile.FileName))
+                    using (FileStream fileStream = System.IO.File.Create(path + file.FileName))
                     {
-                        uploadedFile.CopyTo(fileStream);
+                        file.CopyTo(fileStream);
                         fileStream.Flush();
-                        return "Upload done";
+                        return Ok("Upload done");
                     }
                 }
-                else{
-                    return "Failed";
+                else
+                {
+                    return BadRequest("Upload failed");
                 }
             }
-            catch(Exception ex){
-                return ex.Message;
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
@@ -76,5 +80,35 @@ namespace SWE___PROJEKAT.Controllers
             // return null;
             return Ok(files);
         }
+
+        [Route("Multiple/{id:int}")]
+        [HttpPost]
+
+        public async Task<IActionResult> PostMultiple([FromRoute]int id, [FromForm]IFormFile[] files)
+        {
+            try
+            {
+                foreach(var file in files)
+                {
+                    string path = _webHostEnvironment.WebRootPath + "\\" + id + "\\";
+                    if (!System.IO.Directory.Exists(path))
+                    {
+                        System.IO.Directory.CreateDirectory(path);
+                    }
+                    using (FileStream fileStream = System.IO.File.Create(path + file.FileName))
+                    {
+                        file.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                }
+
+                return Ok("Upload done");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
