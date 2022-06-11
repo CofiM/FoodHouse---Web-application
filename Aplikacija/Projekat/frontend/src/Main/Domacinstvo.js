@@ -28,10 +28,12 @@ function Domacinstvo() {
     setOpen(true);
   };
   const history = useHistory();
+
   const onClickCartHandler = (ID) => {
     let korisnik = localStorage.getItem("Korisnik");
     if (korisnik != null) {
       const p = products.find((el) => el.ID == ID);
+      console.log(p);
       history.push({ pathname: "/Proizvod", product: p });
     } else {
       setOpenWarning(true);
@@ -81,7 +83,7 @@ function Domacinstvo() {
     };
     const fetchDomacinstvoHandler = async () => {
       const response = await fetch(
-        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/" + ID
+        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvoAdresa/" + Adresa
       );
       const data = await response.json();
       setDomacinstvo(data);
