@@ -177,7 +177,7 @@ export default function SignIn() {
       }
     );
     const data = await response.json();
-    localStorage.setItem("Username", data.username);
+    //localStorage.setItem("Username", data.username);
     localStorage.setItem("Korisnik", data.tip);
 
     if (data.tip === "K") {
