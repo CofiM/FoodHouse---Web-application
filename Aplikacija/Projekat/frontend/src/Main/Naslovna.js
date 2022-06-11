@@ -79,7 +79,7 @@ console.log(objects);
   //console.log(locations);
 
   if (!isLoaded) {
-    return <div className={classes.Loading}>Loading..</div>;
+    return <div className={classes.Loading}>Loading...</div>;
   }
 
  

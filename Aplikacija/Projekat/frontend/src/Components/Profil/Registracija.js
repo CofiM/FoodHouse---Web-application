@@ -145,15 +145,17 @@ export default function SignUp() {
 
 
   return (
+    <div style={{background:"#E1E8C9", height:"100vh"}}>
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" sx={{background:"#E1E8C9"}}>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 2,
+            // marginTop: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            paddingTop: 2
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -289,5 +291,6 @@ export default function SignUp() {
         </Box>
       </Container>
     </ThemeProvider>
+    </div>
   );
 }

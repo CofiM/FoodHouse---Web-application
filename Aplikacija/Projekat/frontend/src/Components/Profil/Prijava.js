@@ -207,15 +207,17 @@ export default function SignIn() {
   }
 
   return (
+    <div style={{background:"#E1E8C9", height:"100vh"}}>
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs" sx={{background:"#83BD75"}}>
+      <Container component="main" maxWidth="xs" sx={{background:"#E1E8C9"}}>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            // marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            paddingTop:8
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
@@ -288,5 +290,6 @@ export default function SignIn() {
         </Box>
       </Container>
     </ThemeProvider>
+    </div>
   );
 }
