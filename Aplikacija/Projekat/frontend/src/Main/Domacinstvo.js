@@ -116,9 +116,9 @@ function Domacinstvo() {
         {products.map((prod) => (
           <ProizvodCard
             className={classes.Product}
+            idProizvoda={prod.ID}
             naziv={prod.Naziv}
             kolicina={prod.Kolicina}
-            id={prod.ID}
             cena={prod.Cena}
             opis={prod.Opis}
             ocena={prod.Ocena}
