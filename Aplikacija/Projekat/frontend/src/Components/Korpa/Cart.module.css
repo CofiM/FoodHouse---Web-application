@@ -46,6 +46,7 @@
   .actions .button {
     background-color: #8a2b06;
     color: white;
+    font-size: 18px;
   }
   .button:focus{
     outline: none;

@@ -54,9 +54,12 @@ export default function RecipeReviewCard(props) {
   const [val, setValue] = useState(0);
   let korisnik = localStorage.getItem("Korisnik");
   useEffect(() => {
+    console.log("aaa");
+    console.log(props.idProizvoda);
+    console.log(props);
     const fetchData = async () => {
       const response = await fetch(
-        "https://localhost:5001/FileUpload/" + props.id
+        "https://localhost:5001/FileUpload/" + props.idProizvoda
       );
       const data = await response.json();
       data.map((item) => {

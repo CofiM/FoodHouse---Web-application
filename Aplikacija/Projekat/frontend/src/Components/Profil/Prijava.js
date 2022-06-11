@@ -205,7 +205,7 @@ export default function SignIn() {
   }
 
   return (
-    <div style={{ background: "#E1E8C9", height: "100vh" }}>
+    <div style={{background:"#E1E8C9", height:"100vh"}}>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -215,10 +215,10 @@ export default function SignIn() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              paddingTop: 8,
+              paddingTop: 8
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
+            <Avatar sx={{ m: 1, /* bgcolor: "secondary.main" */ bgcolor:"grey" }}></Avatar>
             <Typography component="h1" variant="h5">
               Prijavi se
             </Typography>
@@ -273,13 +273,21 @@ export default function SignIn() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ 
+                  mt: 3, 
+                  mb: 2 , 
+                  background: "#BCCF7D", 
+                  '&:hover': {
+                    background: "#4E944F"
+                    /* background: "#4B5E22" */
+                  }
+              }}
               >
                 Prijavi se
               </Button>
               <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <NavLink to="/Registracija" variant="body2">
+                <Grid item >
+                  <NavLink to="/Registracija" variant="body2" color="#070E59">
                     Nemate profil? Registrujte se
                   </NavLink>
                 </Grid>

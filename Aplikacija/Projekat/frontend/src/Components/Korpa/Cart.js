@@ -148,7 +148,7 @@ const Cart = (props) => {
 
             <li key={item.id} className={classes2["cart-item"]}>
             <div>
-              <h2>{item.name}</h2>
+              <h3>{item.name}</h3>
               <div className={classes2.summary}>
                 <span className={classes2.price}>{item.price}.00 din</span>
                 <span className={classes2.amount}>x {item.quantity}</span>

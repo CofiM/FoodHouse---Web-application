@@ -35,6 +35,13 @@ function Domacinstvo() {
       const p = products.find((el) => el.ID == ID);
       console.log(p);
       history.push({ pathname: "/Proizvod", product: p });
+      console.log(p.Cena);
+      localStorage.setItem("CenaProizvoda",p.Cena);
+      localStorage.setItem("IdProizvoda",p.ID);
+      localStorage.setItem("KategorijaProizvoda",p.Kategorija);
+      localStorage.setItem("KolicinaProizvoda",p.Kolicina);
+      localStorage.setItem("NazivProizvoda",p.Naziv);
+      localStorage.setItem("OpisProizvoda",p.Opis);
     } else {
       setOpenWarning(true);
     }

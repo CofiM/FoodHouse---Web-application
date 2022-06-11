@@ -93,6 +93,7 @@ const ViewProducts = () => {
     let newState = [...allProducts];
     setValue(e.target.value);
 
+
     if (e.target.value == 1) {
       console.log(newState);
       {
@@ -100,6 +101,7 @@ const ViewProducts = () => {
           .sort((a, b) => (a.Naziv > b.Naziv ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
+              idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
               kolicina={prod.Kolicina}
@@ -117,6 +119,7 @@ const ViewProducts = () => {
           .sort((a, b) => (a.Cena > b.Cena ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
+              idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
               kolicina={prod.Kolicina}
@@ -134,6 +137,7 @@ const ViewProducts = () => {
           .sort((a, b) => (a.Cena < b.Cena ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
+              idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
               kolicina={prod.Kolicina}
@@ -151,6 +155,7 @@ const ViewProducts = () => {
           .sort((a, b) => (a.Ocena < b.Ocena ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
+              idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
               kolicina={prod.Kolicina}
@@ -185,6 +190,7 @@ const ViewProducts = () => {
       <div className={classes.allProducts}>
         {allProducts.map((prod) => (
           <ProizvodCard
+            idProizvoda={prod.ID}
             className={classes.Product}
             naziv={prod.Naziv}
             kolicina={prod.Kolicina}
