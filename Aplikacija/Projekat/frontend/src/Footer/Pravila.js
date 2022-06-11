@@ -1,7 +1,8 @@
+import classes from "./Footer.module.css";
 const Pravila = () => {
 
     return(
-        <div>
+        <div className={classes.design}>
             <div>
                 <h2>
                     Politika privatnosti

@@ -1,8 +1,8 @@
-
+import classes from "./Footer.module.css";
 const UsloviKoriscenja = () => {
 
     return(
-        <div>
+        <div className={classes.design}>
             <div>
                 <h2>Za kupce</h2>
                 <p>Poštovani kupci,</p>

@@ -436,7 +436,7 @@ const Inbox = () => {
 
   return (
     <div className={classes.main}>
-      <div className={classes.leftSide}>
+      <div className={classes.leftSide} >
         <SideBar onClick={onSideBarClick} />
       </div>
       <div className={classes.rightSide}>

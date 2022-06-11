@@ -19,7 +19,7 @@ namespace SWE___PROJEKAT.Controllers
     [Route("[controller]")]
     public class FileUploadController : ControllerBase
     {
-
+ 
         public ProjekatContext Context{ get; set; }
         public static IWebHostEnvironment _webHostEnvironment;
         public FileUploadController(ProjekatContext context, IWebHostEnvironment webHostEnvironment)
@@ -59,9 +59,9 @@ namespace SWE___PROJEKAT.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+ 
         [HttpGet("{id}")]
-
+ 
         public async Task<IActionResult> Get(int id)
         {
             string path = _webHostEnvironment.WebRootPath + "\\" + id + "\\";

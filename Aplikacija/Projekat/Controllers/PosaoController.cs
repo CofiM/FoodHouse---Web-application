@@ -89,6 +89,12 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        /* [NonAction]
+        public string getString(string newString)
+        {
+            //string[] words = newString.Split(',');
+            return newString.Substring(newString.LastIndexOf(',') + 1);;
+        } */
 
         [Route("PreuzetiPoslovePoAdresi/{adresa}")]
         [EnableCors("CORS")]

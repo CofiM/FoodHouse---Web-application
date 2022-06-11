@@ -8,11 +8,11 @@ import classes from "./IstorijaKupovinaCard.module.css";
 
 export default function OutlinedCard(props) {
     return (
-      <Box sx={{ minWidth: 275 }}>
-        <Card variant="outlined">
+      <Box sx={{ minWidth: 275,  backgroundColor: '#E9EFC0', m: 1 }}>
+        <Card sx={{backgroundColor: "#E9EFC0", m: 5}}>
             {
                 <div className={classes.mainPart}>
-                    <CardContent>
+                    <CardContent sx={{backgroundColor: "#E9EFC0"}}>
                         <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
                         Proizvod:
                         </Typography>

@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../pictures/logo.png";
 import { useHistory } from "react-router-dom";
-import { useEffect,useState} from "react";
+import { useEffect, useState } from "react";
 import classes from "./Header.module.css";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { HeaderItems } from "./HeaderComponentsKorisnik";
@@ -24,8 +24,8 @@ import ProfileKorisnik from "../Components/Profil/ProfileKorisnik";
 import ProfileDostavljac from "../Components/Profil/ProfileDostavljac";
 import ProfileDomacinstvo from "../Components/Profil/ProfileDomacinstvo";
 import CartBox from "../Components/Korpa/CartBox";
-import {useCart} from "react-use-cart";
-import WarningModal from "../Components/Domacinstvo/WarningModal.js"
+import { useCart } from "react-use-cart";
+import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 
 const settings = ["Profile", "Logout"];
 
@@ -39,8 +39,21 @@ const ResponsiveAppBar = (props) => {
   const [data, setData] = React.useState([]);
   const [numberMessages, setNumberMessages] = React.useState(0);
   const [openWarning, setOpenWarning] = useState(false);
+  const [crt, setCrt] = useState(false);
+  const [mess, setMess] = useState(false);
+  const { emptyCart } = useCart();
 
-  const {emptyCart}=useCart();
+  useEffect(() => {
+    const tip = localStorage.getItem("Korisnik");
+    if (tip == null) {
+      setMess(false);
+    } else {
+      if (tip == "K") {
+        setCrt(true);
+      }
+      setMess(true);
+    }
+  });
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -75,72 +88,52 @@ const ResponsiveAppBar = (props) => {
   };
 
   const onClickProfile = (type) => {
-    if( type === "Profile")
-    {
+    if (type === "Profile") {
       const flag = localStorage.getItem("Korisnik");
-      if( flag === null ){
+      if (flag === null) {
         let path = "Prijava";
         history.push(path);
-      }
-      else if( flag === "P" ){
+      } else if (flag === "P") {
         let path = "ProfilDomacinstvo";
         history.push(path);
-      }
-      else if( flag === "K" ){
+      } else if (flag === "K") {
         let path = "ProfilKorisnik";
         history.push(path);
-      }
-      else if( flag === "D" ){
+      } else if (flag === "D") {
         let path = "ProfilDostavljac";
         history.push(path);
       }
     }
-    if(type === "Logout")
-    {
+    if (type === "Logout") {
       const type = localStorage.getItem("Korisnik");
       localStorage.removeItem("Korisnik");
       localStorage.setItem("messageNumber", 0);
-      if(type === "P"){
+      if (type === "P") {
         localStorage.removeItem("DomacinstvoID");
-      }
-      else if(type === "K"){
+      } else if (type === "K") {
         let idKorisnika = localStorage.getItem("KorisnikID");
         // const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
-        fetch("https://localhost:5001/Narudzbine/ObrisiNarudzbine/"+idKorisnika,{
-                method:'DELETE',
-                body:JSON.stringify({title:'Uspesno dodatno'}),
-                headers:{
-                  'Content-Type':'application/json'
-                }
-              }).then(localStorage.removeItem("KorisnikID")).then(emptyCart())
-
-      }
-      else if( type === "D"){
+        fetch(
+          "https://localhost:5001/Narudzbine/ObrisiNarudzbine/" + idKorisnika,
+          {
+            method: "DELETE",
+            body: JSON.stringify({ title: "Uspesno dodatno" }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
+          .then(localStorage.removeItem("KorisnikID"))
+          .then(emptyCart());
+      } else if (type === "D") {
         localStorage.removeItem("DostavljacID");
       }
       let path = "Naslovna";
       history.push(path);
       window.location.reload(false); //REFRESH PAGE
     }
-  }
-  //   if (type === "Logout") {
-  //     const type = localStorage.getItem("Korisnik");
-  //     localStorage.removeItem("Korisnik");
-  //     localStorage.setItem("messageNumber", 0);
-  //     if (type === "P") {
-  //       localStorage.removeItem("DomacinstvoID");
-  //     } else if (type === "K") {
-  //       localStorage.removeItem("KorisnikID");
-  //     } else if (type === "D") {
-  //       localStorage.removeItem("DostavljacID");
-  //     }
+  };
 
-  //     let path = "Naslovna";
-  //     history.push(path);
-  //     window.location.reload(false);
-  //   }
-  //   setAnchorElUser(null);
-  // };
 
   const handleCloseWarning = () => {
     setOpenWarning(false);
@@ -174,17 +167,9 @@ const ResponsiveAppBar = (props) => {
     }
   };
 
-  
-  
-
   return (
-    // <div>
-    //   <div>
-    //     {openWarning && (
-    //       <WarningModal show={openWarning} onClose={handleCloseWarning} />
-    //     )}
-    //   </div>
-    <AppBar position="static">
+    
+    <AppBar position="static" sx={{background: "#4E944F"}}>
       <div>
         {openWarning && (
           <WarningModal show={openWarning} onClose={handleCloseWarning} />
@@ -203,7 +188,8 @@ const ResponsiveAppBar = (props) => {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              //color: "inherit",
+              color: "#4E944F",
               textDecoration: "none",
             }}
           >
@@ -242,7 +228,7 @@ const ResponsiveAppBar = (props) => {
               {items().map((page) => (
                 <MenuItem
                   key={page.id}
-                  onClick={() => onClickHandler(page.label)}
+                  onClick={() => onClickHandler(page.route)}
                 >
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
@@ -272,7 +258,7 @@ const ResponsiveAppBar = (props) => {
               <React.Fragment>
                 <Button
                   key={page.id}
-                  onClick={() => onClickHandler(page.label)}
+                  onClick={() => onClickHandler(page.route)}
                   className={classes.button}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
@@ -281,7 +267,7 @@ const ResponsiveAppBar = (props) => {
               </React.Fragment>
             ))}
           </Box>
-          {korisnikIsLoggedIn && (
+          {korisnikIsLoggedIn && crt && (
             <Box sx={{ color: "black", marginRight: "1%" }}>
               <Button
                 sx={{ color: "white" }}
@@ -292,7 +278,7 @@ const ResponsiveAppBar = (props) => {
             </Box>
           )}
 
-          {isValid && (
+          {isValid && mess && (
             <Box sx={{ color: "black", marginRight: "2%" }}>
               <Button sx={{ color: "white" }} onClick={onClickMailBox}>
                 <MailBox number={localStorage.getItem("messageNumber")} />

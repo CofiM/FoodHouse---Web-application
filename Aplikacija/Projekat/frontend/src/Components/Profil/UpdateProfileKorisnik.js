@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import InputText from "../UI/InputText";
 import InputPassword from "../UI/InputPassword";
 import Button from "@mui/material/Button";
-import classes from "./UpdateProfileDostavljac.module.css";
+import classes from "./UpdateProfileKorisnik.module.css";
 import { useHistory } from "react-router-dom";
 
 const DesignProfile = (props) => {

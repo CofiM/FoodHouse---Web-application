@@ -36,7 +36,7 @@ const Cart = (props) => {
       <div className={classes.center}>
         <br/>
         <br/>
-        <p>prazno...</p>
+        <h2>Vaša korpa je trenutno prazna. Naručite proizvode!</h2>
       </div>
   );
 

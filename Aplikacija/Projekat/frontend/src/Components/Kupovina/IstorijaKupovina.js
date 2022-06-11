@@ -9,11 +9,13 @@ const IstorijaKupovina = () => {
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState([]);
   const [open, setOpen] = useState(false);
+
   const onReviewHandler = (ID) => {
     console.log(ID);
     setProduct(products.find((el) => el.Proizvod === ID));
     setOpen(true);
   };
+
   async function onClickSaveReviewHandler(val, comm) {
     console.log(product);
     const response = await fetch(
@@ -34,9 +36,11 @@ const IstorijaKupovina = () => {
     );
     setOpen(false);
   }
+
   const handleClose = () => {
     setOpen(false);
   };
+
   useEffect(() => {
     const fetchOrders = async () => {
       const ID = localStorage.getItem("KorisnikID");

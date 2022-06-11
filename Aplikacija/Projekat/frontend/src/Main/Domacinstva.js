@@ -5,8 +5,10 @@ import { useHistory } from "react-router-dom";
 
 function Domacinstva() {
   const history = useHistory();
-  const openDomacinstvo = (ID) => {
+  const openDomacinstvo = (Adresa, ID) => {
     localStorage.setItem("DomacinstvoID", ID);
+    localStorage.setItem("DomacinstvoAdresa", Adresa);
+    console.log("ID " + ID + "    ADRESA " + Adresa);
     let path = "Domacinstvo";
     history.push(path);
   };
@@ -44,7 +46,7 @@ function Domacinstva() {
           NazivDomacinstva={dom.Naziv}
           Adresa={dom.Adresa}
           Telefon={dom.Telefon}
-          onClick={() => openDomacinstvo(dom.ID)}
+          onClick={() => openDomacinstvo(dom.Adresa, dom.ID)}
         />
       ))}
     </div>

@@ -1,9 +1,8 @@
 .mainStyle {
   display: flex;
   flex-direction: column;
-  background-color: darkgrey;
+  background-color: #71a365;
 }
-
 .infHeader {
   font-size: 26px;
   font-weight: 700;

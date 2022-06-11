@@ -57,7 +57,7 @@
     justify-content: center;
   }
   .center {
-    display: block;
-    margin-left: auto;
-    width: 50%;
+    color: white;
+    padding-left: 32%;
+    padding-top: 100px;
   }
