@@ -35,7 +35,11 @@ const IstorijaKupovina = () => {
       }
     );
     setOpen(false);
+<<<<<<< HEAD
+    window.location.reload(false);
+=======
     window.location.reload(false); //REFRESH PAGE
+>>>>>>> 0f55fa758187dc670df316423d2187bb82b840f6
   }
 
   const handleClose = () => {

@@ -147,5 +147,27 @@ namespace SWE___PROJEKAT.Controllers
             }
         }  
 
+        [Route("ObrisatiKupovinu/{idKupovine}")]
+        [EnableCors("CORS")]
+        [HttpDelete]
+        public async Task<ActionResult> ObrisatiKupovinu(int idKupovine)
+        {
+            try
+            {
+                
+                var narudzbina = await Context.Kupovine.Where(p=>p.ID == idKupovine).FirstOrDefaultAsync();
+                if(narudzbina == null)
+                {
+                    throw new Exception("Ne postoji narudzbina!");
+                }
+                Context.Kupovine.Remove(narudzbina);
+                await Context.SaveChangesAsync();
+                return Ok("Uspesno obrisana narudzbina!");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

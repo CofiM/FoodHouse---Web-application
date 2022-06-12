@@ -151,6 +151,7 @@ export default function BasicModal(props) {
         }
       })
       .then(props.onClose);
+    window.location.reload(false);
   }
 
   async function sendArgumentMultiple() {
