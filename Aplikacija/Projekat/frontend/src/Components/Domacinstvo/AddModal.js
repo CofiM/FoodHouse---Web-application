@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { useTheme } from "@mui/material/styles";
 import classes from "./AddModal.module.css";
-import axios from 'axios';
+import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -49,8 +49,7 @@ export default function BasicModal(props) {
   const [open, setOpen] = useState(props.show);
   const [value, setValue] = useState(0);
   const [naziv, setNaziv] = useState("");
-  const [
-    kolicina, setKolicina] = useState("");
+  const [kolicina, setKolicina] = useState("");
   const [cena, setCena] = useState("");
   const [opis, setOpis] = useState("");
   const [kategorija, setKategorija] = useState("");
@@ -112,48 +111,15 @@ export default function BasicModal(props) {
     console.log(e.target.value);
   };
 
-  const saveFileSelected= (e) => {
+  const saveFileSelected = (e) => {
     setFileSelected(e.target.files[0]);
   };
-    
-  const saveFileArraySelected= (e) => {
+
+  const saveFileArraySelected = (e) => {
     setFileArraySelected(e.target.files);
-    };
-
-
-  async function  sendArgument(){
-        const ID = localStorage.getItem("DomacinstvoID");
-        const response = await fetch(
-          "https://localhost:5001/Domacinstvo/DodatiProizvod/" +
-            ID +
-            "/" +
-            naziv +
-            "/" +
-            kolicina +
-            "/" +
-            cena +
-            "/" +
-            opis +
-            "/" +
-            kategorija,
-          { method: "POST" }
-        ).then( async (response) =>{
-
-          const data = await response.json();
-          console.log(data);
-          debugger; 
-          const formData = new FormData();
-          formData.append("file", fileSelected);
-          try {
-            const res = await axios.post("https://localhost:5001/FileUpload/" + data, formData);
-          } catch (ex) {
-            console.log(ex);
-          }
-        }
-      ).then(props.onClose)
   };
 
-  async function  sendArgumentMultiple(){
+  async function sendArgument() {
     const ID = localStorage.getItem("DomacinstvoID");
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/DodatiProizvod/" +
@@ -169,28 +135,62 @@ export default function BasicModal(props) {
         "/" +
         kategorija,
       { method: "POST" }
-    ).then( async (response) =>{
+    )
+      .then(async (response) => {
+        const data = await response.json();
+        console.log(data);
+        const formData = new FormData();
+        formData.append("file", fileSelected);
+        try {
+          const res = await axios.post(
+            "https://localhost:5001/FileUpload/" + data,
+            formData
+          );
+        } catch (ex) {
+          console.log(ex);
+        }
+      })
+      .then(props.onClose);
+  }
 
+  async function sendArgumentMultiple() {
+    const ID = localStorage.getItem("DomacinstvoID");
+    const response = await fetch(
+      "https://localhost:5001/Domacinstvo/DodatiProizvod/" +
+        ID +
+        "/" +
+        naziv +
+        "/" +
+        kolicina +
+        "/" +
+        cena +
+        "/" +
+        opis +
+        "/" +
+        kategorija,
+      { method: "POST" }
+    ).then(async (response) => {
       debugger;
       const data = await response.json();
       console.log(data);
 
       const formData = new FormData();
       let productimages = [];
-      for(var i=0;i<fileArraySelected.length;i++)
-      {
+      for (var i = 0; i < fileArraySelected.length; i++) {
         const key = "files[" + i + "]";
-        formData.append(`files[${i}]`, fileArraySelected[i])
+        formData.append(`files[${i}]`, fileArraySelected[i]);
       }
 
       try {
-        const res = await axios.post("https://localhost:5001/FileUpload/Multiple/" + data, formData);
+        const res = await axios.post(
+          "https://localhost:5001/FileUpload/Multiple/" + data,
+          formData
+        );
       } catch (ex) {
         console.log(ex);
       }
-    }
-  )
-};
+    });
+  }
 
   return (
     <div>
@@ -248,10 +248,10 @@ export default function BasicModal(props) {
               </option>
             ))}
           </select>
-              <label className="slikaKnjige" htmlFor="file-upload"></label>
-              <input type="file" onChange={saveFileSelected} />
+          <label className="slikaKnjige" htmlFor="file-upload"></label>
+          <input type="file" onChange={saveFileSelected} />
 
-              {/* <label className="slikaKnjige" htmlFor="file-upload"></label>
+          {/* <label className="slikaKnjige" htmlFor="file-upload"></label>
               <input type="file" onChange={saveFileArraySelected} multiple/> */}
           <div>
             <Button onClick={props.onClose}>Otkazi</Button>
