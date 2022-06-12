@@ -12,6 +12,7 @@ const Poslovi = () => {
   const [datum, setDatum] = useState("");
   const [validDatum, setValidDatum] = useState(false);
   const [openWarning, setOpenWarning] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const [locations, setLocations] = useState();
 
@@ -123,11 +124,15 @@ const Poslovi = () => {
       });
 
       setAllJobs(jobs);
+      setIsLoaded(true);
       console.log(jobs);
     }
     fetchJobs();
   }, []);
 
+  if (!isLoaded) {
+    return <div className={classes.Loading}>Loading...</div>;
+  }
   return (
     <div className={classes.search}>
       <div className={classes.divForma}>

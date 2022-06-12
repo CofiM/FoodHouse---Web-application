@@ -11,7 +11,7 @@
   align-items: center;
   border-bottom: solid;
   border-bottom: thin medium;
-  background-color: #E9EFC0;
+  background-color: #e9efc0;
 }
 .allProduct {
   width: fit-content;
@@ -21,4 +21,9 @@
 }
 .Product {
   width: 500px;
+}
+.Loading {
+  margin-left: 50%;
+  margin-top: 30%;
+  font-size: 50px;
 }

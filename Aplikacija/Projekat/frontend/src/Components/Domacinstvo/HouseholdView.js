@@ -15,6 +15,7 @@ function HouseHoldView() {
   const [openAddNew, setOpenAddNew] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [product, setProduct] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleCloseDelete = () => {
     setOpenDelete(false);
@@ -141,6 +142,7 @@ function HouseHoldView() {
       };
     });
     setProducts(transformedDataProduct);
+    setIsLoaded(true);
   };
 
   useEffect(() => {
@@ -148,7 +150,9 @@ function HouseHoldView() {
   }, []);
 
   console.log(products);
-
+  if (!isLoaded) {
+    return <div className={classes.Loading}>Loading...</div>;
+  }
   return (
     <div>
       <div className={classes.allProducts}>

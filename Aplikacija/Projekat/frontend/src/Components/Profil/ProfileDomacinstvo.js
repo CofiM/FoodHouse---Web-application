@@ -24,6 +24,7 @@ const ProfilDomacinstvo = () => {
   const [date, setDate] = useState("");
   const [word1, setWord1] = useState("");
   const [word2, setWord2] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
   const onClickProfileHandler = () => {
     setIsShowProfile(true);
     setIsShowUpdateProfile(false);
@@ -54,9 +55,13 @@ const ProfilDomacinstvo = () => {
       const myArray = data.otvorenaVrata.split("T");
       let datum = myArray[0];
       setDate(datum);
+      setIsLoaded(true);
     };
     fetchProfile();
   }, []);
+  if (!isLoaded) {
+    return <div className={classes.Loading}>Loading...</div>;
+  }
   return (
     <div className={classes.mainStyle}>
       <div className={classes.profileHeader}>

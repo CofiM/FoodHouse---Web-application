@@ -16,6 +16,7 @@ function Domacinstvo() {
   const [ratingOfDomacinstvo, setRatingOfDomacinstvo] = useState(0.0);
   const [domacinstvo, setDomacinstvo] = useState([]);
   const [openWarning, setOpenWarning] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
@@ -36,12 +37,12 @@ function Domacinstvo() {
       console.log(p);
       history.push({ pathname: "/Proizvod", product: p });
       console.log(p.Cena);
-      localStorage.setItem("CenaProizvoda",p.Cena);
-      localStorage.setItem("IdProizvoda",p.ID);
-      localStorage.setItem("KategorijaProizvoda",p.Kategorija);
-      localStorage.setItem("KolicinaProizvoda",p.Kolicina);
-      localStorage.setItem("NazivProizvoda",p.Naziv);
-      localStorage.setItem("OpisProizvoda",p.Opis);
+      localStorage.setItem("CenaProizvoda", p.Cena);
+      localStorage.setItem("IdProizvoda", p.ID);
+      localStorage.setItem("KategorijaProizvoda", p.Kategorija);
+      localStorage.setItem("KolicinaProizvoda", p.Kolicina);
+      localStorage.setItem("NazivProizvoda", p.Naziv);
+      localStorage.setItem("OpisProizvoda", p.Opis);
     } else {
       setOpenWarning(true);
     }
@@ -87,6 +88,7 @@ function Domacinstvo() {
       rating = rating / transformedDataProduct.length;
       console.log(rating);
       setRatingOfDomacinstvo(rating);
+      setIsLoaded(true);
     };
     const fetchDomacinstvoHandler = async () => {
       const response = await fetch(
@@ -101,6 +103,9 @@ function Domacinstvo() {
   console.log(products);
   console.log(ratingOfDomacinstvo);
   console.log(domacinstvo);
+  if (!isLoaded) {
+    return <div className={classes.Loading}>Loading...</div>;
+  }
   return (
     <div>
       <div className={classes.RatingWrap}>
@@ -115,7 +120,7 @@ function Domacinstvo() {
       <div className={classes.allProducts}>
         {products.map((prod) => (
           <ProizvodCard
-          key={prod.ID}
+            key={prod.ID}
             className={classes.Product}
             idProizvoda={prod.ID}
             naziv={prod.Naziv}

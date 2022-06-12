@@ -14,6 +14,7 @@ function Domacinstva() {
     history.push(path);
   };
   const [domacinstva, setDomacinstva] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     const fetchDomacinstvaHandler = async () => {
       console.log("uslo");
@@ -36,16 +37,20 @@ function Domacinstva() {
         };
       });
       setDomacinstva(transformedData);
+      setIsLoaded(true);
     };
     fetchDomacinstvaHandler();
   }, []);
   console.log(domacinstva);
+  if (!isLoaded) {
+    return <div className={classes.Loading}>Loading...</div>;
+  }
   return (
     <div className={classes.allDomacinstva}>
       {domacinstva.map((dom) => (
         <DomacinstvoCard
           key={dom.ID}
-          id = {dom.ID}
+          id={dom.ID}
           NazivDomacinstva={dom.Naziv}
           Adresa={dom.Adresa}
           Telefon={dom.Telefon}
