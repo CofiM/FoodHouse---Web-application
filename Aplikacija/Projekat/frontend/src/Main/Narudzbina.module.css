@@ -1,9 +1,21 @@
 .mainPart{
     display: flex;
     flex-direction: row;
+    height: 110px;
 }
 .iconPart{
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items:  center;
+    width: 100vh;
+}
+.mainPartDesign{
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    background-color: #E9EFC0;
+}
+.narudzbina{
+    height: 100vh;
+    background-color: #71a365;
 }

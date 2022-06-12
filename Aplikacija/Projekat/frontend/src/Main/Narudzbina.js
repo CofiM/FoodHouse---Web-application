@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect } from "react";
 import NarudzbinaCard from "./NarudzbinaCard";
+import classes from "./Narudzbina.module.css";
 
 
 
@@ -25,6 +26,7 @@ export default function OutlinedCard() {
             const data = await response.json();
             const transformedData = data.map(function (d) {
                 return {
+                    ID: d.id,
                     Ime: d.ime,
                     Prezime: d.prezime,
                     AdresaKorisnika: d.adresaKorisnika,
@@ -42,7 +44,7 @@ export default function OutlinedCard() {
 
 
     return (
-        <div>
+        <div className={classes.narudzbina}>
             {orders.map( (d) => {
                     return <NarudzbinaCard 
                         ime = {d.Ime}

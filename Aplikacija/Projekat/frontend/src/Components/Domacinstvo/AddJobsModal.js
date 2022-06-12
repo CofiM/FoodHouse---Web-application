@@ -6,6 +6,8 @@ import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import InputDate from '../UI/InputDate';
+
 
 const style = {
   position: "absolute",
@@ -77,12 +79,22 @@ export default function BasicModal(props) {
             value={cena}
             label="Cena"
           />
-          <TextField
+         {/*  <TextField
             sx={{m: 1}}
             onChange={datumChange}
             id="demo-helper-text-misaligned"
             value={datum}
             label="Datum pocetka posla"
+          /> */}
+          <TextField
+            id="datum"
+            label="Datum pocetka posla"
+            type="date"
+            defaultValue={Date.now}
+            sx={{ m: 1 , width:222}}
+            InputLabelProps={{
+              shrink: true,
+            }}
           />
           <div>
             <Button onClick={props.onClose}>Otkazi</Button>

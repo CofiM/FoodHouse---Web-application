@@ -90,6 +90,7 @@ namespace SWE___PROJEKAT.Controllers
                 var kupovine = await Context.Kupovine.Include(p => p.Dostavljac)
                     .Where(p=>p.Dostavljac.ID==idDostavljaca)
                     .Select(p=>new{
+                        id = p.ID,
                         ime = p.Korisnik.Ime,
                         prezime = p.Korisnik.Prezime,
                         adresaKorisnika = p.Korisnik.Adresa,
