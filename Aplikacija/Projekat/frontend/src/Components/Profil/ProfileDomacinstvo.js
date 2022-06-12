@@ -6,7 +6,16 @@ import Button from "@mui/material/Button";
 import UpdateProfileDomacinstvo from "./UpdateProfileDomacinstvo";
 import DesignProfileDomacinstvo from "./DesignProfileDomacinstvo";
 import { useEffect } from "react";
+import Avatar from "@mui/material/Avatar";
 
+function stringAvatar(name) {
+  return {
+    sx: {
+      bgcolor: "#ccc4c5",
+    },
+    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+  };
+}
 const ProfilDomacinstvo = () => {
   const [isShowProfile, setIsShowProfile] = useState(true);
   const [isShowUpdateProfile, setIsShowUpdateProfile] = useState(false);
@@ -15,7 +24,6 @@ const ProfilDomacinstvo = () => {
   const onClickProfileHandler = () => {
     setIsShowProfile(true);
     setIsShowUpdateProfile(false);
-    
   };
 
   const onClickUpdateProfileHandler = () => {
@@ -26,29 +34,32 @@ const ProfilDomacinstvo = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       const id = localStorage.getItem("DomacinstvoID");
-      const response = await fetch("https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+id,{
-        method: 'GET',
-        headers: {
-          'Content-type': 'application/json;charset=UTF-8'
+      const response = await fetch(
+        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/" + id,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json;charset=UTF-8",
+          },
         }
-      });
+      );
       const data = await response.json();
       setData(data);
 
       const myArray = data.otvorenaVrata.split("T");
       let datum = myArray[0];
       setDate(datum);
-    }
+    };
     fetchProfile();
-  }, []) 
+  }, []);
 
   return (
     <div className={classes.mainStyle}>
       <div className={classes.profileHeader}>
         <div className={classes.logoHeader}>
-          <AccountCircleRoundedIcon
-            fontSize="large"
-            sx={{ height: "100px", width: "100px" }}
+          <Avatar
+            {...stringAvatar(data.naziv)}
+            sx={{ width: 90, height: 90, fontSize: 40, m: 2 }}
           />
         </div>
         <div className={classes.infHeader}>
@@ -85,16 +96,16 @@ const ProfilDomacinstvo = () => {
             Datum={date}
           />
         )}
-        {isShowUpdateProfile && 
-        
-          <UpdateProfileDomacinstvo 
+        {isShowUpdateProfile && (
+          <UpdateProfileDomacinstvo
             Naziv={data.naziv}
             Username={data.username}
             Email={data.email}
             Adresa={data.adresa}
             Telefon={data.telefon}
             Datum={date}
-          />}
+          />
+        )}
       </div>
     </div>
   );

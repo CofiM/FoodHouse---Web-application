@@ -16,22 +16,27 @@ const Poslovi = () => {
   const [locations, setLocations] = useState();
 
   const onClicksignInHandler = async (ID, IDDomacinstva) => {
-    const IDKorisnika = localStorage.getItem("KorisnikID");
-    const response = await fetch(
-      " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
-        IDDomacinstva +
-        "/" +
-        IDKorisnika +
-        "/Zahtev za posao/" +
-        "K/" +
-        false,
-      {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-      }
-    );
+    if (localStorage.getItem("Korisnik") == null) {
+      setOpenWarning(true);
+    }
+    {
+      const IDKorisnika = localStorage.getItem("KorisnikID");
+      const response = await fetch(
+        " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
+          IDDomacinstva +
+          "/" +
+          IDKorisnika +
+          "/Zahtev za posao/" +
+          "K/" +
+          false,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json;charset=UTF-8",
+          },
+        }
+      );
+    }
   };
 
   //fetch();
@@ -127,16 +132,23 @@ const Poslovi = () => {
     <div className={classes.search}>
       <div className={classes.divForma}>
         <div className={classes.searchDiv}>
-          <input type="text" placeholder="Lokacija" onChange={adresaHandler} className={classes.lokacijaDesign}/>
+          <input
+            type="text"
+            placeholder="Lokacija"
+            onChange={adresaHandler}
+            className={classes.lokacijaDesign}
+          />
           <input
             type="date"
             min="2022-01-01"
             max="2022-12-31"
             defaultValue={""}
             onChange={datumHandler}
-            className = {classes.lokacijaDesign}
+            className={classes.lokacijaDesign}
           />
-          <button className={ classes.buttonDesign } onClick={choosePage}>Pretrazi</button>
+          <button className={classes.buttonDesign} onClick={choosePage}>
+            Pretrazi
+          </button>
         </div>
       </div>
       <div className={classes.divWorks}>
