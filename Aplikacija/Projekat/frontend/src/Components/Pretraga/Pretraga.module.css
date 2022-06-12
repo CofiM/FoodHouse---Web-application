@@ -30,6 +30,16 @@ h1
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+.selectN{
+    background-color:#2D14EE;
+    color: white;
+    border: none;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+}
+
 .container
 {
     background-image: url('../../pictures/vp.jpg');

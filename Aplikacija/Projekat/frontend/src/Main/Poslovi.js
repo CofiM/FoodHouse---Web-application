@@ -134,6 +134,7 @@ const Poslovi = () => {
     return <div className={classes.Loading}>Loading...</div>;
   }
   return (
+    <div className={classes.container}>
     <div className={classes.search}>
       <div className={classes.divForma}>
         <div className={classes.searchDiv}>
@@ -177,6 +178,7 @@ const Poslovi = () => {
           <WarningModal show={openWarning} onClose={handleCloseWarning} />
         )}
       </div>
+    </div>
     </div>
   );
 };
