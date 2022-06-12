@@ -119,6 +119,7 @@ namespace SWE___PROJEKAT.Controllers
             {
                 int cena = 0;
                 var ids = new List<int>();
+                var idsDomacinstva = new List<int>();
                 var proizvodi = await Context.Narudzbine.Where(p=>p.KorisnikFK==id).ToListAsync();
                 if(proizvodi == null)
                 {
@@ -142,6 +143,7 @@ namespace SWE___PROJEKAT.Controllers
                         }
                         ids.Add(proizvodi[i].DostavljacFK);
                     }
+                   
                 }
                 return Ok(cena);
             }catch(Exception e)
@@ -160,6 +162,7 @@ namespace SWE___PROJEKAT.Controllers
             {
                 int cena = 0;
                 var ids = new List<int>();
+                var idsDomacinstva = new List<int>();
                 var proizvodi = await Context.Narudzbine.Where(p=>p.KorisnikFK==id).ToListAsync();
                 if(proizvodi == null)
                 {
@@ -167,16 +170,47 @@ namespace SWE___PROJEKAT.Controllers
                 }
                 for(int i =0;i<proizvodi.Count;i++)
                 {
-                    if(proizvodi[i].ProveriDostava==1)
+                    // if(proizvodi[i].ProveriDostava==1)
+                    // {
+                    //     if(ids.Contains(proizvodi[i].DostavljacFK))
+                    //     {
+                    //         cena += 0;
+                    //     }
+                    //     else{
+                    //         cena += proizvodi[i].CenaDostavljaca;
+                    //         ids.Add(proizvodi[i].DostavljacFK);
+                    //     }
+                    // }
+                    if(idsDomacinstva.Contains(proizvodi[i].DomacinstvoFK))
                     {
-                        if(ids.Contains(proizvodi[i].DostavljacFK))
+                        if(proizvodi[i].ProveriDostava==1)
+                        {
+                            if(ids.Contains(proizvodi[i].DostavljacFK))
+                            {
+                                cena += 0;
+                            }
+                            else
+                            {
+                                 cena += proizvodi[i].CenaDostavljaca;
+                                 ids.Add(proizvodi[i].DostavljacFK);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if(proizvodi[i].ProveriDostava==1)
+                        {
+                            cena += proizvodi[i].CenaDostavljaca;
+                            if(!ids.Contains(proizvodi[i].DostavljacFK))
+                            {
+                                ids.Add(proizvodi[i].DostavljacFK);
+                            }
+                        }
+                        else
                         {
                             cena += 0;
                         }
-                        else{
-                            cena += proizvodi[i].CenaDostavljaca;
-                            ids.Add(proizvodi[i].DostavljacFK);
-                        }
+                        idsDomacinstva.Add(proizvodi[i].DomacinstvoFK);
                     }
 
                 }

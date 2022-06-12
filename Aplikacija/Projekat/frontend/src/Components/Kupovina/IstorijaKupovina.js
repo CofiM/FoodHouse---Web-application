@@ -138,6 +138,7 @@ const IstorijaKupovina = () => {
       <div className={classes.allProduct}>
         {products.map((prod) => (
           <ProizvodCardRating
+            idProizvoda = {prod.Proizvod}
             className={classes.Product}
             naziv={prod.Naziv}
             kolicina={prod.Kolicina}
