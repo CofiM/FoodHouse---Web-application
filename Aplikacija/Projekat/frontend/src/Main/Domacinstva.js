@@ -41,6 +41,7 @@ function Domacinstva() {
   }, []);
   console.log(domacinstva);
   return (
+    <div className={classes.container}>
     <div className={classes.allDomacinstva}>
       {domacinstva.map((dom) => (
         <DomacinstvoCard
@@ -52,6 +53,7 @@ function Domacinstva() {
           onClick={() => openDomacinstvo(dom.Adresa, dom.ID, dom.Naziv)}
         />
       ))}
+    </div>
     </div>
   );
 }

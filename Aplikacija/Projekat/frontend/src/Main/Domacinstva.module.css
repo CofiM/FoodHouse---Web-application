@@ -7,3 +7,10 @@
 .Domacinstvo {
   width: 500px;
 }
+
+.container{
+  background-image: url('../pictures/Meteor.png');
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+}
