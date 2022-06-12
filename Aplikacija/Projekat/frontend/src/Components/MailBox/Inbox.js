@@ -197,6 +197,7 @@ const Inbox = () => {
     )
     const data = await response.json();
     console.log(data);
+    window.location.reload(false); //REFRESH PAGE
   }
 
   async function deleteMessage(ClientID, MessageID, Type) {
@@ -300,6 +301,7 @@ const Inbox = () => {
     });
     const data = await response.json();
     console.log(data);
+    window.location.reload(false); //REFRESH PAGE
   }
 
   const onClickAcceptDeliverer = () => {
@@ -312,6 +314,7 @@ const Inbox = () => {
     const shown = false;
     sendMessageDeliverer(household, mess, typeFlag, recvType, shown);
     handleClose();
+    //window.location.reload(false); //REFRESH PAGE
   }
 
   const onClickDeclineDeliverer = () => {
@@ -324,6 +327,7 @@ const Inbox = () => {
     const shown = false;
     sendMessageDeliverer(household, mess, typeFlag, recvType, shown);
     handleClose();
+    //window.location.reload(false); //REFRESH PAGE
   }
 
   const receiveMessagesHandler = () => {
@@ -535,21 +539,39 @@ const Inbox = () => {
         <div className={classes.Message}>
           
           {inbox && (clientType === "P" ?
-            <Message
-              show={open}
-              title="Posao"
-              sender={firstName + " " + lastName}
-              firstName={firstName}
-              lastName={lastName}
-              receiver={name}
-              tip={type}
-              producer={producer}
-              message={"Zahtev za posao na gazdinstvu: " + name}
-              onClose={handleClose}
-              onClickAcceptHandler={onClickAccept}
-              onClickDeclineHandler={onClickDecline}
-              onClickDeleteHandler={onClickDelete}
-            />
+            (type === "K" ? 
+              <Message
+                show={open}
+                title="Posao"
+                sender={firstName + " " + lastName}
+                firstName={firstName}
+                lastName={lastName}
+                receiver={name}
+                tip={type}
+                producer={producer}
+                message={"Zahtev za posao na gazdinstvu: " + name}
+                onClose={handleClose}
+                onClickAcceptHandler={onClickAccept}
+                onClickDeclineHandler={onClickDecline}
+                onClickDeleteHandler={onClickDelete}
+              />
+              :
+              <MessageConsumer
+                show={open}
+                title="Posao"
+                sender={firstName + " " + lastName}
+                firstName={firstName}
+                lastName={lastName}
+                receiver={name}
+                tip={type}
+                producer={producer}
+                message={messageSender + " S poštovanjem dostaljač: " + firstName + " " + lastName}
+                onClose={handleClose}
+                onClickAcceptHandler={onClickAccept}
+                onClickDeclineHandler={onClickDecline}
+                onClickDeleteHandler={onClickDelete}
+              />
+            )
             :
             (clientType === "D" ?
               <Message
@@ -604,9 +626,9 @@ const Inbox = () => {
                 show={open}
                 outbox={outbox}
                 title="Posao"
-                sender={name}
-                receiver={firstName + " " + lastName}
-                message={"Prihvatio sam Vasu ponudu za dostavljacu na domacinstvu: " + name + "!"}
+                sender={firstName + " " + lastName}
+                receiver={name}
+                message={messageSender}
                 onClose={handleClose}
                 onClickDeleteHandler = {onClickDelete}
               />

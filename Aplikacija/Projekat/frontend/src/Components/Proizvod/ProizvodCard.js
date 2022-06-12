@@ -93,7 +93,8 @@ export default function RecipeReviewCard(props) {
           color="text.primary"
           sx={{ fontSize: "20px" }}
         >
-          Cena za kolicinu: {props.kolicina} je: {props.cena} dinara.
+       {/* <p>Količina: {props.kolicina}</p>  */}
+        Cena: {props.cena} dinara.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

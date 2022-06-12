@@ -8,12 +8,12 @@ import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 
 export default function OutlinedCard(props) {
   return (
-    <Box sx={{ minWidth: 275 }}>
+    <Box sx={{ minWidth: 275, paddingTop: 1, paddingRight: 2, paddingLeft: 2}}>
       <Card variant="outlined">
           {
-              <div className={classes.mainPart}>
+              <div className={classes.mainPartDesign}>
                 <div className={classes.mainPart}>
-                  <CardContent>
+                  <CardContent sx={{width: 160}}>
                     <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
                       Naručilac:
                     </Typography>
@@ -21,7 +21,7 @@ export default function OutlinedCard(props) {
                       {props.ime + " " + props.prezime}
                     </Typography>
                   </CardContent>
-                  <CardContent>
+                  <CardContent sx={{width: 240}}>
                     <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
                       Adresa:
                     </Typography>
@@ -29,7 +29,7 @@ export default function OutlinedCard(props) {
                       {props.adresaKorisnika}
                     </Typography>
                   </CardContent>
-                  <CardContent>
+                  <CardContent sx={{width: 130}}>
                     <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
                       Proizvod:
                     </Typography>
@@ -37,15 +37,15 @@ export default function OutlinedCard(props) {
                       {props.nazivProizvoda}
                     </Typography>
                   </CardContent>
-                  <CardContent>
+                  <CardContent sx={{width: 130}}>
                     <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
                       Količina:
                     </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    <Typography sx={{ mb: 1.5, paddingLeft: "30px" }} color="text.secondary">
                       {props.kolicinaProizvoda}
                     </Typography>
                   </CardContent>
-                  <CardContent>
+                  <CardContent sx={{width: 240}}>
                     <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
                       Domaćinstvo:
                     </Typography>
@@ -53,7 +53,7 @@ export default function OutlinedCard(props) {
                       {props.domacinstvoNaziv}
                     </Typography>
                   </CardContent>
-                  <CardContent>
+                  <CardContent sx={{width: 250}}>
                     <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
                       Adresa:
                     </Typography>
@@ -62,8 +62,8 @@ export default function OutlinedCard(props) {
                     </Typography>
                   </CardContent>
                 </div>
-                <div>
-                    <DeleteForeverRoundedIcon />
+                <div className={classes.iconPart}>
+                    <DeleteForeverRoundedIcon sx={{ fontSize:40 }}/>
                 </div>
             </div>
         }

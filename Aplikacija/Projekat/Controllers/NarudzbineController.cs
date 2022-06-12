@@ -78,7 +78,7 @@ namespace SWE___PROJEKAT.Controllers
                 var narudzbina = await Context.Narudzbine.Where(p=>p.ID == idNarudzbine).FirstOrDefaultAsync();
                 if(narudzbina == null)
                 {
-                    throw new Exception("Ne postoji korisnik!");
+                    throw new Exception("Ne postoji narudzbina!");
                 }
                 Context.Narudzbine.Remove(narudzbina);
                 await Context.SaveChangesAsync();

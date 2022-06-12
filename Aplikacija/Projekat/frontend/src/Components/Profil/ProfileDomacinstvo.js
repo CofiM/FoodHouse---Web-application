@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 
 function stringAvatar(name) {
+  console.log(name);
   return {
     sx: {
       bgcolor: "#ccc4c5",
@@ -21,6 +22,8 @@ const ProfilDomacinstvo = () => {
   const [isShowUpdateProfile, setIsShowUpdateProfile] = useState(false);
   const [data, setData] = useState([]);
   const [date, setDate] = useState("");
+  const [word1, setWord1] = useState("");
+  const [word2, setWord2] = useState("");
   const onClickProfileHandler = () => {
     setIsShowProfile(true);
     setIsShowUpdateProfile(false);
@@ -45,6 +48,8 @@ const ProfilDomacinstvo = () => {
       );
       const data = await response.json();
       setData(data);
+      setWord1(data.naziv.split(" ")[0][0]);
+      setWord2(data.naziv.split(" ")[1][0]);
 
       const myArray = data.otvorenaVrata.split("T");
       let datum = myArray[0];
@@ -52,13 +57,12 @@ const ProfilDomacinstvo = () => {
     };
     fetchProfile();
   }, []);
-
   return (
     <div className={classes.mainStyle}>
       <div className={classes.profileHeader}>
         <div className={classes.logoHeader}>
           <Avatar
-            {...stringAvatar(data.naziv)}
+            {...stringAvatar(word1 + " " + word2)}
             sx={{ width: 90, height: 90, fontSize: 40, m: 2 }}
           />
         </div>
@@ -71,14 +75,14 @@ const ProfilDomacinstvo = () => {
         <Stack spacing={30} direction="row">
           <Button
             variant="text"
-            sx={{ color: "#070E59"  }}
+            sx={{ color: "#070E59" }}
             onClick={onClickProfileHandler}
           >
             Profil
           </Button>
           <Button
             variant="text"
-            sx={{ color: "#070E59"  }}
+            sx={{ color: "#070E59" }}
             onClick={onClickUpdateProfileHandler}
           >
             Izmeni profil
