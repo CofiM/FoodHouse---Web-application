@@ -115,6 +115,7 @@ function Domacinstvo() {
       <div className={classes.allProducts}>
         {products.map((prod) => (
           <ProizvodCard
+          key={prod.ID}
             className={classes.Product}
             idProizvoda={prod.ID}
             naziv={prod.Naziv}

@@ -4,6 +4,7 @@ import ProizvodCard from "../Components/Proizvod/ProizvodCard";
 import ModalComment from "./CommentModal";
 import { useHistory } from "react-router-dom";
 import classes from "../Components/Proizvod/Proizvod.module.css";
+import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 
 const ViewProductsName = () => {
   const [value, setValue] = useState(1);
@@ -13,6 +14,7 @@ const ViewProductsName = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState();
+  const [openWarning, setOpenWarning] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
@@ -23,9 +25,16 @@ const ViewProductsName = () => {
   };
   const history = useHistory();
   const onClickCartHandler = (ID) => {
-    const p = allProducts.find((el) => el.ID == ID);
-    localStorage.setItem("DomacinstvoID", p.IDDomacinstva);
-    history.push({ pathname: "/Proizvod", product: p });
+    if (localStorage.getItem("Korisnik") == null) {
+      setOpenWarning(true);
+    } else {
+      const p = allProducts.find((el) => el.ID == ID);
+      localStorage.setItem("DomacinstvoID", p.IDDomacinstva);
+      history.push({ pathname: "/Proizvod", product: p });
+    }
+  };
+  const handleCloseWarning = () => {
+    setOpenWarning(false);
   };
 
   useEffect(() => {
@@ -104,7 +113,7 @@ const ViewProductsName = () => {
           .map((prod) => (
             <ProizvodCard
               className={classes.Product}
-              idProizvoda = {prod.ID}
+              idProizvoda={prod.ID}
               naziv={prod.Naziv}
               kolicina={prod.Kolicina}
               cena={prod.Cena}
@@ -121,7 +130,7 @@ const ViewProductsName = () => {
           .sort((a, b) => (a.Cena > b.Cena ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
-            idProizvoda = {prod.ID}
+              idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
               kolicina={prod.Kolicina}
@@ -139,7 +148,7 @@ const ViewProductsName = () => {
           .sort((a, b) => (a.Cena < b.Cena ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
-            idProizvoda = {prod.ID}
+              idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
               kolicina={prod.Kolicina}
@@ -157,7 +166,7 @@ const ViewProductsName = () => {
           .sort((a, b) => (a.Ocena < b.Ocena ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
-            idProizvoda = {prod.ID}
+              idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
               kolicina={prod.Kolicina}
@@ -192,7 +201,7 @@ const ViewProductsName = () => {
       <div className={classes.allProducts}>
         {allProducts.map((prod) => (
           <ProizvodCard
-          idProizvoda = {prod.ID}
+            idProizvoda={prod.ID}
             className={classes.Product}
             naziv={prod.Naziv}
             kolicina={prod.Kolicina}

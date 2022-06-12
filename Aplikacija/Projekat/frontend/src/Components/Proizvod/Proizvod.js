@@ -147,7 +147,7 @@ const Proizvod = (props) => {
         <ImageGallery IdSlike={proba.id} />
 
         <div className={classes["product-content"]}>
-          <h2 classname={classes["naslov"]}>{nazivProizvoda}</h2>
+          <h2 className={classes["naslov"]}>{nazivProizvoda}</h2>
           <p>Zavisno od proizvoda,cena proizvoda je po komadu ili kilogramu</p>
 
           <div className={classes["product-price"]}>

@@ -4,6 +4,7 @@ import ProizvodCard from "../Components/Proizvod/ProizvodCard";
 import ModalComment from "./CommentModal";
 import { useHistory } from "react-router-dom";
 import classes from "./ViewProduct.module.css";
+import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 
 const ViewProducts = () => {
   const category = localStorage.getItem("Category");
@@ -11,6 +12,7 @@ const ViewProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState();
+  const [openWarning, setOpenWarning] = useState(false);
   const handleClose = () => {
     setOpen(false);
   };
@@ -19,11 +21,18 @@ const ViewProducts = () => {
     console.log(product);
     setOpen(true);
   };
+  const handleCloseWarning = () => {
+    setOpenWarning(false);
+  };
   const history = useHistory();
   const onClickCartHandler = (ID) => {
-    const p = allProducts.find((el) => el.ID == ID);
-    localStorage.setItem("DomacinstvoID", p.IDDomacinstva);
-    history.push({ pathname: "/Proizvod", product: p });
+    if (localStorage.getItem("Korisnik") == null) {
+      setOpenWarning(true);
+    } else {
+      const p = allProducts.find((el) => el.ID == ID);
+      localStorage.setItem("DomacinstvoID", p.IDDomacinstva);
+      history.push({ pathname: "/Proizvod", product: p });
+    }
   };
   useEffect(() => {
     async function fetchProductsHandler() {
@@ -93,7 +102,6 @@ const ViewProducts = () => {
     let newState = [...allProducts];
     setValue(e.target.value);
 
-
     if (e.target.value == 1) {
       console.log(newState);
       {
@@ -101,6 +109,7 @@ const ViewProducts = () => {
           .sort((a, b) => (a.Naziv > b.Naziv ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
+            key={prod.ID}
               idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
@@ -119,6 +128,7 @@ const ViewProducts = () => {
           .sort((a, b) => (a.Cena > b.Cena ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
+            key={prod.ID}
               idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
@@ -137,6 +147,7 @@ const ViewProducts = () => {
           .sort((a, b) => (a.Cena < b.Cena ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
+            key={prod.ID}
               idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
@@ -155,6 +166,7 @@ const ViewProducts = () => {
           .sort((a, b) => (a.Ocena < b.Ocena ? 1 : -1))
           .map((prod) => (
             <ProizvodCard
+            key={prod.ID}
               idProizvoda={prod.ID}
               className={classes.Product}
               naziv={prod.Naziv}
@@ -190,6 +202,7 @@ const ViewProducts = () => {
       <div className={classes.allProducts}>
         {allProducts.map((prod) => (
           <ProizvodCard
+          key={prod.ID}
             idProizvoda={prod.ID}
             className={classes.Product}
             naziv={prod.Naziv}
@@ -210,6 +223,11 @@ const ViewProducts = () => {
             />
           )}
         </div>
+      </div>
+      <div>
+        {openWarning && (
+          <WarningModal show={openWarning} onClose={handleCloseWarning} />
+        )}
       </div>
     </div>
   );
