@@ -90,7 +90,7 @@ export default function SignIn() {
       const transformedData = da.map(function (d) {
         if (d.shown == false && d.tip !== "P") pom++;
 
-        return {
+        /* return {
           ID: d.id,
           Poruka: d.sadrzaj,
           ImeD: d.ime,
@@ -103,11 +103,13 @@ export default function SignIn() {
           EmailK: d.emailKorisnik,
           EmailP: d.emailDomacinstvo,
           Shown: d.shown,
-        };
+        }; */
+      
       });
       console.log("Broj poruke: " + pom);
       localStorage.setItem("messageNumber", pom);
     } else if (tip === "D") {
+
       console.log("Ulazim u D");
       const ID = localStorage.getItem("DostavljacID");
       const response = await fetch(
@@ -117,7 +119,7 @@ export default function SignIn() {
       const data = await response.json();
       const transformedData = data.map(function (d) {
         if (d.shown == false && d.tip !== "D") pom++;
-        return {
+        /* return {
           ID: d.id,
           Poruka: d.sadrzaj,
           ImeD: d.ime,
@@ -130,8 +132,9 @@ export default function SignIn() {
           EmailK: d.emailKorisnik,
           EmailP: d.emailDomacinstvo,
           Shown: d.shown,
-        };
+        }; */
       });
+
       console.log("Broj poruka: " + pom);
       localStorage.setItem("messageNumber", pom);
     } else if (tip === "K") {
@@ -142,9 +145,10 @@ export default function SignIn() {
       );
       const data = await response.json();
       let pom = 0;
+
       const transformedData = data.map(function (d) {
         if (d.shown == false && d.tip !== "P") pom++;
-        return {
+        /* return {
           ID: d.id,
           Poruka: d.sadrzaj,
           ImeD: d.ime,
@@ -157,8 +161,9 @@ export default function SignIn() {
           EmailK: d.emailKorisnik,
           EmailP: d.emailDomacinstvo,
           Shown: d.shown,
-        };
+        }; */
       });
+      console.log("Broj poruka: " + pom);
       localStorage.setItem("messageNumber", pom);
     }
   };

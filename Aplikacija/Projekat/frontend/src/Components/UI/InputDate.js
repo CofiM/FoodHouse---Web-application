@@ -8,7 +8,7 @@ function InputDate(props) {
   return (
     <div className={classes.fullComponent}>
       <div className={classes.labelaDiv}>
-        <label>{props.label}:</label>
+        <label>{props.label}</label>
       </div>
       <div className={classes.inputDiv}>
       <TextField
