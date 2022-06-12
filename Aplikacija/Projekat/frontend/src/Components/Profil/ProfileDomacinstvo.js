@@ -60,14 +60,14 @@ const ProfilDomacinstvo = () => {
         <Stack spacing={30} direction="row">
           <Button
             variant="text"
-            sx={{ color: "white" }}
+            sx={{ color: "#070E59"  }}
             onClick={onClickProfileHandler}
           >
             Profil
           </Button>
           <Button
             variant="text"
-            sx={{ color: "white" }}
+            sx={{ color: "#070E59"  }}
             onClick={onClickUpdateProfileHandler}
           >
             Izmeni profil

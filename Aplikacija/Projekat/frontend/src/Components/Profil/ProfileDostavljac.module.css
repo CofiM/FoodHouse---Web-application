@@ -1,8 +1,8 @@
 .mainStyle {
   display: flex;
   flex-direction: column;
-  color: white;
-  background-color: #71a365;
+  color: #070E59;
+  background-color: #E1E8C9;
   height: 100%;
   width: 100%;
 }
@@ -10,7 +10,7 @@
 .profileHeader {
   padding: 0 3rem;
   display: flex;
-  background-color: #71a365;
+  background-color: #E1E8C9;
   height: 30%;
   width: 100%;
 }
@@ -35,12 +35,12 @@
   height: 10%;
   border-bottom: solid black;
   border-bottom: thin medium;
-
+  
   border-top: solid black;
   border-top: thin medium;
 }
 .mainPart {
   height: fit-content;
   padding-top: 0px;
-  color: white;
+  color: #070E59;
 }
