@@ -9,6 +9,8 @@ import { useHistory } from "react-router-dom";
 const center = { lat: 43.320904, lng: 21.89576 };
 let allCordinates = [];
 let allLocations = [];
+let allName=[];
+let allId=[];
 const Naslovna = () => {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyDFzGoHWrB0dwGhYCIduSqQJuSWzsaZEds",
@@ -32,6 +34,8 @@ const Naslovna = () => {
       const locs = dat.map((loc) => {
         function geocode() {
           var location = loc.adresa;
+          var naziv=loc.naziv;
+          var id=loc.id;
           console.log(location);
           axios
             .get("https://maps.googleapis.com/maps/api/geocode/json", {
@@ -49,6 +53,8 @@ const Naslovna = () => {
                 response.data.results[0].geometry.location,
               ]);
               allLocations.push(location);
+              allName.push(naziv);
+              allId.push(id);
             })
             .catch(function (error) {
               console.log(error);
@@ -70,6 +76,8 @@ const Naslovna = () => {
   const sendAdress = (index) => {
     console.log(allLocations[index]);
     localStorage.setItem("DomacinstvoAdresa", allLocations[index]);
+    localStorage.setItem("naz",allName[index]);
+    localStorage.setItem("DomacinstvoID", allId[index]);
     history.push("jednoDomacinstvo");
   };
 
