@@ -63,7 +63,7 @@ export default function OutlinedCard(props) {
                   </CardContent>
                 </div>
                 <div className={classes.iconPart}>
-                    <DeleteForeverRoundedIcon sx={{ fontSize:40 }}/>
+                    <DeleteForeverRoundedIcon sx={{ fontSize:40 }} onClick={props.onClick}/>
                 </div>
             </div>
         }

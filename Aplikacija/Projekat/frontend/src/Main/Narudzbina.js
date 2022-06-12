@@ -26,7 +26,7 @@ export default function OutlinedCard() {
             const data = await response.json();
             const transformedData = data.map(function (d) {
                 return {
-                    ID: d.id,
+                    Id: d.id,
                     Ime: d.ime,
                     Prezime: d.prezime,
                     AdresaKorisnika: d.adresaKorisnika,
@@ -42,6 +42,25 @@ export default function OutlinedCard() {
         fetchOrders();
     }, []);
 
+    const fetchDeleteOrder = async (index) => {
+        const response = await fetch(
+            "https://localhost:5001/Kupovina/ObrisatiKupovinu/" + index,
+            {
+                method: "DELETE",
+                body: JSON.stringify({ title: "Uspesno je obrisana narudzbina!" }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+            const data = await response.json();
+    }
+
+    const onClickHandler = (index) =>{
+        console.log("ULAZIM U obrisi!");
+        fetchDeleteOrder(index);
+        window.location.reload(false);
+    }
 
     return (
         <div className={classes.narudzbina}>
@@ -54,6 +73,7 @@ export default function OutlinedCard() {
                         kolicinaProizvoda = {d.KolicinaProizvoda}
                         domacinstvoNaziv = {d.NazivDomacinstva}
                         domacinstvoAdresa = {d.AdresaDomacinstva}
+                        onClick = {() => onClickHandler(d.Id)}
                     />
                 })
             }
