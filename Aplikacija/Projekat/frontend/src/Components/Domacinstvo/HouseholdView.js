@@ -155,7 +155,7 @@ function HouseHoldView() {
         {products.map((prod) => (
           <ProizvodCardForDomacinstvo
             key={prod.ID}
-            id = {prod.ID}
+            id={prod.ID}
             className={classes.Product}
             naziv={prod.Naziv}
             kolicina={prod.Kolicina}

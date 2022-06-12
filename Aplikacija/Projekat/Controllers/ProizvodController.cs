@@ -135,6 +135,20 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var proizvod = await Context.Proizvodi.Where(p => p.ID==id).FirstOrDefaultAsync();
+                var recenzije = await Context.Recenzije.Include(p => p.Proizvod).Where(p => p.Proizvod.ID == id).ToListAsync();
+                if(recenzije != null){
+                foreach (var rec in recenzije)
+                {
+                    Context.Recenzije.Remove(rec);
+                }
+                }
+                var kupovine = await Context.Kupovine.Include(p => p.Proizvod).Where(p => p.Proizvod.ID == id).ToListAsync();
+                if(kupovine != null){
+                foreach (var kup in kupovine)
+                {
+                    Context.Kupovine.Remove(kup);
+                }
+                }
                 if(proizvod == null)
                 {
                     throw new Exception("Ne postoji proizvod!");
