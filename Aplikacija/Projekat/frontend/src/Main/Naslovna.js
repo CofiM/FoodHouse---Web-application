@@ -92,7 +92,7 @@ const Naslovna = () => {
     <div className={classes.container}>
       <div className={classes.pretragaDiv}>
         <div>
-          <h1>Pronađite svog omiljenog domaćina</h1>
+          <h1 className={classes.divH1}>Pronađite svog omiljenog domaćina</h1>
         </div>
         {/* <div>
           {allCordinates.length}

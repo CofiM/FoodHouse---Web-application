@@ -17,7 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Rating } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
@@ -34,9 +34,29 @@ const ExpandMore = styled((props) => {
 
 export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = useState(false);
+  const [image,setImage] = useState(null);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+     
+      const response = await fetch(
+        "https://localhost:5001/FileUpload/" + props.idProizvoda
+      );
+      const data = await response.json();
+      data.map((item) => {
+        setImage(item);
+      });
+      //setImage(data);
+    };
+    fetchData();
+    console.log("AAA");
+    console.log(props.idProizvoda);
+    console.log(image);
+  }, []);
 
   return (
     <Card sx={{ width: 320, m: 2 }}>
@@ -44,7 +64,7 @@ export default function RecipeReviewCard(props) {
       <CardMedia
         component="img"
         height="194"
-        image="/static/images/cards/paella.jpg"
+        image={"data:image/png;base64," + image}
         alt="Paella dish"
       />
       <CardContent>
