@@ -107,7 +107,7 @@ function Domacinstvo() {
     return <div className={classes.Loading}>Loading...</div>;
   }
   return (
-    <div>
+    <div className={classes.container}>
       <div className={classes.RatingWrap}>
         <h1>{domacinstvo.naziv}</h1>
         <Rating
