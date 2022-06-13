@@ -105,3 +105,16 @@ h1
     border: 2px solid rgb(16, 157, 61);
     box-shadow: 0 2px 3px rgb(71, 178, 210, 0.3);
 }
+
+.Search{
+    background-color:rgb(24, 148, 24);
+    color: white;
+    border: none;
+    pointer-events: none;
+}
+
+.Poslovi_divForma__5\+vty button .fa-magnifying-glass {
+    size:100px;
+    color: #2D14EE;
+    background-color: aqua !important;
+}

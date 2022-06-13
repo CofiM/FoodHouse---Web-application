@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classes from "./Poslovi.module.css";
+import classes2 from "../Components/Pretraga/Pretraga.module.css"
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
 import SearchBar from "../Components/Search/SearchBar";
@@ -142,7 +143,7 @@ const Poslovi = () => {
             type="text"
             placeholder="Lokacija"
             onChange={adresaHandler}
-            className={classes.lokacijaDesign}
+            className={classes2.unosPodataka}
           />
           <input
             type="date"
@@ -150,9 +151,9 @@ const Poslovi = () => {
             max="2022-12-31"
             defaultValue={""}
             onChange={datumHandler}
-            className={classes.lokacijaDesign}
+            className={classes2.unosPodataka}
           />
-          <button className={classes.buttonDesign} onClick={choosePage}>
+          <button className={classes2.Search} onClick={choosePage}>
             Pretrazi
           </button>
         </div>
