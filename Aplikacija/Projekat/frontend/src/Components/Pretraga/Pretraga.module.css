@@ -75,9 +75,33 @@ h1
     padding-top: 20px;
     width: 515px;
     height: 400px;
+    border-radius: 5px;
+    border-width: 0;
+    box-shadow: rgb(45 35 66 / 40%) 0 2px 4px, rgb(45 35 66 / 30%) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+    box-sizing: border-box;
+    background-color: white;
+    font-size: 2em;
+    padding: 5px;
+    margin-top: 10px;
 }
 .Loading
 {
     margin-left: 50%;
     margin-top: 30%;
+}
+
+.unosPodataka
+{
+    border-radius: 3px;
+    border: 2px solid #ccc;
+    padding: 0.4rem;
+    height: 40px;   
+    width: 210px;
+    
+}
+.unosPodataka:focus
+{
+    outline: none;
+    border: 2px solid rgb(16, 157, 61);
+    box-shadow: 0 2px 3px rgb(71, 178, 210, 0.3);
 }

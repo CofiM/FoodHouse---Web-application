@@ -105,7 +105,7 @@ const Pretraga = () => {
   return (
     <div className={classes.divGlavni}>
       <input
-        className={classes.txbBox}
+        className={classes.unosPodataka}
         type="text"
         placeholder="Koji proizvod želite da pronađete"
         onChange={handleChangeName}
@@ -114,7 +114,7 @@ const Pretraga = () => {
 
       <div>
         <select
-          className={classes.category}
+          className={classes.unosPodataka}
           onChange={handleChangeCategory}
           placeholder="Kategorija"
         >
