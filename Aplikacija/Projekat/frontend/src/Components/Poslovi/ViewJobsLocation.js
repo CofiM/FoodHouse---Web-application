@@ -14,35 +14,36 @@ const ViewJobsLocations=()=>
 
     const adress = localStorage.getItem("Adress");
     localStorage.removeItem("Adress");
-   useEffect(() => {
-    async function searchWithLocation() {
-        const response = await fetch('https://localhost:5001/Posao/PreuzetiPoslovePoAdresi/'+ adress,
-        {
-            method: 'GET',
-            headers: {
-                'Content-type': 'application/json;charset=UTF-8'
-            }
-        });
-        
-        const data = await response.json();
-        console.log(data);
-        const jobs= data.map((job)=>{
-        return{
-            opis: job.opis,
-            brojRadnihMesta: job.brojRadnihMesta,
-            datumPosla: job.datum,
-            cena: job.cena,
-            domacin: job.naziv,
-            adresa: job.adresa
-        };
-        });
-        
-        
-        setAllJobs(jobs);
-        console.log(jobs);
-        };
-    searchWithLocation();
-   }, []);
+
+    useEffect(() => {
+        async function searchWithLocation() {
+            const response = await fetch('https://localhost:5001/Posao/PreuzetiPoslovePoAdresi/'+ adress,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-type': 'application/json;charset=UTF-8'
+                }
+            });
+            
+            const data = await response.json();
+            console.log(data);
+            const jobs= data.map((job)=>{
+            return{
+                opis: job.opis,
+                brojRadnihMesta: job.brojRadnihMesta,
+                datumPosla: job.datum,
+                cena: job.cena,
+                domacin: job.naziv,
+                adresa: job.adresa
+            };
+            });
+            
+            
+            setAllJobs(jobs);
+            console.log(jobs);
+            };
+        searchWithLocation();
+    }, []);
         
     return(
         <div className={classes.search}>
