@@ -7,18 +7,8 @@
 .Domacinstvo {
   width: 500px;
 }
-<<<<<<< HEAD
 .Loading {
   margin-left: 50%;
   margin-top: 30%;
   font-size: 50px;
 }
-=======
-
-.container{
-  background-image: url('../pictures/Meteor.png');
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover;
-}
->>>>>>> 873cdfd667eabd9e6132e90bee53409c730f9d85
