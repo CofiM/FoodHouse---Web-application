@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import classes from "./Poslovi.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
-import SearchBar from "../Components/Search/SearchBar";
 import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 
 const Poslovi = () => {
