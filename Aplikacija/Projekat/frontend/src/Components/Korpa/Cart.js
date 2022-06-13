@@ -163,8 +163,8 @@ const Cart = (props) => {
           </li>
         ))}
          <div className={classes.actions}>
-            <button onClick={onNaruciHandler}className={classes.button}>Naruci</button>
-            <button onClick={()=>{ history.push({ pathname: "/Domacinstva"})}} className={classes.button}>Vrati se na soping <ion-icon name="cart"></ion-icon></button>
+            <button onClick={onNaruciHandler}className={classes.button}>Naruči</button>
+            <button onClick={()=>{ history.push({ pathname: "/Domacinstva"})}} className={classes.button}>Vrati se na šoping <ion-icon name="cart"></ion-icon></button>
           </div>
             <CartModal
             show={open}
