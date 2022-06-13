@@ -3,7 +3,6 @@ import classes from "./Poslovi.module.css";
 import classes2 from "../Components/Pretraga/Pretraga.module.css"
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
-import SearchBar from "../Components/Search/SearchBar";
 import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 
 const Poslovi = () => {

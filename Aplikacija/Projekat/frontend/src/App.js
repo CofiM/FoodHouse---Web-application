@@ -20,7 +20,6 @@ import ViewProductsStrict from "./Main/ViewProductsStrict";
 import ViewJobsLocation from "./Components/Poslovi/ViewJobsLocation";
 import Inbox from "./Components/MailBox/Inbox";
 import Cart from "./Components/Korpa/Cart";
-import ProbaZaOcenjivanje from "./Main/ProbaZaOcenjivanje";
 
 import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
@@ -33,7 +32,7 @@ import HouseholdView from "./Components/Domacinstvo/HouseholdView";
 import ViewJobsDate from "./Components/Poslovi/ViewJobsDate";
 import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 import Posao from "./Main/Poslovi";
-import Narudzbine from "./Main/Narudzbina";
+import Narudzbine from "./Components/Narudzbina/Narudzbina";
 import IstorijaKupovina from "./Components/Kupovina/IstorijaKupovina";
 import {CartProvider} from "react-use-cart";
 import UsloviKoriscenja from "./Footer/UsloviKoriscenja";
@@ -101,9 +100,6 @@ function App() {
               </Route>
               <Route path="/ViewProductsName">
                 <ViewProductsName />
-              </Route>
-              <Route path="/ProbaZaOcenjivanje">
-                <ProbaZaOcenjivanje />
               </Route>
               <Route path="/ViewProductsStrict">
                 <ViewProductsStrict />
