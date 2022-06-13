@@ -17,32 +17,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Rating } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
 export default function RecipeReviewCard(props) {
-  const [expanded, setExpanded] = useState(false);
-  const [image,setImage] = useState(null);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
-
     const fetchData = async () => {
-     
       const response = await fetch(
         "https://localhost:5001/FileUpload/" + props.idProizvoda
       );
@@ -60,36 +43,34 @@ export default function RecipeReviewCard(props) {
 
   return (
     <Card sx={{ width: 320, m: 2 }}>
-      <CardHeader title={props.naziv} />
+      <CardHeader
+        title={(props.naziv + "-" + props.domacinstvo).toUpperCase()}
+        sx={{ fontSize: "15px" }}
+      />
       <CardMedia
         component="img"
-        height="194"
+        height="300"
         image={"data:image/png;base64," + image}
         alt="Paella dish"
       />
-      <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          Cena za kolicinu: {props.kolicina} je: {props.cena} dinara.
-        </Typography>
-      </CardContent>
       <CardActions disableSpacing>
-        <Button variant="contained" disableElevation onClick={props.onClick}>
+        <Button
+          variant="contained"
+          disableElevation
+          sx={{
+            mt: 3,
+            mb: 2,
+            background: "#BCCF7D",
+            "&:hover": {
+              background: "#4E944F",
+              /* background: "#4B5E22" */
+            },
+          }}
+          onClick={props.onClick}
+        >
           Ostavi recenziju
         </Button>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>{props.opis}</Typography>
-        </CardContent>
-      </Collapse>
     </Card>
   );
 }
