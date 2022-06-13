@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProizvodCard from "../Components/Proizvod/ProizvodCard";
 import classes from "./Domacinstvo.module.css";
-import ModalComment from "./CommentModal";
+import ModalComment from "../Components/Proizvod/CommentModal";
 import { useHistory } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";

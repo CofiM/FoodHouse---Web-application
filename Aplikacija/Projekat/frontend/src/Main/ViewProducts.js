@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import ProizvodCard from "../Components/Proizvod/ProizvodCard";
-import ModalComment from "./CommentModal";
+import ModalComment from "../Components/Proizvod/CommentModal";
 import { useHistory } from "react-router-dom";
 import classes from "./ViewProduct.module.css";
 import WarningModal from "../Components/Domacinstvo/WarningModal.js";
