@@ -17,7 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Rating } from "@mui/material";
 import CommentIcon from "@mui/icons-material/Comment";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -33,22 +33,22 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-
 export default function RecipeReviewCard(props) {
   const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const [slika,setSlika]=useState(null);
+  const [slika, setSlika] = useState(null);
 
-  
   useEffect(() => {
     async function fetchData() {
       console.log(props.id);
       console.log(props.key);
       console.log(props.naziv);
-      const response = await fetch("https://localhost:5001/FileUpload/" + props.id);
+      const response = await fetch(
+        "https://localhost:5001/FileUpload/" + props.id
+      );
       const data = await response.json();
       setSlika(data);
     }
@@ -57,15 +57,19 @@ export default function RecipeReviewCard(props) {
 
   return (
     <Card sx={{ width: 320, m: 2 }}>
-      <CardHeader title={props.naziv} />
+      <CardHeader title={props.naziv.toUpperCase()} />
       <CardMedia
         component="img"
-        height="194"
+        height="300"
         image={"data:image/png;base64," + slika}
         alt="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ fontSize: "20px" }}
+        >
           Cena za kolicinu: {props.kolicina} je: {props.cena} dinara.
         </Typography>
       </CardContent>
@@ -74,6 +78,15 @@ export default function RecipeReviewCard(props) {
           variant="contained"
           disableElevation
           onClick={props.onClickUpdate}
+          sx={{
+            mt: 3,
+            mb: 2,
+            background: "#BCCF7D",
+            "&:hover": {
+              background: "#4E944F",
+              /* background: "#4B5E22" */
+            },
+          }}
         >
           Izmeni proizvod
         </Button>

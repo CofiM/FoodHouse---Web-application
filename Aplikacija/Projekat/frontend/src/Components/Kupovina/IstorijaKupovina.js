@@ -73,6 +73,7 @@ const IstorijaKupovina = () => {
           Naziv: d.proizvodNaziv,
           Opis: d.proizvodOpisa,
           Show: d.show,
+          Domvinstvo: d.domacinstvoNaziv,
         };
       });
       let arr = [];
@@ -120,6 +121,7 @@ const IstorijaKupovina = () => {
     };
     fetchOrders();
   }, []);
+  console.log(products);
   if (!isLoaded) {
     return <div className={classes.Loading}>Loading...</div>;
   }
@@ -151,6 +153,7 @@ const IstorijaKupovina = () => {
             cena={prod.Cena}
             opis={prod.Opis}
             onClick={() => onReviewHandler(prod.Proizvod)}
+            domacinstvo={prod.Domvinstvo}
           />
         ))}
       </div>

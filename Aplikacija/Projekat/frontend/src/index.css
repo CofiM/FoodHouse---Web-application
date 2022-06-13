@@ -13,6 +13,7 @@ html {
 body {
   margin: 0;
   background-color: #E1E8C9;
+  /* background-image: url('./pictures/Meteor.png'); */
   height: 100%;
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }

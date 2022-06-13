@@ -34,15 +34,15 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function RecipeReviewCard(props) {
-    const [expanded, setExpanded] = useState(false);
-    const [date, setDate] = useState("");
-    const [dateStart, setDateStart] = useState(props.datum);
-    
-    useEffect(() => {
-        const myArray = dateStart.split("T");
-        let datum = myArray[0];
-        setDate(datum);
-    },[]);
+  const [expanded, setExpanded] = useState(false);
+  const [date, setDate] = useState("");
+  const [dateStart, setDateStart] = useState(props.datum);
+
+  useEffect(() => {
+    const myArray = dateStart.split("T");
+    let datum = myArray[0];
+    setDate(datum);
+  }, []);
   return (
     <Card sx={{ width: 320, height: 230, m: 2 }}>
       <CardHeader title={props.opis} />
@@ -62,15 +62,24 @@ export default function RecipeReviewCard(props) {
           variant="contained"
           disableElevation
           onClick={props.onClickUpdate}
+          sx={{
+            mt: 3,
+            mb: 2,
+            background: "#BCCF7D",
+            "&:hover": {
+              background: "#4E944F",
+              /* background: "#4B5E22" */
+            },
+          }}
         >
-          Izmeni proizvod
+          Izmeni posao
         </Button>
         <IconButton
           aria-label="comment"
           onClick={props.onClickDelete}
           size="large"
         >
-          <DeleteIcon />
+          <DeleteIcon sx={{ fontSize: "40px" }} />
         </IconButton>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
