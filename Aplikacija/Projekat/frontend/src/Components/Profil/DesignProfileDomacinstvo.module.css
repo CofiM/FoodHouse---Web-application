@@ -23,3 +23,8 @@
   display: grid;
   grid-template-columns: auto auto;
 }
+.Loading {
+  margin-left: 50%;
+  margin-top: 30%;
+  font-size: 50px;
+}

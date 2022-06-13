@@ -3,12 +3,12 @@
   flex-direction: column;
   padding-top: 10px;
   /* align-items: center; */
-  background-color: #E1E8C9;
+  background-color: #e1e8c9;
   height: 100vh;
 }
 .searchDiv {
   background-size: cover;
-  background-color: #E1E8C9;
+  background-color: #e1e8c9;
 }
 
 .container
@@ -36,7 +36,7 @@
   display: flex;
   height: 50px;
   justify-content: center;
-  background-color: #E1E8C9;
+  background-color: #e1e8c9;
   width: 100%;
 }
 
@@ -61,14 +61,20 @@
   margin-right: 10%;
 }
 
-.buttonDesign{
+.buttonDesign {
   border-radius: 8px;
 }
 
-.buttonDesign:hover{
-  background-color: #B4E197;
+.buttonDesign:hover {
+  background-color: #b4e197;
 }
 
-.lokacijaDesign{
+.lokacijaDesign {
   border-radius: 8px;
+}
+
+.Loading {
+  margin-left: 50%;
+  margin-top: 30%;
+  font-size: 50px;
 }

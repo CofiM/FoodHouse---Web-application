@@ -23,6 +23,7 @@ const ProfilDomacinstvo = () => {
   const [isShowUpdateProfile, setIsShowUpdateProfile] = useState(false);
   const [data, setData] = useState([]);
   const history = useHistory();
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const onClickProfileHandler = () => {
     setIsShowProfile(true);
@@ -53,9 +54,14 @@ const ProfilDomacinstvo = () => {
       );
       const data = await response.json();
       setData(data);
+      setIsLoaded(true);
     };
     fetchProfile();
   }, []);
+
+  if (!isLoaded) {
+    return <div className={classes.Loading}>Loading...</div>;
+  }
 
   return (
     <div className={classes.mainStyle}>

@@ -31,7 +31,7 @@ export default function MultiActionAreaCard(props) {
             {props.NazivDomacinstva}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Ovo domacinstov se nalazi {props.Adresa}, mozete nas kontaktirati
+            Ovo domacinstvo se nalazi {props.Adresa}, mozete nas kontaktirati
             svakog dana na broj telefona {props.Telefon}.
           </Typography>
         </CardContent>
