@@ -299,7 +299,7 @@ const ResponsiveAppBar = (props) => {
             >
               {items().map((page) => (
                 <MenuItem
-                  key={page.id}
+                  key={page.route}
                   onClick={() => onClickHandler(page.route)}
                 >
                   <Typography textAlign="center">{page.label}</Typography>
@@ -327,7 +327,7 @@ const ResponsiveAppBar = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {items().map((page) => (
-              <React.Fragment>
+              <React.Fragment     key={page.label}>
                 <Button
                   key={page.id}
                   onClick={() => onClickHandler(page.route)}
