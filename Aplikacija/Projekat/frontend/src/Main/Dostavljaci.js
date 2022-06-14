@@ -83,6 +83,7 @@ const Dostavljaci = () => {
       {allData.length > 0 &&
         allData.map((d) => (
           <DostavljaciCard
+            key={d.ID}
             ime={d.Ime}
             prezime={d.Prezime}
             email={d.Email}

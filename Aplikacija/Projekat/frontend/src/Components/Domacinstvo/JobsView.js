@@ -137,6 +137,7 @@ const JobsView = () => {
       <div className={classes.allProducts}>
         {jobs.map((prod) => (
           <JobsCardForDomacinstvo
+            key={prod.ID}
             className={classes.Product}
             opis={prod.Opis}
             brojRadnihMesta={prod.BrojRadnihMesta}

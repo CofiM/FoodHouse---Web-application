@@ -66,6 +66,7 @@ export default function OutlinedCard() {
         <div className={classes.narudzbina}>
             {orders.map( (d) => {
                     return <NarudzbinaCard 
+                        key = {d.Id}
                         ime = {d.Ime}
                         prezime = {d.Prezime}
                         adresaKorisnika = {d.AdresaKorisnika}
