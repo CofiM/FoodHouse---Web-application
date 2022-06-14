@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classes from "./Poslovi.module.css";
-import classes2 from "../Components/Pretraga/Pretraga.module.css"
+import classes2 from "../Components/Pretraga/Pretraga.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
 import WarningModal from "../Components/Domacinstvo/WarningModal.js";
@@ -22,6 +22,8 @@ const Poslovi = () => {
     }
     {
       const IDKorisnika = localStorage.getItem("KorisnikID");
+      localStorage.setItem("IdKorisnik", IDKorisnika);
+      localStorage.setItem("PosaoID", ID);
       const response = await fetch(
         " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
           IDDomacinstva +

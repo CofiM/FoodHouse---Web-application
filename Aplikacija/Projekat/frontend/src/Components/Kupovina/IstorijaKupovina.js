@@ -54,6 +54,7 @@ const IstorijaKupovina = () => {
       console.log(data);
       const transformedDataOrders = data.map(function (d) {
         return {
+          Kupovina: d.id,
           Ime: d.ime,
           Prezime: d.prezime,
           AdresaKorisnika: d.adresaKorisnika,
@@ -135,6 +136,7 @@ const IstorijaKupovina = () => {
         {orders.map((d) => {
           return (
             <IstorijaKupovinaCard
+              key={d.Kupovina}
               nazivProizvoda={d.NazivProizvoda}
               kolicinaProizvoda={d.KolicinaProizvoda}
               domacinstvoNaziv={d.NazivDomacinstva}
@@ -146,6 +148,7 @@ const IstorijaKupovina = () => {
       <div className={classes.allProduct}>
         {products.map((prod) => (
           <ProizvodCardRating
+            key={prod.Kupovina}
             idProizvoda={prod.Proizvod}
             className={classes.Product}
             naziv={prod.Naziv}

@@ -71,9 +71,9 @@ export default function RecipeReviewCard(props) {
     <Card sx={{ width: 320, m: 2 }}>
       <CardHeader
         action={
-          <IconButton aria-label="settings">
+          <IconButton aria-label="settings"onClick={props.onClickCart}>
             <AddShoppingCartIcon
-              onClick={props.onClickCart}
+              // onClick={props.onClickCart}
               sx={{ fontSize: "40px" }}
             />
           </IconButton>

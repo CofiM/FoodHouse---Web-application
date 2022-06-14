@@ -79,7 +79,20 @@ namespace SWE___PROJEKAT.Controllers
             }
             try
             {
-                var korisnik = await Context.Korisnici.Where(p => p.ID == idK).FirstOrDefaultAsync();
+                var korisnik = await Context.Korisnici
+                        .Where(p => p.ID == idK)
+                        .Include(p => p.KorisnikPosao)
+                        .Select(p => new {
+                            p.ID,
+                            p.Ime,
+                            p.Prezime,
+                            p.Tip,
+                            p.Adresa,
+                            p.email,
+                            p.Username,
+                            p.KorisnikPosao
+                        })
+                        .FirstOrDefaultAsync();
                 if (korisnik == null)
                 {
                     throw new Exception("Ne postoji korisnik!");
@@ -300,6 +313,8 @@ namespace SWE___PROJEKAT.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        
 
     }
 }

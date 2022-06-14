@@ -118,6 +118,7 @@ const JobsView = () => {
     );
     setOpenUpdate(false);
     fetchJobsHandler();
+    window.location.reload(false);
   };
 
   const onClickDeleteHandler = (ID) => {
@@ -136,6 +137,7 @@ const JobsView = () => {
       <div className={classes.allProducts}>
         {jobs.map((prod) => (
           <JobsCardForDomacinstvo
+            key={prod.ID}
             className={classes.Product}
             opis={prod.Opis}
             brojRadnihMesta={prod.BrojRadnihMesta}
