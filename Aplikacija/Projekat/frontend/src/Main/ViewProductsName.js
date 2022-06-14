@@ -31,6 +31,12 @@ const ViewProductsName = () => {
       const p = allProducts.find((el) => el.ID == ID);
       localStorage.setItem("DomacinstvoID", p.IDDomacinstva);
       history.push({ pathname: "/Proizvod", product: p });
+      localStorage.setItem("CenaProizvoda", p.Cena);
+      localStorage.setItem("IdProizvoda", p.ID);
+      localStorage.setItem("KategorijaProizvoda", p.Kategorija);
+      localStorage.setItem("KolicinaProizvoda", p.Kolicina);
+      localStorage.setItem("NazivProizvoda", p.Naziv);
+      localStorage.setItem("OpisProizvoda", p.Opis);
     }
   };
   const handleCloseWarning = () => {
@@ -219,6 +225,11 @@ const ViewProductsName = () => {
               komentar={product.Komentari}
               onClose={handleClose}
             />
+          )}
+        </div>
+        <div>
+          {openWarning && (
+            <WarningModal show={openWarning} onClose={handleCloseWarning} />
           )}
         </div>
       </div>
