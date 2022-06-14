@@ -106,12 +106,14 @@ namespace SWE___PROJEKAT.Controllers
                 var poslovi = await Context.Poslovi
                             .Include(p => p.Domacinstvo).Where(p => p.Domacinstvo.Adresa == adresa)
                             .Select(p => new {
+                                p.ID,
                                 p.brojRadnihMesta,
                                 p.Datum,
                                 p.Opis,
                                 p.Cena,
                                 p.Domacinstvo.Naziv,
-                                p.Domacinstvo.Adresa
+                                p.Domacinstvo.Adresa,
+                                idDomacinstva = p.Domacinstvo.ID
                             }).ToArrayAsync();
                 if(poslovi == null)
                 {
@@ -136,12 +138,14 @@ namespace SWE___PROJEKAT.Controllers
                 var poslovi = await Context.Poslovi
                             .Include(p => p.Domacinstvo).Where(p =>p.Datum <= datum)
                             .Select(p => new {
+                                p.ID,
                                 p.brojRadnihMesta,
                                 p.Datum,
                                 p.Opis,
                                 p.Cena,
                                 p.Domacinstvo.Naziv,
-                                p.Domacinstvo.Adresa
+                                p.Domacinstvo.Adresa,
+                                idDomacinstva = p.Domacinstvo.ID
                             }).ToArrayAsync();
                 if(poslovi == null)
                 {
@@ -165,12 +169,14 @@ namespace SWE___PROJEKAT.Controllers
                 var poslovi = await Context.Poslovi
                             .Include(p => p.Domacinstvo).Where(p =>p.Datum <= datum && p.Domacinstvo.Adresa == adresa)
                             .Select(p => new {
+                                p.ID,
                                 p.brojRadnihMesta,
                                 p.Datum,
                                 p.Opis,
                                 p.Cena,
                                 p.Domacinstvo.Naziv,
-                                p.Domacinstvo.Adresa
+                                p.Domacinstvo.Adresa,
+                                idDomacinstva = p.Domacinstvo.ID
                             }).ToArrayAsync();
                 if(poslovi == null)
                 {

@@ -3,12 +3,43 @@ import { useHistory } from "react-router-dom";
 import PosloviCard from "./PosloviCard";
 import { useState, useEffect } from "react";
 import classes from "../../Main/Poslovi.module.css";
+import WarningModal from "../Domacinstvo/WarningModal.js";
 
 const ViewJobsDate = () => {
   const [allJobs, setAllJobs] = useState([]);
+  const [openWarning, setOpenWarning] = useState(false);
 
   const date = localStorage.getItem("Date");
 
+  const handleCloseWarning = () => {
+    setOpenWarning(false);
+  };
+  const onClicksignInHandler = async (ID, IDDomacinstva) => {
+    console.log("USLO " + ID + " " + IDDomacinstva);
+    if (localStorage.getItem("Korisnik") == null) {
+      console.log("I OVDE USLO");
+      setOpenWarning(true);
+    } else {
+      const IDKorisnika = localStorage.getItem("KorisnikID");
+      localStorage.setItem("IdKorisnik", IDKorisnika);
+      localStorage.setItem("PosaoID", ID);
+      const response = await fetch(
+        " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
+          IDDomacinstva +
+          "/" +
+          IDKorisnika +
+          "/Zahtev za posao/" +
+          "K/" +
+          false,
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json;charset=UTF-8",
+          },
+        }
+      );
+    }
+  };
   useEffect(() => {
     async function searchWithData() {
       const response = await fetch(
@@ -26,12 +57,14 @@ const ViewJobsDate = () => {
       const jobs = data.map((job, index) => {
         return {
           indeks: index,
+          id: job.id,
           opis: job.opis,
           brojRadnihMesta: job.brojRadnihMesta,
           datumPosla: job.datum,
           cena: job.cena,
           domacin: job.naziv,
           adresa: job.adresa,
+          idDomacinstva: job.idDomacinstva,
         };
       });
 
@@ -51,14 +84,23 @@ const ViewJobsDate = () => {
       <div>
         {allJobs.map((job) => (
           <PosloviCard
+            key={job.id}
             opis={job.opis}
             brRadnihMesta={job.brojRadnihMesta}
             datum={job.datumPosla.split("T")[0]}
             cena={job.cena}
             domacin={job.domacin}
             adresa={job.adresa}
+            onClicksignIn={() =>
+              onClicksignInHandler(job.id, job.idDomacinstva)
+            }
           />
         ))}
+      </div>
+      <div>
+        {openWarning && (
+          <WarningModal show={openWarning} onClose={handleCloseWarning} />
+        )}
       </div>
     </div>
   );
