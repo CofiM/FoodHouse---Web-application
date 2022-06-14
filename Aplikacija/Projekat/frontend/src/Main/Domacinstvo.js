@@ -67,7 +67,9 @@ function Domacinstvo() {
         console.log(comments);
         let kom = comments;
         comments = [];
-        pros = pros / prod.recenzije.length;
+        if (prod.recenzije.length > 0) {
+          pros = pros / prod.recenzije.length;
+        }
         console.log(pros);
         if (prod.recenzije.length > 0) {
           rating = rating + pros;
