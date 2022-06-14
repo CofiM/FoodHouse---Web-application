@@ -57,6 +57,7 @@ const ResponsiveAppBar = (props) => {
   const [surname, setSurname] = useState("");
   const [dom, setDom] = useState(false);
   const [nazivDomacinstva, setNazivDomacinstva] = useState("");
+  const [num, setNum] = useState(0);
   const { emptyCart } = useCart();
 
   useEffect(() => {
@@ -64,6 +65,7 @@ const ResponsiveAppBar = (props) => {
     if (tip == null) {
       setMess(false);
     } else {
+      fetchMessage();
       if (tip == "K") {
         setCrt(true);
         setName(localStorage.getItem("IME").toUpperCase());
@@ -88,6 +90,49 @@ const ResponsiveAppBar = (props) => {
     setAnchorElNav(event.currentTarget);
   };
 
+  const fetchMessage = async () => {
+    const tip = localStorage.getItem("Korisnik");
+    if (tip === "P") {
+      const ID = localStorage.getItem("DomacinstvoID");
+      const response = await fetch(
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+      );
+      const da = await response.json();
+      let pom = 0;
+      const transformedData = da.map(function (d) {
+        if (d.shown == false && d.tip !== "P") pom++;
+      });
+      console.log("Broj poruke: " + pom);
+      setNum(pom);
+      localStorage.setItem("messageNumber", pom);
+    } else if (tip === "D") {
+      console.log("Ulazim u D");
+      const ID = localStorage.getItem("DostavljacID");
+      const response = await fetch(
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+      );
+      let pom = 0;
+      const data = await response.json();
+      const transformedData = data.map(function (d) {
+        if (d.shown == false && d.tip !== "D") pom++;
+      });
+      setNum(pom);
+      localStorage.setItem("messageNumber", pom);
+    } else if (tip === "K") {
+      console.log("Ulazim u K");
+      const ID = localStorage.getItem("KorisnikID");
+      const response = await fetch(
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+      );
+      const data = await response.json();
+      let pom = 0;
+      const transformedData = data.map(function (d) {
+        if (d.shown == false && d.tip !== "K") pom++;
+      });
+      setNum(pom);
+      localStorage.setItem("messageNumber", pom);
+    }
+  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -308,13 +353,13 @@ const ResponsiveAppBar = (props) => {
           {isValid && mess && (
             <Box sx={{ color: "black", marginRight: "2%" }}>
               <Button sx={{ color: "white" }} onClick={onClickMailBox}>
-                <MailBox number={localStorage.getItem("messageNumber")} />
+                <MailBox number={num} />
               </Button>
             </Box>
           )}
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Otvori profil">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {profileAvatar == false ? (
                   <Avatar alt="" src="/static/images/avatar/2.jpg" />

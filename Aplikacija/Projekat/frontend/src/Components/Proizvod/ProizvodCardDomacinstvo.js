@@ -49,7 +49,7 @@ export default function RecipeReviewCard(props) {
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          Cena za kolicinu: {props.kolicina} je: {props.cena} dinara.
+          Cena je: {props.cena} dinara.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

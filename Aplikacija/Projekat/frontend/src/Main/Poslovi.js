@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import classes from "./Poslovi.module.css";
-import classes2 from "../Components/Pretraga/Pretraga.module.css"
+import classes2 from "../Components/Pretraga/Pretraga.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
 import WarningModal from "../Components/Domacinstvo/WarningModal.js";
@@ -22,6 +22,8 @@ const Poslovi = () => {
     }
     {
       const IDKorisnika = localStorage.getItem("KorisnikID");
+      localStorage.setItem("IdKorisnik", IDKorisnika);
+      localStorage.setItem("PosaoID", ID);
       const response = await fetch(
         " https://localhost:5001/Administrator/PosaljiPorukuDomacinKorisnik/" +
           IDDomacinstva +
@@ -135,50 +137,50 @@ const Poslovi = () => {
   }
   return (
     <div className={classes.container}>
-    <div className={classes.search}>
-      <div className={classes.divForma}>
-        <div className={classes.searchDiv}>
-          <input
-            type="text"
-            placeholder="Lokacija"
-            onChange={adresaHandler}
-            className={classes2.unosPodataka}
-          />
-          <input
-            type="date"
-            min="2022-01-01"
-            max="2022-12-31"
-            defaultValue={""}
-            onChange={datumHandler}
-            className={classes2.unosPodataka}
-          />
-          <button className={classes2.Search} onClick={choosePage}>
-            Pretrazi
-          </button>
+      <div className={classes.search}>
+        <div className={classes.divForma}>
+          <div className={classes.searchDiv}>
+            <input
+              type="text"
+              placeholder="Lokacija"
+              onChange={adresaHandler}
+              className={classes2.unosPodataka}
+            />
+            <input
+              type="date"
+              min="2022-01-01"
+              max="2022-12-31"
+              defaultValue={""}
+              onChange={datumHandler}
+              className={classes2.unosPodataka}
+            />
+            <button className={classes2.Search} onClick={choosePage}>
+              Pretrazi
+            </button>
+          </div>
+        </div>
+        <div className={classes.divWorks}>
+          {allJobs.map((job) => (
+            <PosloviCard
+              key={job.id}
+              opis={job.opis}
+              brRadnihMesta={job.brojRadnihMesta}
+              datum={job.datumPosla.split("T")[0]}
+              cena={job.cena}
+              domacin={job.domacin}
+              adresa={job.adresa}
+              onClicksignIn={() =>
+                onClicksignInHandler(job.id, job.idDomacinstva)
+              }
+            />
+          ))}
+        </div>
+        <div>
+          {openWarning && (
+            <WarningModal show={openWarning} onClose={handleCloseWarning} />
+          )}
         </div>
       </div>
-      <div className={classes.divWorks}>
-        {allJobs.map((job) => (
-          <PosloviCard
-            key={job.id}
-            opis={job.opis}
-            brRadnihMesta={job.brojRadnihMesta}
-            datum={job.datumPosla.split("T")[0]}
-            cena={job.cena}
-            domacin={job.domacin}
-            adresa={job.adresa}
-            onClicksignIn={() =>
-              onClicksignInHandler(job.id, job.idDomacinstva)
-            }
-          />
-        ))}
-      </div>
-      <div>
-        {openWarning && (
-          <WarningModal show={openWarning} onClose={handleCloseWarning} />
-        )}
-      </div>
-    </div>
     </div>
   );
 };
