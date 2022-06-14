@@ -118,6 +118,7 @@ const JobsView = () => {
     );
     setOpenUpdate(false);
     fetchJobsHandler();
+    window.location.reload(false);
   };
 
   const onClickDeleteHandler = (ID) => {
