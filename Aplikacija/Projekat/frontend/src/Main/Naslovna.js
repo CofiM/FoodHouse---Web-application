@@ -114,7 +114,7 @@ const Naslovna = () => {
           >
             {allCordinates.map((el, index) => (
               <Marker
-                key={allId[index]}
+                key={el.id}
                 title={allLocations[index]}
                 position={el}
                 onClick={() => sendAdress(index)}
