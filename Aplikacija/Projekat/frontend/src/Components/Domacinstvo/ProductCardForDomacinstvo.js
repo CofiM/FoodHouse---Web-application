@@ -70,7 +70,7 @@ export default function RecipeReviewCard(props) {
           color="text.secondary"
           sx={{ fontSize: "20px" }}
         >
-          Cena za kolicinu: {props.kolicina} je: {props.cena} dinara.
+          Cena je: {props.cena} dinara.
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

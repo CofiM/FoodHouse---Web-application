@@ -6,8 +6,7 @@ import Modal from "@mui/material/Modal";
 import Rating from "@mui/material/Rating";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import InputDate from '../UI/InputDate';
-
+import InputDate from "../UI/InputDate";
 
 const style = {
   position: "absolute",
@@ -38,7 +37,7 @@ export default function BasicModal(props) {
   };
 
   const cenaChange = (e) => {
-    setCena(e.target.value); 
+    setCena(e.target.value);
   };
 
   const opisChange = (e) => {
@@ -46,7 +45,7 @@ export default function BasicModal(props) {
   };
 
   const sendArgument = () => {
-    props.onClickAddNewProduct( brRadnihMesta, datum, opis, cena );
+    props.onClickAddNewProduct(brRadnihMesta, datum, opis, cena);
   };
 
   return (
@@ -59,27 +58,27 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           <TextField
-            sx={{m: 1}}
+            sx={{ m: 1 }}
             onChange={opisChange}
             id="demo-helper-text-misaligned"
             value={opis}
             label="Naziv"
           />
           <TextField
-            sx={{m: 1}}
+            sx={{ m: 1 }}
             onChange={brojRadnihMestaChange}
             id="demo-helper-text-misaligned"
             value={brRadnihMesta}
             label="Broj radnih mesta"
           />
           <TextField
-            sx={{m: 1}}
+            sx={{ m: 1 }}
             onChange={cenaChange}
             id="demo-helper-text-misaligned"
             value={cena}
             label="Cena"
           />
-         {/*  <TextField
+          {/*  <TextField
             sx={{m: 1}}
             onChange={datumChange}
             id="demo-helper-text-misaligned"
@@ -91,10 +90,11 @@ export default function BasicModal(props) {
             label="Datum pocetka posla"
             type="date"
             defaultValue={Date.now}
-            sx={{ m: 1 , width:222}}
+            sx={{ m: 1, width: 222 }}
             InputLabelProps={{
               shrink: true,
             }}
+            onChange={datumChange}
           />
           <div>
             <Button onClick={props.onClose}>Otkazi</Button>

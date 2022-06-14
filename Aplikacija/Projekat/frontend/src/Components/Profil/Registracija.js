@@ -306,7 +306,15 @@ export default function SignUp() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ 
+                  mt: 3, 
+                  mb: 2 , 
+                  background: "#BCCF7D", 
+                  '&:hover': {
+                    background: "#4E944F"
+                    /* background: "#4B5E22" */
+                  }
+                }}
               >
                 Registruj se
               </Button>
