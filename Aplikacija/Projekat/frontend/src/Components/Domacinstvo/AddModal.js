@@ -49,7 +49,6 @@ export default function BasicModal(props) {
   const [open, setOpen] = useState(props.show);
   const [value, setValue] = useState(0);
   const [naziv, setNaziv] = useState("");
-  const [kolicina, setKolicina] = useState("");
   const [cena, setCena] = useState("");
   const [opis, setOpis] = useState("");
   const [kategorija, setKategorija] = useState("");
@@ -94,10 +93,6 @@ export default function BasicModal(props) {
     setNaziv(e.target.value);
     console.log(naziv);
   };
-  const kolicinaChange = (e) => {
-    setKolicina(e.target.value);
-    console.log(kolicina);
-  };
   const cenaChange = (e) => {
     setCena(e.target.value);
     console.log(cena);
@@ -127,7 +122,7 @@ export default function BasicModal(props) {
         "/" +
         naziv +
         "/" +
-        kolicina +
+        1 +
         "/" +
         cena +
         "/" +
@@ -162,7 +157,7 @@ export default function BasicModal(props) {
         "/" +
         naziv +
         "/" +
-        kolicina +
+        1 +
         "/" +
         cena +
         "/" +
@@ -211,13 +206,6 @@ export default function BasicModal(props) {
           />
           <TextField
             sx={{ m: 2 }}
-            onChange={kolicinaChange}
-            id="demo-helper-text-misaligned"
-            value={kolicina}
-            label="Kolicina"
-          />
-          <TextField
-            sx={{ m: 2 }}
             onChange={cenaChange}
             id="demo-helper-text-misaligned"
             value={cena}
@@ -249,7 +237,7 @@ export default function BasicModal(props) {
               </option>
             ))}
           </select>
-          <label className="slikaKnjige" htmlFor="file-upload"></label>
+          <label htmlFor="file-upload"></label>
           <input type="file" onChange={saveFileSelected} />
 
           {/* <label className="slikaKnjige" htmlFor="file-upload"></label>

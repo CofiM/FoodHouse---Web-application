@@ -55,7 +55,6 @@ export default function BasicModal(props) {
   const [open, setOpen] = useState(props.show);
   const [value, setValue] = useState(0);
   const [naziv, setNaziv] = useState(props.naziv);
-  const [kolicina, setKolicina] = useState(props.kolicina);
   const [cena, setCena] = useState(props.cena);
   const [opis, setOpis] = useState(props.opis);
   const [kategorija, setKategorija] = useState(props.kategorija);
@@ -63,10 +62,6 @@ export default function BasicModal(props) {
   const nazivChange = (e) => {
     setNaziv(e.target.value);
     console.log(naziv);
-  };
-  const kolicinaChange = (e) => {
-    setKolicina(e.target.value);
-    console.log(kolicina);
   };
   const cenaChange = (e) => {
     setCena(e.target.value);
@@ -82,7 +77,7 @@ export default function BasicModal(props) {
   };
 
   const sendArgument = () => {
-    props.onClickSaveChange(naziv, kolicina, cena, opis, kategorija);
+    props.onClickSaveChange(naziv, 1, cena, opis, kategorija);
   };
 
   return (
@@ -100,13 +95,6 @@ export default function BasicModal(props) {
             id="demo-helper-text-misaligned"
             value={naziv}
             label="Naziv"
-          />
-          <TextField
-            onChange={kolicinaChange}
-            sx={{ m: 2 }}
-            id="demo-helper-text-misaligned"
-            value={kolicina}
-            label="Kolicina"
           />
           <TextField
             onChange={cenaChange}

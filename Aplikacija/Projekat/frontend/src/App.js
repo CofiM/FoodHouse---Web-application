@@ -25,7 +25,6 @@ import Proizvod from "./Components/Proizvod/Proizvod";
 import ProfilDostavljac from "./Components/Profil/ProfileDostavljac";
 import ProfilDomacinstvo from "./Components/Profil/ProfileDomacinstvo";
 
-
 import ProfilKorisnik from "./Components/Profil/ProfileKorisnik";
 
 import HouseholdView from "./Components/Domacinstvo/HouseholdView";
@@ -34,13 +33,13 @@ import ViewJobsDateLocation from "./Components/Poslovi/ViewJobsDateLocation";
 import Posao from "./Main/Poslovi";
 import Narudzbine from "./Components/Narudzbina/Narudzbina";
 import IstorijaKupovina from "./Components/Kupovina/IstorijaKupovina";
-import {CartProvider} from "react-use-cart";
+import { CartProvider } from "react-use-cart";
 import UsloviKoriscenja from "./Footer/UsloviKoriscenja";
 import Pravila from "./Footer/Pravila";
 import O_nama from "./Main/O_nama";
 
-
 function App() {
+  let user = localStorage.getItem("Korisnik");
   return (
     <CartProvider>
       <div className="App">
@@ -53,81 +52,126 @@ function App() {
               <Route path="/" exact>
                 <Redirect to="/Naslovna" />
               </Route>
-              <Route path="/Naslovna">
-                <Naslovna />
-              </Route>
-              <Route path="/domacinstva">
-                <Domacinstva />
-              </Route>
-              <Route path="/Posao">
-                <Posao />
-              </Route>
-              <Route path="/Prijava">
-                <Prijava />
-              </Route>
-              <Route path="/Registracija">
-                <Registracija />
-              </Route>
-              <Route path="/dodajPosao">
-                <DodajPosao />
-              </Route>
-              <Route path="/dostavljaci">
-                <Dostavljaci />
-              </Route>
-              <Route path="/Inbox">
-                <Inbox />
-              </Route>
-              <Route path="/Proizvod">
-                <Proizvod />
-              </Route>
-              <Route path="/Cart">
-                <Cart />
-              </Route>
-              <Route path="/ProfilDostavljac">
-                <ProfilDostavljac />
-              </Route>
-              <Route path="/ProfilDomacinstvo">
-                <ProfilDomacinstvo />
-              </Route>
-              <Route path="/ProfilKorisnik">
-                <ProfilKorisnik />
-              </Route>
-              <Route path="/domacinstvo" >
-                <Domacinstvo />
-              </Route>
-              <Route path="/ViewProducts">
-                <ViewProducts />
-              </Route>
-              <Route path="/ViewProductsName">
-                <ViewProductsName />
-              </Route>
-              <Route path="/ViewProductsStrict">
-                <ViewProductsStrict />
-              </Route>
-              <Route path="/HouseHoldView">
-                <HouseHoldView />
-              </Route>
-              <Route path="/ViewJobsLocation">
-                <ViewJobsLocation />
-              </Route>
-              <Route path="/ViewJobsDate">
-                <ViewJobsDate />
-              </Route>
-              <Route path="/ViewJobsDateLocation">
-                <ViewJobsDateLocation />
-              </Route>
-              <Route path="/poslovi">
-                <Poslovi />
-              </Route>
-              <Route path="/jednoDomacinstvo">
-                <JednoDomacinstvo />
-              </Route>
-              <Route path="/narudzbine">
-                <Narudzbine />
-              </Route>
-              <Route path="/IstorijaKupovina">
-                <IstorijaKupovina />
-              </Route>
+              {(user === null || user === "K") && (
+                <Route path="/Naslovna">
+                  <Naslovna />
+                </Route>
+              )}
+              {(user === null || user === "K") && (
+                <Route path="/domacinstva">
+                  <Domacinstva />
+                </Route>
+              )}
+              {(user === null || user === "K") && (
+                <Route path="/Posao">
+                  <Posao />
+                </Route>
+              )}
+              {user === null && (
+                <Route path="/Prijava">
+                  <Prijava />
+                </Route>
+              )}
+              {user === null && (
+                <Route path="/Registracija">
+                  <Registracija />
+                </Route>
+              )}
+              {user === "P" && (
+                <Route path="/dostavljaci">
+                  <Dostavljaci />
+                </Route>
+              )}
+              {user !== null && (
+                <Route path="/Inbox">
+                  <Inbox />
+                </Route>
+              )}
+              {user === "K" && (
+                <Route path="/Proizvod">
+                  <Proizvod />
+                </Route>
+              )}
+              {user === "K" && (
+                <Route path="/Cart">
+                  <Cart />
+                </Route>
+              )}
+              {user === "D" && (
+                <Route path="/ProfilDostavljac">
+                  <ProfilDostavljac />
+                </Route>
+              )}
+              {user === "P" && (
+                <Route path="/ProfilDomacinstvo">
+                  <ProfilDomacinstvo />
+                </Route>
+              )}
+              {user === "K" && (
+                <Route path="/ProfilKorisnik">
+                  <ProfilKorisnik />
+                </Route>
+              )}
+              {user === "P" && (
+                <Route path="/domacinstvo">
+                  <Domacinstvo />
+                </Route>
+              )}
+              {(user === null || user === "K") && (
+                <Route path="/ViewProducts">
+                  <ViewProducts />
+                </Route>
+              )}
+              {(user === null || user === "K") && (
+                <Route path="/ViewProductsName">
+                  <ViewProductsName />
+                </Route>
+              )}
+              {(user === null || user === "K") && (
+                <Route path="/ViewProductsStrict">
+                  <ViewProductsStrict />
+                </Route>
+              )}
+              {user === "P" && (
+                <Route path="/HouseHoldView">
+                  <HouseHoldView />
+                </Route>
+              )}
+              {(user === null || user === "K") && (
+                <Route path="/ViewJobsLocation">
+                  <ViewJobsLocation />
+                </Route>
+              )}
+              {(user === null || user === "K") && (
+                <Route path="/ViewJobsDate">
+                  <ViewJobsDate />
+                </Route>
+              )}
+              {(user === null || user === "K") && (
+                <Route path="/ViewJobsDateLocation">
+                  <ViewJobsDateLocation />
+                </Route>
+              )}
+              {user === "P" && (
+                <Route path="/poslovi">
+                  <Poslovi />
+                </Route>
+              )}
+              {(user === null || user === "K") && (
+                <Route path="/jednoDomacinstvo">
+                  <JednoDomacinstvo />
+                </Route>
+              )}
+              {user === "D" && (
+                <Route path="/narudzbine">
+                  <Narudzbine />
+                </Route>
+              )}
+              {user === "K" && (
+                <Route path="/IstorijaKupovina">
+                  <IstorijaKupovina />
+                </Route>
+              )}
               <Route path="/uslovi-koriscenja">
                 <UsloviKoriscenja />
               </Route>
@@ -135,7 +179,7 @@ function App() {
                 <Pravila />
               </Route>
               <Route path="/o-nama">
-                <O_nama/>
+                <O_nama />
               </Route>
               <Route path="*">
                 <NotFound />
