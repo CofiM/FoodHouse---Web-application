@@ -25,6 +25,9 @@ import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 
+import jwt_decode from "jwt-decode";
+import {ExtractData} from "../../helper/extract.js";
+
 const theme = createTheme();
 
 export default function SignIn() {
@@ -183,9 +186,16 @@ export default function SignIn() {
       }
     );
     let token = await response.json();
+<<<<<<< HEAD
     const user = jwt(token);
     const role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
     console.log(user);
+=======
+
+    let aa = ExtractData(token,"name");
+    console.log(aa);
+
+>>>>>>> 223a4faf09f6b55c8dd7356bb4413d516272fe66
     localStorage.setItem("Token", token);
     console.log(token);
     let data;
