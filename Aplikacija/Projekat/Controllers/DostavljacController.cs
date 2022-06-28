@@ -63,6 +63,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzmiDostavljac/{idD}")]
         [EnableCors("CORS")]
+        [HttpGet, Authorize(Roles = "D")]
         public async Task<ActionResult> PreuzmiDostavljac(int idD)
         {
             try
