@@ -23,6 +23,7 @@ import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
+import jwt from 'jwt-decode';
 
 import jwt_decode from "jwt-decode";
 import {ExtractData} from "../../helper/extract.js";
@@ -192,6 +193,11 @@ export default function SignIn() {
     localStorage.setItem("Token", token);
     console.log(token);
     let data;
+    //Ovde mrkam nesto
+    token = token.replace('Bearer','');
+    var jwt = require('jsonwebtoken');
+    var decoded = jwt.decode(token);
+    console.log(decoded);
     axios
       .get(
         "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/maletic@gmail.com/12345",
@@ -200,6 +206,8 @@ export default function SignIn() {
       .then((res) => {
         console.log(res.data);
       });
+
+      
     // const data = await response.json();
     // //localStorage.setItem("Username", data.username);
     // localStorage.setItem("Korisnik", data.tip);
