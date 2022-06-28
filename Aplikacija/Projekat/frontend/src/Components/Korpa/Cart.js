@@ -7,11 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useHistory } from 'react-router-dom';
 import CartModal from './CartModal';
 import s2 from '../../pictures/f.png';
+import { ExtractData } from "../../helper/extract.js";
 
 const Cart = (props) => {
+  
   const [open, setOpen] = useState(false);
   const [dostava,setDostava] = useState(0);
-
+  const token = localStorage.getItem("Token");
 
 
   const handleClose = () => {
@@ -40,7 +42,7 @@ const Cart = (props) => {
       </div>
   );
 
-  const idKorisnika = localStorage.getItem("KorisnikID");
+  const idKorisnika = ExtractData(token,"serialnumber");
 
   const UpdateQuantityMinus=(itemID,itemQuantity)=>
   {
@@ -51,7 +53,8 @@ const Cart = (props) => {
         method:'DELETE',
         body:JSON.stringify({title:'Uspesno dodatno'}),
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
         }
       });
     }
@@ -61,7 +64,8 @@ const Cart = (props) => {
         method:'PUT',
         body:JSON.stringify({title:'Uspesno dodatno'}),
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
         }
       });
     }
@@ -76,7 +80,8 @@ const Cart = (props) => {
         method:'PUT',
         body:JSON.stringify({title:'Uspesno dodatno'}),
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
         }
       });
     
@@ -89,7 +94,8 @@ const Cart = (props) => {
         method:'DELETE',
         body:JSON.stringify({title:'Uspesno dodatno'}),
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'Authorization': `Bearer ${token}`
         }
       });
       removeItem(itemID);
@@ -100,7 +106,10 @@ const Cart = (props) => {
 
             var req = new XMLHttpRequest();
             req.open('GET','https://localhost:5001/Narudzbine/IzracunajDostavu/'+idKorisnika, false);
-            req.setRequestHeader('Content-Type', 'application/json');
+            req.setRequestHeader(
+              'Content-Type', 
+              'application/json',
+              {'Authorization': `Bearer ${token}`} );
             req.onload  = function() {
                var jsonResponse = JSON.parse(req.responseText);
                // do something with jsonResponse
@@ -121,7 +130,8 @@ const Cart = (props) => {
           method:'POST',
           body:JSON.stringify({title:'Uspesno dodatno'}),
           headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${token}`
           }})
             .then(data => {
               item["filters"] = data
@@ -133,7 +143,8 @@ const Cart = (props) => {
                   method:'DELETE',
                   body:JSON.stringify({title:'Uspesno dodatno'}),
                   headers:{
-                    'Content-Type':'application/json'
+                    'Content-Type':'application/json',
+                    'Authorization': `Bearer ${token}`
                   }
                 })
       ).then(emptyCart()).then(handleClose())
