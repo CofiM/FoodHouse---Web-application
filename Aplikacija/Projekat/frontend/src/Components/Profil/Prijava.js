@@ -14,6 +14,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useHistory } from "react-router-dom";
 import Header from "../../Header/Header";
+import axios from "axios";
 
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -180,8 +181,18 @@ export default function SignIn() {
         },
       }
     );
-    let data = await response.json();
-    console.log(data);
+    let token = await response.json();
+    localStorage.setItem("Token", token);
+    console.log(token);
+    let data;
+    axios
+      .get(
+        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/maletic@gmail.com/12345",
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then((res) => {
+        console.log(res.data);
+      });
     // const data = await response.json();
     // //localStorage.setItem("Username", data.username);
     // localStorage.setItem("Korisnik", data.tip);

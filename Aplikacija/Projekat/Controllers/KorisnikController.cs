@@ -268,7 +268,7 @@ namespace SWE___PROJEKAT.Controllers
                 var korisnik = await Context.Korisnici.Where(p => p.email == email).FirstOrDefaultAsync();
                 if (korisnik == null)
                 {
-                    return BadRequest("Ne postoji domacinstvo!");
+                    return BadRequest("Ne postoji korisnik!");
                 }
                 if( pass == newPass )
                 {
