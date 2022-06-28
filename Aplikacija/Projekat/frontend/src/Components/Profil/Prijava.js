@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -24,6 +24,7 @@ import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
+import jwt from 'jwt-decode';
 
 import { ExtractData } from "../../helper/extract.js";
 
@@ -33,6 +34,8 @@ export default function SignIn() {
   const history = useHistory();
   const [textEmail, setTextEmail] = useState("");
   const [labelIsShown, setLabelIsShown] = useState(false);
+
+  const authCtx = useContext(AuthContext);
 
   const [pass, setPass] = React.useState({
     password: "",
@@ -225,28 +228,17 @@ export default function SignIn() {
     // //localStorage.setItem("Username", data.username);
     // localStorage.setItem("Korisnik", data.tip);
 
-    // if (data.tip === "K") {
-    //   let path = "Naslovna";
-    //   history.push(path);
-    //   localStorage.setItem("KorisnikID", data.id);
-    //   localStorage.setItem("IME", data.ime);
-    //   localStorage.setItem("PREZIME", data.prezime);
-    //   fetchMessage();
-    // } else if (data.tip === "D") {
-    //   let path = "narudzbine";
-    //   history.push(path);
-    //   localStorage.setItem("DostavljacID", data.id);
-    //   localStorage.setItem("IME", data.ime);
-    //   localStorage.setItem("PREZIME", data.prezime);
-    //   fetchMessage();
-    // } else if (data.tip === "P") {
-    //   let path = "domacinstvo";
-    //   history.push(path);
-    //   localStorage.setItem("DomacinstvoID", data.id);
-    //   localStorage.setItem("NAZIVDOMACINSTVA", data.naziv);
-    //   fetchMessage();
-    // }
-    // window.location.reload(false); //REFRESH PAGE
+
+
+      let path = "domacinstvo";
+      history.push(path);
+
+      // localStorage.setItem("DomacinstvoID", data.id);
+      // localStorage.setItem("NAZIVDOMACINSTVA", data.naziv);
+
+      fetchMessage();
+    }
+    //window.location.reload(false); //REFRESH PAGE 
   }
 
   return (
@@ -345,4 +337,4 @@ export default function SignIn() {
       </ThemeProvider>
     </div>
   );
-}
+}}

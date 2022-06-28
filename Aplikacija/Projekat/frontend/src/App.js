@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Header from "./Header/Header";
 import "./App.css";
@@ -37,9 +37,19 @@ import { CartProvider } from "react-use-cart";
 import UsloviKoriscenja from "./Footer/UsloviKoriscenja";
 import Pravila from "./Footer/Pravila";
 import O_nama from "./Main/O_nama";
+import AuthContext from "./helper/auth-context";
+import { ExtractData } from "./helper/extract";
+
+
 
 function App() {
-  let user = localStorage.getItem("Korisnik");
+  let authCtx = useContext(AuthContext);
+  console.log(authCtx.token);
+
+  let user = null;
+  if(authCtx.token!=null){user = ExtractData(authCtx.token,"role");}
+  console.log(user);
+
   return (
     <CartProvider>
       <div className="App">
