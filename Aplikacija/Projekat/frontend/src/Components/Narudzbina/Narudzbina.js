@@ -8,20 +8,21 @@ import Typography from '@mui/material/Typography';
 import { useState, useEffect } from "react";
 import NarudzbinaCard from "./NarudzbinaCard";
 import classes from "./Narudzbina.module.css";
-
-
+import { ExtractData } from "../../helper/extract.js";
 
 
 export default function OutlinedCard() {
     const [orders, setOrders] = useState([]);
+    const token = localStorage.getItem("Token");
 
     useEffect( () => {
 
         const fetchOrders = async () => {
-            const ID = localStorage.getItem("DostavljacID");
+            const ID = ExtractData(token, "serialnumber")
 
             const response = await fetch(
-            "https://localhost:5001/Kupovina/PreuzetiKupovineZaDostavljaca/" + ID
+            "https://localhost:5001/Kupovina/PreuzetiKupovineZaDostavljaca/" + ID,
+                { headers: { Authorization: `Bearer ${token}` } }
             );
             const data = await response.json();
             const transformedData = data.map(function (d) {
@@ -50,6 +51,7 @@ export default function OutlinedCard() {
                 body: JSON.stringify({ title: "Uspesno je obrisana narudzbina!" }),
                 headers: {
                   "Content-Type": "application/json",
+                  'Authorization': `Bearer ${token}`
                 },
               }
             );

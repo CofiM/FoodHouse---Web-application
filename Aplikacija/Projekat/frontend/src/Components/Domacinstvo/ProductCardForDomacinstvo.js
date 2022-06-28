@@ -39,6 +39,8 @@ export default function RecipeReviewCard(props) {
     setExpanded(!expanded);
   };
 
+  const token = localStorage.getItem("Token");
+
   const [slika, setSlika] = useState(null);
 
   useEffect(() => {
@@ -47,7 +49,8 @@ export default function RecipeReviewCard(props) {
       console.log(props.key);
       console.log(props.naziv);
       const response = await fetch(
-        "https://localhost:5001/FileUpload/" + props.id
+        "https://localhost:5001/FileUpload/" + props.id,
+        {headers: { Authorization: `Bearer ${token}` }}
       );
       const data = await response.json();
       setSlika(data);

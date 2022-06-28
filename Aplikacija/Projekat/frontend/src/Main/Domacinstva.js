@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 
 function Domacinstva() {
   const history = useHistory();
+  
   const openDomacinstvo = (Adresa, ID, Naziv) => {
     localStorage.setItem("DomacinstvoID", ID);
     localStorage.setItem("DomacinstvoAdresa", Adresa);
@@ -13,13 +14,19 @@ function Domacinstva() {
     let path = "jednoDomacinstvo";
     history.push(path);
   };
+
+  const token = localStorage.getItem("Token");
+
+
   const [domacinstva, setDomacinstva] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
+
     const fetchDomacinstvaHandler = async () => {
       console.log("uslo");
       const response = await fetch(
-        "https://localhost:5001/Domacinstvo/PreuzmiSvaDomacinstvo"
+        "https://localhost:5001/Domacinstvo/PreuzmiSvaDomacinstvo",
+        {Authorization: `Bearer ${token}`}
       );
       const data = await response.json();
       const transformedData = data.map((domacinstvo) => {
@@ -41,10 +48,12 @@ function Domacinstva() {
     };
     fetchDomacinstvaHandler();
   }, []);
+
   console.log(domacinstva);
   if (!isLoaded) {
     return <div className={classes.Loading}>Loading...</div>;
   }
+
   return (
     <div className={classes.container}>
       <div className={classes.allDomacinstva}>

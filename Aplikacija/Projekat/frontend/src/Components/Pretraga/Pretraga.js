@@ -19,6 +19,7 @@ const Pretraga = () => {
   const [nameValid, setNameValid] = useState(false);
 
   const handleChangeCategory = (e) => {
+
     //buttonPretraga.disabled("false");
 
     setCategory(e.target.value);
@@ -27,18 +28,22 @@ const Pretraga = () => {
     } else {
       setCategoryValid(false);
     }
+
   };
 
   const handleChangeName = (e) => {
+
     setName(e.target.value);
     if (e.target.value != "") {
       setNameValid(true);
     } else {
       setNameValid(false);
     }
+
   };
 
   const choosePage = () => {
+
     if (categoryValid != false && nameValid != false) {
       categoryAndNameSend(category, name);
     } else if (categoryValid != false) {
@@ -48,27 +53,34 @@ const Pretraga = () => {
       nameSend(name);
       console.log(name);
     }
+
   };
 
   const history = useHistory();
 
   const categoryAndNameSend = (category, name) => {
+
     localStorage.setItem("Category", category);
     localStorage.setItem("Name", name);
     history.push("ViewProductsStrict");
     // console.log(data);
+
   };
 
   const categorySend = (data) => {
+    
     localStorage.setItem("Category", data);
     history.push("ViewProducts");
     //console.log(data);
+
   };
 
   const nameSend = (data) => {
+
     localStorage.setItem("Name", data);
     history.push("ViewProductsName");
     // console.log(data);
+    
   };
 
   const categoryArray = [

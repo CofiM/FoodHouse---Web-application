@@ -2,10 +2,15 @@ import DostavljaciCard from "../Components/Dostavljac/DostavljacCard";
 import { useEffect } from "react";
 import { useState } from "react";
 import classes from "./Dostavljaci.module.css";
+import { ExtractData } from "../helper/extract.js";
+
+
 const Dostavljaci = () => {
   const [allData, setAllData] = useState([]);
   const [emailDostavljac, setEmailDostavljac] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const token = localStorage.getItem("Token");
 
   async function sendMessageProducer(
     receiverEmail,
@@ -14,7 +19,8 @@ const Dostavljaci = () => {
     receiverType,
     shown
   ) {
-    const DomacinstvoID = localStorage.getItem("DomacinstvoID");
+    if( token == null ) return; 
+    const DomacinstvoID = ExtractData(token, "serialnumber");
     console.log("ULAZIM");
     const response = await fetch(
       "https://localhost:5001/Administrator/PosaljiPoruku/" +
@@ -34,6 +40,7 @@ const Dostavljaci = () => {
         body: JSON.stringify({ title: "Uspesno je poslata poruka" }),
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`  
         },
       }
     );

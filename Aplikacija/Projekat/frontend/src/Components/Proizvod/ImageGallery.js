@@ -6,9 +6,14 @@ const ImageGallery = (props) => {
   const [imageArray, setImageArray] = useState(null);
   const [show, setShow] = useState(false);
 
+  const token = localStorage.getItem("Token");
+
+
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("https://localhost:5001/FileUpload/" + props.IdSlike);
+      const response = await fetch("https://localhost:5001/FileUpload/" + props.IdSlike,
+        {Authorization: `Bearer ${token}`}
+      );
       const data = await response.json();
       console.log(data);
       setImageArray(data);

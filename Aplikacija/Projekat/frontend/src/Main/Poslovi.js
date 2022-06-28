@@ -4,6 +4,7 @@ import classes2 from "../Components/Pretraga/Pretraga.module.css";
 import PosloviCard from "../Components/Poslovi/PosloviCard";
 import { useHistory } from "react-router-dom";
 import WarningModal from "../Components/Domacinstvo/WarningModal.js";
+import { ExtractData } from "../helper/extract.js";
 
 const Poslovi = () => {
   const [allJobs, setAllJobs] = useState([]);
@@ -14,14 +15,18 @@ const Poslovi = () => {
   const [openWarning, setOpenWarning] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const token = localStorage.getItem("Token");
+
   const [locations, setLocations] = useState();
 
   const onClicksignInHandler = async (ID, IDDomacinstva) => {
-    if (localStorage.getItem("Korisnik") == null) {
+    
+    if ( token == null) {
       setOpenWarning(true);
     }
     {
-      const IDKorisnika = localStorage.getItem("KorisnikID");
+      
+      const IDKorisnika = ExtractData(token,"serialnumber");
       localStorage.setItem("IdKorisnik", IDKorisnika);
       localStorage.setItem("PosaoID", ID);
       const response = await fetch(
@@ -36,6 +41,7 @@ const Poslovi = () => {
           method: "POST",
           headers: {
             "Content-type": "application/json;charset=UTF-8",
+            'Authorization': `Bearer ${token}`
           },
         }
       );
@@ -57,19 +63,23 @@ const Poslovi = () => {
   };
 
   const sendDateAndLocation = (adress, date) => {
+
     localStorage.setItem("Date", date);
     // console.log(date);
     localStorage.setItem("Adress", adress);
     history.push("ViewJobsDateLocation");
+
   };
 
   const adresaHandler = (event) => {
+
     setAdresa(event.target.value.split(","));
     if (event.target.value != "") {
       setValidAdresa(true);
     } else {
       setValidAdresa(false);
     }
+
   };
 
   const handleCloseWarning = () => {
@@ -77,15 +87,18 @@ const Poslovi = () => {
   };
 
   const datumHandler = (event) => {
+
     setDatum(event.target.value);
     if (event.target.value != "") {
       setValidDatum(true);
     } else {
       setValidDatum(false);
     }
+
   };
 
   const choosePage = () => {
+
     if (validAdresa != false && validDatum != "") {
       sendDateAndLocation(adresa, datum);
       console.log(validDatum);
@@ -97,6 +110,7 @@ const Poslovi = () => {
       sendDate(datum);
       console.log(datum);
     }
+    
   };
 
   useEffect(() => {

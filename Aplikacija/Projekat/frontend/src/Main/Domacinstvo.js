@@ -6,10 +6,13 @@ import { useHistory } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
 import WarningModal from "../Components/Domacinstvo/WarningModal";
+import { ExtractData } from "../helper/extract.js";
+
+
 
 function Domacinstvo() {
   const Adresa = localStorage.getItem("DomacinstvoAdresa");
-  const ID = localStorage.getItem("DomacinstvoID");
+  //const ID = localStorage.getItem("DomacinstvoID");
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState();
@@ -17,12 +20,18 @@ function Domacinstvo() {
   const [domacinstvo, setDomacinstvo] = useState([]);
   const [openWarning, setOpenWarning] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const token = localStorage.getItem("Token");
+
+
   const handleClose = () => {
     setOpen(false);
   };
+  
   const handleCloseWarning = () => {
     setOpenWarning(false);
   };
+  
   const onClickCommentHandler = (ID) => {
     setProduct(products.find((el) => el.ID == ID));
     console.log(product);
@@ -31,7 +40,7 @@ function Domacinstvo() {
   const history = useHistory();
 
   const onClickCartHandler = (ID) => {
-    let korisnik = localStorage.getItem("Korisnik");
+    let korisnik = ExtractData(token, "role");
     if (korisnik != null) {
       const p = products.find((el) => el.ID == ID);
       console.log(p);
@@ -47,12 +56,14 @@ function Domacinstvo() {
       setOpenWarning(true);
     }
   };
+
   useEffect(() => {
     const fetchProductHandler = async () => {
       console.log("uslo");
       const response = await fetch(
         "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvoAdresa/" +
-          Adresa
+          Adresa,
+          { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await response.json();
       console.log(data);
@@ -94,7 +105,8 @@ function Domacinstvo() {
     };
     const fetchDomacinstvoHandler = async () => {
       const response = await fetch(
-        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvoAdresa/" + Adresa
+        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvoAdresa/" + Adresa,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await response.json();
       setDomacinstvo(data);
@@ -102,6 +114,9 @@ function Domacinstvo() {
     fetchDomacinstvoHandler();
     fetchProductHandler();
   }, []);
+
+
+
   console.log(products);
   console.log(ratingOfDomacinstvo);
   console.log(domacinstvo);

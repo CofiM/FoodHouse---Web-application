@@ -29,6 +29,10 @@ import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 import { textFieldClasses } from "@mui/material";
 import AuthContext from "../helper/auth-context";
 import { ExtractData } from "../helper/extract";
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7bd4c45d3d211a69574bac562d4459fc2161dce3
 
 const settings = ["Profile", "Logout"];
 
@@ -71,10 +75,13 @@ const ResponsiveAppBar = (props) => {
     let name = null;
     if (token != null) {
       tip = ExtractData(token, "role");
+<<<<<<< HEAD
       name = ExtractData(token, "name");
       setWord1(name.split(" ")[0][0]);
       setWord2(name.split(" ")[1][0]);
       console.log(name);
+=======
+>>>>>>> 7bd4c45d3d211a69574bac562d4459fc2161dce3
     }
     if (tip == null) {
       setMess(false);
@@ -90,7 +97,11 @@ const ResponsiveAppBar = (props) => {
         //setSurname(localStorage.getItem("PREZIME").toUpperCase());
       }
       if (tip == "P") {
+<<<<<<< HEAD
         setDom(true);
+=======
+        //setDom(true);
+>>>>>>> 7bd4c45d3d211a69574bac562d4459fc2161dce3
         //setNazivDomacinstva(
         //localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase()
         //);

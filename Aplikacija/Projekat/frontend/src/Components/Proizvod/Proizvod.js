@@ -6,6 +6,7 @@ import { useCart } from "react-use-cart";
 import CheckBox from "../Proizvod/CheckBox";
 
 const Proizvod = (props) => {
+
   //const cenaDostave = JSON.parse(localStorage.getItem("CenaDostave"));
   const idDomacinstva = JSON.parse(localStorage.getItem("DomacinstvoID"));
   //const idDostavljaca = JSON.parse(localStorage.getItem("idDostavljaca"));
@@ -15,6 +16,10 @@ const Proizvod = (props) => {
   const [show, setShow] = useState(false);
   const [cenaDostave, setCenaDostave] = useState(0);
   const [idDostavljaca, setIdDostavljaca] = useState(0);
+
+
+  
+
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(

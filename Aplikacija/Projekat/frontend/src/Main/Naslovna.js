@@ -12,6 +12,7 @@ let allLocations = [];
 let allName = [];
 let allId = [];
 const Naslovna = () => {
+  
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyDFzGoHWrB0dwGhYCIduSqQJuSWzsaZEds",
   });
