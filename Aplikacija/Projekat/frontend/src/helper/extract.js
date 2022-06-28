@@ -7,7 +7,7 @@ export function ExtractData(token,data)
     let decodedJwtJsonData = window.atob(jwtData);
 
     let name = decodedJwtJsonData.substring(decodedJwtJsonData.indexOf(dataString));
-    let subname = name.substring(num+2,name.indexOf(","));
+    let subname = name.substring(num+3,name.indexOf(",")-1);
 
     return subname
 } 
