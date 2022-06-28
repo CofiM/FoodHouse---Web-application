@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useHistory } from "react-router-dom";
 import Header from "../../Header/Header";
 import axios from "axios";
+import jwt from "jwt-decode";
 
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -182,6 +183,9 @@ export default function SignIn() {
       }
     );
     let token = await response.json();
+    const user = jwt(token);
+    const role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
+    console.log(user);
     localStorage.setItem("Token", token);
     console.log(token);
     let data;
