@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,6 +9,17 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Models;
 
 namespace SWE___PROJEKAT.Controllers
@@ -24,7 +37,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzmiDomacinstvo/{email}/{pass}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "P")]
         public async Task<ActionResult> preuzmiDomacinstvo(String email, String pass)
         {
             if (String.IsNullOrWhiteSpace(email))
@@ -38,7 +51,7 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var domacinstvo = await Context.Domacinstva
-                .Where(p => p.email == email && p.Password == pass)
+                .Where(p => p.email == email /*&& p.Password == pass*/)
                 .Select(p => new
                 {
                     p.Naziv,
@@ -393,11 +406,11 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var domacinstvo = await Context.Domacinstva
-                .Where(p => p.email == email && p.Password == pass)
+                .Where(p => p.email == email /*&& p.Password == pass*/)
                 .FirstOrDefaultAsync();
                 if (domacinstvo != null)
                 {
-                    domacinstvo.Password = newPass;
+                   // domacinstvo.Password = newPass;
                     await Context.SaveChangesAsync();
                     return Ok("Uspesno izmenjena sifra!");
                 }
@@ -472,7 +485,7 @@ namespace SWE___PROJEKAT.Controllers
                 }
                 if(pass == newPass)
                 {
-                    domacinstvo.Password = newPass;
+                    //domacinstvo.Password = newPass;
                     domacinstvo.Naziv = naziv;
                     domacinstvo.Username = username;
                     domacinstvo.Adresa = adresa;

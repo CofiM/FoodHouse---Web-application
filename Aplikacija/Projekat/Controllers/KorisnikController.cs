@@ -43,7 +43,7 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var korisnik = await Context.Korisnici
-                        .Where(p => p.email == email && p.Password == password)
+                        .Where(p => p.email == email /*&& p.Password == password*/)
                         .Include(p => p.KorisnikPosao)
                         .Select(p => new {
                             p.Ime,
@@ -251,7 +251,7 @@ namespace SWE___PROJEKAT.Controllers
                 }
                 if( pass == newPass )
                 {
-                    korisnik.Password = newPass;
+                    // korisnik.Password = newPass;
                     korisnik.Ime = ime;
                     korisnik.Prezime = prezime;
                     korisnik.Username = username;

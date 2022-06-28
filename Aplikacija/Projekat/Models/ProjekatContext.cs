@@ -26,6 +26,8 @@ namespace Models
 
         public DbSet<Narudzbina> Narudzbine {get; set;}
 
+        public DbSet<User> Users {get; set;}
+
         public ProjekatContext(DbContextOptions opt) : base(opt)
         {
             

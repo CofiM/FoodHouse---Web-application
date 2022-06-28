@@ -5,8 +5,8 @@ using System.Text.Json.Serialization;
 
 namespace Models
 {
-    [Table("Korisnik")]
-    public class Korisnik
+    [Table("User")]
+    public class User
     {
         [Key]
         public int ID { get; set; }
@@ -41,18 +41,5 @@ namespace Models
         [Required]
         [MaxLength(100)]
         public string Adresa { get; set; }
-
-        public List<Poruka> inbox { get; set; }
-
-        // VEZE --------------------------
-
-        [JsonIgnore]
-        public virtual List<Spoj> KorisnikPosao { get; set; }
-
-        [JsonIgnore]
-        public virtual List<Kupovina> Korpa { get; set; }
-
-        [JsonIgnore]
-        public virtual Administrator Administrator { get; set; }
     }
 }

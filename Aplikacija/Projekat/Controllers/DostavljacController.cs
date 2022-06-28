@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,6 +9,17 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Models;
 
 namespace SWE___PROJEKAT.Controllers
@@ -29,10 +42,10 @@ namespace SWE___PROJEKAT.Controllers
         {
             try
             {
-                var dostavljac = await Context.Dostavljaci.Where(p => p.email == email && p.Password == password).Select(p => new{
+                var dostavljac = await Context.Dostavljaci.Where(p => p.email == email /*&& p.Password == password*/).Select(p => new{
                             p.ID,
                             p.Username,
-                            p.Password,
+                           // p.Password,
                             p.email,
                             p.Cena,
                             p.telefon,
@@ -51,7 +64,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzmiDostavljac/{idD}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "D")]
         public async Task<ActionResult> PreuzmiDostavljac(int idD)
         {
             try
@@ -59,7 +72,7 @@ namespace SWE___PROJEKAT.Controllers
                 var dostavljac = await Context.Dostavljaci.Where(p => p.ID == idD).Select(p => new{
                             p.ID,
                             p.Username,
-                            p.Password,
+                            //p.Password,
                             p.email,
                             p.Cena,
                             p.telefon,
@@ -250,7 +263,7 @@ namespace SWE___PROJEKAT.Controllers
                 }
                 if( pass == newPass )
                 {
-                    dostavljac.Password = newPass;
+                    //dostavljac.Password = newPass;
                     dostavljac.Ime = ime;
                     dostavljac.Prezime = prezime;
                     dostavljac.Username = username;

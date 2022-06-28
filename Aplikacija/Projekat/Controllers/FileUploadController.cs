@@ -72,12 +72,6 @@ namespace SWE___PROJEKAT.Controllers
                  byte[] b = System.IO.File.ReadAllBytes(image);
                  files.Add(b);
             }
-            // var filePath = path + fileName + ".png";
-            // if(System.IO.File.Exists(filePath)){
-            //     byte[] b = System.IO.File.ReadAllBytes(filePath);
-            //     return File(b, "image/png");
-            // }
-            // return null;
             return Ok(files);
         }
 
@@ -154,12 +148,6 @@ namespace SWE___PROJEKAT.Controllers
                  byte[] b = System.IO.File.ReadAllBytes(image);
                  files.Add(b);
             }
-            // var filePath = path + fileName + ".png";
-            // if(System.IO.File.Exists(filePath)){
-            //     byte[] b = System.IO.File.ReadAllBytes(filePath);
-            //     return File(b, "image/png");
-            // }
-            // return null;
             return Ok(files);
         }
 

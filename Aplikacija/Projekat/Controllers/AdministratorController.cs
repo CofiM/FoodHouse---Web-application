@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,6 +9,17 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Models;
 
 namespace SWE___PROJEKAT.Controllers
@@ -17,9 +30,13 @@ namespace SWE___PROJEKAT.Controllers
     {
 
         public ProjekatContext Context{ get; set; }
-        public AdministratorController(ProjekatContext context)
+        private readonly IConfiguration _configuration;
+        public static IWebHostEnvironment _webHost;
+        public AdministratorController(ProjekatContext context, IConfiguration configuration,IWebHostEnvironment hostingEnvironment)
         {
             Context=context;
+            _configuration=configuration;
+            _webHost = hostingEnvironment;
         }
 
         [Route("PreuzmiAdministratora")]
@@ -42,9 +59,19 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return computedHash.SequenceEqual(passwordHash);
+            }
+        }
+
         [Route("GetAccount/{email}/{password}")]
         [EnableCors("CORS")]
         [HttpGet]
+        [Produces("application/json")]
         public async Task<ActionResult> GetAccount(string email, string password)
         {
             if (String.IsNullOrWhiteSpace(email))
@@ -58,59 +85,106 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var retAcc1 = await Context.Domacinstva
-                .Where(p => p.email == email && p.Password == password)
-                .Select(p => new
-                {
-                    p.ID,
-                    p.Naziv,
-                    p.Username,
-                    p.email,
-                    p.Tip,
-                    p.Poslovi,
-                    p.Proizvodi
-                }).FirstOrDefaultAsync();
-                if (retAcc1 == null)
-                {
-                    var retAcc2 = await Context.Dostavljaci.Where(p => p.email == email && p.Password == password).Select(p => new{
-                            p.ID,
-                            p.Username,
-                            p.Password,
-                            p.email,
-                            p.Cena,
-                            p.telefon,
-                            p.Ime,
-                            p.Prezime,
-                            p.Tip
-                            }).FirstOrDefaultAsync();
-                    if(retAcc2 == null){
-                        var retAcc3 = await Context.Korisnici.Where(p => p.email == email && p.Password == password).Select(p => new{
-                            p.ID,
-                            p.Ime,
-                            p.Prezime,
-                            p.Username,
-                            p.Password,
-                            p.email,
-                            p.Tip
-                        }).FirstOrDefaultAsync();
-                        if(retAcc3 == null){
-                            return BadRequest("Nepostojeci acc!");
-                        }
-                        return Ok(retAcc3);
+                .Where(p => p.email == email /*&& p.Password == password*/)
+                .FirstOrDefaultAsync();
+                if(retAcc1 != null){
+                    if (!VerifyPasswordHash(password, retAcc1.PasswordHash, retAcc1.PasswordSalt))
+                    {
+                        return  BadRequest("Pogresna sifra");
                     }
-                    return Ok(retAcc2);
-                } 
-                return Ok(retAcc1);
+                    return Ok(CreateTokenDomacinstvo(retAcc1));
+                }
+                var retAcc2 = await Context.Dostavljaci
+                .Where(p => p.email == email /*&& p.Password == password*/)
+                .FirstOrDefaultAsync();
+                if(retAcc2 != null){
+                    if (!VerifyPasswordHash(password, retAcc2.PasswordHash, retAcc2.PasswordSalt))
+                    {
+                        return  BadRequest("Pogresna sifra");
+                    }
+                    return Ok(CreateTokenDostavljac(retAcc2));
+                }
+                var retAcc3 = await Context.Korisnici
+                .Where(p => p.email == email /*&& p.Password == password*/)
+                .FirstOrDefaultAsync();
+                if(retAcc3 != null){
+                    if (!VerifyPasswordHash(password, retAcc3.PasswordHash, retAcc3.PasswordSalt))
+                    {
+                        return  BadRequest("Pogresna sifra");
+                    }
+                    return Ok(CreateTokenKorisnik(retAcc3));
+                }
+                return BadRequest("Nije pronadjen acc");
             }
             catch(Exception e)
             {
                 return BadRequest(e.Message);
             }
         }
+        private string CreateTokenDomacinstvo(Domacinstvo k)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, k.Naziv),
+                new Claim(ClaimTypes.Role, k.Tip.ToString()),
+                new Claim(ClaimTypes.SerialNumber, k.ID.ToString())
+            };
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _configuration.GetSection("AppSettings:Token").Value));
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var token = new JwtSecurityToken(
+                claims : claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: cred);
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            return jwt;
+        }
+        private string CreateTokenDostavljac(Dostavljac k)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, k.Ime),
+                new Claim(ClaimTypes.Name, k.Prezime),
+                new Claim(ClaimTypes.Role, k.Tip.ToString()),
+                new Claim(ClaimTypes.SerialNumber, k.ID.ToString())
+            };
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _configuration.GetSection("AppSettings:Token").Value));
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var token = new JwtSecurityToken(
+                claims : claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: cred);
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            return jwt;
+        }
+        private string CreateTokenKorisnik(Korisnik k)
+        {
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, k.Ime),
+                new Claim(ClaimTypes.Name, k.Prezime),
+                new Claim(ClaimTypes.Role, k.Tip.ToString()),
+                new Claim(ClaimTypes.SerialNumber, k.ID.ToString())
+            };
+
+            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
+                _configuration.GetSection("AppSettings:Token").Value));
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var token = new JwtSecurityToken(
+                claims : claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: cred);
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            return jwt;
+        }
 
         [Route("DodatiKorisnika/{ime}/{prezime}/{username}/{password}/{confPassword}/{email}/{tip}/{adresa}")]
         [EnableCors("CORS")]
         [HttpPost]
-        public async Task<ActionResult> dodajKorisnik(string ime, string prezime, string username, 
+        public async Task<ActionResult<Korisnik>> dodajKorisnik(string ime, string prezime, string username, 
                                         string password, string confPassword, string email, char tip, string adresa)
         {
             if(string.IsNullOrWhiteSpace(ime) || ime.Length > 30)
@@ -151,11 +225,13 @@ namespace SWE___PROJEKAT.Controllers
                 }
                 if( password == confPassword )
                 {
+                    CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
                     Korisnik k = new Korisnik();
+                    k.PasswordHash = passwordHash;
+                    k.PasswordSalt = passwordSalt;
                     k.Ime = ime;
                     k.Prezime = prezime;
                     k.Username = username;
-                    k.Password = password;
                     k.email = email;
                     k.Tip = tip;
                     k.Adresa = adresa;
@@ -174,6 +250,14 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using(var hmc = new HMACSHA512())
+            {
+                passwordSalt = hmc.Key;
+                passwordHash = hmc.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
 
         [NonAction]
         public bool CheckEmail(string emailaddress)
@@ -235,10 +319,12 @@ namespace SWE___PROJEKAT.Controllers
                 {
                     throw new Exception("Postoji proizvodjac!");
                 }
+                CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
                 Domacinstvo d = new Domacinstvo();
                 d.Naziv = naziv;
                 d.Username = username;
-                d.Password = password;
+                d.PasswordHash = passwordHash;
+                d.PasswordSalt = passwordSalt;
                 d.email = email;
                 d.telefon = telefon;
                 d.Adresa = adresa;
@@ -532,11 +618,13 @@ namespace SWE___PROJEKAT.Controllers
                 {
                     throw new Exception("Postoji dostavljac!");
                 }
+                CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
                 Dostavljac dos = new Dostavljac();
                 dos.Ime = ime;
                 dos.Prezime = prezime;
                 dos.Username = username;
-                dos.Password = password;
+                dos.PasswordHash = passwordHash;
+                dos.PasswordSalt = passwordSalt;
                 dos.email = email;
                 dos.telefon = telefon;
                 dos.Cena = cena;

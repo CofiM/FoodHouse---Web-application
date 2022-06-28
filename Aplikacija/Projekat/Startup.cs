@@ -6,13 +6,19 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Models;
+using Microsoft.EntityFrameworkCore;
+using MySql.Data.EntityFrameworkCore;
+using System.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace SWE___PROJEKAT
 {
@@ -31,7 +37,7 @@ namespace SWE___PROJEKAT
 
              services.AddDbContext<ProjekatContext>(options => 
             {
-                options.UseSqlServer(Configuration.GetConnectionString("ProjekatCS"));
+                object value = options.UseSqlServer(Configuration.GetConnectionString("ProjekatCS"));
             });
             
             services.AddCors(options =>
@@ -71,11 +77,29 @@ namespace SWE___PROJEKAT
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SWE___PROJEKAT", Version = "v1" });
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme{
+                    Description="Des",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
             });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                            ValidateIssuer = false,
+                            ValidateAudience = false
+                        };
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -90,7 +114,11 @@ namespace SWE___PROJEKAT
 
             app.UseCors("CORS");
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
