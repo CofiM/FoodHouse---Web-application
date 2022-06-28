@@ -96,22 +96,9 @@ export default function SignIn() {
       const da = await response.json();
       let pom = 0;
       const transformedData = da.map(function (d) {
+
         if (d.shown == false && d.tip !== "P") pom++;
 
-        /* return {
-          ID: d.id,
-          Poruka: d.sadrzaj,
-          ImeD: d.ime,
-          PrezimeD: d.prezime,
-          ImeK: d.imeKorisnik,
-          PrezimeK: d.prezimeKorisnika,
-          NazivP: d.naziv,
-          Tip: d.tip,
-          EmailD: d.emailDostavljac,
-          EmailK: d.emailKorisnik,
-          EmailP: d.emailDomacinstvo,
-          Shown: d.shown,
-        }; */
       });
       console.log("Broj poruke: " + pom);
       localStorage.setItem("messageNumber", pom);
@@ -124,26 +111,15 @@ export default function SignIn() {
       let pom = 0;
       const data = await response.json();
       const transformedData = data.map(function (d) {
+
         if (d.shown == false && d.tip !== "D") pom++;
-        /* return {
-          ID: d.id,
-          Poruka: d.sadrzaj,
-          ImeD: d.ime,
-          PrezimeD: d.prezime,
-          ImeK: d.imeKorisnik,
-          PrezimeK: d.prezimeKorisnika,
-          NazivP: d.naziv,
-          Tip: d.tip,
-          EmailD: d.emailDostavljac,
-          EmailK: d.emailKorisnik,
-          EmailP: d.emailDomacinstvo,
-          Shown: d.shown,
-        }; */
+       
       });
 
       console.log("Broj poruka: " + pom);
       localStorage.setItem("messageNumber", pom);
     } else if (tip === "K") {
+      
       console.log("Ulazim u K");
       const ID = localStorage.getItem("KorisnikID");
       const response = await fetch(
@@ -154,20 +130,7 @@ export default function SignIn() {
 
       const transformedData = data.map(function (d) {
         if (d.shown == false && d.tip !== "P") pom++;
-        /* return {
-          ID: d.id,
-          Poruka: d.sadrzaj,
-          ImeD: d.ime,
-          PrezimeD: d.prezime,
-          ImeK: d.imeKorisnik,
-          PrezimeK: d.prezimeKorisnika,
-          NazivP: d.naziv,
-          Tip: d.tip,
-          EmailD: d.emailDostavljac,
-          EmailK: d.emailKorisnik,
-          EmailP: d.emailDomacinstvo,
-          Shown: d.shown,
-        }; */
+        
       });
       console.log("Broj poruka: " + pom);
       localStorage.setItem("messageNumber", pom);
@@ -175,7 +138,7 @@ export default function SignIn() {
   };
 
   async function fetchLoginClient() {
-    console.log("USLO U FETCH ");
+
     const response = await fetch(
       "https://localhost:5001/Administrator/GetAccount/" +
         textEmail +
@@ -190,11 +153,11 @@ export default function SignIn() {
     );
     let token = await response.json();
 
-    authCtx.login(token);
+    localStorage.setItem("Token", token);
 
     let aa = ExtractData(token,"name");
     console.log(aa);
-    
+
     // axios
     //   .get(
     //     "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/maletic@gmail.com/12345",
@@ -217,14 +180,27 @@ export default function SignIn() {
       let path = "Naslovna";
       history.push(path);
       
-       fetchMessage();
+      axios
+      .get(
+        "https://localhost:5001/Korisnik/PreuzetiKorisnika/"+textEmail+"/"+pass.password,
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+
+      fetchMessage();
 
     } else if (tipKorisnika === "D") {
       let path = "narudzbine";
       history.push(path);
 
-     
-      
+      axios
+      .get(
+        "https://localhost:5001/Dosavljac/PreuzmiDostavljac/"+textEmail+"/"+pass.password,
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then((res) => {
+        console.log(res.data);
+      });
+
       fetchMessage();
 
     } else if (tipKorisnika === "P") {
@@ -237,8 +213,6 @@ export default function SignIn() {
       .then((res) => {
         console.log(res.data);
       });
-
-
 
       let path = "domacinstvo";
       history.push(path);

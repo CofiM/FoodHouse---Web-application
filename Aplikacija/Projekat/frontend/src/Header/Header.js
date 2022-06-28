@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../pictures/logo.png";
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import classes from "./Header.module.css";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { HeaderItems } from "./HeaderComponentsKorisnik";
@@ -27,6 +27,8 @@ import CartBox from "../Components/Korpa/CartBox";
 import { useCart } from "react-use-cart";
 import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 import { textFieldClasses } from "@mui/material";
+import AuthContext from "../helper/auth-context";
+import { ExtractData } from "../helper/extract";
 
 const settings = ["Profile", "Logout"];
 
@@ -59,27 +61,32 @@ const ResponsiveAppBar = (props) => {
   const [nazivDomacinstva, setNazivDomacinstva] = useState("");
   const [num, setNum] = useState(0);
   const { emptyCart } = useCart();
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
-    const tip = localStorage.getItem("Korisnik");
+
+    let tip = null;
+    let token = authCtx.token;
+    if(token!=null)
+    {
+      tip = ExtractData(token,"role");
+    }
     if (tip == null) {
       setMess(false);
     } else {
       fetchMessage();
       if (tip == "K") {
         setCrt(true);
-        setName(localStorage.getItem("IME").toUpperCase());
-        setSurname(localStorage.getItem("PREZIME").toUpperCase());
+        //setName(localStorage.getItem("IME").toUpperCase());
+        //setSurname(localStorage.getItem("PREZIME").toUpperCase());
       }
       if (tip == "D") {
-        setName(localStorage.getItem("IME").toUpperCase());
-        setSurname(localStorage.getItem("PREZIME").toUpperCase());
+        //setName(localStorage.getItem("IME").toUpperCase());
+        //setSurname(localStorage.getItem("PREZIME").toUpperCase());
       }
       if (tip == "P") {
         setDom(true);
-        setNazivDomacinstva(
-          localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase()
-        );
+        //setNazivDomacinstva(localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase());
       }
       setMess(true);
       setProfileAvatar(true);
@@ -206,6 +213,7 @@ const ResponsiveAppBar = (props) => {
       history.push(path);
       window.location.reload(false); //REFRESH PAGE
     }
+    authCtx.logout();
   };
 
   const handleCloseWarning = () => {

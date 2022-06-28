@@ -47,7 +47,8 @@ function App() {
   console.log(authCtx.token);
 
   let user = null;
-  if(authCtx.token!=null){user = ExtractData(authCtx.token,"role");}
+  if(authCtx.token!=null)
+    {user = ExtractData(authCtx.token,"role");}
   console.log(user);
 
   return (

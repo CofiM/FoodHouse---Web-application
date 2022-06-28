@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import classes from "./ProfileDostavljac.module.css";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import Stack from "@mui/material/Stack";
@@ -8,6 +8,8 @@ import DesignProfileKorisnik from "./DesignProfileKorisnik";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
+import AuthContext from "../../helper/auth-context";
+import { ExtractData } from "../../helper/extract.js";
 
 function stringAvatar(name) {
   return {
@@ -24,6 +26,9 @@ const ProfilDomacinstvo = () => {
   const [data, setData] = useState([]);
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const authCtx = useContext(AuthContext);
+
 
   const onClickProfileHandler = () => {
     setIsShowProfile(true);
@@ -42,12 +47,17 @@ const ProfilDomacinstvo = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const id = localStorage.getItem("KorisnikID");
+
+      let token = authCtx.token;
+      const id = ExtractData(token, "serialnumber");
+      console.log(id);
+      let mrk = localStorage.getItem("MRK");
       const response = await fetch(
         "https://localhost:5001/Korisnik/PreuzetiKorisnika/" + id,
         {
           method: "GET",
           headers: {
+            "Authorization": `Bearer ${token}`, 
             "Content-type": "application/json;charset=UTF-8",
           },
         }
