@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import AddJobsModal from "./AddJobsModal";
 import UpdateJobsModal from "./UpdateJobsModal";
 import classes from "./JobsView.module.css";
+import { ExtractData } from "../../helper/extract";
 
 const JobsView = () => {
   const [jobs, setJobs] = useState([]);
@@ -14,6 +15,8 @@ const JobsView = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
   const [job, setJob] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const token = localStorage.getItem("Token");
+
 
   const handleCloseDelete = () => {
     setOpenDelete(false);
@@ -38,11 +41,12 @@ const JobsView = () => {
   };
 
   const fetchJobsHandler = async () => {
-    const ID = localStorage.getItem("DomacinstvoID");
-    console.log(ID);
+    const ID = ExtractData(token, "serialnumber");
     const response = await fetch(
-      "https://localhost:5001/Posao/PreuzetiPosloveZaDomacinstvo/" + ID
+      "https://localhost:5001/Posao/PreuzetiPosloveZaDomacinstvo/" + ID,
+      {headers: { Authorization: `Bearer ${token}` }}
     );
+
     const data = await response.json();
     console.log(data);
     const transformedDataJobs = data.map(function (prod) {
@@ -56,15 +60,17 @@ const JobsView = () => {
     });
     setJobs(transformedDataJobs);
     setIsLoaded(true);
+
   };
 
   const onClickAddNewJobsHandler = async (
+
     brRadnihMesta,
     datumPocetka,
     opis,
     cena
-  ) => {
-    const ID = localStorage.getItem("DomacinstvoID");
+    ) => {
+    const ID = ExtractData(token, "serialnumber");
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/DodatiPosao/" +
         ID +
@@ -76,22 +82,28 @@ const JobsView = () => {
         opis +
         "/" +
         cena,
-      { method: "POST" }
+      { method: "POST",
+        headers: { Authorization: `Bearer ${token}` }
+      }
     );
     setOpenAddNew(false);
     fetchJobsHandler();
+
   };
 
   const onDeleteHandler = async () => {
-    const ID = localStorage.getItem("DomacinstvoID");
+
+    const ID = ExtractData(token, "serialnumber");
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/IzbrisiPosao/" + ID + "/" + job.ID,
       {
         method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` }
       }
     );
     setOpenDelete(false);
     fetchJobsHandler();
+
   };
 
   const onClickSaveChangeHandler = async (
@@ -99,8 +111,8 @@ const JobsView = () => {
     datumPocetka,
     opis,
     cena
-  ) => {
-    const ID = localStorage.getItem("DomacinstvoID");
+    ) => {
+    const ID = ExtractData(token, "serialnumber");
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/IzmeniPosao/" +
         ID +
@@ -114,11 +126,14 @@ const JobsView = () => {
         opis +
         "/" +
         cena,
-      { method: "PUT" }
+      { method: "PUT",
+        headers: { Authorization: `Bearer ${token}` } 
+      }
     );
     setOpenUpdate(false);
     fetchJobsHandler();
     window.location.reload(false);
+    
   };
 
   const onClickDeleteHandler = (ID) => {
