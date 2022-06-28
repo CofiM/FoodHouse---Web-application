@@ -142,10 +142,10 @@ namespace SWE___PROJEKAT.Controllers
         }
         private string CreateTokenDostavljac(Dostavljac k)
         {
+            var imePrez = k.Ime + " " + k.Prezime;
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, k.Ime),
-                new Claim(ClaimTypes.Name, k.Prezime),
+                new Claim(ClaimTypes.Name, imePrez),
                 new Claim(ClaimTypes.Role, k.Tip.ToString()),
                 new Claim(ClaimTypes.SerialNumber, k.ID.ToString())
             };
@@ -162,10 +162,10 @@ namespace SWE___PROJEKAT.Controllers
         }
         private string CreateTokenKorisnik(Korisnik k)
         {
+            var imePrez = k.Ime + " " + k.Prezime;
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, k.Ime),
-                new Claim(ClaimTypes.Name, k.Prezime),
+                new Claim(ClaimTypes.Name, imePrez),
                 new Claim(ClaimTypes.Role, k.Tip.ToString()),
                 new Claim(ClaimTypes.SerialNumber, k.ID.ToString())
             };

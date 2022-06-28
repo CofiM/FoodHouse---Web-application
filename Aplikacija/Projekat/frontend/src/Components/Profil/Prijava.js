@@ -36,7 +36,6 @@ export default function SignIn() {
   const [textEmail, setTextEmail] = useState("");
   const [labelIsShown, setLabelIsShown] = useState(false);
 
-
   const [pass, setPass] = React.useState({
     password: "",
     weight: "",
@@ -102,10 +101,7 @@ export default function SignIn() {
       });
       console.log("Broj poruke: " + pom);
       localStorage.setItem("messageNumber", pom);
-
-
     } else if (tip === "D") {
-
       console.log("Ulazim u D");
       const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
@@ -120,9 +116,7 @@ export default function SignIn() {
 
       console.log("Broj poruka: " + pom);
       localStorage.setItem("messageNumber", pom);
-
     } else if (tip === "K") {
-
       console.log("Ulazim u K");
       const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
@@ -137,7 +131,6 @@ export default function SignIn() {
       });
       console.log("Broj poruka: " + pom);
       localStorage.setItem("messageNumber", pom);
-
     }
   };
 

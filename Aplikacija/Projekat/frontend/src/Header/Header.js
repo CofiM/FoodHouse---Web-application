@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../pictures/logo.png";
 import { useHistory } from "react-router-dom";
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import classes from "./Header.module.css";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { HeaderItems } from "./HeaderComponentsKorisnik";
@@ -29,7 +29,10 @@ import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 import { textFieldClasses } from "@mui/material";
 import AuthContext from "../helper/auth-context";
 import { ExtractData } from "../helper/extract";
+<<<<<<< HEAD
+=======
 
+>>>>>>> 7bd4c45d3d211a69574bac562d4459fc2161dce3
 
 const settings = ["Profile", "Logout"];
 
@@ -61,15 +64,24 @@ const ResponsiveAppBar = (props) => {
   const [dom, setDom] = useState(false);
   const [nazivDomacinstva, setNazivDomacinstva] = useState("");
   const [num, setNum] = useState(0);
+  const [word1, setWord1] = useState("");
+  const [word2, setWord2] = useState("");
   const { emptyCart } = useCart();
-  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     const token = localStorage.getItem("Token");
     console.log(token);
     let tip = null;
+    let name = null;
     if (token != null) {
       tip = ExtractData(token, "role");
+<<<<<<< HEAD
+      name = ExtractData(token, "name");
+      setWord1(name.split(" ")[0][0]);
+      setWord2(name.split(" ")[1][0]);
+      console.log(name);
+=======
+>>>>>>> 7bd4c45d3d211a69574bac562d4459fc2161dce3
     }
     if (tip == null) {
       setMess(false);
@@ -85,7 +97,11 @@ const ResponsiveAppBar = (props) => {
         //setSurname(localStorage.getItem("PREZIME").toUpperCase());
       }
       if (tip == "P") {
+<<<<<<< HEAD
+        setDom(true);
+=======
         //setDom(true);
+>>>>>>> 7bd4c45d3d211a69574bac562d4459fc2161dce3
         //setNazivDomacinstva(
         //localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase()
         //);
@@ -101,11 +117,10 @@ const ResponsiveAppBar = (props) => {
 
   const fetchMessage = async () => {
     let token = localStorage.getItem("Token");
-    const tip = ExtractData(token,"role");
+    const tip = ExtractData(token, "role");
 
     if (tip === "P") {
-
-      const ID = ExtractData(token,"serialnumber");
+      const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
         "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -118,12 +133,9 @@ const ResponsiveAppBar = (props) => {
       console.log("Broj poruke: " + pom);
       setNum(pom);
       localStorage.setItem("messageNumber", pom);
-
-
     } else if (tip === "D") {
-
       console.log("Ulazim u D");
-      const ID = ExtractData(token,"serialnumber");
+      const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
         "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -135,11 +147,9 @@ const ResponsiveAppBar = (props) => {
       });
       setNum(pom);
       localStorage.setItem("messageNumber", pom);
-
     } else if (tip === "K") {
-
       console.log("Ulazim u K");
-      const ID = ExtractData(token,"serialnumber");
+      const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
         "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -151,7 +161,6 @@ const ResponsiveAppBar = (props) => {
       });
       setNum(pom);
       localStorage.setItem("messageNumber", pom);
-
     }
   };
 
@@ -175,7 +184,7 @@ const ResponsiveAppBar = (props) => {
 
   const onClickCart = (type) => {
     let token = localStorage.getItem("Token");
-    let korisnik = ExtractData(token,"role");
+    let korisnik = ExtractData(token, "role");
     if (korisnik != null) {
       let path = type;
       history.push(path);
@@ -194,25 +203,17 @@ const ResponsiveAppBar = (props) => {
         flag = ExtractData(tok, "role");
       }
       if (flag === null) {
-
         let path = "Prijava";
         history.push(path);
-
       } else if (flag === "P") {
-
         let path = "ProfilDomacinstvo";
         history.push(path);
-
       } else if (flag === "K") {
-
         let path = "ProfilKorisnik";
         history.push(path);
-
       } else if (flag === "D") {
-
         let path = "ProfilDostavljac";
         history.push(path);
-
       }
     }
     if (type === "Logout") {
@@ -229,7 +230,7 @@ const ResponsiveAppBar = (props) => {
             method: "DELETE",
             body: JSON.stringify({ title: "Uspesno dodatno" }),
             headers: {
-              "Authorization": `Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
@@ -241,7 +242,6 @@ const ResponsiveAppBar = (props) => {
       history.push(path);
       window.location.reload(false); //REFRESH PAGE
     }
-    
   };
 
   const handleCloseWarning = () => {
@@ -254,11 +254,8 @@ const ResponsiveAppBar = (props) => {
       let path = "Inbox";
       history.push(path);
       console.log("Inbox");
-
     } else {
-
       setOpenWarning(true);
-
     }
   };
 
@@ -269,24 +266,15 @@ const ResponsiveAppBar = (props) => {
       flag = ExtractData(token, "role");
     }
     if (flag === "" || flag === null) {
-
       return HeaderItems;
-
     }
     if (flag === "K") {
-
       return HeaderItems;
-
-    } 
-    else if (flag === "P") {
-
+    } else if (flag === "P") {
       /* let path = "Domacinstvo";
         history.push(path); */
       return HeaderItemsDomacinstvo;
-
-    } 
-    else if (flag === "D") {
-      
+    } else if (flag === "D") {
       return HeaderItemsDostavljac;
     }
   };
@@ -418,13 +406,13 @@ const ResponsiveAppBar = (props) => {
                   <Avatar
                     alt=""
                     //src="/static/images/avatar/2.jpg"
-                    {...stringAvatar("aaa aaa")}
+                    {...stringAvatar(word1 + " " + word2)}
                   />
                 ) : (
                   <Avatar
                     alt=""
                     //src="/static/images/avatar/2.jpg"
-                    {...stringAvatar("aaa aaa")}
+                    {...stringAvatar(word1 + " " + word2)}
                   />
                 )}
               </IconButton>

@@ -26,7 +26,6 @@ const ProfilDomacinstvo = () => {
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
 
-
   const onClickProfileHandler = () => {
     setIsShowProfile(true);
     setIsShowUpdateProfile(false);
@@ -52,7 +51,7 @@ const ProfilDomacinstvo = () => {
         {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${token}`, 
+            Authorization: `Bearer ${token}`,
             "Content-type": "application/json;charset=UTF-8",
             Authorization: `Bearer ${token}`,
           },
