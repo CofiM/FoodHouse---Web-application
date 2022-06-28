@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -27,6 +27,7 @@ import jwt from 'jwt-decode';
 
 import jwt_decode from "jwt-decode";
 import {ExtractData} from "../../helper/extract.js";
+import AuthContext from "../../helper/auth-context";
 
 const theme = createTheme();
 
@@ -34,6 +35,8 @@ export default function SignIn() {
   const history = useHistory();
   const [textEmail, setTextEmail] = useState("");
   const [labelIsShown, setLabelIsShown] = useState(false);
+
+  const authCtx = useContext(AuthContext);
 
   const [pass, setPass] = React.useState({
     password: "",
@@ -186,6 +189,8 @@ export default function SignIn() {
       }
     );
     let token = await response.json();
+
+    authCtx.login(token);
 
     let aa = ExtractData(token,"name");
     console.log(aa);
