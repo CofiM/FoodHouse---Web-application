@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,8 +9,19 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Models;
-using System.Collections;
+
 
 namespace SWE___PROJEKAT.Controllers
 {
@@ -24,7 +37,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("DodatiNarudzbinu/{idKorisnika}/{idProizvoda}/{idDomacinstva}/{idDostavljaca}/{cenaDostave}/{proveriDostavu}/{brojProizvoda}/{cenaProizvoda}/{imeProizvoda}")]
         [EnableCors("CORS")]
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "K")]
         public async Task<ActionResult> dodajNarudzbinu(int idKorisnika,int idProizvoda,int idDomacinstva,int idDostavljaca,int cenaDostave,int proveriDostavu,int brojProizvoda,int cenaProizvoda,string imeProizvoda)
         {
             if (idKorisnika < 0)
@@ -69,7 +82,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisatiNarudzbinu/{idNarudzbine}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "K", "D")]
         public async Task<ActionResult> ObrisatiNarudzbinu(int idNarudzbine)
         {
             try
@@ -111,7 +124,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("IzracunajRacun/{id}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "K")]
         public async Task<ActionResult> IzracunajRacun(int id)
         {
             //slicna funkcija ali samo da racuna dodatne dostave;
@@ -154,7 +167,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("IzracunajDostavu/{id}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "K")]
         public async Task<ActionResult> IzracunajDostavu(int id)
         {
             //slicna funkcija ali samo da racuna dodatne dostave;
@@ -223,7 +236,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PromenitiKvantitet/{idKorisnika}/{idProizvoda}/{kvantitet}/")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "K")]
         public async Task<ActionResult> PromenitiKvantitet(int idKorisnika,int idProizvoda,int kvantitet)
         {
             try
@@ -244,7 +257,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisiNarudzbinu/{idKorisnika}/{idProizvoda}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "K")]
         public async Task<ActionResult> ObrisiNarudzbinu(int idKorisnika,int idProizvoda)
         {
             try
@@ -267,7 +280,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisiNarudzbine/{idKorisnika}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "K")]
         public async Task<ActionResult> ObrisiNarudzbinu(int idKorisnika)
         {
             try

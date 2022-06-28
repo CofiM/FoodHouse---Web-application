@@ -57,6 +57,7 @@ function HouseHoldView() {
     opis,
     kategorija
   ) => {
+    kolicina=0;
     const ID = localStorage.getItem("DomacinstvoID");
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/DodatiProizvod/" +
@@ -86,6 +87,7 @@ function HouseHoldView() {
     opis,
     kategorija
   ) => {
+    kolicina=0;
     const response = await fetch(
       "https://localhost:5001/Proizvod/IzmeniProizvod/" +
         product.ID +

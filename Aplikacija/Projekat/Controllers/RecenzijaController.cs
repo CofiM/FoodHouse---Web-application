@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,6 +9,17 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Models;
 
 namespace SWE___PROJEKAT.Controllers
@@ -63,7 +76,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("DodatiRecenziju/{ocena}/{komentar}/{idProizvoda}/{idKupovine}")]
         [EnableCors("CORS")]
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "K")]
         public async Task<ActionResult> dodajRecenziju(int ocena, string komentar, int idProizvoda, int idKupovine)
         {
             if(ocena < 1 || ocena > 5)

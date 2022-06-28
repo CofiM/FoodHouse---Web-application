@@ -37,7 +37,7 @@ namespace SWE___PROJEKAT.Controllers
 
          [Route("PreuzmiDostavljac/{email}/{password}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "D")]
         public async Task<ActionResult> PreuzmiDostavljac(string email, string password)
         {
             try
@@ -90,7 +90,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PostaviDostavljaca/{idD}/{id}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "P")]
         public async Task<ActionResult> postaviDostavljaca(int idD, int id)
         {
             if (idD < 0)
@@ -136,7 +136,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisatiPoruku/{idDostavljac}/{idPoruke}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "D")]
         public async Task<ActionResult> obrisatiPoruku(int idDostavljac, int idPoruke)
         {
             if(idDostavljac < 0 || idPoruke < 0)
@@ -171,7 +171,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("VratiPorukeDostavljaca/{id}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "D")]
         public async Task<ActionResult> vratiPorukeDostavljaca(int id)
         {
             if (id < 0)
@@ -216,7 +216,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PromeniSifruDostavljaca/{email}/{pass}/{newPass}/{ime}/{prezime}/{username}/{cena}/{telefon}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "D")]
         public async Task<ActionResult> promeniSifruDostavljaca(string email, string pass, string newPass, 
                 string ime, string prezime, string username, int cena, string telefon)
         {

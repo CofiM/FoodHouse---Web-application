@@ -1,5 +1,6 @@
 using System;
-using System.IO;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -8,10 +9,18 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Models;
-using System.Text;
 
 namespace SWE___PROJEKAT.Controllers
 {
@@ -29,7 +38,7 @@ namespace SWE___PROJEKAT.Controllers
         }
 
         [Route("{id:int}")]
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "P")]
 
         public IActionResult Post([FromRoute]int id, [FromForm]IFormFile file)
         {
@@ -76,7 +85,7 @@ namespace SWE___PROJEKAT.Controllers
         }
 
         [Route("Multiple/{id:int}")]
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "P")]
 
         public async Task<IActionResult> PostMultiple([FromRoute]int id, [FromForm]IFormFile[] files)
         {
@@ -105,7 +114,7 @@ namespace SWE___PROJEKAT.Controllers
         }
 
         [Route("DomacinstvoPost/{id:int}")]
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "P")]
 
         public IActionResult DomacinstvoPost([FromRoute]int id, [FromForm]IFormFile file)
         {

@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,6 +9,17 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Models;
 
 namespace SWE___PROJEKAT.Controllers
@@ -29,7 +42,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzetiKorisnika/{email}/{password}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "K")]
         public async Task<ActionResult> preuzmiKorisnika(string email, string password)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -108,7 +121,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("VratiPorukeKorisnika/{id}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "K")]
         public async Task<ActionResult> vratiPorukeKorisnika(int id)
         {
             if (id < 0)
@@ -138,7 +151,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisatiPoruku/{idKorisnik}/{idPoruke}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "K")]
         public async Task<ActionResult> obrisatiPoruku(int idKorisnik, int idPoruke)
         {
             if(idKorisnik < 0 || idPoruke < 0)
@@ -210,7 +223,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PromenitiSifruKorisnika/{email}/{pass}/{newPass}/{ime}/{prezime}/{username}/{adresa}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "K")]
         public async Task<ActionResult> promeniSifruKorisnika(string email, string pass, string newPass,
             string ime, string prezime, string username, string adresa)
         {
@@ -271,7 +284,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("DodatiPosao/{idPosla}/{idKorisnika}")]
         [EnableCors("CORS")]
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "K")]
         public async Task<ActionResult> dodajPosao(int idPosla, int idKorisnika)
         {
             try

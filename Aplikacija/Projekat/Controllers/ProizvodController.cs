@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,7 +9,19 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Models;
+
 
 namespace SWE___PROJEKAT.Controllers
 {
@@ -94,7 +108,7 @@ namespace SWE___PROJEKAT.Controllers
 
          [Route("IzmeniProizvod/{id}/{naziv}/{kolicina}/{cena}/{opis}/{kategorija}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "P")]
         public async Task<ActionResult> izmeniProizvod(int id, string naziv, int kolicina, int cena, string opis, string kategorija)
         {
             try
@@ -125,7 +139,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisatiProizvod/{id}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "P")]
         public async Task<ActionResult> obrisatiProizvod(int id)
         {
             if(id < 0)
