@@ -35,7 +35,7 @@ namespace SWE___PROJEKAT.Controllers
             Context = context;
         }
 
-         [Route("PreuzmiDostavljac/{email}/{password}")]
+        [Route("PreuzmiDostavljac/{email}/{password}")]
         [EnableCors("CORS")]
         [HttpGet, Authorize(Roles = "D")]
         public async Task<ActionResult> PreuzmiDostavljac(string email, string password)
