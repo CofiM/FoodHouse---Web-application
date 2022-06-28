@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -23,10 +23,10 @@ import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
-import jwt from 'jwt-decode';
+import jwt from "jwt-decode";
 
 import jwt_decode from "jwt-decode";
-import {ExtractData} from "../../helper/extract.js";
+import { ExtractData } from "../../helper/extract.js";
 import AuthContext from "../../helper/auth-context";
 
 const theme = createTheme();
@@ -87,41 +87,38 @@ export default function SignIn() {
   };
 
   const fetchMessage = async () => {
-    const tip = localStorage.getItem("Korisnik");
+    let token = authCtx.token;
+    const tip = ExtractData(token, "role");
+
     if (tip === "P") {
-      const ID = localStorage.getItem("DomacinstvoID");
+      const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
         "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
       );
       const da = await response.json();
       let pom = 0;
       const transformedData = da.map(function (d) {
-
         if (d.shown == false && d.tip !== "P") pom++;
-
       });
       console.log("Broj poruke: " + pom);
       localStorage.setItem("messageNumber", pom);
     } else if (tip === "D") {
       console.log("Ulazim u D");
-      const ID = localStorage.getItem("DostavljacID");
+      const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
         "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
       );
       let pom = 0;
       const data = await response.json();
       const transformedData = data.map(function (d) {
-
         if (d.shown == false && d.tip !== "D") pom++;
-       
       });
 
       console.log("Broj poruka: " + pom);
       localStorage.setItem("messageNumber", pom);
     } else if (tip === "K") {
-      
       console.log("Ulazim u K");
-      const ID = localStorage.getItem("KorisnikID");
+      const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
         "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
       );
@@ -130,7 +127,6 @@ export default function SignIn() {
 
       const transformedData = data.map(function (d) {
         if (d.shown == false && d.tip !== "P") pom++;
-        
       });
       console.log("Broj poruka: " + pom);
       localStorage.setItem("messageNumber", pom);
@@ -138,7 +134,7 @@ export default function SignIn() {
   };
 
   async function fetchLoginClient() {
-
+    console.log("USLO U FETCH ");
     const response = await fetch(
       "https://localhost:5001/Administrator/GetAccount/" +
         textEmail +
@@ -155,7 +151,7 @@ export default function SignIn() {
 
     localStorage.setItem("Token", token);
 
-    let aa = ExtractData(token,"name");
+    let aa = ExtractData(token, "name");
     console.log(aa);
 
     // axios
@@ -167,62 +163,66 @@ export default function SignIn() {
     //     console.log(res.data);
     //   });
 
-
     //const data = await response.json();
     //localStorage.setItem("Username", data.username);
     //localStorage.setItem("Korisnik", data.tip);
 
-    
-    let tipKorisnika = ExtractData(token,"role");
+    let tipKorisnika = ExtractData(token, "role");
     console.log("TIP TOKEN =>" + tipKorisnika);
 
     if (tipKorisnika === "K") {
       let path = "Naslovna";
       history.push(path);
-      
+
       axios
-      .get(
-        "https://localhost:5001/Korisnik/PreuzetiKorisnika/"+textEmail+"/"+pass.password,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
+        .get(
+          "https://localhost:5001/Korisnik/PreuzetiKorisnika/" +
+            textEmail +
+            "/" +
+            pass.password,
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then((res) => {
+          console.log(res.data);
+        });
 
       fetchMessage();
-
     } else if (tipKorisnika === "D") {
       let path = "narudzbine";
       history.push(path);
 
       axios
-      .get(
-        "https://localhost:5001/Dosavljac/PreuzmiDostavljac/"+textEmail+"/"+pass.password,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        console.log(res.data);
-      });
+        .get(
+          "https://localhost:5001/Dosavljac/PreuzmiDostavljac/" +
+            textEmail +
+            "/" +
+            pass.password,
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then((res) => {
+          console.log(res.data);
+        });
 
       fetchMessage();
-
     } else if (tipKorisnika === "P") {
-
       axios
-      .get(
-        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+textEmail+"/"+pass.password,
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        console.log(res.data);
-      });
+        .get(
+          "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/" +
+            textEmail +
+            "/" +
+            pass.password,
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then((res) => {
+          console.log(res.data);
+        });
 
       let path = "domacinstvo";
       history.push(path);
 
-      // localStorage.setItem("DomacinstvoID", data.id);
-      // localStorage.setItem("NAZIVDOMACINSTVA", data.naziv);
-
       fetchMessage();
     }
-    //window.location.reload(false); //REFRESH PAGE 
+    //window.location.reload(false); //REFRESH PAGE
   }
 
   return (

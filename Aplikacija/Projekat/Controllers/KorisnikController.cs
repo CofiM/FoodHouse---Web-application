@@ -35,6 +35,16 @@ namespace SWE___PROJEKAT.Controllers
         {
             Context = context;
         }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return computedHash.SequenceEqual(passwordHash);
+            }
+        }
+
         [HttpGet]  
         public ActionResult Test()
         {
@@ -57,6 +67,14 @@ namespace SWE___PROJEKAT.Controllers
             try
             {
                 var korisnik = await Context.Korisnici
+                        .Where(p => p.email == email)
+                        .FirstOrDefaultAsync();
+                if(korisnik != null){
+                    if (!VerifyPasswordHash(password, korisnik.PasswordHash, korisnik.PasswordSalt))
+                    {
+                        return  BadRequest("Pogresna sifra");
+                    }
+                    var k = await Context.Korisnici
                         .Where(p => p.email == email /*&& p.Password == password*/)
                         .Include(p => p.KorisnikPosao)
                         .Select(p => new {
@@ -71,11 +89,9 @@ namespace SWE___PROJEKAT.Controllers
                             p.KorisnikPosao
                         })
                         .FirstOrDefaultAsync();
-                if (korisnik == null)
-                {
-                    throw new Exception("Ne postoji korisnik!");
+                        return Ok(k);
                 }
-                return Ok(korisnik);
+                    throw new Exception("Ne postoji korisnik!");
             }
             catch (Exception e)
             {

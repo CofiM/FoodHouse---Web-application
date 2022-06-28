@@ -35,6 +35,15 @@ namespace SWE___PROJEKAT.Controllers
             Context = context;
         }
 
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return computedHash.SequenceEqual(passwordHash);
+            }
+        }
+
         [Route("PreuzmiDomacinstvo/{email}/{pass}")]
         [EnableCors("CORS")]
         [HttpGet, Authorize(Roles = "P")]
@@ -52,6 +61,15 @@ namespace SWE___PROJEKAT.Controllers
             {
                 var domacinstvo = await Context.Domacinstva
                 .Where(p => p.email == email /*&& p.Password == pass*/)
+                .FirstOrDefaultAsync();
+                if (domacinstvo != null)
+                {
+                    if (!VerifyPasswordHash(pass, domacinstvo.PasswordHash, domacinstvo.PasswordSalt))
+                    {
+                        return  BadRequest("Pogresna sifra");
+                    }
+                    var d = await Context.Domacinstva
+                .Where(p => p.email == email /*&& p.Password == pass*/)
                 .Select(p => new
                 {
                     p.Naziv,
@@ -63,9 +81,7 @@ namespace SWE___PROJEKAT.Controllers
                     p.Dostavljac,
                     p.inbox
                 }).FirstOrDefaultAsync();
-                if (domacinstvo != null)
-                {
-                    return Ok(domacinstvo);
+                return Ok(d);
                 }
                 else
                 {
