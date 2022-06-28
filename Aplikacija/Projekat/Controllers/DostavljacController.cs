@@ -45,7 +45,6 @@ namespace SWE___PROJEKAT.Controllers
                 var dostavljac = await Context.Dostavljaci.Where(p => p.email == email /*&& p.Password == password*/).Select(p => new{
                             p.ID,
                             p.Username,
-                           // p.Password,
                             p.email,
                             p.Cena,
                             p.telefon,
@@ -64,7 +63,6 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzmiDostavljac/{idD}")]
         [EnableCors("CORS")]
-        [HttpGet, Authorize(Roles = "D")]
         public async Task<ActionResult> PreuzmiDostavljac(int idD)
         {
             try
