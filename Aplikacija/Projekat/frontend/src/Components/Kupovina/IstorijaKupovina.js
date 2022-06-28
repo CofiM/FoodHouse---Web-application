@@ -3,6 +3,7 @@ import IstorijaKupovinaCard from "./IstorijaKupovinaCard";
 import { useState, useEffect } from "react";
 import ProizvodCardRating from "../Proizvod/ProizvodCardRating";
 import ModalInput from "../../Main/ModalInput";
+import { ExtractData } from "../../helper/extract.js";
 
 const IstorijaKupovina = () => {
   const [orders, setOrders] = useState([]);
@@ -16,6 +17,8 @@ const IstorijaKupovina = () => {
     setProduct(products.find((el) => el.Proizvod === ID));
     setOpen(true);
   };
+
+
 
   async function onClickSaveReviewHandler(val, comm) {
     console.log(product);
@@ -45,10 +48,11 @@ const IstorijaKupovina = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const ID = localStorage.getItem("KorisnikID");
-
+      const token = localStorage.getItem("Token");
+      const ID = ExtractData(token,"serialnumber");
       const response = await fetch(
-        "https://localhost:5001/Kupovina/PreuzetiKupovineZaKorisnika/" + ID
+        "https://localhost:5001/Kupovina/PreuzetiKupovineZaKorisnika/" + ID,
+        {headers: { Authorization: `Bearer ${token}` }}
       );
       const data = await response.json();
       console.log(data);
