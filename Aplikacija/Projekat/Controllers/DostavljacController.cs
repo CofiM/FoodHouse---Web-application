@@ -45,7 +45,6 @@ namespace SWE___PROJEKAT.Controllers
                 var dostavljac = await Context.Dostavljaci.Where(p => p.email == email /*&& p.Password == password*/).Select(p => new{
                             p.ID,
                             p.Username,
-                           // p.Password,
                             p.email,
                             p.Cena,
                             p.telefon,

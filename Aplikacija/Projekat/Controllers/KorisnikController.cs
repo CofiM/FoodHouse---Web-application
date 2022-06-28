@@ -22,6 +22,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Models;
 
+
 namespace SWE___PROJEKAT.Controllers
 {
     [ApiController]
@@ -220,7 +221,14 @@ namespace SWE___PROJEKAT.Controllers
             }
         }
 
-
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using(var hmc = new HMACSHA512())
+            {
+                passwordSalt = hmc.Key;
+                passwordHash = hmc.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
         [Route("PromenitiSifruKorisnika/{email}/{pass}/{newPass}/{ime}/{prezime}/{username}/{adresa}")]
         [EnableCors("CORS")]
         [HttpPut, Authorize(Roles = "K")]
@@ -260,11 +268,13 @@ namespace SWE___PROJEKAT.Controllers
                 var korisnik = await Context.Korisnici.Where(p => p.email == email).FirstOrDefaultAsync();
                 if (korisnik == null)
                 {
-                    return BadRequest("Ne postoji domacinstvo!");
+                    return BadRequest("Ne postoji korisnik!");
                 }
                 if( pass == newPass )
                 {
-                    // korisnik.Password = newPass;
+                    CreatePasswordHash(pass, out byte[] passwordHash, out byte[] passwordSalt);
+                    korisnik.PasswordHash = passwordHash;
+                    korisnik.PasswordSalt = passwordSalt;
                     korisnik.Ime = ime;
                     korisnik.Prezime = prezime;
                     korisnik.Username = username;
