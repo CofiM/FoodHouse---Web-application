@@ -45,6 +45,7 @@ const ProfilDomacinstvo = () => {
         {
           method: "GET",
           headers: {
+            "Authorization": `Bearer ${token}`,
             "Content-type": "application/json;charset=UTF-8",
           },
         }

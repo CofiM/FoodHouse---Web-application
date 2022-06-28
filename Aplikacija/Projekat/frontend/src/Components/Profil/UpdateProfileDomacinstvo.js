@@ -15,6 +15,7 @@ const DesignProfile = (props) => {
   const [datum, setDatum] = useState(props.Datum);
 
   async function fetchUpdateProfile() {
+    let token = localStorage.getItem("Token");
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/IzmeniProfilDomacinstva/" +
         props.Email +
@@ -36,6 +37,7 @@ const DesignProfile = (props) => {
         method: "PUT",
         body: JSON.stringify({ title: "Uspesno je azuriran" }),
         headers: {
+          "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }

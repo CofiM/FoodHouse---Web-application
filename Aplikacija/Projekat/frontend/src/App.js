@@ -43,12 +43,11 @@ import { ExtractData } from "./helper/extract";
 
 
 function App() {
-  let authCtx = useContext(AuthContext);
-  console.log(authCtx.token);
+  let token = localStorage.getItem("Token");
 
   let user = null;
-  if(authCtx.token!=null)
-    {user = ExtractData(authCtx.token,"role");}
+  if(token != null)
+    {user = ExtractData(token, "role");}
   console.log(user);
 
   return (

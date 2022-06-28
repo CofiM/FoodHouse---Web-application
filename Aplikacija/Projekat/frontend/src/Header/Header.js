@@ -66,7 +66,7 @@ const ResponsiveAppBar = (props) => {
   useEffect(() => {
 
     let tip = null;
-    let token = authCtx.token;
+    let token = localStorage.getItem("Token");
     if(token!=null)
     {
       tip = ExtractData(token,"role");
@@ -98,11 +98,15 @@ const ResponsiveAppBar = (props) => {
   };
 
   const fetchMessage = async () => {
-    const tip = localStorage.getItem("Korisnik");
+    let token = localStorage.getItem("Token");
+    const tip = ExtractData(token,"role");
+
     if (tip === "P") {
-      const ID = localStorage.getItem("DomacinstvoID");
+
+      const ID = ExtractData(token,"serialnumber");
       const response = await fetch(
-        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const da = await response.json();
       let pom = 0;
@@ -112,11 +116,15 @@ const ResponsiveAppBar = (props) => {
       console.log("Broj poruke: " + pom);
       setNum(pom);
       localStorage.setItem("messageNumber", pom);
+
+
     } else if (tip === "D") {
+
       console.log("Ulazim u D");
-      const ID = localStorage.getItem("DostavljacID");
+      const ID = ExtractData(token,"serialnumber");
       const response = await fetch(
-        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       let pom = 0;
       const data = await response.json();
@@ -125,11 +133,14 @@ const ResponsiveAppBar = (props) => {
       });
       setNum(pom);
       localStorage.setItem("messageNumber", pom);
+
     } else if (tip === "K") {
+
       console.log("Ulazim u K");
-      const ID = localStorage.getItem("KorisnikID");
+      const ID = ExtractData(token,"serialnumber");
       const response = await fetch(
-        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await response.json();
       let pom = 0;
@@ -138,8 +149,10 @@ const ResponsiveAppBar = (props) => {
       });
       setNum(pom);
       localStorage.setItem("messageNumber", pom);
+
     }
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -159,7 +172,8 @@ const ResponsiveAppBar = (props) => {
   };
 
   const onClickCart = (type) => {
-    let korisnik = localStorage.getItem("Korisnik");
+    let token = localStorage.getItem("Token");
+    let korisnik = ExtractData(token,"role");
     if (korisnik != null) {
       let path = type;
       history.push(path);
@@ -170,29 +184,43 @@ const ResponsiveAppBar = (props) => {
 
   const onClickProfile = (type) => {
     if (type === "Profile") {
-      const flag = localStorage.getItem("Korisnik");
+
+      let token = localStorage.getItem("Token");
+      const flag = ExtractData(token,"role");
+
       if (flag === null) {
+
         let path = "Prijava";
         history.push(path);
+
       } else if (flag === "P") {
+
         let path = "ProfilDomacinstvo";
         history.push(path);
+
       } else if (flag === "K") {
+
         let path = "ProfilKorisnik";
         history.push(path);
+
       } else if (flag === "D") {
+
         let path = "ProfilDostavljac";
         history.push(path);
+
       }
     }
     if (type === "Logout") {
-      const type = localStorage.getItem("Korisnik");
-      localStorage.removeItem("Korisnik");
+      let token = localStorage.getItem("Token");
+      const type = ExtractData(token,"role");
+      localStorage.removeItem("Token");
       localStorage.setItem("messageNumber", 0);
       if (type === "P") {
-        localStorage.removeItem("DomacinstvoID");
-      } else if (type === "K") {
-        let idKorisnika = localStorage.getItem("KorisnikID");
+
+      } 
+      else if (type === "K") {
+
+        let idKorisnika = ExtractData(token, "serialnumber");
         // const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
         fetch(
           "https://localhost:5001/Narudzbine/ObrisiNarudzbine/" + idKorisnika,
@@ -200,20 +228,22 @@ const ResponsiveAppBar = (props) => {
             method: "DELETE",
             body: JSON.stringify({ title: "Uspesno dodatno" }),
             headers: {
+              "Authorization": `Bearer ${token}`,
               "Content-Type": "application/json",
             },
           }
         )
-          .then(localStorage.removeItem("KorisnikID"))
           .then(emptyCart());
-      } else if (type === "D") {
-        localStorage.removeItem("DostavljacID");
+      } 
+      else if (type === "D") {
+
       }
+
       let path = "Naslovna";
       history.push(path);
       window.location.reload(false); //REFRESH PAGE
     }
-    authCtx.logout();
+    
   };
 
   const handleCloseWarning = () => {
@@ -221,29 +251,45 @@ const ResponsiveAppBar = (props) => {
   };
 
   const onClickMailBox = () => {
-    let korisnik = localStorage.getItem("Korisnik");
+    let token = localStorage.getItem("Token");
+    let korisnik = ExtractData(token,"role");
+    
     if (korisnik != null) {
+
       let path = "Inbox";
       history.push(path);
       console.log("Inbox");
+
     } else {
+
       setOpenWarning(true);
+
     }
   };
 
   const items = () => {
-    const flag = localStorage.getItem("Korisnik");
+    let token = localStorage.getItem("Token");
+    let flag = ExtractData(token,"role");
 
     if (flag === "" || flag === null) {
+
       return HeaderItems;
+
     }
     if (flag === "K") {
+
       return HeaderItems;
-    } else if (flag === "P") {
+
+    } 
+    else if (flag === "P") {
+
       /* let path = "Domacinstvo";
         history.push(path); */
       return HeaderItemsDomacinstvo;
-    } else if (flag === "D") {
+
+    } 
+    else if (flag === "D") {
+      
       return HeaderItemsDostavljac;
     }
   };

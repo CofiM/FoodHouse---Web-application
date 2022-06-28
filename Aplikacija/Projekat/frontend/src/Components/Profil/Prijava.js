@@ -36,7 +36,6 @@ export default function SignIn() {
   const [textEmail, setTextEmail] = useState("");
   const [labelIsShown, setLabelIsShown] = useState(false);
 
-  const authCtx = useContext(AuthContext);
 
   const [pass, setPass] = React.useState({
     password: "",
@@ -87,13 +86,15 @@ export default function SignIn() {
   };
 
   const fetchMessage = async () => {
-    let token = authCtx.token;
+    let token = localStorage.getItem("Token");
     const tip = ExtractData(token, "role");
 
     if (tip === "P") {
+
       const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
-        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const da = await response.json();
       let pom = 0;
@@ -102,11 +103,15 @@ export default function SignIn() {
       });
       console.log("Broj poruke: " + pom);
       localStorage.setItem("messageNumber", pom);
+
+
     } else if (tip === "D") {
+
       console.log("Ulazim u D");
       const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
-        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       let pom = 0;
       const data = await response.json();
@@ -116,11 +121,14 @@ export default function SignIn() {
 
       console.log("Broj poruka: " + pom);
       localStorage.setItem("messageNumber", pom);
+
     } else if (tip === "K") {
+
       console.log("Ulazim u K");
       const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
-        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await response.json();
       let pom = 0;
@@ -130,6 +138,7 @@ export default function SignIn() {
       });
       console.log("Broj poruka: " + pom);
       localStorage.setItem("messageNumber", pom);
+
     }
   };
 

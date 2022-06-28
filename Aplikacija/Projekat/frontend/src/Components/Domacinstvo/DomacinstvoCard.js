@@ -11,7 +11,9 @@ export default function MultiActionAreaCard(props) {
   useEffect(() => {
     async function fetchData() {
       console.log(props.id);
-      const response = await fetch("https://localhost:5001/FileUpload/DomacinstvoGet/" + props.id);
+      const response = await fetch("https://localhost:5001/FileUpload/DomacinstvoGet/" + props.id,
+        {headers: { Authorization: `Bearer ${token}` }}
+      );
       const data = await response.json();
       setSlika(data);
     }

@@ -27,8 +27,6 @@ const ProfilDomacinstvo = () => {
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const authCtx = useContext(AuthContext);
-
 
   const onClickProfileHandler = () => {
     setIsShowProfile(true);
@@ -48,10 +46,9 @@ const ProfilDomacinstvo = () => {
   useEffect(() => {
     const fetchProfile = async () => {
 
-      let token = authCtx.token;
+      let token = localStorage.getItem("Token");
       const id = ExtractData(token, "serialnumber");
       console.log(id);
-      let mrk = localStorage.getItem("MRK");
       const response = await fetch(
         "https://localhost:5001/Korisnik/PreuzetiKorisnika/" + id,
         {

@@ -15,7 +15,9 @@ const DesignProfile = (props) => {
   const [telefon, setTelefon] = useState(props.Telefon);
 
   async function fetchUpdateProfile() {
+    let token = localStorage.getItem("Token");
     const response = await fetch(
+
       "https://localhost:5001/Dosavljac/PromeniSifruDostavljaca/" +
         props.Email +
         "/" +
@@ -36,6 +38,7 @@ const DesignProfile = (props) => {
         method: "PUT",
         body: JSON.stringify({ title: "Uspesno je azuriran" }),
         headers: {
+          "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }

@@ -17,9 +17,10 @@ const DesignProfile = (props) => {
   const [newPassword, setNewPassword] = useState("");
   const [adresa, setAdresa] = useState(props.Adresa);
 
-  const authCtx = useContext(AuthContext);
+  
 
   async function fetchUpdateProfile() {
+    let token = localStorage.getItem("Token");
     const response = await fetch(
       "https://localhost:5001/Korisnik/PromenitiSifruKorisnika/" +
         props.Email +
@@ -39,7 +40,7 @@ const DesignProfile = (props) => {
         method: "PUT",
         body: JSON.stringify({ title: "Uspesno je azuriran" }),
         headers: {
-          "Authorization": `Bearer ${authCtx.token}`, 
+          "Authorization": `Bearer ${token}`, 
           "Content-Type": "application/json",
         },
       }
