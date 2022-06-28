@@ -44,11 +44,17 @@ function App() {
   let token = localStorage.getItem("Token");
 
   let user = null;
+<<<<<<< HEAD
   console.log("APPPPPPPPPPPPPPPPPP ");
   if (token != null) {
     user = ExtractData(token, "role");
   }
   console.log("USERRR " + user);
+=======
+  if(token != null)
+    {user = ExtractData(token, "role");}
+  console.log(user);
+>>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
 
   return (
     <CartProvider>

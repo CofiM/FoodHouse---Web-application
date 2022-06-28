@@ -36,13 +36,18 @@ const ProfilDostavljac = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       let token = localStorage.getItem("Token");
+<<<<<<< HEAD
       console.log(token);
       const id = ExtractData(token, "serialnumber");
+=======
+      const id = ExtractData(token,"serialnumber");
+>>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
       const response = await fetch(
         "https://localhost:5001/Dosavljac/PreuzmiDostavljac/" + id,
         {
           method: "GET",
           headers: {
+            "Authorization": `Bearer ${token}`,
             "Content-type": "application/json;charset=UTF-8",
             Authorization: `Bearer ${token}`,
           },

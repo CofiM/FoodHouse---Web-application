@@ -78,6 +78,7 @@ namespace SWE___PROJEKAT.Controllers
                         .Where(p => p.email == email /*&& p.Password == password*/)
                         .Include(p => p.KorisnikPosao)
                         .Select(p => new {
+                            p.ID,
                             p.Ime,
                             p.Prezime,
                             p.Username,

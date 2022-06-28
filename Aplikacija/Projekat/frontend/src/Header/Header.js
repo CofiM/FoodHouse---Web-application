@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../pictures/logo.png";
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import classes from "./Header.module.css";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { HeaderItems } from "./HeaderComponentsKorisnik";
@@ -29,7 +29,10 @@ import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 import { textFieldClasses } from "@mui/material";
 import AuthContext from "../helper/auth-context";
 import { ExtractData } from "../helper/extract";
+<<<<<<< HEAD
 import { useContext } from "react";
+=======
+>>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
 
 const settings = ["Profile", "Logout"];
 
@@ -62,13 +65,23 @@ const ResponsiveAppBar = (props) => {
   const [nazivDomacinstva, setNazivDomacinstva] = useState("");
   const [num, setNum] = useState(0);
   const { emptyCart } = useCart();
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
+<<<<<<< HEAD
     const token = localStorage.getItem("Token");
     console.log(token);
     let tip = null;
     if (token != null) {
       tip = ExtractData(token, "role");
+=======
+
+    let tip = null;
+    let token = localStorage.getItem("Token");
+    if(token!=null)
+    {
+      tip = ExtractData(token,"role");
+>>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
     }
     if (tip == null) {
       setMess(false);
@@ -84,10 +97,15 @@ const ResponsiveAppBar = (props) => {
         //setSurname(localStorage.getItem("PREZIME").toUpperCase());
       }
       if (tip == "P") {
+<<<<<<< HEAD
         //setDom(true);
         //setNazivDomacinstva(
         //localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase()
         //);
+=======
+        setDom(true);
+        //setNazivDomacinstva(localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase());
+>>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
       }
       setMess(true);
       setProfileAvatar(true);
@@ -99,11 +117,15 @@ const ResponsiveAppBar = (props) => {
   };
 
   const fetchMessage = async () => {
-    const tip = localStorage.getItem("Korisnik");
+    let token = localStorage.getItem("Token");
+    const tip = ExtractData(token,"role");
+
     if (tip === "P") {
-      const ID = localStorage.getItem("DomacinstvoID");
+
+      const ID = ExtractData(token,"serialnumber");
       const response = await fetch(
-        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const da = await response.json();
       let pom = 0;
@@ -113,11 +135,15 @@ const ResponsiveAppBar = (props) => {
       console.log("Broj poruke: " + pom);
       setNum(pom);
       localStorage.setItem("messageNumber", pom);
+
+
     } else if (tip === "D") {
+
       console.log("Ulazim u D");
-      const ID = localStorage.getItem("DostavljacID");
+      const ID = ExtractData(token,"serialnumber");
       const response = await fetch(
-        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       let pom = 0;
       const data = await response.json();
@@ -126,11 +152,14 @@ const ResponsiveAppBar = (props) => {
       });
       setNum(pom);
       localStorage.setItem("messageNumber", pom);
+
     } else if (tip === "K") {
+
       console.log("Ulazim u K");
-      const ID = localStorage.getItem("KorisnikID");
+      const ID = ExtractData(token,"serialnumber");
       const response = await fetch(
-        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip
+        "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await response.json();
       let pom = 0;
@@ -139,8 +168,10 @@ const ResponsiveAppBar = (props) => {
       });
       setNum(pom);
       localStorage.setItem("messageNumber", pom);
+
     }
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -160,7 +191,8 @@ const ResponsiveAppBar = (props) => {
   };
 
   const onClickCart = (type) => {
-    let korisnik = localStorage.getItem("Korisnik");
+    let token = localStorage.getItem("Token");
+    let korisnik = ExtractData(token,"role");
     if (korisnik != null) {
       let path = type;
       history.push(path);
@@ -170,6 +202,7 @@ const ResponsiveAppBar = (props) => {
   };
   const onClickProfile = (type) => {
     if (type === "Profile") {
+<<<<<<< HEAD
       let tok = localStorage.getItem("Token");
       console.log(tok);
       let flag;
@@ -178,26 +211,52 @@ const ResponsiveAppBar = (props) => {
       } else {
         flag = ExtractData(tok, "role");
       }
+=======
+
+      let token = localStorage.getItem("Token");
+      const flag = ExtractData(token,"role");
+
+>>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
       if (flag === null) {
+
         let path = "Prijava";
         history.push(path);
+
       } else if (flag === "P") {
+
         let path = "ProfilDomacinstvo";
         history.push(path);
+
       } else if (flag === "K") {
+
         let path = "ProfilKorisnik";
         history.push(path);
+
       } else if (flag === "D") {
+
         let path = "ProfilDostavljac";
         history.push(path);
+
       }
     }
     if (type === "Logout") {
+<<<<<<< HEAD
       const token = localStorage.getItem("Token");
       localStorage.removeItem("Token");
       let tip = ExtractData(token, "role");
       localStorage.setItem("messageNumber", 0);
       if (tip === "K") {
+=======
+      let token = localStorage.getItem("Token");
+      const type = ExtractData(token,"role");
+      localStorage.removeItem("Token");
+      localStorage.setItem("messageNumber", 0);
+      if (type === "P") {
+
+      } 
+      else if (type === "K") {
+
+>>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
         let idKorisnika = ExtractData(token, "serialnumber");
         // const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
         fetch(
@@ -206,16 +265,27 @@ const ResponsiveAppBar = (props) => {
             method: "DELETE",
             body: JSON.stringify({ title: "Uspesno dodatno" }),
             headers: {
+              "Authorization": `Bearer ${token}`,
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
           }
+<<<<<<< HEAD
         ).then(emptyCart());
+=======
+        )
+          .then(emptyCart());
+      } 
+      else if (type === "D") {
+
+>>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
       }
+
       let path = "Naslovna";
       history.push(path);
       window.location.reload(false); //REFRESH PAGE
     }
+    
   };
 
   const handleCloseWarning = () => {
@@ -223,32 +293,59 @@ const ResponsiveAppBar = (props) => {
   };
 
   const onClickMailBox = () => {
+<<<<<<< HEAD
     const token = localStorage.getItem("Token");
     if (token != null) {
+=======
+    let token = localStorage.getItem("Token");
+    let korisnik = ExtractData(token,"role");
+    
+    if (korisnik != null) {
+
+>>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
       let path = "Inbox";
       history.push(path);
       console.log("Inbox");
+
     } else {
+
       setOpenWarning(true);
+
     }
   };
 
   const items = () => {
+<<<<<<< HEAD
     const token = localStorage.getItem("Token");
     let flag = null;
     if (token != null) {
       flag = ExtractData(token, "role");
     }
+=======
+    let token = localStorage.getItem("Token");
+    let flag = null;
+    if(token!==null){flag = ExtractData(token,"role");}
+
+>>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
     if (flag === "" || flag === null) {
+
       return HeaderItems;
+
     }
     if (flag === "K") {
+
       return HeaderItems;
-    } else if (flag === "P") {
+
+    } 
+    else if (flag === "P") {
+
       /* let path = "Domacinstvo";
         history.push(path); */
       return HeaderItemsDomacinstvo;
-    } else if (flag === "D") {
+
+    } 
+    else if (flag === "D") {
+      
       return HeaderItemsDostavljac;
     }
   };
@@ -380,13 +477,13 @@ const ResponsiveAppBar = (props) => {
                   <Avatar
                     alt=""
                     //src="/static/images/avatar/2.jpg"
-                    {...stringAvatar(name + " " + surname)}
+                    {...stringAvatar("aaa aaa")}
                   />
                 ) : (
                   <Avatar
                     alt=""
                     //src="/static/images/avatar/2.jpg"
-                    {...stringAvatar(nazivDomacinstva)}
+                    {...stringAvatar("aaa aaa")}
                   />
                 )}
               </IconButton>

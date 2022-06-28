@@ -8,10 +8,13 @@ import {useState,useEffect} from 'react';
 
 export default function MultiActionAreaCard(props) {
   const [slika,setSlika] = useState(null);
+  let token = localStorage.getItem("Token");
   useEffect(() => {
     async function fetchData() {
       console.log(props.id);
-      const response = await fetch("https://localhost:5001/FileUpload/DomacinstvoGet/" + props.id);
+      const response = await fetch("https://localhost:5001/FileUpload/DomacinstvoGet/" + props.id,
+        {headers: { Authorization: `Bearer ${token}` }}
+      );
       const data = await response.json();
       setSlika(data);
     }

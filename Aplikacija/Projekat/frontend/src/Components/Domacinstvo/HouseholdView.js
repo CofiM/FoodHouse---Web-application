@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import AddModal from "./AddModal";
 import UpdateModal from "./UpdateModal";
 import classes from "./ChangeDomacinstvoProduct.module.css";
+import { ExtractData } from "../../helper/extract";
 //LOCAL STORAGE NE RADI NE ZNAM ZASTO!!!!!!!!!
 
 function HouseHoldView() {
@@ -16,6 +17,8 @@ function HouseHoldView() {
   const [openUpdate, setOpenUpdate] = useState(false);
   const [product, setProduct] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const token = localStorage.getItem("Token");
 
   const handleCloseDelete = () => {
     setOpenDelete(false);
@@ -44,6 +47,7 @@ function HouseHoldView() {
       "https://localhost:5001/Proizvod/ObrisatiProizvod/" + product.ID,
       {
         method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` }
       }
     );
     setOpenDelete(false);
@@ -58,7 +62,8 @@ function HouseHoldView() {
     kategorija
   ) => {
     kolicina=0;
-    const ID = localStorage.getItem("DomacinstvoID");
+    let token = localStorage.getItem("Token");
+    const ID = ExtractData(token, "serialnumber");
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/DodatiProizvod/" +
         ID +
@@ -72,7 +77,9 @@ function HouseHoldView() {
         opis +
         "/" +
         kategorija,
-      { method: "POST" }
+      { method: "POST",
+        headers: { Authorization: `Bearer ${token}` }
+      }
     );
     setOpenAddNew(false);
     const data = await response.json();
@@ -101,7 +108,9 @@ function HouseHoldView() {
         opis +
         "/" +
         kategorija,
-      { method: "PUT" }
+      { method: "PUT",
+        headers: { Authorization: `Bearer ${token}` } 
+      }
     );
     setOpenUpdate(false);
     fetchProductHandler();
@@ -114,9 +123,13 @@ function HouseHoldView() {
 
   const fetchProductHandler = async () => {
     console.log("uslo");
-    const ID = localStorage.getItem("DomacinstvoID");
+
+    let token = localStorage.getItem("Token");
+    const ID = ExtractData(token, "serialnumber");
+
     const response = await fetch(
-      "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvo/" + ID
+      "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvo/" + ID,
+      {headers: { Authorization: `Bearer ${token}` }}
     );
     const data = await response.json();
     console.log(data);

@@ -1,9 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import InputText from "../UI/InputText";
 import InputPassword from "../UI/InputPassword";
 import Button from "@mui/material/Button";
 import classes from "./UpdateProfileKorisnik.module.css";
 import { useHistory } from "react-router-dom";
+import AuthContext from "../../helper/auth-context";
+import { ExtractData } from "../../helper/extract.js";
+
 
 const DesignProfile = (props) => {
   const history = useHistory();
@@ -14,7 +17,10 @@ const DesignProfile = (props) => {
   const [newPassword, setNewPassword] = useState("");
   const [adresa, setAdresa] = useState(props.Adresa);
 
+  
+
   async function fetchUpdateProfile() {
+    let token = localStorage.getItem("Token");
     const response = await fetch(
       "https://localhost:5001/Korisnik/PromenitiSifruKorisnika/" +
         props.Email +
@@ -34,6 +40,7 @@ const DesignProfile = (props) => {
         method: "PUT",
         body: JSON.stringify({ title: "Uspesno je azuriran" }),
         headers: {
+          "Authorization": `Bearer ${token}`, 
           "Content-Type": "application/json",
         },
       }
