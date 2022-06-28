@@ -116,7 +116,10 @@ export default function BasicModal(props) {
   };
 
   async function sendArgument() {
-    const ID = localStorage.getItem("DomacinstvoID");
+    const token=localStorage.getItem("Token");
+    console.log(token);
+    const ID = ExtractData(token,"serialnumber");
+    console.log(ID);
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/DodatiProizvod/" +
         ID +
@@ -130,7 +133,8 @@ export default function BasicModal(props) {
         opis +
         "/" +
         kategorija,
-      { method: "POST" }
+      { method: "POST" ,
+      headers: { Authorization: `Bearer ${token}` }}
     )
       .then(async (response) => {
         const data = await response.json();
@@ -140,7 +144,8 @@ export default function BasicModal(props) {
         try {
           const res = await axios.post(
             "https://localhost:5001/FileUpload/" + data,
-            formData
+            formData,
+            {headers: { Authorization: `Bearer ${token}` }}
           );
         } catch (ex) {
           console.log(ex);

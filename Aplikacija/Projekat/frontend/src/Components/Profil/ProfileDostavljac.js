@@ -43,7 +43,7 @@ const ProfilDostavljac = () => {
         {
           method: "GET",
           headers: {
-            "Authorization": `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             "Content-type": "application/json;charset=UTF-8",
             Authorization: `Bearer ${token}`,
           },

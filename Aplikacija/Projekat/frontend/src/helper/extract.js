@@ -5,6 +5,8 @@ export function ExtractData(token, data) {
   let jwtData = token.split(".")[1];
   let decodedJwtJsonData = window.atob(jwtData);
 
+  console.log(decodedJwtJsonData);
+
   let name = decodedJwtJsonData.substring(
     decodedJwtJsonData.indexOf(dataString)
   );
