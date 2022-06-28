@@ -104,12 +104,18 @@ const Cart = (props) => {
   async function onNaruciHandler() 
   {
 
+    // const response = fetch('https://localhost:5001/Narudzbine/IzracunajDostavu/'+idKorisnika,
+    // {
+    //   headers:{
+    //     'Content-Type':'application/json',
+    //     'Authorization': `Bearer ${token}`
+    //   }
+    // }).then(setDostava( await response.json())).then(setOpen(true));
+    
+
             var req = new XMLHttpRequest();
             req.open('GET','https://localhost:5001/Narudzbine/IzracunajDostavu/'+idKorisnika, false);
-            req.setRequestHeader(
-              'Content-Type', 
-              'application/json',
-              {'Authorization': `Bearer ${token}`} );
+            req.setRequestHeader('Authorization', 'Bearer ' + token);
             req.onload  = function() {
                var jsonResponse = JSON.parse(req.responseText);
                // do something with jsonResponse
