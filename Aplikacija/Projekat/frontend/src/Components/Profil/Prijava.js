@@ -25,6 +25,9 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import jwt from 'jwt-decode';
 
+import jwt_decode from "jwt-decode";
+import {ExtractData} from "../../helper/extract.js";
+
 const theme = createTheme();
 
 export default function SignIn() {
@@ -183,6 +186,10 @@ export default function SignIn() {
       }
     );
     let token = await response.json();
+
+    let aa = ExtractData(token,"name");
+    console.log(aa);
+
     localStorage.setItem("Token", token);
     console.log(token);
     let data;
