@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,6 +9,17 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Models;
 
 namespace SWE___PROJEKAT.Controllers
@@ -24,7 +37,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzmiPorukeDomacinstvo/{idD}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "P")]
         public async Task<ActionResult> preuzmiPorukeDomacinstvo(int idD)
         {
             try
@@ -57,7 +70,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzmiPorukeDostavljac/{idD}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "D")]
         public async Task<ActionResult> preuzmiPorukeDostavljac(int idD)
         {
             try
@@ -90,7 +103,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzmiPoruke/{clientID}/{type}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "K,D,P")]
         public async Task<ActionResult> preuzmiPoruke(int clientID, char type)
         {
             try
@@ -176,7 +189,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("AzurirajVidljivostPoruke/{idPoruke}/{shown}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "K,D,P")]
         public async Task<ActionResult> azurirajVidljivostPoruke(int idPoruke, bool shown)
         {
             try

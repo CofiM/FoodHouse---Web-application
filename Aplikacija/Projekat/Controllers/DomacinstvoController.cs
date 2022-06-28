@@ -194,7 +194,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PostaviDostavljacaDomacinstvu/{emailDomacinstva}/{emailDostavljaca}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "P,D")]
         public async Task<ActionResult> postaviDostaljacaDomacinstvu(string emailDomacinstva, string emailDostavljaca)
         {
             if( string.IsNullOrWhiteSpace(emailDomacinstva) )
@@ -241,7 +241,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisiDostavljacaDomacinstvu/{emailDomacinstva}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "P,D")]
         public async Task<ActionResult> obrisiDostavljacaDomacinstvu(string emailDomacinstva)
         {
             if( string.IsNullOrWhiteSpace(emailDomacinstva) )
@@ -328,7 +328,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("VratiPorukeDomacinstva/{id}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "P")]
         public async Task<ActionResult> vratiPorukeDomacinstva(int id)
         {
             if (id < 0)
@@ -361,7 +361,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisatiPoruku/{idDomacinstva}/{idPoruke}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "P")]
         public async Task<ActionResult> obrisatiPoruku(int idDomacinstva, int idPoruke)
         {
             if(idDomacinstva < 0 || idPoruke < 0)
@@ -396,7 +396,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PromeniSifruDomacinstva/{email}/{pass}/{newPass}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "P")]
         public async Task<ActionResult> promeniSifruDomacinstva(string email, string pass, string newPass)
         {
             if (String.IsNullOrWhiteSpace(email))
@@ -442,7 +442,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("IzmeniProfilDomacinstva/{email}/{pass}/{newPass}/{naziv}/{username}/{adresa}/{telefon}/{datum}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "P")]
         public async Task<ActionResult> izmeniProfilDomacinstva(string email, string pass, string newPass, 
             string naziv, string username, string adresa, string telefon, DateTime datum)
         {
@@ -505,7 +505,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PostaviDanOtvorenihVrata/{usernameD}/{novDatum}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "P")]
         public async Task<ActionResult> postaviDanOtvorenihVrata(String usernameD, DateTime novDatum)
         {
             if (String.IsNullOrWhiteSpace(usernameD) || usernameD.Length > 30)
@@ -540,7 +540,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("DodatiPosao/{idD}/{brRadnihMesta}/{datumPocetka}/{opis}/{cena}")]
         [EnableCors("CORS")]
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "P")]
         public async Task<ActionResult> dodajPosao(int idD, int brRadnihMesta, DateTime datumPocetka,
                                     string opis, int cena)
         {
@@ -589,7 +589,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("IzmeniPosao/{DomacinstvoID}/{id}/{brRadnihMesta}/{datumPocetka}/{opis}/{cena}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "P")]
         public async Task<ActionResult> izmeniPosao(int DomacinstvoID, int id, int brRadnihMesta, DateTime datumPocetka,
                                     string opis, int cena)
         {
@@ -643,7 +643,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("IzbrisiPosao/{ID}/{idPosla}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "P")]
         public async Task<ActionResult> izbrisiPosao(int ID, int idPosla)
         {
             try
@@ -679,7 +679,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("DodatiProizvod/{idD}/{naziv}/{kol}/{cena}/{opis}/{kat}")]
         [EnableCors("CORS")]
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "P")]
         public async Task<ActionResult> dodajProizvod(int idD, String naziv, int kol,
                                     int cena, String opis, String kat)
         {
@@ -788,7 +788,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("IzbrisiProizvod/{usernameD}/{id}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "P")]
         public async Task<ActionResult> izbrisiProizvod(string usernameD, int id)
         {
             if (string.IsNullOrWhiteSpace(usernameD) || usernameD.Length > 30)
@@ -833,7 +833,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PrihvatiPosao/{idDomacinstva}/{type}/{ime}/{prezime}")]
         [EnableCors("CORS")]
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "P")]
         public async Task<ActionResult> prihvatiPosao(int idDomacinstva, char type, string ime, string prezime)
         {
             if(string.IsNullOrWhiteSpace(ime) || ime.Length > 30)

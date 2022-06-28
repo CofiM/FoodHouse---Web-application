@@ -1,4 +1,6 @@
 using System;
+using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -7,6 +9,17 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 using Models;
 
 namespace SWE___PROJEKAT.Controllers
@@ -24,7 +37,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("DodatiKupovinu/{idProizvoda}/{idKorisnika}/{idDostavljaca}/{suma}")]
         [EnableCors("CORS")]
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "K")]
         public async Task<ActionResult> dodajKupovinu(int idProizvoda, int idKorisnika,int idDostavljaca,int suma)
         {
             if (idProizvoda < 0)
@@ -82,7 +95,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzetiKupovineZaDostavljaca/{idDostavljaca}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "D")]
         public async Task<ActionResult> PreuzmitiKupovineZaDostavljaca(int idDostavljaca)
         {
             try
@@ -115,7 +128,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzetiKupovineZaKorisnika/{idKorisnika}")]
         [EnableCors("CORS")]
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "K")]
         public async Task<ActionResult> PreuzmitiKupovineZaKorisnika(int idKorisnika)
         {
             try
@@ -149,7 +162,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisatiKupovinu/{idKupovine}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "K,D")]
         public async Task<ActionResult> ObrisatiKupovinu(int idKupovine)
         {
             try
