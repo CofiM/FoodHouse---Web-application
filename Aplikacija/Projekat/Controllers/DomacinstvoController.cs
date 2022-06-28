@@ -194,7 +194,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PostaviDostavljacaDomacinstvu/{emailDomacinstva}/{emailDostavljaca}")]
         [EnableCors("CORS")]
-        [HttpPut, Authorize(Roles = "P", "D")]
+        [HttpPut, Authorize(Roles = "P,D")]
         public async Task<ActionResult> postaviDostaljacaDomacinstvu(string emailDomacinstva, string emailDostavljaca)
         {
             if( string.IsNullOrWhiteSpace(emailDomacinstva) )
@@ -241,7 +241,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisiDostavljacaDomacinstvu/{emailDomacinstva}")]
         [EnableCors("CORS")]
-        [HttpPut, Authorize(Roles = "P", "D")]
+        [HttpPut, Authorize(Roles = "P,D")]
         public async Task<ActionResult> obrisiDostavljacaDomacinstvu(string emailDomacinstva)
         {
             if( string.IsNullOrWhiteSpace(emailDomacinstva) )

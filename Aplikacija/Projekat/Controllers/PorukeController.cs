@@ -103,7 +103,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PreuzmiPoruke/{clientID}/{type}")]
         [EnableCors("CORS")]
-        [HttpGet, Authorize(Roles = "K", "D", "P")]
+        [HttpGet, Authorize(Roles = "K,D,P")]
         public async Task<ActionResult> preuzmiPoruke(int clientID, char type)
         {
             try
@@ -189,7 +189,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("AzurirajVidljivostPoruke/{idPoruke}/{shown}")]
         [EnableCors("CORS")]
-        [HttpPut, Authorize(Roles = "K", "D", "P")]
+        [HttpPut, Authorize(Roles = "K,D,P")]
         public async Task<ActionResult> azurirajVidljivostPoruke(int idPoruke, bool shown)
         {
             try

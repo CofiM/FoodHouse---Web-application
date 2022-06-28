@@ -162,7 +162,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisatiKupovinu/{idKupovine}")]
         [EnableCors("CORS")]
-        [HttpDelete, Authorize(Roles = "K", "D")]
+        [HttpDelete, Authorize(Roles = "K,D")]
         public async Task<ActionResult> ObrisatiKupovinu(int idKupovine)
         {
             try
