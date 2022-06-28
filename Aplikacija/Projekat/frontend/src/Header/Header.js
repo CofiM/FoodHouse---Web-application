@@ -183,6 +183,7 @@ const ResponsiveAppBar = (props) => {
       setOpenWarning(true);
     }
   };
+  
   const onClickProfile = (type) => {
     if (type === "Profile") {
       let tok = localStorage.getItem("Token");
