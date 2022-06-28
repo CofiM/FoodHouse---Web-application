@@ -193,47 +193,62 @@ export default function SignIn() {
     localStorage.setItem("Token", token);
     console.log(token);
     let data;
-    //Ovde mrkam nesto
-    token = token.replace('Bearer','');
-    var jwt = require('jsonwebtoken');
-    var decoded = jwt.decode(token);
-    console.log(decoded);
-    axios
+    // axios
+    //   .get(
+    //     "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/maletic@gmail.com/12345",
+    //     { headers: { Authorization: `Bearer ${token}` } }
+    //   )
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   });
+
+
+    //const data = await response.json();
+    //localStorage.setItem("Username", data.username);
+    //localStorage.setItem("Korisnik", data.tip);
+
+    let t = localStorage.getItem("Token");
+    let tipKorisnika = ExtractData(t,"role");
+    console.log("TIP TOKEN =>" + tipKorisnika);
+
+    if (tipKorisnika === "K") {
+      let path = "Naslovna";
+      history.push(path);
+      // localStorage.setItem("KorisnikID", data.id);
+      // localStorage.setItem("IME", data.ime);
+      // localStorage.setItem("PREZIME", data.prezime);
+       fetchMessage();
+
+    } else if (tipKorisnika === "D") {
+      let path = "narudzbine";
+      history.push(path);
+      // localStorage.setItem("DostavljacID", data.id);
+      // localStorage.setItem("IME", data.ime);
+      // localStorage.setItem("PREZIME", data.prezime);
+      fetchMessage();
+
+    } else if (tipKorisnika === "P") {
+
+      axios
       .get(
-        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/maletic@gmail.com/12345",
+        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/"+textEmail+"/"+pass.password,
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then((res) => {
         console.log(res.data);
       });
 
-      
-    // const data = await response.json();
-    // //localStorage.setItem("Username", data.username);
-    // localStorage.setItem("Korisnik", data.tip);
 
-    // if (data.tip === "K") {
-    //   let path = "Naslovna";
-    //   history.push(path);
-    //   localStorage.setItem("KorisnikID", data.id);
-    //   localStorage.setItem("IME", data.ime);
-    //   localStorage.setItem("PREZIME", data.prezime);
-    //   fetchMessage();
-    // } else if (data.tip === "D") {
-    //   let path = "narudzbine";
-    //   history.push(path);
-    //   localStorage.setItem("DostavljacID", data.id);
-    //   localStorage.setItem("IME", data.ime);
-    //   localStorage.setItem("PREZIME", data.prezime);
-    //   fetchMessage();
-    // } else if (data.tip === "P") {
-    //   let path = "domacinstvo";
-    //   history.push(path);
-    //   localStorage.setItem("DomacinstvoID", data.id);
-    //   localStorage.setItem("NAZIVDOMACINSTVA", data.naziv);
-    //   fetchMessage();
-    // }
-    // window.location.reload(false); //REFRESH PAGE
+
+      let path = "domacinstvo";
+      history.push(path);
+
+      // localStorage.setItem("DomacinstvoID", data.id);
+      // localStorage.setItem("NAZIVDOMACINSTVA", data.naziv);
+
+      fetchMessage();
+    }
+    //window.location.reload(false); //REFRESH PAGE 
   }
 
   return (

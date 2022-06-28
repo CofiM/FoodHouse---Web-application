@@ -7,6 +7,7 @@ import UpdateProfileDomacinstvo from "./UpdateProfileDomacinstvo";
 import DesignProfileDomacinstvo from "./DesignProfileDomacinstvo";
 import { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
+import { ExtractData } from "../../helper/extract";
 
 function stringAvatar(name) {
   console.log(name);
@@ -37,7 +38,8 @@ const ProfilDomacinstvo = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const id = localStorage.getItem("DomacinstvoID");
+      let token = localStorage.getItem("Token");
+      const id = ExtractData(token,"serialnumber")
       const response = await fetch(
         "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/" + id,
         {
