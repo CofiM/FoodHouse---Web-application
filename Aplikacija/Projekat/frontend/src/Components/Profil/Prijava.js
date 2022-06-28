@@ -194,10 +194,7 @@ export default function SignIn() {
 
     let aa = ExtractData(token,"name");
     console.log(aa);
-
-    localStorage.setItem("Token", token);
-    console.log(token);
-    let data;
+    
     // axios
     //   .get(
     //     "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/maletic@gmail.com/12345",
@@ -212,24 +209,22 @@ export default function SignIn() {
     //localStorage.setItem("Username", data.username);
     //localStorage.setItem("Korisnik", data.tip);
 
-    let t = localStorage.getItem("Token");
-    let tipKorisnika = ExtractData(t,"role");
+    
+    let tipKorisnika = ExtractData(token,"role");
     console.log("TIP TOKEN =>" + tipKorisnika);
 
     if (tipKorisnika === "K") {
       let path = "Naslovna";
       history.push(path);
-      // localStorage.setItem("KorisnikID", data.id);
-      // localStorage.setItem("IME", data.ime);
-      // localStorage.setItem("PREZIME", data.prezime);
+      
        fetchMessage();
 
     } else if (tipKorisnika === "D") {
       let path = "narudzbine";
       history.push(path);
-      // localStorage.setItem("DostavljacID", data.id);
-      // localStorage.setItem("IME", data.ime);
-      // localStorage.setItem("PREZIME", data.prezime);
+
+     
+      
       fetchMessage();
 
     } else if (tipKorisnika === "P") {
