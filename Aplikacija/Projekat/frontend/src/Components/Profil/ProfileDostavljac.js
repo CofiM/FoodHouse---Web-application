@@ -36,7 +36,8 @@ const ProfilDostavljac = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       let token = localStorage.getItem("Token");
-      const id = ExtractData(token,"serialnumber");
+      console.log(token);
+      const id = ExtractData(token, "serialnumber");
       const response = await fetch(
         "https://localhost:5001/Dosavljac/PreuzmiDostavljac/" + id,
         {
@@ -44,6 +45,7 @@ const ProfilDostavljac = () => {
           headers: {
             "Authorization": `Bearer ${token}`,
             "Content-type": "application/json;charset=UTF-8",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -70,14 +72,14 @@ const ProfilDostavljac = () => {
         <Stack spacing={30} direction="row">
           <Button
             variant="text"
-            sx={{color: "#070E59"  }}
+            sx={{ color: "#070E59" }}
             onClick={onClickProfileHandler}
           >
             Profil
           </Button>
           <Button
             variant="text"
-            sx={{ color: "#070E59"  }}
+            sx={{ color: "#070E59" }}
             onClick={onClickUpdateProfileHandler}
           >
             Izmeni profil

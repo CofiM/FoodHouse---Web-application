@@ -30,6 +30,7 @@ import { textFieldClasses } from "@mui/material";
 import AuthContext from "../helper/auth-context";
 import { ExtractData } from "../helper/extract";
 
+
 const settings = ["Profile", "Logout"];
 
 function stringAvatar(name) {
@@ -64,12 +65,11 @@ const ResponsiveAppBar = (props) => {
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
-
+    const token = localStorage.getItem("Token");
+    console.log(token);
     let tip = null;
-    let token = localStorage.getItem("Token");
-    if(token!=null)
-    {
-      tip = ExtractData(token,"role");
+    if (token != null) {
+      tip = ExtractData(token, "role");
     }
     if (tip == null) {
       setMess(false);
@@ -85,8 +85,10 @@ const ResponsiveAppBar = (props) => {
         //setSurname(localStorage.getItem("PREZIME").toUpperCase());
       }
       if (tip == "P") {
-        setDom(true);
-        //setNazivDomacinstva(localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase());
+        //setDom(true);
+        //setNazivDomacinstva(
+        //localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase()
+        //);
       }
       setMess(true);
       setProfileAvatar(true);
@@ -181,13 +183,16 @@ const ResponsiveAppBar = (props) => {
       setOpenWarning(true);
     }
   };
-
   const onClickProfile = (type) => {
     if (type === "Profile") {
-
-      let token = localStorage.getItem("Token");
-      const flag = ExtractData(token,"role");
-
+      let tok = localStorage.getItem("Token");
+      console.log(tok);
+      let flag;
+      if (tok == null) {
+        flag = null;
+      } else {
+        flag = ExtractData(tok, "role");
+      }
       if (flag === null) {
 
         let path = "Prijava";
@@ -211,15 +216,11 @@ const ResponsiveAppBar = (props) => {
       }
     }
     if (type === "Logout") {
-      let token = localStorage.getItem("Token");
-      const type = ExtractData(token,"role");
+      const token = localStorage.getItem("Token");
       localStorage.removeItem("Token");
+      let tip = ExtractData(token, "role");
       localStorage.setItem("messageNumber", 0);
-      if (type === "P") {
-
-      } 
-      else if (type === "K") {
-
+      if (tip === "K") {
         let idKorisnika = ExtractData(token, "serialnumber");
         // const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
         fetch(
@@ -230,13 +231,10 @@ const ResponsiveAppBar = (props) => {
             headers: {
               "Authorization": `Bearer ${token}`,
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
           }
-        )
-          .then(emptyCart());
-      } 
-      else if (type === "D") {
-
+        ).then(emptyCart());
       }
 
       let path = "Naslovna";
@@ -251,11 +249,8 @@ const ResponsiveAppBar = (props) => {
   };
 
   const onClickMailBox = () => {
-    let token = localStorage.getItem("Token");
-    let korisnik = ExtractData(token,"role");
-    
-    if (korisnik != null) {
-
+    const token = localStorage.getItem("Token");
+    if (token != null) {
       let path = "Inbox";
       history.push(path);
       console.log("Inbox");
@@ -268,10 +263,11 @@ const ResponsiveAppBar = (props) => {
   };
 
   const items = () => {
-    let token = localStorage.getItem("Token");
+    const token = localStorage.getItem("Token");
     let flag = null;
-    if(token!==null){flag = ExtractData(token,"role");}
-
+    if (token != null) {
+      flag = ExtractData(token, "role");
+    }
     if (flag === "" || flag === null) {
 
       return HeaderItems;
@@ -382,7 +378,7 @@ const ResponsiveAppBar = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {items().map((page) => (
-              <React.Fragment     key={page.label}>
+              <React.Fragment key={page.label}>
                 <Button
                   key={page.id}
                   onClick={() => onClickHandler(page.route)}
