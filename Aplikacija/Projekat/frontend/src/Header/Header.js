@@ -27,6 +27,9 @@ import CartBox from "../Components/Korpa/CartBox";
 import { useCart } from "react-use-cart";
 import WarningModal from "../Components/Domacinstvo/WarningModal.js";
 import { textFieldClasses } from "@mui/material";
+import AuthContext from "../helper/auth-context";
+import { ExtractData } from "../helper/extract";
+import { useContext } from "react";
 
 const settings = ["Profile", "Logout"];
 
@@ -61,25 +64,30 @@ const ResponsiveAppBar = (props) => {
   const { emptyCart } = useCart();
 
   useEffect(() => {
-    const tip = localStorage.getItem("Korisnik");
+    const token = localStorage.getItem("Token");
+    console.log(token);
+    let tip = null;
+    if (token != null) {
+      tip = ExtractData(token, "role");
+    }
     if (tip == null) {
       setMess(false);
     } else {
       fetchMessage();
       if (tip == "K") {
         setCrt(true);
-        setName(localStorage.getItem("IME").toUpperCase());
-        setSurname(localStorage.getItem("PREZIME").toUpperCase());
+        //setName(localStorage.getItem("IME").toUpperCase());
+        //setSurname(localStorage.getItem("PREZIME").toUpperCase());
       }
       if (tip == "D") {
-        setName(localStorage.getItem("IME").toUpperCase());
-        setSurname(localStorage.getItem("PREZIME").toUpperCase());
+        //setName(localStorage.getItem("IME").toUpperCase());
+        //setSurname(localStorage.getItem("PREZIME").toUpperCase());
       }
       if (tip == "P") {
-        setDom(true);
-        setNazivDomacinstva(
-          localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase()
-        );
+        //setDom(true);
+        //setNazivDomacinstva(
+        //localStorage.getItem("NAZIVDOMACINSTVA").toUpperCase()
+        //);
       }
       setMess(true);
       setProfileAvatar(true);
@@ -160,10 +168,16 @@ const ResponsiveAppBar = (props) => {
       setOpenWarning(true);
     }
   };
-
   const onClickProfile = (type) => {
     if (type === "Profile") {
-      const flag = localStorage.getItem("Korisnik");
+      let tok = localStorage.getItem("Token");
+      console.log(tok);
+      let flag;
+      if (tok == null) {
+        flag = null;
+      } else {
+        flag = ExtractData(tok, "role");
+      }
       if (flag === null) {
         let path = "Prijava";
         history.push(path);
@@ -179,13 +193,12 @@ const ResponsiveAppBar = (props) => {
       }
     }
     if (type === "Logout") {
-      const type = localStorage.getItem("Korisnik");
-      localStorage.removeItem("Korisnik");
+      const token = localStorage.getItem("Token");
+      localStorage.removeItem("Token");
+      let tip = ExtractData(token, "role");
       localStorage.setItem("messageNumber", 0);
-      if (type === "P") {
-        localStorage.removeItem("DomacinstvoID");
-      } else if (type === "K") {
-        let idKorisnika = localStorage.getItem("KorisnikID");
+      if (tip === "K") {
+        let idKorisnika = ExtractData(token, "serialnumber");
         // const idKorisnika = JSON.parse(localStorage.getItem("KorisnikID"));
         fetch(
           "https://localhost:5001/Narudzbine/ObrisiNarudzbine/" + idKorisnika,
@@ -194,13 +207,10 @@ const ResponsiveAppBar = (props) => {
             body: JSON.stringify({ title: "Uspesno dodatno" }),
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
             },
           }
-        )
-          .then(localStorage.removeItem("KorisnikID"))
-          .then(emptyCart());
-      } else if (type === "D") {
-        localStorage.removeItem("DostavljacID");
+        ).then(emptyCart());
       }
       let path = "Naslovna";
       history.push(path);
@@ -213,8 +223,8 @@ const ResponsiveAppBar = (props) => {
   };
 
   const onClickMailBox = () => {
-    let korisnik = localStorage.getItem("Korisnik");
-    if (korisnik != null) {
+    const token = localStorage.getItem("Token");
+    if (token != null) {
       let path = "Inbox";
       history.push(path);
       console.log("Inbox");
@@ -224,8 +234,11 @@ const ResponsiveAppBar = (props) => {
   };
 
   const items = () => {
-    const flag = localStorage.getItem("Korisnik");
-
+    const token = localStorage.getItem("Token");
+    let flag = null;
+    if (token != null) {
+      flag = ExtractData(token, "role");
+    }
     if (flag === "" || flag === null) {
       return HeaderItems;
     }
@@ -327,7 +340,7 @@ const ResponsiveAppBar = (props) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {items().map((page) => (
-              <React.Fragment     key={page.label}>
+              <React.Fragment key={page.label}>
                 <Button
                   key={page.id}
                   onClick={() => onClickHandler(page.route)}

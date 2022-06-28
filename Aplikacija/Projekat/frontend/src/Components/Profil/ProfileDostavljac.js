@@ -7,6 +7,7 @@ import UpdateProfile from "./UpdateProfileDostavljac";
 import DesignProfile from "./DesignProfileDostavljac";
 import { useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
+import { ExtractData } from "../../helper/extract";
 
 function stringAvatar(name) {
   return {
@@ -34,13 +35,16 @@ const ProfilDostavljac = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const id = localStorage.getItem("DostavljacID");
+      let token = localStorage.getItem("Token");
+      console.log(token);
+      const id = ExtractData(token, "serialnumber");
       const response = await fetch(
         "https://localhost:5001/Dosavljac/PreuzmiDostavljac/" + id,
         {
           method: "GET",
           headers: {
             "Content-type": "application/json;charset=UTF-8",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -67,14 +71,14 @@ const ProfilDostavljac = () => {
         <Stack spacing={30} direction="row">
           <Button
             variant="text"
-            sx={{color: "#070E59"  }}
+            sx={{ color: "#070E59" }}
             onClick={onClickProfileHandler}
           >
             Profil
           </Button>
           <Button
             variant="text"
-            sx={{ color: "#070E59"  }}
+            sx={{ color: "#070E59" }}
             onClick={onClickUpdateProfileHandler}
           >
             Izmeni profil
