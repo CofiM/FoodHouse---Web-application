@@ -25,8 +25,7 @@ import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 
-import jwt_decode from "jwt-decode";
-import {ExtractData} from "../../helper/extract.js";
+import { ExtractData } from "../../helper/extract.js";
 
 const theme = createTheme();
 
@@ -186,27 +185,42 @@ export default function SignIn() {
       }
     );
     let token = await response.json();
-<<<<<<< HEAD
     const user = jwt(token);
-    const role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
     console.log(user);
-=======
-
-    let aa = ExtractData(token,"name");
-    console.log(aa);
-
->>>>>>> 223a4faf09f6b55c8dd7356bb4413d516272fe66
     localStorage.setItem("Token", token);
     console.log(token);
+    let tip = ExtractData(token, "role");
+    console.log(tip);
     let data;
-    axios
-      .get(
-        "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/maletic@gmail.com/12345",
-        { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then((res) => {
-        console.log(res.data);
-      });
+    if (tip == "P") {
+      axios
+        .get(
+          "https://localhost:5001/Domacinstvo/PreuzmiDomacinstvo/" +
+            textEmail +
+            "/" +
+            pass.password,
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then((res) => {
+          console.log(res.data);
+        });
+    }
+    if (tip == "K") {
+    }
+    if (tip == "D") {
+      axios
+        .get(
+          "https://localhost:5001/Dosavljac/PreuzmiDostavljac/" +
+            textEmail +
+            "/" +
+            pass.password,
+          { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then((res) => {
+          console.log(res.data);
+        });
+    }
+
     // const data = await response.json();
     // //localStorage.setItem("Username", data.username);
     // localStorage.setItem("Korisnik", data.tip);

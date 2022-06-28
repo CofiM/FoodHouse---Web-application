@@ -35,25 +35,54 @@ namespace SWE___PROJEKAT.Controllers
             Context = context;
         }
 
-         [Route("PreuzmiDostavljac/{email}/{password}")]
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using(var hmc = new HMACSHA512())
+            {
+                passwordSalt = hmc.Key;
+                passwordHash = hmc.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return computedHash.SequenceEqual(passwordHash);
+            }
+        }
+
+        [Route("PreuzmiDostavljac/{email}/{password}")]
         [EnableCors("CORS")]
         [HttpGet, Authorize(Roles = "D")]
         public async Task<ActionResult> PreuzmiDostavljac(string email, string password)
         {
             try
             {
-                var dostavljac = await Context.Dostavljaci.Where(p => p.email == email /*&& p.Password == password*/).Select(p => new{
-                            p.ID,
-                            p.Username,
-                            p.email,
-                            p.Cena,
-                            p.telefon,
-                            p.Ime,
-                            p.Prezime,
-                            p.Tip,
-                            p.Domacinstva
-                            }).FirstOrDefaultAsync();
-                return Ok(dostavljac);
+
+                var dostavljac = await Context.Dostavljaci.Where(p => p.email == email)
+                            .FirstOrDefaultAsync();
+                if(dostavljac != null) {
+                    if (!VerifyPasswordHash(password, dostavljac.PasswordHash, dostavljac.PasswordSalt))
+                    {
+                        return  BadRequest("Pogresna sifra");
+                    }
+                    var d = await Context.Dostavljaci.Where(p => p.email == email /*&& p.Password == password*/).Select(p => new{
+                             p.ID,
+                             p.Username,
+                             p.email,
+                             p.Cena,
+                             p.telefon,
+                             p.Ime,
+                             p.Prezime,
+                             p.Tip,
+                             p.Domacinstva
+                             })
+                            .FirstOrDefaultAsync();
+                            return Ok(d);
+                }
+                return BadRequest("Ne postoji sa zadatim email");
             }
             catch(Exception e)
             {
