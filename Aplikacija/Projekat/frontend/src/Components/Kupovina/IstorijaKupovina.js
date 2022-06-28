@@ -21,6 +21,7 @@ const IstorijaKupovina = () => {
 
 
   async function onClickSaveReviewHandler(val, comm) {
+    const token = localStorage.getItem("Token");
     console.log(product);
     const response = await fetch(
       "https://localhost:5001/Recenzija/DodatiRecenziju/" +
@@ -35,6 +36,7 @@ const IstorijaKupovina = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );

@@ -86,18 +86,10 @@ export default function SignIn() {
   };
 
   const fetchMessage = async () => {
-<<<<<<< HEAD
-    let token = authCtx.token;
-    const tip = ExtractData(token, "role");
-
-    if (tip === "P") {
-=======
     let token = localStorage.getItem("Token");
     const tip = ExtractData(token, "role");
 
     if (tip === "P") {
-
->>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
       const ID = ExtractData(token, "serialnumber");
       const response = await fetch(
         "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
@@ -238,11 +230,7 @@ export default function SignIn() {
 
       fetchMessage();
     }
-<<<<<<< HEAD
     window.location.reload(false); //REFRESH PAGE
-=======
-    //window.location.reload(false); //REFRESH PAGE
->>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
   }
 
   return (

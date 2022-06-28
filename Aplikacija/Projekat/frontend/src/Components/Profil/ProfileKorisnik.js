@@ -8,12 +8,7 @@ import DesignProfileKorisnik from "./DesignProfileKorisnik";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-<<<<<<< HEAD
 import { ExtractData } from "../../helper/extract";
-=======
-import AuthContext from "../../helper/auth-context";
-import { ExtractData } from "../../helper/extract.js";
->>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
 
 function stringAvatar(name) {
   return {
@@ -49,16 +44,9 @@ const ProfilDomacinstvo = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-<<<<<<< HEAD
       let token = localStorage.getItem("Token");
       console.log(token);
       const id = ExtractData(token, "serialnumber");
-=======
-
-      let token = localStorage.getItem("Token");
-      const id = ExtractData(token, "serialnumber");
-      console.log(id);
->>>>>>> 24c3a8e5137324fbf782aed1e4d1edcf2fda564a
       const response = await fetch(
         "https://localhost:5001/Korisnik/PreuzetiKorisnika/" + id,
         {
