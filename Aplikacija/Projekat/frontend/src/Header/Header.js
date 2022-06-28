@@ -269,7 +269,8 @@ const ResponsiveAppBar = (props) => {
 
   const items = () => {
     let token = localStorage.getItem("Token");
-    let flag = ExtractData(token,"role");
+    let flag = null;
+    if(token!==null){flag = ExtractData(token,"role");}
 
     if (flag === "" || flag === null) {
 
@@ -421,13 +422,13 @@ const ResponsiveAppBar = (props) => {
                   <Avatar
                     alt=""
                     //src="/static/images/avatar/2.jpg"
-                    {...stringAvatar(name + " " + surname)}
+                    {...stringAvatar("aaa aaa")}
                   />
                 ) : (
                   <Avatar
                     alt=""
                     //src="/static/images/avatar/2.jpg"
-                    {...stringAvatar(nazivDomacinstva)}
+                    {...stringAvatar("aaa aaa")}
                   />
                 )}
               </IconButton>
