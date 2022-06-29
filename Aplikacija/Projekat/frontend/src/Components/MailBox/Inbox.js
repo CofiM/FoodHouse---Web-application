@@ -92,11 +92,11 @@ const Inbox = () => {
   useEffect(() => {
     const fetchMessage = async () => {
       const token = localStorage.getItem("Token");
-      const tip = ExtractData(token,"role");
+      const tip = ExtractData(token, "role");
       setClientType(tip);
       
       if (tip === "P") {
-        const ID = ExtractData(token,"serialnumber");
+        const ID = ExtractData(token, "serialnumber");
         const response = await fetch(
           "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
           {headers: { Authorization: `Bearer ${token}` }}
@@ -124,10 +124,12 @@ const Inbox = () => {
         setData(transformedData);
         console.log("Broj poruke: " + pom);
         localStorage.setItem("messageNumber", pom);
+
       } else if (tip === "D") {
+        
         console.log("Ulazim u D");
         setProducer(false);
-        const ID = ExtractData(token,"serialnumber");
+        const ID = ExtractData(token, "serialnumber");
         const response = await fetch(
           "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
           {headers: { Authorization: `Bearer ${token}` }}
@@ -156,8 +158,11 @@ const Inbox = () => {
         console.log(transformedData);
         console.log("Broj poruka: " + pom);
         localStorage.setItem("messageNumber", pom);
+
       } else if (tip === "K") {
+
         console.log("Ulazim u K");
+
         const ID = ExtractData(token,"serialnumber");
         const response = await fetch(
           "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
@@ -165,6 +170,7 @@ const Inbox = () => {
         );
         const data = await response.json();
         let pom = 0;
+
         const transformedData = data.map(function (d) {
           setMessageID(d.id);
           if (d.shown == false && d.tip !== "P") pom++;
@@ -200,7 +206,9 @@ const Inbox = () => {
     shown
   ) {
     const token=localStorage.getItem("Token");
+
     const DomacinstvoID = ExtractData(token,"serialnumber");
+
     console.log("ULAZIM");
     const response = await fetch(
       "https://localhost:5001/Administrator/PosaljiPoruku/" +
@@ -220,7 +228,7 @@ const Inbox = () => {
         body: JSON.stringify({ title: "Uspesno je poslata poruka" }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
       }
     );
@@ -230,6 +238,8 @@ const Inbox = () => {
   }
 
   async function deleteMessage(ClientID, MessageID, Type) {
+    let token = localStorage.getItem("Token");
+
     const response = await fetch(
       "https://localhost:5001/Administrator/ObrisiPoruku/" +
         ClientID +
@@ -242,6 +252,7 @@ const Inbox = () => {
         body: JSON.stringify({ title: "Uspesno je obrisana poruka" }),
         headers: {
           "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
         },
       }
     );
@@ -249,16 +260,18 @@ const Inbox = () => {
   }
 
   const onClickDelete = () => {
+    let token = localStorage.getItem("Token");
+
     console.log("Ulazim u onClickDelete");
-    const type = localStorage.getItem("Korisnik");
+    const type = ExtractData(token, "role");
     let clientID = "";
     console.log(type);
     if (type === "K") {
-      clientID = localStorage.getItem("KorisnikID");
+      clientID = ExtractData(token, "serialnumber");
     } else if (type === "P") {
-      clientID = localStorage.getItem("DomacinstvoID");
+      clientID = ExtractData(token, "serialnumber");
     } else if (type === "D") {
-      clientID = localStorage.getItem("DostavljacID");
+      clientID = ExtractData(token, "serialnumber");
     }
     console.log(clientID);
     deleteMessage(clientID, messageID, type);
@@ -314,6 +327,7 @@ const Inbox = () => {
     const posaoID = localStorage.getItem("PosaoID");
     const korisnikID = ExtractData(token, "serialnumber");
     console.log("ULAZIMMMM");
+
     const response = await fetch(
       "https://localhost:5001/Korisnik/DodatiPosao/" +
         posaoID +
@@ -324,7 +338,7 @@ const Inbox = () => {
         body: JSON.stringify({ title: "Uspesno je dodat posao korisniku!" }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
       }
     );
@@ -341,7 +355,7 @@ const Inbox = () => {
     receiverType,
     shown
   ) {
-    const token=localStorage.getItem("Token");
+    const token = localStorage.getItem("Token");
     const DostavljacID = ExtractData(token,"serialnumber");
     console.log("ULAZIM");
     const response = await fetch(
@@ -362,7 +376,7 @@ const Inbox = () => {
         body: JSON.stringify({ title: "Uspesno je poslata poruka" }),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
       }
     );
@@ -399,7 +413,8 @@ const Inbox = () => {
 
   const receiveMessagesHandler = () => {
     let temp = 0;
-    const korisnik = localStorage.getItem("Korisnik");
+    let token = localStorage.getItem("Token");
+    const korisnik = ExtractData(token, "role");
     if (korisnik === "P") {
       data.map((d) => {
         if (d.Tip !== "P") {
@@ -426,7 +441,8 @@ const Inbox = () => {
 
   const senderMessagesHandler = () => {
     let temp = 0;
-    const korisnik = localStorage.getItem("Korisnik");
+    let token = localStorage.getItem("Token");
+    const korisnik = ExtractData(token, "role");
     if (korisnik === "P") {
       data.map((d) => {
         if (d.Tip === "P") {
@@ -454,7 +470,8 @@ const Inbox = () => {
   const unreadMessagesHandler = () => {
     console.log("Ulazim u unreadMessagesHandler!");
     let numberUnreadMessages = 0;
-    const korisnik = localStorage.getItem("Korisnik");
+    let token = localStorage.getItem("Token");
+    const korisnik = ExtractData(token, "role");
     console.log(data);
     if (korisnik === "P") {
       console.log("Ulazim u P!");
