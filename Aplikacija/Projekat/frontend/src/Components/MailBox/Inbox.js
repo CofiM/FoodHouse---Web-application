@@ -301,7 +301,7 @@ const Inbox = () => {
   };
 
   async function fetchUpdateDeliverer() {
-    let token = localStorage.getItem("Token");
+    const token=localStorage.getItem("Token");
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/PostaviDostavljacaDomacinstvu/" +
         household +
