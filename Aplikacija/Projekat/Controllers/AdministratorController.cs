@@ -386,7 +386,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("PosaljiPoruku/{idDomacin}/{receiverEmail}/{message}/{senderType}/{flag}/{receiverType}/{shown}")]
         [EnableCors("CORS")]
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "K, P, D")]
         public async Task<ActionResult> posaljiPoruku(int idDomacin, string receiverEmail, string message, char senderType, bool flag, char receiverType, bool shown)
         {
             if(!CheckEmail(receiverEmail))
@@ -456,7 +456,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("ObrisiPoruku/{ClientID}/{MessageID}/{type}")]
         [EnableCors("CORS")]
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "K, P, D")]
         public async Task<ActionResult> obrisiPoruku(int ClientID, int MessageID, char type)
         {
             try

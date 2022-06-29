@@ -311,7 +311,7 @@ namespace SWE___PROJEKAT.Controllers
 
         [Route("DodatiPosao/{idPosla}/{idKorisnika}")]
         [EnableCors("CORS")]
-        [HttpPost, Authorize(Roles = "K")]
+        [HttpPost, Authorize(Roles = "P")]
         public async Task<ActionResult> dodajPosao(int idPosla, int idKorisnika)
         {
             try

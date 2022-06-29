@@ -94,12 +94,12 @@ const Inbox = () => {
       const token = localStorage.getItem("Token");
       const tip = ExtractData(token, "role");
       setClientType(tip);
-      
+
       if (tip === "P") {
         const ID = ExtractData(token, "serialnumber");
         const response = await fetch(
           "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
-          {headers: { Authorization: `Bearer ${token}` }}
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         const da = await response.json();
         let pom = 0;
@@ -124,15 +124,13 @@ const Inbox = () => {
         setData(transformedData);
         console.log("Broj poruke: " + pom);
         localStorage.setItem("messageNumber", pom);
-
       } else if (tip === "D") {
-        
         console.log("Ulazim u D");
         setProducer(false);
         const ID = ExtractData(token, "serialnumber");
         const response = await fetch(
           "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
-          {headers: { Authorization: `Bearer ${token}` }}
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         let pom = 0;
         const data = await response.json();
@@ -158,15 +156,13 @@ const Inbox = () => {
         console.log(transformedData);
         console.log("Broj poruka: " + pom);
         localStorage.setItem("messageNumber", pom);
-
       } else if (tip === "K") {
-
         console.log("Ulazim u K");
 
-        const ID = ExtractData(token,"serialnumber");
+        const ID = ExtractData(token, "serialnumber");
         const response = await fetch(
           "https://localhost:5001/Poruke/PreuzmiPoruke/" + ID + "/" + tip,
-          {headers: { Authorization: `Bearer ${token}` }}
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await response.json();
         let pom = 0;
@@ -205,9 +201,9 @@ const Inbox = () => {
     receiverType,
     shown
   ) {
-    const token=localStorage.getItem("Token");
+    const token = localStorage.getItem("Token");
 
-    const DomacinstvoID = ExtractData(token,"serialnumber");
+    const DomacinstvoID = ExtractData(token, "serialnumber");
 
     console.log("ULAZIM");
     const response = await fetch(
@@ -228,7 +224,7 @@ const Inbox = () => {
         body: JSON.stringify({ title: "Uspesno je poslata poruka" }),
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -252,7 +248,7 @@ const Inbox = () => {
         body: JSON.stringify({ title: "Uspesno je obrisana poruka" }),
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -287,8 +283,10 @@ const Inbox = () => {
     const shown = false;
     console.log(receiverEmail, message, flag, type);
     sendMessageProducer(receiverEmail, message, flag, type, shown);
+    console.log("ULAZIMMMM");
     fetchUpdateClientJobs();
-    window.location.reload(false);
+    console.log("IZLAZIM");
+    //window.location.reload(false);
     handleClose();
   };
 
@@ -314,7 +312,7 @@ const Inbox = () => {
         body: JSON.stringify({ title: "Uspesno je azuriran" }),
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -323,10 +321,13 @@ const Inbox = () => {
   }
 
   async function fetchUpdateClientJobs() {
-    const token=localStorage.getItem("Token");
+    const token = localStorage.getItem("Token");
+    const tip = ExtractData(token, "role");
+    console.log(tip);
     const posaoID = localStorage.getItem("PosaoID");
     const korisnikID = ExtractData(token, "serialnumber");
     console.log("ULAZIMMMM");
+    console.log("KORISNIK " + korisnikID + " POSAO " + posaoID);
 
     const response = await fetch(
       "https://localhost:5001/Korisnik/DodatiPosao/" +
@@ -338,7 +339,7 @@ const Inbox = () => {
         body: JSON.stringify({ title: "Uspesno je dodat posao korisniku!" }),
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -356,7 +357,7 @@ const Inbox = () => {
     shown
   ) {
     const token = localStorage.getItem("Token");
-    const DostavljacID = ExtractData(token,"serialnumber");
+    const DostavljacID = ExtractData(token, "serialnumber");
     console.log("ULAZIM");
     const response = await fetch(
       "https://localhost:5001/Dosavljac/PosaljiPoruku/" +
@@ -376,7 +377,7 @@ const Inbox = () => {
         body: JSON.stringify({ title: "Uspesno je poslata poruka" }),
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );

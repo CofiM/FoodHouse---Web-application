@@ -5,6 +5,7 @@ import ModalComment from "../Components/Proizvod/CommentModal";
 import { useHistory } from "react-router-dom";
 import classes from "./ViewProduct.module.css";
 import WarningModal from "../Components/Domacinstvo/WarningModal.js";
+import { ExtractData } from "../helper/extract.js";
 
 const ViewProducts = () => {
   const category = localStorage.getItem("Category");
@@ -26,7 +27,14 @@ const ViewProducts = () => {
   };
   const history = useHistory();
   const onClickCartHandler = (ID) => {
-    if (localStorage.getItem("Korisnik") == null) {
+    let token = localStorage.getItem("Token");
+    let korisnik;
+    if (token == null) {
+      korisnik = null;
+    } else {
+      korisnik = ExtractData(token, "role");
+    }
+    if (korisnik == null) {
       setOpenWarning(true);
     } else {
       const p = allProducts.find((el) => el.ID == ID);

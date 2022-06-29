@@ -8,8 +8,6 @@ import Typography from "@mui/material/Typography";
 import WarningModal from "../Components/Domacinstvo/WarningModal";
 import { ExtractData } from "../helper/extract.js";
 
-
-
 function Domacinstvo() {
   const Adresa = localStorage.getItem("DomacinstvoAdresa");
   //const ID = localStorage.getItem("DomacinstvoID");
@@ -23,15 +21,14 @@ function Domacinstvo() {
 
   const token = localStorage.getItem("Token");
 
-
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   const handleCloseWarning = () => {
     setOpenWarning(false);
   };
-  
+
   const onClickCommentHandler = (ID) => {
     setProduct(products.find((el) => el.ID == ID));
     console.log(product);
@@ -40,7 +37,13 @@ function Domacinstvo() {
   const history = useHistory();
 
   const onClickCartHandler = (ID) => {
-    let korisnik = ExtractData(token, "role");
+    let token = localStorage.getItem("Token");
+    let korisnik;
+    if (token == null) {
+      korisnik = null;
+    } else {
+      korisnik = ExtractData(token, "role");
+    }
     if (korisnik != null) {
       const p = products.find((el) => el.ID == ID);
       console.log(p);
@@ -63,7 +66,7 @@ function Domacinstvo() {
       const response = await fetch(
         "https://localhost:5001/Proizvod/PreuzetiProizvodeZaDomacinstvoAdresa/" +
           Adresa,
-          { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await response.json();
       console.log(data);
@@ -114,8 +117,6 @@ function Domacinstvo() {
     fetchDomacinstvoHandler();
     fetchProductHandler();
   }, []);
-
-
 
   console.log(products);
   console.log(ratingOfDomacinstvo);
