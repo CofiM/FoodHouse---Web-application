@@ -290,6 +290,7 @@ const Inbox = () => {
   };
 
   async function fetchUpdateDeliverer() {
+    const token=localStorage.getItem("Token");
     const response = await fetch(
       "https://localhost:5001/Domacinstvo/PostaviDostavljacaDomacinstvu/" +
         household +
@@ -300,6 +301,7 @@ const Inbox = () => {
         body: JSON.stringify({ title: "Uspesno je azuriran" }),
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
